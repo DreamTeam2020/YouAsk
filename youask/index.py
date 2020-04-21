@@ -3,10 +3,12 @@
 from cgitb import enable
 enable()
 
-from db_functions import pageStart, pageEnd
+from html_functions import *
 
 print('Content-Type: text/html')
 print()
+
+page_name="home"
 
 print("""
     %s
@@ -16,17 +18,13 @@ print("""
         </header>
         
         <main>      <!-- The main part of the website --->
-            <h1>test body</h1>
+            <h1>test page
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
             
         </aside>
         
-        <nav>       <!-- Includes the nav bar --->
-            <ul>
-                <li><a href="...">...</a></li>  
-            </ul>
-        </nav>
         %s
-    """ % (pageStart("Home", "home"), pageEnd()))
+        %s
+    """ % (pageStart("Home", page_name),  generateNav(page_name), pageEnd()))

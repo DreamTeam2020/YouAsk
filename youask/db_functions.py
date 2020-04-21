@@ -23,32 +23,8 @@ def dbConnect():
         return connection, cursor, form_data
 
 def dbClose(connection, cursor):
+    # Close existing connections
+
     cursor.close()
     connection.close()
 
-def pageStart(title, id):
-    # This will generate the start of each html page including the <head></head>
-
-    result = """
-        <!DOCTYPE html>
-        <html lang="en" id="%s">
-            <head>
-                <meta charset="utf-8" />
-                <title>%s - YouAsk</title>
-                <link rel="stylesheet" href="styles/styles.css" />
-                <meta name-"viewport" content="initial-scale=1.0, width=device-width" />
-            </head>
-    """ % (id, title)
-    return result
-
-def pageEnd():
-    # This will generate the end of each html page, including the <footer>
-
-    result = """
-                <footer>
-                    <p>footer test</p>
-                </footer>
-            </body>
-        </html>"""
-
-    return result
