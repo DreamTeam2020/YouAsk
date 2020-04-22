@@ -13,12 +13,26 @@ function SupportFunction(){
     $("article").load("Support.html");
 }
 function Ask() {
-    $("h2").css('display','block');
+    $("h2").css('visibility','visible');
 }
 function Submit() {
-    $("h2").css('display','none');
-    var oneone=$("input").val();
-   document.getElementById("one").innerHTML = oneone;
+    $("h2").css('visibility','hidden');
+    var i=0;
 
+    var oneone=$("input").val();
+    console.log(oneone);
+    var para = document.createElement("p");
+    para.innerHTML=oneone;
+    document.body.appendChild(para);
+
+   // document.getElementsByTagName("p")[0].innerHTML = oneone;
+
+
+
+
+
+    // var t = document.createTextNode(oneone);
+    // para.appendChild(t);
+   // $('p').var("修改内容");
    // document.write("hello");
 }
