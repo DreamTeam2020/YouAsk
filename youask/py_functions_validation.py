@@ -43,7 +43,7 @@ def displayNameValidation(display_name):
     result='clear'
     if len(display_name)<5:
         result='Display name must be longer than 4 characters'
-    elif profanityFilter(display_name, 1)==True:
+    elif profanityFilter(display_name)==True:
         result='Display name cannot include profanity'
     return result
 
@@ -53,7 +53,7 @@ def usernameValidationLogin(username):
 
     if len(username)<5:
         result='unsafe'
-    elif profanityFilter(username, 1)==True:
+    elif profanityFilter(username)==True:
         result='unsafe'
     else:
         for char in username:
@@ -123,14 +123,15 @@ def passwordValidation(password):
     return result
 
 
-def profanityFilter(input, check_num):
-    # If check_num is 1 then return true or false
-    # Else replace profanity with *'s and return replaced text
+def profanityFilter(input):
+    # Basic profanity filter to be used with usernames.
+    # Aside: Lots of issues to be tackled for a fully functional filtering system, basic for now
+    from profanityfilter import ProfanityFilter
+    import re
+    pf = ProfanityFilter()
 
-    if input=="turkey":
-        result=True
-        return result
-
+    parsed_input = re.sub(r'[^a-zA-Z ]+', '', input)
+    return True if pf.is_profane(parsed_input) else False
 
 if __name__=="__main__":
     #Email Testing

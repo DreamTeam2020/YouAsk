@@ -4,17 +4,27 @@ from cgitb import enable
 enable()
 
 from html_functions import *
+from cgi import FieldStorage, escape
+from hashlib import sha256
+from time import time
+from shelve import open
+from http.cookies import SimpleCookie
+from py_functions_validation import *
+import pymysql as db
 
 page_name = "register"
 username=""
 email=""
 display_name=""
 
-
 username_msg=""
 email_msg=""
 display_msg=""
 password_msg=""
+
+form_data=FieldStorage()
+
+
 
 print('Content-Type: text/html')
 print()
