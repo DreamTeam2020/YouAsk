@@ -21,8 +21,38 @@ username_msg=""
 email_msg=""
 display_msg=""
 password_msg=""
+error_msg=""
 
 form_data=FieldStorage()
+
+if len(form_data) !=0:
+    username=escape(form_data.getfirst('username', '').strip())
+    email=escape(form_data.getfirst('email', '').strip())
+    display_name=escape(form_data.getfirst('display_name', '').strip())
+    password1=escape(form_data.getfirst('password1', '').strip())
+    password2=escape(form_data.getfirst('password2', '').strip())
+
+    if not username or not  email or not display_name or not password1 or not password2:
+        error_msg='<p class="error">All Fields Must Be Filled</p>'
+    else:
+        #All return 'clear' if they pass the stipulations
+        user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password)
+
+        #if all clear then do try except
+        #else if statement for each result and let msg equal result
+
+        if user_result == 'clear' and email_result == 'clear' and display_result == 'clear' and pass_result == 'clear' and password1 == password2:
+            try:
+                #..
+            except:
+                #...
+        else:
+            #handle equal passwords next to pass validation
+
+            if user_result!='clear':
+                username_msg=user_result
+
+
 
 
 
@@ -58,6 +88,7 @@ print("""
                     <input type="submit" value="Register"/>
                 </fieldset
             </form>
+            %s
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
@@ -66,4 +97,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Register", page_name), username, username_msg, email, email_msg, display_name, display_msg, password_msg, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Register", page_name), username, username_msg, email, email_msg, display_name, display_msg, password_msg, error_msg, generateNav(page_name), pageEnd()))

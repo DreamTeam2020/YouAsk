@@ -1,15 +1,15 @@
 from db_functions import *
 #move import statements into the functions
 
-def registrationValidation(username, password, display_name, email):
+def registrationValidation(username, email, display_name, password):
     #Validate input on registration
 
-    userResult=usernameValidationRegister(username)
-    passResult=passwordValidation(password)
-    displayResult=displayNameValidation(display_name)
-    emailResult=emailValidation(email)
+    user_result=usernameValidationRegister(username)
+    pass_result=passwordValidation(password)
+    display_result=displayNameValidation(display_name)
+    email_result=emailValidation(email)
 
-    return userResult, passResult, displayResult, emailResult
+    return user_result, email_result, display_result, pass_result
 
 def loginValidation(username, password):
     #Validate input on login
@@ -174,12 +174,14 @@ if __name__=="__main__":
 
     #Login Testing
     username="Horrace321"
+    display_name="Cristian"
+    email = "cristianasd223@gmail.com"
     password="yuU123#/#wertfW"
-    user_test, pass_test=loginValidation(username, password)
-    if user_test == "clear" and pass_test=="clear":
+    user_test, email_test, display_test, pass_test=registrationValidation(username, email, display_name, password)
+    if user_test == "clear" and pass_test=="clear" and display_test == "clear" and email_test == "clear":
         print("Login: Tested")
     else:
-        print("Login: %s - %s" % (user_test, pass_test))
+        print("Login: %s - %s - %s - %s " % (user_test, email_test, display_test, pass_test))
 
     username="horrace@mail.com"
     password="yuU123#/#wertfW"
@@ -188,4 +190,3 @@ if __name__=="__main__":
         print("Login: Tested")
     else:
         print("Login: %s - %s" % (user_test, pass_test))
-
