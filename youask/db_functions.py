@@ -15,7 +15,7 @@ def dbConnect():
 
     except db.Error:
         # If an error occurs return an error code such that the function can handle the error
-        connection = "error"
+        connection = "SERVER_ERROR"
         cursor = ""
         return connection, cursor
 

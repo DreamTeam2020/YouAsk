@@ -34,7 +34,7 @@ def emailValidation(email):
     if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
         return 'clear'
     else:
-        return 'Invalid email address'
+        return '<p class="error">Invalid email address<p>'
 
 
 def displayNameValidation(display_name):
@@ -42,9 +42,9 @@ def displayNameValidation(display_name):
 
     result='clear'
     if len(display_name)<5:
-        result='Display name must be longer than 4 characters'
+        result='<p class="error">Display name must be longer than 4 characters</p>'
     elif profanityFilter(display_name)==True:
-        result='Display name cannot include profanity'
+        result='<p class="error">Display name cannot include profanity</p>'
     return result
 
 def usernameValidationLogin(username):
@@ -62,7 +62,7 @@ def usernameValidationLogin(username):
                 break
 
     if result=="unsafe":
-        result="Username must be longer than 4 characters and cannot include space or profanity"
+        result='<p class="error">Username must be longer than 4 characters and cannot include space or profanity</p>'
 
     return result
 
@@ -76,13 +76,13 @@ def usernameValidationRegister(username):
         try:
             connection, cursor=dbConnect()
 
-            if connection=="error":
+            if connection=="SERVER_ERROR":
                 result='SERVER_ERROR'
             else:
                 #MySQL is case insensitive
                 cursor.execute("SELECT * FROM ask_users WHERE username = %s", username)
                 if cursor.rowcount > 0:
-                    result='Username must be unique'
+                    result='<p class="error">Username must be unique</p>'
 
                 dbClose(connection, cursor)
 
@@ -117,8 +117,8 @@ def passwordValidation(password):
             result="unsafe"
 
     if result=='unsafe':
-        result='Passwords must be at least 7 characters long and contain a number, special ' \
-                 'character and a mix of upper and lower case letters'
+        result='<p class="error">Passwords must be at least 7 characters long and contain a number, special ' \
+                 'character and a mix of upper and lower case letters</p>'
 
     return result
 

@@ -4,12 +4,13 @@ from cgitb import enable
 enable()
 
 from html_functions import *
+from py_functions_validation import *
+from db_functions import *
 from cgi import FieldStorage, escape
 from hashlib import sha256
 from time import time
 from shelve import open
 from http.cookies import SimpleCookie
-from py_functions_validation import *
 import pymysql as db
 
 page_name = "register"
@@ -26,6 +27,8 @@ error_msg=""
 form_data=FieldStorage()
 
 if len(form_data) !=0:
+    server_error=False
+
     username=escape(form_data.getfirst('username', '').strip())
     email=escape(form_data.getfirst('email', '').strip())
     display_name=escape(form_data.getfirst('display_name', '').strip())
@@ -43,15 +46,52 @@ if len(form_data) !=0:
 
         if user_result == 'clear' and email_result == 'clear' and display_result == 'clear' and pass_result == 'clear' and password1 == password2:
             try:
-                #..
-            except:
-                #...
+                connection, cursor=dbConnect()
+                if connection=="SERVER_ERROR":
+                    server_error=True
+                else:
+                    sha256_password=sha256(password1.encode()).hexdigest()
+                    cursor.execute("""INSERT INTO ask_users(username, pass, display_name, email
+                                        VALUES (%s, %s, %s, %s))""", (username, sha256_password, display_name, email))
+                    connection.commit()
+                    dbClose(connection, cursor)
+
+                    cookie=SimpleCookie()
+                    sid = sha256(repr(time()).encode()).hexdigest()
+                    cookie['sid'] = sid
+                    session_store = open('session_store/sess_'+ sid, writeback=True)
+                    session_store['authenticated']=True
+                    session_store['username']=username
+                    session_store['email']=email
+                    session_store['display_name']=display_name
+                    session_store.close()
+                    error_msg='<p>Successfully Registered!</p>'
+                    print(cookie)
+
+            except (db.Error, IOError):
+                server_error=True
         else:
             #handle equal passwords next to pass validation
 
             if user_result!='clear':
-                username_msg=user_result
+                if user_result=="SERVER_ERROR":
+                    server_error=True
+                    #handle server error here
+                else:
+                    username_msg=user_result
 
+            if email_result!='clear':
+                email_msg=email_result
+
+            if display_result!='clear':
+                display_msg=display_result
+
+            if password1!=password2:
+                password_msg='<p class="error">Passwords Must Match</p> '
+            elif pass_result!='clear':
+                password_msg=pass_result
+
+    error_msg='<p class="error">Server Error Occurred</p>' if server_error==True else ""
 
 
 
