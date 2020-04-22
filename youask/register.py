@@ -71,25 +71,29 @@ if len(form_data) !=0:
             except (db.Error, IOError):
                 server_error=True
         else:
-            #handle equal passwords next to pass validation
-
             if user_result!='clear':
                 if user_result=="SERVER_ERROR":
                     server_error=True
                     #handle server error here
                 else:
                     username_msg=user_result
+                    print(username_msg)
+
 
             if email_result!='clear':
                 email_msg=email_result
+                print(email_msg)
 
             if display_result!='clear':
                 display_msg=display_result
+                print(display_msg)
 
             if password1!=password2:
                 password_msg='<p class="error">Passwords Must Match</p> '
+                print(password_msg)
             elif pass_result!='clear':
                 password_msg=pass_result
+                print(password_msg)
 
     error_msg='<p class="error">Server Error Occurred</p>' if server_error==True else ""
 
