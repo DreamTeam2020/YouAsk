@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style>
+
+        div{
+            margin: 500px;
+            width: 50px;
+            height: 90px;
+        }
+        button{
+            margin: 700px;
+            width: 40px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+<script>
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://corona-virus-world-and-india-data.p.rapidapi.com/api",
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "corona-virus-world-and-india-data.p.rapidapi.com",
+            "x-rapidapi-key": "47e1c2f69fmsh3bf5d0854827f3ep11bd26jsnaa104e8ab8ae"
+        }
+    }
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+    });
+</script>
+
+<div ><h2>Let jQuery AJAX Change This Text</h2></div>
+
+<button>Get External Content</button>
+
+</body>
+</html>
