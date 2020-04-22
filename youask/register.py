@@ -52,7 +52,7 @@ if len(form_data) !=0:
                 else:
                     sha256_password=sha256(password1.encode()).hexdigest()
                     cursor.execute("""INSERT INTO ask_users(username, pass, display_name, email
-                                        VALUES (%s, %s, %s, %s))""", (username, sha256_password, display_name, email))
+                                        VALUES (%s, %s, %s, %s))""", (username, sha256_password, display_name, email.lower()))
                     connection.commit()
                     dbClose(connection, cursor)
 
@@ -67,7 +67,7 @@ if len(form_data) !=0:
                     session_store.close()
                     error_msg='<p>Successfully Registered!</p>'
                     print(cookie)
-
+                    
             except (db.Error, IOError):
                 server_error=True
         else:
@@ -117,21 +117,21 @@ print("""
                     
                     <label for="username">Username: </label>
                     <input type="text" name="username" id="username" value="%s" maxlength="20"/>
-                    %s
                     <label for="email">Email Address: </label>
                     <input type="text" name="email" id="email" value="%s" maxlength="50"/>
-                    %s
                     <label for="display_name">Display Name: </label>
                     <input type="text" name="display_name" id="display_name" value="%s" maxlength="35"/>
-                    %s
                     <label for="password1">Password: </label>
                     <input type="password" name="password1" id="password1"/>
                     <label for="password2">Re-Enter Password: </label>
                     <input type="password" name="password2" id="password2"/>
-                    %s
                     <input type="submit" value="Register"/>
                 </fieldset
             </form>
+            %s
+            %s
+            %s
+            %s
             %s
         </main>
 
