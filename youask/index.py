@@ -5,10 +5,11 @@ enable()
 
 from html_functions import *
 
+page_name="home"
+
+
 print('Content-Type: text/html')
 print()
-
-page_name="home"
 
 print("""
     %s
@@ -18,7 +19,7 @@ print("""
         </header>
         
         <main>      <!-- The main part of the website --->
-            <h1>test page
+            <h1>test page</h1>
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->

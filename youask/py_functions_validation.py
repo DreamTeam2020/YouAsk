@@ -1,7 +1,4 @@
-import pymysql as db
 from db_functions import *
-import re
-
 #move import statements into the functions
 
 def registrationValidation(username, password, display_name, email):
@@ -70,6 +67,8 @@ def usernameValidationLogin(username):
     return result
 
 def usernameValidationRegister(username):
+    import pymysql as db
+
     #Validate username on registration
     result=usernameValidationLogin(username)
 

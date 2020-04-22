@@ -27,7 +27,7 @@ def pageEnd():
 def generateNav(page):
     # This will generate the nav bar based on input for each page
     # pass an id, if test==id then result+=same page
-    home="home.py"
+    home="index.py"
     questions="questions.py"
     profile="profile.py"
     support="support.py"
