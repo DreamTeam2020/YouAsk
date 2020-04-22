@@ -6,7 +6,15 @@ enable()
 from html_functions import *
 
 page_name = "register"
+username=""
+email=""
+display_name=""
 
+
+username_msg=""
+email_msg=""
+display_msg=""
+password_msg=""
 
 print('Content-Type: text/html')
 print()
@@ -19,7 +27,27 @@ print("""
         </header>
 
         <main>      <!-- The main part of the website --->
-            
+            <form action="register.py" method="post">
+                <fieldset> <!-- Username, Email, Display Name, Password1, Password2 -->
+                    <legend>Register</legend>
+                    
+                    <label for="username">Username: </label>
+                    <input type="text" name="username" id="username" value="%s" maxlength="20"/>
+                    %s
+                    <label for="email">Email Address: </label>
+                    <input type="text" name="email" id="email" value="%s" maxlength="50"/>
+                    %s
+                    <label for="display_name">Display Name: </label>
+                    <input type="text" name="display_name" id="display_name" value="%s" maxlength="35"/>
+                    %s
+                    <label for="password1">Password: </label>
+                    <input type="password" name="password1" id="password1"/>
+                    <label for="password2">Re-Enter Password: </label>
+                    <input type="password" name="password2" id="password2"/>
+                    %s
+                    <input type="submit" value="Register"/>
+                </fieldset
+            </form>
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
@@ -28,4 +56,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Register", page_name), generateNav(page_name), pageEnd()))
+    """ % (pageStart("Register", page_name), username, username_msg, email, email_msg, display_name, display_msg, password_msg, generateNav(page_name), pageEnd()))
