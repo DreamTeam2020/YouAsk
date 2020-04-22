@@ -67,7 +67,7 @@ if len(form_data) !=0:
                     session_store.close()
                     error_msg='<p>Successfully Registered!</p>'
                     print(cookie)
-                    
+
             except (db.Error, IOError):
                 server_error=True
         else:
@@ -141,4 +141,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Register", page_name), username, username_msg, email, email_msg, display_name, display_msg, password_msg, error_msg, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Register", page_name), username, email, display_name, username_msg, email_msg, display_msg, password_msg, error_msg, generateNav(page_name), pageEnd()))
