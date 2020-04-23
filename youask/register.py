@@ -13,8 +13,6 @@ from shelve import open
 from http.cookies import SimpleCookie
 import pymysql as db
 
-from profanityfilter import ProfanityFilter
-
 import re
 
 page_name = "register"
@@ -72,7 +70,6 @@ if len(form_data) !=0:
                     print(cookie)
 
             except (db.Error, IOError):
-                debug_message='<h1>DB ERROR OCCURRED</h1>'  #DEBUG - checking server error
                 server_error=True
         else:
             if user_result!='clear':

@@ -43,8 +43,8 @@ def displayNameValidation(display_name):
     result='clear'
     if len(display_name)<5:
         result='<p class="error">Display name must be longer than 4 characters</p>'
-    elif profanityFilter(display_name)==True:
-        result='<p class="error">Display name cannot include profanity</p>'
+    #elif profanityFilter(display_name)==True:
+    #    result='<p class="error">Display name cannot include profanity</p>'
     return result
 
 def usernameValidationLogin(username):
@@ -53,8 +53,8 @@ def usernameValidationLogin(username):
 
     if len(username)<5:
         result='unsafe'
-    elif profanityFilter(username)==True:
-       result='unsafe'
+    #elif profanityFilter(username)==True:
+    #  result='unsafe'
     else:
         for char in username:
             if char==' ':
