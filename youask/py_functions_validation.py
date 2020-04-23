@@ -29,13 +29,27 @@ def loginValidation(username, password):
 
 def emailValidation(email):
     #Use regular expression to validate email
+    import pymysql as db
     import re
+    result='clear'
 
     if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
-        return 'clear'
+        try:
+            connection, cursor=dbConnect()
+            if connection=="SERVER_ERROR":
+                result='SERVER_ERROR'
+            else:
+                #MySQL is case insensitive
+                cursor.execute("SELECT * FROM ask_users WHERE email = %s", username)
+                if cursor.rowcount > 0:
+                    result='<p class="error">Email already in use</p>'
+                dbClose(connection, cursor)
+        except db.Error:
+            result='SERVER_ERROR'
     else:
-        return '<p class="error">Invalid email address<p>'
+        result='<p class="error">Invalid email address<p>'
 
+    return result
 
 def displayNameValidation(display_name):
     #Validate display name

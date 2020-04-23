@@ -79,7 +79,10 @@ if len(form_data) !=0:
                     username_msg=user_result
 
             if email_result!='clear':
-                email_msg=email_result
+                if email_result=="SERVER_ERROR":
+                    server_error=True
+                else:
+                    email_msg=email_result
 
             if display_result!='clear':
                 display_msg=display_result
