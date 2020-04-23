@@ -38,13 +38,12 @@ if len(form_data) !=0:
     email_msg=email
     display_msg=display_name
     password_msg=password
-    '''
     if not username or not  email or not display_name or not password1 or not password2:
         error_msg='<p class="error">All Fields Must Be Filled</p>'
     else:
         #All return 'clear' if they pass the stipulations
         user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password)
-        username_msg="<h1>Throw me a bone</h1>" if user_result == "" else user_result
+        error_msg="<h1>Throw me a bone</h1>" if user_result == "" else user_result
         email_msg=email_result
         display_msg=display_result
         password_msg=pass_result
@@ -101,10 +100,7 @@ if len(form_data) !=0:
             elif pass_result!='clear':
                 password_msg=pass_result
                 print(password_msg)
-    '''
-    error_msg='<p class="error">Server Error Occurred</p>' if server_error==True else ""
-
-
+    #error_msg='<p class="error">Server Error Occurred</p>' if server_error==True else ""
 
 
 print('Content-Type: text/html')
