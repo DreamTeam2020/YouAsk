@@ -38,7 +38,8 @@ if len(form_data) !=0:
     debug_message='<h1>%s</h1>' % username  #DEBUG - if the username is received (it is)
 
     if not username or not  email or not display_name or not password1 or not password2:
-        debug_message='<h1>%FILL  EVERYTHING</h1>'  #DEBUG -
+        user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password)
+        debug_message='<p>Username: %s<br>Email: %s<br>Display: %s<br>Password: %s</p>' % (user_result, email_result, display_result, pass_result) #DEBUG - Testing each result
         error_msg='<p class="error">All Fields Must Be Filled</p>'
     else:
         #All return 'clear' if they pass the stipulations
@@ -95,7 +96,8 @@ if len(form_data) !=0:
                 password_msg=pass_result
                 print(password_msg)
 
-    error_msg='<p class="error">Server Error Occurred</p>' if server_error==True else ""
+    if server_error==True:
+        error_msg = '<p class="error">Server Error Occurred</p>'
 
 
 
