@@ -23,6 +23,7 @@ email_msg=""
 display_msg=""
 password_msg=""
 error_msg=""
+debug_message='<h1>EMPTY</h1>'  #DEBUG
 
 form_data=FieldStorage()
 
@@ -34,6 +35,7 @@ if len(form_data) !=0:
     display_name=escape(form_data.getfirst('display_name', '').strip())
     password1=escape(form_data.getfirst('password1', '').strip())
     password2=escape(form_data.getfirst('password2', '').strip())
+    debug_message='<h1>%s</h1>' % username  #DEBUG
 
     if not username or not  email or not display_name or not password1 or not password2:
         error_msg='<p class="error">All Fields Must Be Filled</p>'
@@ -93,7 +95,8 @@ if len(form_data) !=0:
                 print(password_msg)
 
     error_msg='<p class="error">Server Error Occurred</p>' if server_error==True else ""
-
+else:
+    error_msg='<p>NO DATA RECEIVED</p>'
 
 
 
@@ -133,9 +136,9 @@ print("""
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
-
+            %s
         </aside>
 
         %s
         %s
-    """ % (pageStart("Register", page_name), username, username_msg, email, email_msg, display_name, display_msg, password_msg, error_msg, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Register", page_name), username, username_msg, email, email_msg, display_name, display_msg, password_msg, error_msg, debug_message, generateNav(page_name), pageEnd()))
