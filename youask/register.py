@@ -48,12 +48,11 @@ if len(form_data) !=0:
             try:
                 connection, cursor=dbConnect()
                 if connection=="SERVER_ERROR":
-                    debug_message='<h1>SERVER ERROR HERE</h1>'  #DEBUG
                     server_error=True
                 else:
-                    sha256_password=sha256(password1.encode()).hexdigest()
-                    cursor.execute("""INSERT INTO ask_users(username, pass, display_name, email
-                                        VALUES (%s, %s, %s, %s))""", (username, sha256_password, display_name, email.lower()))
+                    #sha256_password=sha256(password1.encode()).hexdigest()
+                    cursor.execute("""INSERT INTO ask_users(username, pass, display_name, email)
+                                        VALUES (%s, %s, %s, %s))""", (username, password1, display_name, email.lower()))
                     connection.commit()
                     dbClose(connection, cursor)
                     '''
@@ -77,22 +76,17 @@ if len(form_data) !=0:
                     server_error=True
                 else:
                     username_msg=user_result
-                    print(username_msg)
 
             if email_result!='clear':
                 email_msg=email_result
-                print(email_msg)
 
             if display_result!='clear':
                 display_msg=display_result
-                print(display_msg)
 
             if password1!=password2:
                 password_msg='<p class="error">Passwords Must Match</p> '
-                print(password_msg)
             elif pass_result!='clear':
                 password_msg=pass_result
-                print(password_msg)
 
     if server_error==True:
         error_msg = '<p class="error">Server Error Occurred</p>'
