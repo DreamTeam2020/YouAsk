@@ -13,6 +13,8 @@ from shelve import open
 from http.cookies import SimpleCookie
 import pymysql as db
 
+from profanityfilter import ProfanityFilter
+
 import re
 
 page_name = "register"
