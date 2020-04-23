@@ -118,6 +118,7 @@ print("""
                     <label for="username">Username: </label>
                     <input type="text" name="username" id="username" value="%s" maxlength="20"/>
                     %s
+                    %s
                     <label for="email">Email Address: </label>
                     <input type="text" name="email" id="email" value="%s" maxlength="50"/>
                     %s
@@ -136,9 +137,8 @@ print("""
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
-            %s
         </aside>
 
         %s
         %s
-    """ % (pageStart("Register", page_name), username, username_msg, email, email_msg, display_name, display_msg, password_msg, error_msg, debug_message, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Register", page_name), username, username_msg, debug_message, email, email_msg, display_name, display_msg, password_msg, error_msg, generateNav(page_name), pageEnd()))
