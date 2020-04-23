@@ -40,7 +40,7 @@ if len(form_data) !=0:
     debug_message='<h1>%s</h1>' % username  #DEBUG - if the username is received (it is)
 
     if not username or not email or not display_name or not password1 or not password2:
-        user_result=usernameValidationLogin(username)
+        user_result=usernameValidationRegister(username)
         display_result=displayNameValidation(display_name)
         pass_result=passwordValidation(password1)
         debug_message='<p>USERNAME: %s<br>DISPLAY_NAME: %s<br>PASSWORD: %s</p>' % (user_result, display_result, pass_result) #DEBUG - Testing each result
