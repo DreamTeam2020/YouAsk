@@ -7,7 +7,7 @@ def registrationValidation(username, email, display_name, password):
     user_result=usernameValidationRegister(username)
     pass_result=passwordValidation(password)
     display_result=displayNameValidation(display_name)
-    email_result=emailValidation(email)
+    email_result=emailValidationRegistration(email)
 
     return user_result, email_result, display_result, pass_result
 
@@ -17,17 +17,17 @@ def loginValidation(username, password):
 
     username_email=emailValidation(username)
 
-    if username_email=='clear':
-        userResult="clear"
+    if username_email=='email':
+        user_result="email"
     else:
-        userResult=usernameValidationLogin(username)
+        username_email=usernameValidationLogin(username)
+        user_result='username' if username_email=='clear' else username_email
 
-    passResult=passwordValidation(password)
+    pass_result=passwordValidation(password)
 
-    return userResult, passResult
+    return user_result, pass_result
 
-
-def emailValidation(email):
+def emailValidationRegistration(email):
     #Use regular expression to validate email
     import pymysql as db
     import re
@@ -51,6 +51,11 @@ def emailValidation(email):
 
     return result
 
+def emailValidationLogin(email):
+    import re
+    return 'email' if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email) else 'unsafe'
+
+
 def displayNameValidation(display_name):
     #Validate display name
 
@@ -65,7 +70,7 @@ def usernameValidationLogin(username):
     #Validate username
     result='clear'
 
-    if len(username)<5:
+    if len(username)<5 or len(username)>20:
         result='unsafe'
     #elif profanityFilter(username)==True:
     #  result='unsafe'
@@ -153,7 +158,7 @@ def profanityFilter(input):
 if __name__=="__main__":
     #Email Testing
     email = "cristianasd223@gmail.com"
-    email_test=emailValidation(email)
+    email_test=emailValidationRegistration(email)
     if email_test=="clear":
         print('Email: Tested')
     else:

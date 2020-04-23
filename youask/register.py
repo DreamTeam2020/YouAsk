@@ -12,10 +12,10 @@ from time import time
 from shelve import open
 from http.cookies import SimpleCookie
 import pymysql as db
-
 import re
 
 page_name = "register"
+redirect= "register.py"
 username=""
 email=""
 display_name=""
@@ -60,14 +60,16 @@ if len(form_data) !=0:
                     cookie['UASK'] = sid
                     cookie['UASK']['path'] = '/'
                     cookie['UASK']['expires'] = 14 * 24 * 60 * 60 #Set cookies to expire in 14 days
-                    session_store = open('session_store/sess_'+ sid, writeback=True)  
+                    session_store = open('session_store/sess_'+ sid, writeback=True)
                     session_store['authenticated']=True
                     session_store['username']=username
                     session_store['email']=email
                     session_store['display_name']=display_name
                     session_store.close()
-                    error_msg='<p>Successfully Registered!</p>'
+                    error_msg='<p class="error">Successfully Registered!</p>'
+                    redirect = 'profile.py'
                     print(cookie)
+
 
             except (db.Error, IOError):
                 server_error=True
@@ -108,7 +110,7 @@ print("""
         </header>
 
         <main>      <!-- The main part of the website --->
-            <form action="register.py" method="post">
+            <form action="%s" method="post">
                 <fieldset> <!-- Username, Email, Display Name, Password1, Password2 -->
                     <legend>Register</legend>
                     
@@ -137,4 +139,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Register", page_name), username, username_msg, email, email_msg, display_name, display_msg, password_msg, error_msg, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Register", page_name), redirect, username, username_msg, email, email_msg, display_name, display_msg, password_msg, error_msg, generateNav(page_name), pageEnd()))
