@@ -53,8 +53,8 @@ def usernameValidationLogin(username):
 
     if len(username)<5:
         result='unsafe'
-    #elif profanityFilter(username)==True:
-    #   result='unsafe'
+    elif profanityFilter(username)==True:
+       result='unsafe'
     else:
         for char in username:
             if char==' ':
@@ -134,7 +134,7 @@ def profanityFilter(input):
     parsed_input = re.sub(r'[^a-zA-Z ]+', '', input)
     return True if pf.is_profane(parsed_input) else False
     '''
-    return False
+    return True if input=="turkey" else False
 
 if __name__=="__main__":
     #Email Testing

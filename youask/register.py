@@ -41,9 +41,10 @@ if len(form_data) !=0:
 
     if not username or not email or not display_name or not password1 or not password2:
         user_result=usernameValidationRegister(username)
+        email_result=emailValidation(email)
         display_result=displayNameValidation(display_name)
         pass_result=passwordValidation(password1)
-        debug_message='<p>USERNAME: %s<br>DISPLAY_NAME: %s<br>PASSWORD: %s</p>' % (user_result, display_result, pass_result) #DEBUG - Testing each result
+        debug_message='<p>USERNAME: %s<br>EMAIL: %s<br>DISPLAY_NAME: %s<br>PASSWORD: %s</p>' % (user_result, email_result, display_result, pass_result) #DEBUG - Testing each result
 
         error_msg='<p class="error">All Fields Must Be Filled</p>'
     else:
