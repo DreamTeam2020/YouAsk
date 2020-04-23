@@ -48,7 +48,7 @@ if len(form_data) !=0:
             try:
                 connection, cursor=dbConnect()
                 if connection=="SERVER_ERROR":
-                    debug_message='<h1>CRASHED ON FIRST CONNECTION</h1>'  #DEBUG - checking server error
+                    debug_message='<h1>SERVER ERROR HERE</h1>'  #DEBUG
                     server_error=True
                 else:
                     sha256_password=sha256(password1.encode()).hexdigest()
@@ -56,7 +56,7 @@ if len(form_data) !=0:
                                         VALUES (%s, %s, %s, %s))""", (username, sha256_password, display_name, email.lower()))
                     connection.commit()
                     dbClose(connection, cursor)
-
+                    '''
                     cookie=SimpleCookie()
                     sid = sha256(repr(time()).encode()).hexdigest()
                     cookie['sid'] = sid
@@ -68,18 +68,16 @@ if len(form_data) !=0:
                     session_store.close()
                     error_msg='<p>Successfully Registered!</p>'
                     print(cookie)
-
-            except (db.Error, IOError):
+                    '''
+            except (db.Error, IOError):     #above try is throwing a db.Error
                 server_error=True
         else:
             if user_result!='clear':
                 if user_result=="SERVER_ERROR":
                     server_error=True
-                    debug_message='<h1>CRASHED ON USERNAME VERIFICATION</h1>'  #DEBUG - checking server error
                 else:
                     username_msg=user_result
                     print(username_msg)
-
 
             if email_result!='clear':
                 email_msg=email_result
