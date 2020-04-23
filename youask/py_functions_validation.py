@@ -53,8 +53,8 @@ def usernameValidationLogin(username):
 
     if len(username)<5:
         result='unsafe'
-    elif profanityFilter(username)==True:
-        result='unsafe'
+    #elif profanityFilter(username)==True:
+    #   result='unsafe'
     else:
         for char in username:
             if char==' ':
