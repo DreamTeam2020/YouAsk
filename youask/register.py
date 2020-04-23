@@ -34,6 +34,11 @@ if len(form_data) !=0:
     display_name=escape(form_data.getfirst('display_name', '').strip())
     password1=escape(form_data.getfirst('password1', '').strip())
     password2=escape(form_data.getfirst('password2', '').strip())
+    username_msg="<h1>Throw me a bone</h1>" if username == "" else username
+    email_msg=email
+    display_msg=display_name
+    password_msg=password
+    '''
     if not username or not  email or not display_name or not password1 or not password2:
         error_msg='<p class="error">All Fields Must Be Filled</p>'
     else:
@@ -46,7 +51,6 @@ if len(form_data) !=0:
 
         #if all clear then do try except
         #else if statement for each result and let msg equal result
-        '''
         if user_result == 'clear' and email_result == 'clear' and display_result == 'clear' and pass_result == 'clear' and password1 == password2:
             try:
                 connection, cursor=dbConnect()
@@ -97,7 +101,7 @@ if len(form_data) !=0:
             elif pass_result!='clear':
                 password_msg=pass_result
                 print(password_msg)
-        '''
+    '''
     error_msg='<p class="error">Server Error Occurred</p>' if server_error==True else ""
 
 
