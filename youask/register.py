@@ -16,6 +16,7 @@ import pymysql as db
 import re
 
 page_name = "register"
+redirect="register.py"
 username=""
 email=""
 display_name=""
@@ -57,14 +58,15 @@ if len(form_data) !=0:
 
                     cookie=SimpleCookie()
                     sid = sha256(repr(time()).encode()).hexdigest()
-                    cookie['sid'] = sid
-                    session_store = open('session_store/sess_'+ sid, writeback=True)
+                    cookie['UASK'] = sid
+                    session_store = open('sess_'+ sid, writeback=True)
                     session_store['authenticated']=True
                     session_store['username']=username
                     session_store['email']=email
                     session_store['display_name']=display_name
                     session_store.close()
                     error_msg='<p>Successfully Registered!</p>'
+                    redirect='index.py'
                     print(cookie)
 
             except (db.Error, IOError):     #above try is throwing a db.Error
@@ -103,7 +105,7 @@ print("""
         </header>
 
         <main>      <!-- The main part of the website --->
-            <form action="register.py" method="post">
+            <form action="%s" method="post">
                 <fieldset> <!-- Username, Email, Display Name, Password1, Password2 -->
                     <legend>Register</legend>
                     
@@ -132,4 +134,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Register", page_name), username, username_msg, email, email_msg, display_name, display_msg, password_msg, error_msg, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Register", page_name), redirect, username, username_msg, email, email_msg, display_name, display_msg, password_msg, error_msg, generateNav(page_name), pageEnd()))
