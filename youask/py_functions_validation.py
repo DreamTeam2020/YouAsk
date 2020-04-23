@@ -40,7 +40,7 @@ def emailValidation(email):
                 result='SERVER_ERROR'
             else:
                 #MySQL is case insensitive
-                cursor.execute("SELECT * FROM ask_users WHERE email = %s", username)
+                cursor.execute("SELECT * FROM ask_users WHERE email = %s", email)
                 if cursor.rowcount > 0:
                     result='<p class="error">Email already in use</p>'
                 dbClose(connection, cursor)

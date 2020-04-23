@@ -59,8 +59,8 @@ if len(form_data) !=0:
                     sid = sha256(repr(time()).encode()).hexdigest()
                     cookie['UASK'] = sid
                     #cookie['UASK']['path'] = '/'
-                    #cookie['UASK']['expires'] = 14 * 24 * 60 * 60 #Set cookies to expire in 14 days
-                    session_store = open('sess_'+ sid, writeback=True)  #How to store sessions in directory?
+                    cookie['UASK']['expires'] = 14 * 24 * 60 * 60 #Set cookies to expire in 14 days
+                    session_store = open('session_store/sess_'+ sid, writeback=True)  #How to store sessions in directory?
                     session_store['authenticated']=True
                     session_store['username']=username
                     session_store['email']=email
