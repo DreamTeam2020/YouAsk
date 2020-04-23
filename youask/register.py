@@ -23,7 +23,7 @@ email_msg=""
 display_msg=""
 password_msg=""
 error_msg=""
-debug_message='<h1>EMPTY</h1>'  #DEBUG
+debug_message='<h1>EMPTY</h1>'  #DEBUG - if nothing is received
 
 form_data=FieldStorage()
 
@@ -35,9 +35,10 @@ if len(form_data) !=0:
     display_name=escape(form_data.getfirst('display_name', '').strip())
     password1=escape(form_data.getfirst('password1', '').strip())
     password2=escape(form_data.getfirst('password2', '').strip())
-    debug_message='<h1>%s</h1>' % username  #DEBUG
+    debug_message='<h1>%s</h1>' % username  #DEBUG - if the username is received (it is)
 
     if not username or not  email or not display_name or not password1 or not password2:
+        debug_message='<h1>%FILL  EVERYTHING</h1>'  #DEBUG -
         error_msg='<p class="error">All Fields Must Be Filled</p>'
     else:
         #All return 'clear' if they pass the stipulations
@@ -95,8 +96,6 @@ if len(form_data) !=0:
                 print(password_msg)
 
     error_msg='<p class="error">Server Error Occurred</p>' if server_error==True else ""
-else:
-    error_msg='<p>NO DATA RECEIVED</p>'
 
 
 
