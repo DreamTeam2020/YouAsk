@@ -13,6 +13,8 @@ from shelve import open
 from http.cookies import SimpleCookie
 import pymysql as db
 
+import re
+
 page_name = "register"
 username=""
 email=""
@@ -22,7 +24,7 @@ username_msg=""
 email_msg=""
 display_msg=""
 password_msg=""
-error_msg=""
+error_msg="<h1>error_msg start point</h1>"
 debug_message='<h1>EMPTY</h1>'  #DEBUG - if nothing is received
 
 form_data=FieldStorage()
