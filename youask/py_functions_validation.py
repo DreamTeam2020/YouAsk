@@ -126,12 +126,15 @@ def passwordValidation(password):
 def profanityFilter(input):
     # Basic profanity filter to be used with usernames.
     # Aside: Lots of issues to be tackled for a fully functional filtering system, basic for now
+    '''
     from profanityfilter import ProfanityFilter
     import re
     pf = ProfanityFilter()
 
     parsed_input = re.sub(r'[^a-zA-Z ]+', '', input)
     return True if pf.is_profane(parsed_input) else False
+    '''
+    return False
 
 if __name__=="__main__":
     #Email Testing
