@@ -49,16 +49,16 @@ if len(form_data) !=0:
                 if connection=="SERVER_ERROR":
                     server_error=True
                 else:
-                    #sha256_password=sha256(password1.encode()).hexdigest()
+                    sha256_password=sha256(password1.encode()).hexdigest()
                     cursor.execute("""INSERT INTO ask_users(username, pass, display_name, email)
-                                        VALUES (%s, %s, %s, %s)""", (username, password1, display_name, email.lower()))
+                                        VALUES (%s, %s, %s, %s)""", (username, sha256_password, display_name, email.lower()))
                     connection.commit()
                     dbClose(connection, cursor)
 
                     cookie=SimpleCookie()
                     sid = sha256(repr(time()).encode()).hexdigest()
                     cookie['sid'] = sid
-                    session_store = open('sess_'+ sid, writeback=True)
+                    session_store = open('session_store/sess_'+ sid, writeback=True)
                     session_store['authenticated']=True
                     session_store['username']=username
                     session_store['email']=email
