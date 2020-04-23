@@ -37,9 +37,12 @@ if len(form_data) !=0:
     password2=escape(form_data.getfirst('password2', '').strip())
     debug_message='<h1>%s</h1>' % username  #DEBUG - if the username is received (it is)
 
-    if not username or not  email or not display_name or not password1 or not password2:
-        user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password)
-        debug_message='<p>Username: %s<br>Email: %s<br>Display: %s<br>Password: %s</p>' % (user_result, email_result, display_result, pass_result) #DEBUG - Testing each result
+    if not username or not email or not display_name or not password1 or not password2:
+        email_result=emailValidation(email)
+        display_result=displayNameValidation(display_name)
+        pass_result=passwordValidation(password)
+        debug_message='<p>EMAIL: %s<br>DISPLAY_NAME: %s<br>PASS: %s</p>' % (email_result, display_result, pass_result) #DEBUG - Testing each result
+
         error_msg='<p class="error">All Fields Must Be Filled</p>'
     else:
         #All return 'clear' if they pass the stipulations
