@@ -20,12 +20,11 @@ username=""
 email=""
 display_name=""
 
-username_msg=""
-email_msg=""
-display_msg=""
-password_msg=""
-error_msg="<h1>error_msg start point</h1>"
-debug_message='<h1>NO DEBUG MESSAGE</h1>'  #DEBUG - if nothing is received
+username_msg="<p> </p>"
+email_msg="<p> </p>"
+display_msg="<p> </p>"
+password_msg="<p> </p>"
+error_msg="<p> </p>"
 
 form_data=FieldStorage()
 
@@ -48,7 +47,6 @@ if len(form_data) !=0:
             try:
                 connection, cursor=dbConnect()
                 if connection=="SERVER_ERROR":
-                    debug_message='<h1>SERVER ERROR ON FIRST CONNECTION</h1>'  #DEBUG
                     server_error=True
                 else:
                     #sha256_password=sha256(password1.encode()).hexdigest()
@@ -56,7 +54,7 @@ if len(form_data) !=0:
                                         VALUES (%s, %s, %s, %s)""", (username, password1, display_name, email.lower()))
                     connection.commit()
                     dbClose(connection, cursor)
-                    '''
+
                     cookie=SimpleCookie()
                     sid = sha256(repr(time()).encode()).hexdigest()
                     cookie['sid'] = sid
@@ -68,13 +66,12 @@ if len(form_data) !=0:
                     session_store.close()
                     error_msg='<p>Successfully Registered!</p>'
                     print(cookie)
-                    '''
+
             except (db.Error, IOError):     #above try is throwing a db.Error
                 server_error=True
         else:
             if user_result!='clear':
                 if user_result=="SERVER_ERROR":
-                    debug_message='<h1>SERVER ERROR ON USER NOT CLEARED</h1>'  #DEBUG
                     server_error=True
                 else:
                     username_msg=user_result
@@ -113,7 +110,6 @@ print("""
                     <label for="username">Username: </label>
                     <input type="text" name="username" id="username" value="%s" maxlength="20"/>
                     %s
-                    %s
                     <label for="email">Email Address: </label>
                     <input type="text" name="email" id="email" value="%s" maxlength="50"/>
                     %s
@@ -136,4 +132,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Register", page_name), username, username_msg, debug_message, email, email_msg, display_name, display_msg, password_msg, error_msg, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Register", page_name), username, username_msg, email, email_msg, display_name, display_msg, password_msg, error_msg, generateNav(page_name), pageEnd()))
