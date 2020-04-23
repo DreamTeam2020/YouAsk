@@ -48,11 +48,12 @@ if len(form_data) !=0:
             try:
                 connection, cursor=dbConnect()
                 if connection=="SERVER_ERROR":
+                    debug_message='<h1>SERVER ERROR ON FIRST CONNECTION</h1>'  #DEBUG
                     server_error=True
                 else:
                     #sha256_password=sha256(password1.encode()).hexdigest()
                     cursor.execute("""INSERT INTO ask_users(username, pass, display_name, email)
-                                        VALUES (%s, %s, %s, %s))""", (username, password1, display_name, email.lower()))
+                                        VALUES (%s, %s, %s, %s)""", (username, password1, display_name, email.lower()))
                     connection.commit()
                     dbClose(connection, cursor)
                     '''
@@ -73,6 +74,7 @@ if len(form_data) !=0:
         else:
             if user_result!='clear':
                 if user_result=="SERVER_ERROR":
+                    debug_message='<h1>SERVER ERROR ON USER NOT CLEARED</h1>'  #DEBUG
                     server_error=True
                 else:
                     username_msg=user_result
