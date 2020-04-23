@@ -39,7 +39,7 @@ if len(form_data) !=0:
     else:
         #All return 'clear' if they pass the stipulations
         user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password)
-        username_msg=user_result
+        username_msg="<h1>Throw me a bone</h1>" if user_result == "" else user_result
         email_msg=email_result
         display_msg=display_result
         password_msg=pass_result
