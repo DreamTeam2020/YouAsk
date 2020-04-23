@@ -34,14 +34,12 @@ if len(form_data) !=0:
     display_name=escape(form_data.getfirst('display_name', '').strip())
     password1=escape(form_data.getfirst('password1', '').strip())
     password2=escape(form_data.getfirst('password2', '').strip())
+    error_msg='<p>%s</p>' % username  #BUG_TEST
     if not username or not  email or not display_name or not password1 or not password2:
         error_msg='<p class="error">All Fields Must Be Filled</p>'
     else:
         #All return 'clear' if they pass the stipulations
         user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password)
-
-        #if all clear then do try except
-        #else if statement for each result and let msg equal result
 
         if user_result == 'clear' and email_result == 'clear' and display_result == 'clear' and pass_result == 'clear' and password1 == password2:
             try:
