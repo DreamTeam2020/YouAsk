@@ -41,13 +41,13 @@ if len(form_data) !=0:
 
     if not username or not email or not display_name or not password1 or not password2:
         display_result=displayNameValidation(display_name)
-        pass_result=passwordValidation(password)
+        pass_result=passwordValidation(password1)
         debug_message='<p>DISPLAY_NAME: %s<br>PASSWORD: %s</p>' % (display_result, pass_result) #DEBUG - Testing each result
 
         error_msg='<p class="error">All Fields Must Be Filled</p>'
     else:
         #All return 'clear' if they pass the stipulations
-        user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password)
+        user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password1)
 
         if user_result == 'clear' and email_result == 'clear' and display_result == 'clear' and pass_result == 'clear' and password1 == password2:
             try:
