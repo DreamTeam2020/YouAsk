@@ -25,7 +25,7 @@ email_msg=""
 display_msg=""
 password_msg=""
 error_msg="<h1>error_msg start point</h1>"
-debug_message='<h1>EMPTY</h1>'  #DEBUG - if nothing is received
+debug_message='<h1>NO DEBUG MESSAGE</h1>'  #DEBUG - if nothing is received
 
 form_data=FieldStorage()
 
@@ -37,15 +37,8 @@ if len(form_data) !=0:
     display_name=escape(form_data.getfirst('display_name', '').strip())
     password1=escape(form_data.getfirst('password1', '').strip())
     password2=escape(form_data.getfirst('password2', '').strip())
-    debug_message='<h1>%s</h1>' % username  #DEBUG - if the username is received (it is)
 
     if not username or not email or not display_name or not password1 or not password2:
-        user_result=usernameValidationRegister(username)
-        email_result=emailValidation(email)
-        display_result=displayNameValidation(display_name)
-        pass_result=passwordValidation(password1)
-        debug_message='<p>USERNAME: %s<br>EMAIL: %s<br>DISPLAY_NAME: %s<br>PASSWORD: %s</p>' % (user_result, email_result, display_result, pass_result) #DEBUG - Testing each result
-
         error_msg='<p class="error">All Fields Must Be Filled</p>'
     else:
         #All return 'clear' if they pass the stipulations
@@ -55,6 +48,7 @@ if len(form_data) !=0:
             try:
                 connection, cursor=dbConnect()
                 if connection=="SERVER_ERROR":
+                    debug_message='<h1>CRASHED ON FIRST CONNECTION</h1>'  #DEBUG - checking server error
                     server_error=True
                 else:
                     sha256_password=sha256(password1.encode()).hexdigest()
@@ -76,12 +70,13 @@ if len(form_data) !=0:
                     print(cookie)
 
             except (db.Error, IOError):
+                debug_message='<h1>DB ERROR OCCURRED</h1>'  #DEBUG - checking server error
                 server_error=True
         else:
             if user_result!='clear':
                 if user_result=="SERVER_ERROR":
                     server_error=True
-                    #handle server error here
+                    debug_message='<h1>CRASHED ON USERNAME VERIFICATION</h1>'  #DEBUG - checking server error
                 else:
                     username_msg=user_result
                     print(username_msg)
