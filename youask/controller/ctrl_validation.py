@@ -1,5 +1,6 @@
-from db_functions import *
-#move import statements into the functions
+from model.model_functions import *
+import pymysql as db
+import re
 
 def registrationValidation(username, email, display_name, password):
     #Validate input on registration
@@ -29,8 +30,6 @@ def loginValidation(username, password):
 
 def emailValidationRegistration(email):
     #Use regular expression to validate email
-    import pymysql as db
-    import re
     result='clear'
 
     if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
@@ -52,7 +51,6 @@ def emailValidationRegistration(email):
     return result
 
 def emailValidationLogin(email):
-    import re
     return 'email' if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email) else 'unsafe'
 
 
@@ -86,7 +84,6 @@ def usernameValidationLogin(username):
     return result
 
 def usernameValidationRegister(username):
-    import pymysql as db
 
     #Validate username on registration
     result=usernameValidationLogin(username)
@@ -147,7 +144,6 @@ def profanityFilter(input):
     # Aside: Lots of issues to be tackled for a fully functional filtering system, basic for now
     '''
     from profanityfilter import ProfanityFilter
-    import re
     pf = ProfanityFilter()
 
     parsed_input = re.sub(r'[^a-zA-Z ]+', '', input)

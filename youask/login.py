@@ -5,8 +5,9 @@ from cgitb import enable
 enable()
 
 from html_functions import *
-from py_functions_validation import *
-from db_functions import *
+from controller.ctrl_validation import *
+from controller.ctrl_cache import *
+from model.model_functions import *
 from cgi import FieldStorage, escape
 from hashlib import sha256
 from time import time
@@ -58,19 +59,11 @@ if len(form_data) !=0:
                         fetch=cursor.fetchall()
                         user_details=fetch[0]
 
-                        cookie = SimpleCookie()
-                        sid = sha256(repr(time()).encode()).hexdigest()
-                        cookie['UASK'] = sid
-                        cookie['UASK']['path'] = '/'
-                        cookie['UASK']['expires'] = 14 * 24 * 60 * 60  # Set cookies to expire in 14 days
-                        session_store = open('session_store/sess_' + sid, writeback=True)
-                        session_store['authenticated'] = True
-                        session_store['username']=user_details['username']
-                        session_store['email']=user_details['email']
-                        session_store['display_name']=user_details['display_name']
-                        session_store.close()
+                        cookie, sid=cookieCreate()
+                        sessionCreate(user_details['username'], user_details['email'], user_details['display_name'], sid)
+
                         error_msg = '<p class="error">Successfully Logged In!</p>'
-                        redirect = 'login.py'
+                        redirect = 'profile.py'
                         print(cookie)
 
                     dbClose(connection, cursor)

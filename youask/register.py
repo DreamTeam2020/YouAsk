@@ -4,8 +4,10 @@ from cgitb import enable
 enable()
 
 from html_functions import *
-from py_functions_validation import *
-from db_functions import *
+from controller.ctrl_validation import *
+from controller.ctrl_cache import *
+from controller.ctrl_register import *
+from model.model_functions import *
 from cgi import FieldStorage, escape
 from hashlib import sha256
 from time import time
@@ -37,6 +39,8 @@ if len(form_data) !=0:
     password1=escape(form_data.getfirst('password1', '').strip())
     password2=escape(form_data.getfirst('password2', '').strip())
 
+
+
     if not username or not email or not display_name or not password1 or not password2:
         error_msg='<p class="error">All Fields Must Be Filled</p>'
     else:
@@ -55,21 +59,11 @@ if len(form_data) !=0:
                     connection.commit()
                     dbClose(connection, cursor)
 
-                    cookie=SimpleCookie()
-                    sid = sha256(repr(time()).encode()).hexdigest()
-                    cookie['UASK'] = sid
-                    cookie['UASK']['path'] = '/'
-                    cookie['UASK']['expires'] = 14 * 24 * 60 * 60 #Set cookies to expire in 14 days
-                    session_store = open('session_store/sess_'+ sid, writeback=True)
-                    session_store['authenticated']=True
-                    session_store['username']=username
-                    session_store['email']=email
-                    session_store['display_name']=display_name
-                    session_store.close()
+                    cookie, sid = cookieCreate()
+                    sessionCreate(username, email, display_name, sid)
                     error_msg='<p class="error">Successfully Registered!</p>'
                     redirect = 'profile.py'
                     print(cookie)
-
 
             except (db.Error, IOError):
                 server_error=True
@@ -93,6 +87,10 @@ if len(form_data) !=0:
                 password_msg='<p class="error">Passwords Must Match</p> '
             elif pass_result!='clear':
                 password_msg=pass_result
+
+#if registered==True:
+ #   error_msg = '<p class="error">Successfully Registered!</p>'
+  #  redirect = 'profile.py'
 
     if server_error==True:
         error_msg = '<p class="error">Server Error Occurred</p>'
