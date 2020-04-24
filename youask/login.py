@@ -55,7 +55,7 @@ if len(form_data) !=0:
                 if connection=='SERVER_ERROR':  #The error is here
                     server_error=True
                 else:
-                    cursor.execute('SELECT * FROM ask_users WHERE (username=%s OR email=%s) AND password=%s', (user_email, user_email, sha256_password))
+                    cursor.execute('SELECT * FROM ask_users WHERE (username=%s OR email=%s) AND pass=%s', (user_email, user_email, sha256_password))
                     if cursor.rowcount==0:
                         #input_error=True
                         error_msg = '<p class="error">Rowcount empty</p>'
