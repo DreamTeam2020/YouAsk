@@ -34,7 +34,7 @@ if len(form_data) !=0:
     password = escape(form_data.getfirst('password', '').strip())
 
     if not user_email or not password:
-        input_error=True
+        error_msg='<p class="error">All Fields Must Be Filled</p>'
     else:
         user_result, pass_result=loginValidation(user_email, password)
         user_check=False
@@ -54,7 +54,7 @@ if len(form_data) !=0:
                 if connection=='SERVER_ERROR':
                     server_error=True
                 else:
-                    cursor.execute('SELECT * FROM ask_users WHERE (username=%s OR email=%s) AND password=%s', (user_result, user_result, sha256_password))
+                    cursor.execute('SELECT * FROM ask_users WHERE (username=%s OR email=%s) AND password=%s', (user_email, user_email, sha256_password))
                     if cursor.rowcount==0:
                         input_error=True
                     else:
