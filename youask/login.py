@@ -31,14 +31,8 @@ if len(form_data) !=0:
     user_email = escape(form_data.getfirst('user_email', '').strip())
     password = escape(form_data.getfirst('password', '').strip())
 
-
-    error_msg=user_email
-
-
-
     if not user_email or not password:
         error_msg='<p class="error">All Fields Must Be Filled</p>'
-
     else:
         user_result, pass_result=loginValidation(user_email, password)
         user_check=False
@@ -51,7 +45,6 @@ if len(form_data) !=0:
             input_error=True
         else:
             sha256_password = sha256(password.encode()).hexdigest()
-            '''
             try:
                 connection, cursor=dbConnect()
 
@@ -60,7 +53,11 @@ if len(form_data) !=0:
                 else:
                     cursor.execute('SELECT * FROM ask_users WHERE (username=%s OR email=%s) AND password=%s', (user_email, user_email, sha256_password))
                     if cursor.rowcount==0:
-                        input_error=True
+                        #input_error=True
+                        error_msg = '<p class="error">Rowcount empty</p>'
+                    else:
+                        error_msg="<p>IT WORKED</p>"
+                    '''
                     else:
                         cookie = SimpleCookie()
                         sid = sha256(repr(time()).encode()).hexdigest()
@@ -74,12 +71,11 @@ if len(form_data) !=0:
                         error_msg = '<p class="error">Successfully Logged In!</p>'
                         redirect = 'profile.py'
                         print(cookie)
-
+                    '''
                     dbClose(connection, cursor)
-
             except (db.Error, IOError):
                 server_error = True
-    '''
+
     if server_error==True:
         error_msg = '<p class="error">Server Error Occurred</p>'
     elif input_error==True:
