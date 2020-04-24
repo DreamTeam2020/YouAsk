@@ -20,7 +20,7 @@ page_name = "register"
 redirect= "register.py"
 user_details=["", "", ""]   # username, email, display_name
 
-messageList=["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]
+messageList=["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]    # Contains error messages to be printed
 
 form_data=FieldStorage()
 

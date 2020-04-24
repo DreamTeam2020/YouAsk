@@ -14,7 +14,7 @@ def registrationValidation(username, email, display_name, password):
 
 def loginValidation(username, password):
     #Validate input on login
-    #Allow the user to enter an email or username
+    #Allows the user to enter an email or username
 
     username_email=emailValidationLogin(username)
 
@@ -30,7 +30,6 @@ def loginValidation(username, password):
 
 def emailValidationRegistration(email):
     #Use regular expression to validate email
-    result='clear'
 
     if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
         result=checkAvailability("Email", email)
@@ -41,7 +40,6 @@ def emailValidationRegistration(email):
 
 def emailValidationLogin(email):
     return 'email' if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email) else 'unsafe'
-
 
 def displayNameValidation(display_name):
     #Validate display name

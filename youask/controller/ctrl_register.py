@@ -6,11 +6,13 @@ import pymysql
 from model.model_functions import *
 
 def inputControllerRegistration(form_data):
+    # Take in the form_data and validate and potentially register the user
     server_error=False
     registered=False
-    message_list=["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]
+    message_list=["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]   # Message list to contain error messages
     error_msg="<p> </p>"
 
+    # Get the data from the form
     username = escape(form_data.getfirst('username', '').strip())
     email=escape(form_data.getfirst('email', '').strip())
     display_name=escape(form_data.getfirst('display_name', '').strip())
@@ -19,17 +21,18 @@ def inputControllerRegistration(form_data):
 
     user_details=[username, email, display_name]
 
-    if not username or not email or not display_name or not password1 or not password2:
+    if not username or not email or not display_name or not password1 or not password2:    # If all fields are not filled, return error message
         error_msg='<p class="error">All Fields Must Be Filled</p>'
     else:
-        user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password1)
+        user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password1)   # Validate the user input
 
-        if user_result == 'clear' and email_result == 'clear' and display_result == 'clear' and pass_result == 'clear' and password1 == password2:
+        if user_result == 'clear' and email_result == 'clear' and display_result == 'clear' and pass_result == 'clear' and password1 == password2:  # If all fields are validated
             try:
-                error_check=dbRegisterUser(username, password1, display_name, email.lower())
-                if error_check=="SERVER_ERROR":
+                error_check=dbRegisterUser(username, password1, display_name, email.lower())    # Register the user using the model function
+                if error_check=="SERVER_ERROR":    # If an error occurs set boolean to True
                     server_error=True
                 else:
+                    # Create cookie and session store for the user
                     cookie, sid = cookieCreate()
                     sessionCreate(username, email, display_name, sid)
                     registered=True
@@ -41,6 +44,7 @@ def inputControllerRegistration(form_data):
             if user_result=="SERVER_ERROR" or email_result=="SERVER_ERROR":
                 server_error=True
             else:
+                # If it gets to here then there is an issue with one of the fields, check which field and generate the correct error messages
                 message_list=inputErrorMessage(user_result, email_result, display_result, password1, password2, pass_result)
 
     message_list.append(error_msg)
@@ -48,6 +52,7 @@ def inputControllerRegistration(form_data):
 
 
 def inputErrorMessage(user_result, email_result, display_result, password1, password2, pass_result):
+    # Check each field to find which one is incorrect, then assign the appropriate error messages to a list
     username_msg = "<p> </p>"
     email_msg = "<p> </p>"
     display_msg = "<p> </p>"
