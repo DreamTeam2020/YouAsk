@@ -7,7 +7,8 @@ from model.model_functions import *
 
 def inputControllerLogin(form_data):
     server_error=False
-    input_error=True
+    input_error=False
+    logged=False
 
     error_msg="<p> </p>"
 
@@ -18,6 +19,7 @@ def inputControllerLogin(form_data):
     if not user_email or not password:
         error_msg='<p class="error">All Fields Must Be Filled</p>'  # If all fields are not filled
     else:
+
         user_result, pass_result=loginValidation(user_email, password)  # Validate the user input
 
         if user_result=='username':
@@ -38,7 +40,7 @@ def inputControllerLogin(form_data):
                 # Create a cookie and session for the user
                 cookie, sid = cookieCreate()
                 sessionCreate(result['username'], result['email'], result['display_name'], sid)
-                input_error=False
+                logged=True
                 print(cookie)
 
-    return input_error, server_error, user_email, error_msg
+    return logged, input_error, server_error, user_email, error_msg

@@ -25,16 +25,16 @@ error_msg="<p> </p>"
 form_data = FieldStorage()
 
 if len(form_data) !=0:
-    input_error, server_error, user_email, error_msg=inputControllerLogin(form_data)
+    logged_in, input_error, server_error, user_email, error_msg=inputControllerLogin(form_data)
 
+    if logged_in==True:
+        error_msg = '<p class="error">Successfully Logged In!</p>'
+        redirect='profile.py'
     if server_error==True:
         error_msg = '<p class="error">Server Error Occurred</p>'
     elif input_error==True:
         error_msg = '<p class="error">Invalid Username or Password</p>'
-    elif input_error==False:
-        error_msg = '<p class="error">Successfully Logged In!</p>'
-        redirect='profile.py'
-        
+
 print('Content-Type: text/html')
 print()
 
