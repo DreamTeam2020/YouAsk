@@ -25,7 +25,7 @@ def dbClose(connection, cursor):
     connection.close()
 
 def dbRegisterUser(username, password, display_name, email):
-    #Return True if ok, else false
+
     try:
         sha256_password = sha256(password.encode()).hexdigest()
         connection, cursor=dbConnect()
@@ -35,5 +35,21 @@ def dbRegisterUser(username, password, display_name, email):
         connection.commit()
         dbClose(connection, cursor)
         return "registered"
+    except db.Error:
+        return "SERVER_ERROR"
+
+
+def checkAvailability(user_email, data):
+    # Takes in the data type (username or email) and the data itself
+    # return clear, message or SERVER_ERROR
+    try:
+        connection, cursor=dbConnect()
+        cursor.execute("SELECT * FROM ask_users WHERE %s = %s", (user_email, data))
+        if cursor.rowcount > 0:
+            result='<p class="error">%s already in use</p>' % user_email
+        else:
+            result='clear'
+        dbClose(connection, cursor)
+        return result
     except db.Error:
         return "SERVER_ERROR"

@@ -33,18 +33,7 @@ def emailValidationRegistration(email):
     result='clear'
 
     if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
-        try:
-            connection, cursor=dbConnect()
-            if connection=="SERVER_ERROR":
-                result='SERVER_ERROR'
-            else:
-                #MySQL is case insensitive
-                cursor.execute("SELECT * FROM ask_users WHERE email = %s", email)
-                if cursor.rowcount > 0:
-                    result='<p class="error">Email already in use</p>'
-                dbClose(connection, cursor)
-        except db.Error:
-            result='SERVER_ERROR'
+        result=checkAvailability("Email", email)
     else:
         result='<p class="error">Invalid email address<p>'
 
@@ -89,21 +78,7 @@ def usernameValidationRegister(username):
     result=usernameValidationLogin(username)
 
     if result=='clear':
-        try:
-            connection, cursor=dbConnect()
-
-            if connection=="SERVER_ERROR":
-                result='SERVER_ERROR'
-            else:
-                #MySQL is case insensitive
-                cursor.execute("SELECT * FROM ask_users WHERE username = %s", username)
-                if cursor.rowcount > 0:
-                    result='<p class="error">Username must be unique</p>'
-
-                dbClose(connection, cursor)
-
-        except db.Error:
-            result='SERVER_ERROR'
+        result=checkAvailability("Username", username)
 
     return result
 
