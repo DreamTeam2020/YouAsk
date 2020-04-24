@@ -27,19 +27,15 @@ def inputControllerRegistration(form_data):
         user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password1)   # Validate the user input
 
         if user_result == 'clear' and email_result == 'clear' and display_result == 'clear' and pass_result == 'clear' and password1 == password2:  # If all fields are validated
-            try:
-                error_check=dbRegisterUser(username, password1, display_name, email.lower())    # Register the user using the model function
-                if error_check=="SERVER_ERROR":    # If an error occurs set boolean to True
-                    server_error=True
-                else:
-                    # Create cookie and session store for the user
-                    cookie, sid = cookieCreate()
-                    sessionCreate(username, email, display_name, sid)
-                    registered=True
-                    print(cookie)
-
-            except (db.Error, IOError):
-                server_error = True
+            error_check=dbRegisterUser(username, password1, display_name, email.lower())    # Register the user using the model function
+            if error_check=="SERVER_ERROR":    # If an error occurs set boolean to True
+                server_error=True
+            else:
+                # Create cookie and session store for the user
+                cookie, sid = cookieCreate()
+                sessionCreate(username, email, display_name, sid)
+                registered=True
+                print(cookie)
         else:
             if user_result=="SERVER_ERROR" or email_result=="SERVER_ERROR":
                 server_error=True

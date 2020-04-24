@@ -1,12 +1,12 @@
 #!/usr/local/bin/python3
 
 from cgitb import enable
-
 enable()
 
 from html_functions import *
 from controller.ctrl_validation import *
 from controller.ctrl_cache import *
+from controller.ctrl_login import *
 from model.model_functions import *
 from cgi import FieldStorage, escape
 from hashlib import sha256
@@ -15,7 +15,6 @@ from shelve import open
 from http.cookies import SimpleCookie
 import pymysql as db
 import re
-
 
 page_name = "login"
 redirect= "login.py"
@@ -26,56 +25,16 @@ error_msg="<p> </p>"
 form_data = FieldStorage()
 
 if len(form_data) !=0:
-    server_error=False
-    input_error=False
-
-    user_email = escape(form_data.getfirst('user_email', '').strip())
-    password = escape(form_data.getfirst('password', '').strip())
-
-    if not user_email or not password:
-        error_msg='<p class="error">All Fields Must Be Filled</p>'
-    else:
-        user_result, pass_result=loginValidation(user_email, password)
-        user_check=False
-        if user_result=='username':
-            user_check=True
-            user_result='clear'
-        elif user_result=='email':
-            user_result='clear'
-        if user_result!='clear' or pass_result!='clear':
-            input_error=True
-        else:
-            sha256_password = sha256(password.encode()).hexdigest()
-            try:
-                connection, cursor=dbConnect()
-
-                if connection=='SERVER_ERROR':
-                    server_error=True
-                else:
-                    cursor.execute('SELECT * FROM ask_users WHERE (username=%s OR email=%s) AND pass=%s', (user_email, user_email, sha256_password))
-                    if cursor.rowcount==0:
-                        input_error=True
-                    else:
-                        fetch=cursor.fetchall()
-                        user_details=fetch[0]
-
-                        cookie, sid=cookieCreate()
-                        sessionCreate(user_details['username'], user_details['email'], user_details['display_name'], sid)
-
-                        error_msg = '<p class="error">Successfully Logged In!</p>'
-                        redirect = 'profile.py'
-                        print(cookie)
-
-                    dbClose(connection, cursor)
-            except (db.Error, IOError):
-                server_error = True
+    input_error, server_error, user_email, error_msg=inputControllerLogin(form_data)
 
     if server_error==True:
         error_msg = '<p class="error">Server Error Occurred</p>'
     elif input_error==True:
         error_msg = '<p class="error">Invalid Username or Password</p>'
-
-
+    elif input_error==False:
+        error_msg = '<p class="error">Successfully Logged In!</p>'
+        redirect='profile.py'
+        
 print('Content-Type: text/html')
 print()
 

@@ -25,7 +25,6 @@ def dbClose(connection, cursor):
     connection.close()
 
 def dbRegisterUser(username, password, display_name, email):
-
     try:
         sha256_password = sha256(password.encode()).hexdigest()
         connection, cursor=dbConnect()
@@ -37,6 +36,24 @@ def dbRegisterUser(username, password, display_name, email):
         return "registered"
     except db.Error:
         return "SERVER_ERROR"
+
+def dbLoginUser(user_email, password):
+    try:
+        sha256_password = sha256(password.encode()).hexdigest()
+        connection, cursor=dbConnect()
+        cursor.execute('SELECT * FROM ask_users WHERE (username=%s OR email=%s) AND pass=%s',
+                       (user_email, user_email, sha256_password))
+
+        if cursor.rowcount == 0:
+            result = "INPUT_ERROR"
+        else:
+            fetch = cursor.fetchall()
+            result = fetch[0]
+        dbClose(connection, cursor)
+        return result
+    except db.Error:
+        return "SERVER_ERROR"
+
 
 
 def checkAvailability(user_email, data):
