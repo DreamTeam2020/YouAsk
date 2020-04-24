@@ -38,7 +38,7 @@ if len(form_data) !=0:
 
     if not user_email or not password:
         error_msg='<p class="error">All Fields Must Be Filled</p>'
-    '''
+
     else:
         user_result, pass_result=loginValidation(user_email, password)
         user_check=False
@@ -47,7 +47,7 @@ if len(form_data) !=0:
             user_result='clear'
         elif user_result=='email':
             user_result='clear'
-
+    '''
         if user_result!='clear' or pass_result!='clear':
             input_error=True
         else:
