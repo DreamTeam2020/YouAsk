@@ -7,7 +7,7 @@ from model.model_functions import *
 def inputControllerRegistration(username, email, display_name, password1, password2):
     server_error=False
     registered=False
-    message_list=[]
+    message_list=["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]
 
     user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password1)
 
