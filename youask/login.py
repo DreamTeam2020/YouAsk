@@ -55,8 +55,9 @@ if len(form_data) !=0:
                     if cursor.rowcount==0:
                         input_error=True
                     else:
-                        error_msg = '<p class="error">Successfully Logged In!</p>'
-                        '''
+                        fetch=cursor.fetchall()
+                        user_details=fetch[0]
+
                         cookie = SimpleCookie()
                         sid = sha256(repr(time()).encode()).hexdigest()
                         cookie['UASK'] = sid
@@ -64,12 +65,13 @@ if len(form_data) !=0:
                         cookie['UASK']['expires'] = 14 * 24 * 60 * 60  # Set cookies to expire in 14 days
                         session_store = open('session_store/sess_' + sid, writeback=True)
                         session_store['authenticated'] = True
-                        session_store['username'] = user_email if user_check==True else session_store['email']=user_email
+                        session_store['username']=user_details['username']
+                        session_store['email']=user_details['email']
+                        session_store['display_name']=user_details['display_name']
                         session_store.close()
                         error_msg = '<p class="error">Successfully Logged In!</p>'
                         redirect = 'login.py'
                         print(cookie)
-                        '''
 
                     dbClose(connection, cursor)
             except (db.Error, IOError):
