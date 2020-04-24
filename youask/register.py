@@ -18,38 +18,23 @@ import re
 
 page_name = "register"
 redirect= "register.py"
-username=""
-email=""
-display_name=""
+user_details=["", "", ""]   # username, email, display_name
 
-messageList=["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]
-error_msg="<p> </p>"
+messageList=["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]
 
 form_data=FieldStorage()
 
 if len(form_data) !=0:
-    server_error=False
+    registered, server_error, user_details, messageList=inputControllerRegistration(form_data)
 
-    username=escape(form_data.getfirst('username', '').strip())
-    email=escape(form_data.getfirst('email', '').strip())
-    display_name=escape(form_data.getfirst('display_name', '').strip())
-    password1=escape(form_data.getfirst('password1', '').strip())
-    password2=escape(form_data.getfirst('password2', '').strip())
-
-
-
-    if not username or not email or not display_name or not password1 or not password2:
-        error_msg='<p class="error">All Fields Must Be Filled</p>'
+    if registered==True:
+        messageList[4] = '<p class="error">Successfully Registered! <a href=login.py>Login Here</a></p>'
+        redirect = 'registered.py' #Redirect to a different page after registration here
+    elif server_error == True:
+        messageList[4] = '<p class="error">Server Error Occurred</p>'
     else:
-        registered, server_error, messageList=inputControllerRegistration(username, email, display_name, password1, password2)
+        messageList=messageList
 
-        if registered==True:
-            error_msg = '<p class="error">Successfully Registered! <a href=login.py>Login Here</a></p>'
-            redirect = 'registered.py' #Redirect to a different page after registration here
-        elif server_error == True:
-            error_msg = '<p class="error">Server Error Occurred</p>'
-        else:
-            messageList=messageList
 
 print('Content-Type: text/html')
 print()
@@ -91,4 +76,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Register", page_name), redirect, username, messageList[0], email, messageList[1], display_name, messageList[2], messageList[3], error_msg, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Register", page_name), redirect, user_details[0], messageList[0], user_details[1], messageList[1], user_details[2], messageList[2], messageList[3], messageList[4], generateNav(page_name), pageEnd()))

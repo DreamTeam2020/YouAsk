@@ -1,37 +1,50 @@
 from controller.ctrl_validation import *
 from controller.ctrl_cache import *
 from hashlib import sha256
+from cgi import FieldStorage, escape
 import pymysql
 from model.model_functions import *
 
-def inputControllerRegistration(username, email, display_name, password1, password2):
+def inputControllerRegistration(form_data):
     server_error=False
     registered=False
     message_list=["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]
+    error_msg="<p> </p>"
 
-    user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password1)
+    username = escape(form_data.getfirst('username', '').strip())
+    email=escape(form_data.getfirst('email', '').strip())
+    display_name=escape(form_data.getfirst('display_name', '').strip())
+    password1=escape(form_data.getfirst('password1', '').strip())
+    password2=escape(form_data.getfirst('password2', '').strip())
 
-    if user_result == 'clear' and email_result == 'clear' and display_result == 'clear' and pass_result == 'clear' and password1 == password2:
-        try:
-            error_check=dbRegisterUser(username, password1, display_name, email.lower())
-            if error_check=="SERVER_ERROR":
+    user_details=[username, email, display_name]
+
+    if not username or not email or not display_name or not password1 or not password2:
+        error_msg='<p class="error">All Fields Must Be Filled</p>'
+    else:
+        user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password1)
+
+        if user_result == 'clear' and email_result == 'clear' and display_result == 'clear' and pass_result == 'clear' and password1 == password2:
+            try:
+                error_check=dbRegisterUser(username, password1, display_name, email.lower())
+                if error_check=="SERVER_ERROR":
+                    server_error=True
+                else:
+                    cookie, sid = cookieCreate()
+                    sessionCreate(username, email, display_name, sid)
+                    registered=True
+                    print(cookie)
+
+            except (db.Error, IOError):
+                server_error = True
+        else:
+            if user_result=="SERVER_ERROR" or email_result=="SERVER_ERROR":
                 server_error=True
             else:
-                cookie, sid = cookieCreate()
-                sessionCreate(username, email, display_name, sid)
-                registered=True
-                print(cookie)
+                message_list=inputErrorMessage(user_result, email_result, display_result, password1, password2, pass_result)
 
-        except (db.Error, IOError):
-            server_error = True
-    else:
-        #invoke inputErrorMessage
-        if user_result=="SERVER_ERROR" or email_result=="SERVER_ERROR":
-            server_error=True
-        else:
-            message_list=inputErrorMessage(user_result, email_result, display_result, password1, password2, pass_result)
-
-    return registered, server_error, message_list
+    message_list.append(error_msg)
+    return registered, server_error, user_details, message_list
 
 
 def inputErrorMessage(user_result, email_result, display_result, password1, password2, pass_result):
