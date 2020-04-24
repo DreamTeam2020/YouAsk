@@ -15,7 +15,7 @@ def loginValidation(username, password):
     #Validate input on login
     #Allow the user to enter an email or username
 
-    username_email=emailValidation(username)
+    username_email=emailValidationLogin(username)
 
     if username_email=='email':
         user_result="email"

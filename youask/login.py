@@ -16,7 +16,7 @@ import pymysql as db
 import re
 
 
-page_name = "register"
+page_name = "login"
 redirect= "login.py"
 user_email=""
 
@@ -113,5 +113,4 @@ print("""
 
         %s
         %s
-    """ % (
-pageStart("Login", page_name), redirect, user_email, error_msg, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Login", page_name), redirect, user_email, error_msg, generateNav(page_name), pageEnd()))
