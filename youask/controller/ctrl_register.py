@@ -8,6 +8,7 @@ def inputControllerRegistration(username, email, display_name, password1, passwo
     server_error=False
     registered=False
     message_list=[]
+
     user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password1)
 
     if user_result == 'clear' and email_result == 'clear' and display_result == 'clear' and pass_result == 'clear' and password1 == password2:

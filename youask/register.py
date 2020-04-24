@@ -22,10 +22,7 @@ username=""
 email=""
 display_name=""
 
-username_msg="<p> </p>"
-email_msg="<p> </p>"
-display_msg="<p> </p>"
-password_msg="<p> </p>"
+messageList=["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]
 error_msg="<p> </p>"
 
 form_data=FieldStorage()
@@ -44,58 +41,15 @@ if len(form_data) !=0:
     if not username or not email or not display_name or not password1 or not password2:
         error_msg='<p class="error">All Fields Must Be Filled</p>'
     else:
-        #All return 'clear' if they pass the stipulations
-        user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password1)
+        registered, server_error, messageList=inputControllerRegistration(username, email, display_name, password1, password2)
 
-        if user_result == 'clear' and email_result == 'clear' and display_result == 'clear' and pass_result == 'clear' and password1 == password2:
-            try:
-                connection, cursor=dbConnect()
-                if connection=="SERVER_ERROR":
-                    server_error=True
-                else:
-                    sha256_password=sha256(password1.encode()).hexdigest()
-                    cursor.execute("""INSERT INTO ask_users(username, pass, display_name, email)
-                                        VALUES (%s, %s, %s, %s)""", (username, sha256_password, display_name, email.lower()))
-                    connection.commit()
-                    dbClose(connection, cursor)
-
-                    cookie, sid = cookieCreate()
-                    sessionCreate(username, email, display_name, sid)
-                    error_msg='<p class="error">Successfully Registered!</p>'
-                    redirect = 'profile.py'
-                    print(cookie)
-
-            except (db.Error, IOError):
-                server_error=True
+        if registered==True:
+            error_msg = '<p class="error">Successfully Registered! <a href=login.py>Login Here</a></p>'
+            redirect = 'registered.py' #Redirect to a different page after registration here
+        elif server_error == True:
+            error_msg = '<p class="error">Server Error Occurred</p>'
         else:
-            if user_result!='clear':
-                if user_result=="SERVER_ERROR":
-                    server_error=True
-                else:
-                    username_msg=user_result
-
-            if email_result!='clear':
-                if email_result=="SERVER_ERROR":
-                    server_error=True
-                else:
-                    email_msg=email_result
-
-            if display_result!='clear':
-                display_msg=display_result
-
-            if password1!=password2:
-                password_msg='<p class="error">Passwords Must Match</p> '
-            elif pass_result!='clear':
-                password_msg=pass_result
-
-#if registered==True:
- #   error_msg = '<p class="error">Successfully Registered!</p>'
-  #  redirect = 'profile.py'
-
-    if server_error==True:
-        error_msg = '<p class="error">Server Error Occurred</p>'
-
-
+            messageList=messageList
 
 print('Content-Type: text/html')
 print()
@@ -137,4 +91,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Register", page_name), redirect, username, username_msg, email, email_msg, display_name, display_msg, password_msg, error_msg, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Register", page_name), redirect, username, messageList[0], email, messageList[1], display_name, messageList[2], messageList[3], error_msg, generateNav(page_name), pageEnd()))
