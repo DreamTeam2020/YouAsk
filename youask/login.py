@@ -20,8 +20,6 @@ page_name = "login"
 redirect= "login.py"
 user_email=""
 
-user_email_msg="<p> </p>"
-password_msg="<p> </p>"
 error_msg="<p> </p>"
 
 form_data = FieldStorage()
@@ -33,6 +31,11 @@ if len(form_data) !=0:
     user_email = escape(form_data.getfirst('user_email', '').strip())
     password = escape(form_data.getfirst('password', '').strip())
 
+
+    error_msg=user_email
+
+
+    '''
     if not user_email or not password:
         error_msg='<p class="error">All Fields Must Be Filled</p>'
     else:
@@ -81,6 +84,7 @@ if len(form_data) !=0:
     elif input_error==True:
         error_msg = '<p class="error">Invalid Username or Password</p>'
 
+    '''
 print('Content-Type: text/html')
 print()
 
