@@ -62,10 +62,10 @@ if len(form_data) !=0:
                         cookie['UASK']['expires'] = 14 * 24 * 60 * 60  # Set cookies to expire in 14 days
                         session_store = open('session_store/sess_' + sid, writeback=True)
                         session_store['authenticated'] = True
-                        session_store['username'] = username if user_check==True else session_store['email']=email
+                        session_store['username'] = user_email if user_check==True else session_store['email']=user_email
                         session_store.close()
                         error_msg = '<p class="error">Successfully Logged In!</p>'
-                        redirect = 'profile.py'
+                        redirect = 'login.py'
                         print(cookie)
 
                     dbClose(connection, cursor)
