@@ -24,9 +24,6 @@ error_msg="<p> </p>"
 
 form_data = FieldStorage()
 
-
-debug_msg="<h1>Start</p>"
-
 if len(form_data) !=0:
     server_error=False
     input_error=False
@@ -50,18 +47,13 @@ if len(form_data) !=0:
             sha256_password = sha256(password.encode()).hexdigest()
             try:
                 connection, cursor=dbConnect()
-                debug_msg='<h1>Conn: %s<br>Cursor: %s' % (connection, cursor)
 
-                if connection=='SERVER_ERROR':  #The error is here
+                if connection=='SERVER_ERROR':
                     server_error=True
                 else:
                     cursor.execute('SELECT * FROM ask_users WHERE (username=%s OR email=%s) AND pass=%s', (user_email, user_email, sha256_password))
                     if cursor.rowcount==0:
-                        #input_error=True
-                        error_msg = '<p class="error">Rowcount empty</p>'
-                    else:
-                        error_msg="<p>IT WORKED</p>"
-                    '''
+                        input_error=True
                     else:
                         cookie = SimpleCookie()
                         sid = sha256(repr(time()).encode()).hexdigest()
@@ -75,11 +67,10 @@ if len(form_data) !=0:
                         error_msg = '<p class="error">Successfully Logged In!</p>'
                         redirect = 'profile.py'
                         print(cookie)
-                    '''
+
                     dbClose(connection, cursor)
             except (db.Error, IOError):
-                #server_error = True
-                error_msg='<p>db exception here</p>'
+                server_error = True
 
     if server_error==True:
         error_msg = '<p class="error">Server Error Occurred</p>'
@@ -112,7 +103,6 @@ print("""
                 </fieldset
             </form>
             %s
-            %s
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
@@ -120,4 +110,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Login", page_name), redirect, user_email, error_msg, debug_msg, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Login", page_name), redirect, user_email, error_msg, generateNav(page_name), pageEnd()))
