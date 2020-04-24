@@ -47,11 +47,11 @@ if len(form_data) !=0:
             user_result='clear'
         elif user_result=='email':
             user_result='clear'
-    '''
         if user_result!='clear' or pass_result!='clear':
             input_error=True
         else:
             sha256_password = sha256(password.encode()).hexdigest()
+            '''
             try:
                 connection, cursor=dbConnect()
 
