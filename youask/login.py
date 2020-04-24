@@ -55,6 +55,8 @@ if len(form_data) !=0:
                     if cursor.rowcount==0:
                         input_error=True
                     else:
+                        error_msg = '<p class="error">Successfully Logged In!</p>'
+                        '''
                         cookie = SimpleCookie()
                         sid = sha256(repr(time()).encode()).hexdigest()
                         cookie['UASK'] = sid
@@ -67,6 +69,7 @@ if len(form_data) !=0:
                         error_msg = '<p class="error">Successfully Logged In!</p>'
                         redirect = 'login.py'
                         print(cookie)
+                        '''
 
                     dbClose(connection, cursor)
             except (db.Error, IOError):
