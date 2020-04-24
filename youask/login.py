@@ -35,9 +35,10 @@ if len(form_data) !=0:
     error_msg=user_email
 
 
-    '''
+
     if not user_email or not password:
         error_msg='<p class="error">All Fields Must Be Filled</p>'
+    '''
     else:
         user_result, pass_result=loginValidation(user_email, password)
         user_check=False
@@ -78,13 +79,13 @@ if len(form_data) !=0:
 
             except (db.Error, IOError):
                 server_error = True
-
+    '''
     if server_error==True:
         error_msg = '<p class="error">Server Error Occurred</p>'
     elif input_error==True:
         error_msg = '<p class="error">Invalid Username or Password</p>'
 
-    '''
+
 print('Content-Type: text/html')
 print()
 
