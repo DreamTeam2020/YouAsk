@@ -26,7 +26,6 @@ def pageEnd():
 
 def generateNav(page):
     # This will generate the nav bar based on input for each page
-    # pass an id, if test==id then result+=same page
     home="index.py"
     questions="questions.py"
     profile="profile.py"
@@ -53,6 +52,7 @@ def generateNav(page):
         """ % (home, questions, profile, support)
 
 def loginToAccess():
+    # If the user is not logged in this will be displayed
     error_msg = """
         <p class="Error">To submit a question you must be logged in, you may do so here: </p>
         <ul>
@@ -63,6 +63,7 @@ def loginToAccess():
     return error_msg
 
 def generateQuestionForm(url, question, description, error):
+    # Generate the question form to be used if the user is logged in
     result="""
         <form action="%s" method="post">
             <fieldset> <!-- Question, Description -->
