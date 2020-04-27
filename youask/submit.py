@@ -23,15 +23,13 @@ error_msg="<p> </p>"
 
 #Check if user is logged in
 # If logged in print form then do len form data
-verify_login, debug=verifyLoggedIn()   # Returns username if logged in, else false
+verify_login=verifyLoggedIn()   # Returns username if logged in, else false
 
 if verify_login!='UNVERIFIED':  # If the user is logged in, print the question submission form
-    debug="<h1>User is logged in already</h1>"
     result=generateQuestionForm(url, question, description, error_msg)
 
     form_data = FieldStorage()
     if len(form_data)!=0:
-        debug="<h1>Form is not empty</h1>"
         submitted, server_error, input_error, error_msg=controllerSubmission(form_data, verify_login)
 
         if submitted==True:
@@ -55,7 +53,6 @@ print("""
 
         <main>      <!-- The main part of the website --->
             %s
-            %s
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
@@ -63,4 +60,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Submit", page_name), result, debug, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Submit", page_name), result, generateNav(page_name), pageEnd()))

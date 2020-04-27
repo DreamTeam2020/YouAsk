@@ -62,7 +62,7 @@ def loginToAccess():
     """
     return error_msg
 
-def generateQuestionForm(question, description, url, error):
+def generateQuestionForm(url, question, description, error):
     result="""
         <form action="%s" method="post">
             <fieldset> <!-- Question, Description -->
