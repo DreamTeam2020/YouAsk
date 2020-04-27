@@ -81,3 +81,29 @@ def submitQuestion(username, question, description):
         return "submitted"
     except db.Error():
         return "SERVER_ERROR"
+
+
+def getQuestion(id):
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT * FROM ask_questions WHERE id=%d"), id
+        fetch=cursor.fetchall()
+        dbClose(connection, cursor)
+        return fetch
+    except db.Error():
+        return "SERVER_ERROR"
+
+def getAnswers(question_id):
+    result=""
+    try:
+        connection, cursor=dbConnect()
+        cursor.execute("SELECT 8 FROM ask_answers WHERE question_id=%d"), question_id
+        if cursor.rowcount>0:
+            result=cursor.fetchall()
+        else:
+            result="EMPTY"
+        dbClose(connection, cursor)
+
+    except db.Error():
+        result="SERVER_ERROR"
+    return result
