@@ -2,6 +2,7 @@ from cgi import FieldStorage, escape
 from model.model_functions import *
 
 def controllerSubmission(form_data, username):
+    # Controller for the submit view, take in the form_data, verify it and then submit the question if verified
     server_error=False
     input_error=False
     submitted=False
@@ -19,6 +20,7 @@ def controllerSubmission(form_data, username):
         if len(question) < 5:   #Remove this later for proper verification
             input_error=True
         else:
+            # If input has been verified then insert the user's question in the database
             submission_result = submitQuestion(username, question, description)
             if submission_result=="SERVER_ERROR":
                 server_error=True

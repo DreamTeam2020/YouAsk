@@ -5,7 +5,7 @@ from shelve import open
 from os import environ
 
 def cookieCreate():
-
+    # Generate a cookie to be used
     cookie = SimpleCookie()
     sid = sha256(repr(time()).encode()).hexdigest()
     cookie['UASK'] = sid
@@ -15,6 +15,7 @@ def cookieCreate():
     return cookie, sid
 
 def sessionCreate(username, email, display_name, sid):
+    # Create a session for the user
     session_store = open('session_store/sess_' + sid, writeback=True)
     session_store['authenticated'] = True
     session_store['username'] = username
