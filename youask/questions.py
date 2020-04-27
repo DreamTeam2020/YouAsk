@@ -4,7 +4,7 @@ from cgitb import enable
 
 enable()
 
-from html_functions import *
+from controller.html_functions import *
 
 page_name = "questions"
 

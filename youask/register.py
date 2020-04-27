@@ -3,18 +3,9 @@
 from cgitb import enable
 enable()
 
-from html_functions import *
-from controller.ctrl_validation import *
-from controller.ctrl_cache import *
+from controller.html_functions import *
 from controller.ctrl_register import *
-from model.model_functions import *
-from cgi import FieldStorage, escape
-from hashlib import sha256
-from time import time
-from shelve import open
-from http.cookies import SimpleCookie
-import pymysql as db
-import re
+from cgi import FieldStorage
 
 page_name = "register"
 redirect= "register.py"

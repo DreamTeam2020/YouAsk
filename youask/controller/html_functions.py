@@ -51,3 +51,34 @@ def generateNav(page):
             </ul>
         </nav>
         """ % (home, questions, profile, support)
+
+def loginToAccess():
+    error_msg = """
+        <p class="Error">To submit a question you must be logged in, you may do so here: </p>
+        <ul>
+            <li><a href="register.py">Register</a></li>
+            <li><a href="login.py">Log In</a></li>
+        </ul>
+    """
+    return error_msg
+
+def generateQuestionForm(question, description, redirect, error):
+    result="""
+        <form action="%s" method="post">
+            <fieldset> <!-- Question, Description -->
+                <legend>Log In</legend>
+    
+                <label for="question">Question: </label>
+                <input type="text" name="question" id="question" value="%s" maxlength="300"/>
+    
+                <label for="desc">Description: </label>
+                <input type="text" name="desc" id="desc" value="%s"/>
+    
+                <input type="submit" value="Submit Question"/>
+            </fieldset
+        </form>
+        %s
+    """ % (redirect, question, description, error)
+
+    return result
+

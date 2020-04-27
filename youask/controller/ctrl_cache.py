@@ -2,6 +2,7 @@ from http.cookies import SimpleCookie
 from hashlib import sha256
 from time import time
 from shelve import open
+from os import environ
 
 def cookieCreate():
 
@@ -20,3 +21,15 @@ def sessionCreate(username, email, display_name, sid):
     session_store['email'] = email
     session_store['display_name'] = display_name
     session_store.close()
+
+def verifyLoggedIn():
+    cookie = SimpleCookie()
+    http_cookie_header = environ.get('HTTP_COOKIE')
+    if http_cookie_header:
+        cookie.load(http_cookie_header)
+        if 'UASK' in cookie:
+            sid = cookie['UASK'].value
+            session_store = open('sess_' + sid, writeback=False)
+            if session_store.get('authenticated'):
+                return True
+    return False
