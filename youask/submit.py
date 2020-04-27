@@ -24,8 +24,9 @@ error_msg="<p> </p>"
 #Check if user is logged in
 # If logged in print form then do len form data
 verify_login=verifyLoggedIn()   # Returns username if logged in, else false
+#error_msg="<h1>%s</h1>" % verify_login
 
-if verify_login==False:  # If the user is logged in, print the question submission form
+if verify_login!=False:  # If the user is logged in, print the question submission form
     result=generateQuestionForm(url, question, description, error_msg)
 
     form_data = FieldStorage()
