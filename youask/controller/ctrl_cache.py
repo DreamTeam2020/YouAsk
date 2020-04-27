@@ -33,7 +33,7 @@ def verifyLoggedIn():
         if 'UASK' in cookie:
             debug = "<h1>UASK is in cookie</h1>"
             sid = cookie['UASK'].value
-            session_store = open('sess_' + sid, writeback=False)
+            session_store = open('session_store/sess_' + sid, writeback=False)
             if session_store.get('authenticated'):
                 debug = "<h1>Session store got authenticated - Username: %s</h1>" % session_store.get('username')
                 result=session_store.get('username')
