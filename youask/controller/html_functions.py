@@ -62,7 +62,7 @@ def loginToAccess():
     """
     return error_msg
 
-def generateQuestionForm(question, description, redirect, error):
+def generateQuestionForm(question, description, url, error):
     result="""
         <form action="%s" method="post">
             <fieldset> <!-- Question, Description -->
@@ -71,14 +71,14 @@ def generateQuestionForm(question, description, redirect, error):
                 <label for="question">Question: </label>
                 <input type="text" name="question" id="question" value="%s" maxlength="300"/>
     
-                <label for="desc">Description: </label>
-                <input type="text" name="desc" id="desc" value="%s"/>
+                <label for="description">Description: </label>
+                <input type="text" name="description" id="description" value="%s"/>
     
                 <input type="submit" value="Submit Question"/>
             </fieldset
         </form>
         %s
-    """ % (redirect, question, description, error)
+    """ % (url, question, description, error)
 
     return result
 

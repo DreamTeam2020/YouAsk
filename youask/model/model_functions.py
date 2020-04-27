@@ -29,7 +29,7 @@ def dbRegisterUser(username, password, display_name, email):
         sha256_password = sha256(password.encode()).hexdigest()
         connection, cursor=dbConnect()
         cursor.execute("""INSERT INTO ask_users(username, pass, display_name, email)
-                                            VALUES (%s, %s, %s, %s)""",
+                            VALUES (%s, %s, %s, %s)""",
                        (username, sha256_password, display_name, email))
         connection.commit()
         dbClose(connection, cursor)
@@ -69,4 +69,15 @@ def checkAvailability(user_email, data):
         dbClose(connection, cursor)
         return result
     except db.Error:
+        return "SERVER_ERROR"
+
+def submitQuestion(username, question, description):
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("""INSERT INTO ask_questions(submitter, question, description)
+                            VALUES (%s, %s, %s)""", (username, question, description))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "submitted"
+    except db.Error():
         return "SERVER_ERROR"

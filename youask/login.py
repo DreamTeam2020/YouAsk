@@ -8,7 +8,7 @@ from controller.ctrl_login import *
 from cgi import FieldStorage
 
 page_name = "login"
-redirect= "login.py"
+url= "login.py"
 user_email=""
 
 error_msg="<p> </p>"
@@ -20,7 +20,6 @@ if len(form_data) !=0:
 
     if logged_in==True:
         error_msg = '<p class="error">Successfully Logged In!</p>'
-        redirect='profile.py'
     if server_error==True:
         error_msg = '<p class="error">Server Error Occurred</p>'
     elif input_error==True:
@@ -58,4 +57,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Login", page_name), redirect, user_email, error_msg, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Login", page_name), url, user_email, error_msg, generateNav(page_name), pageEnd()))

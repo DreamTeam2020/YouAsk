@@ -5,6 +5,7 @@ enable()
 
 from controller.html_functions import *
 from controller.ctrl_cache import *
+from controller.ctrl_submit import *
 from http.cookies import SimpleCookie
 from os import environ
 from shelve import open
@@ -13,7 +14,7 @@ from cgi import FieldStorage
 # Can't submit unless logged in, user enters Question and optional description (Markdown) into form
 
 page_name="submit"
-redirect="submit.py"
+url="submit.py"
 
 question=""
 description=""
@@ -22,12 +23,23 @@ error_msg="<p> </p>"
 
 #Check if user is logged in
 # If logged in print form then do len form data
-verify_login=verifyLoggedIn()
+verify_login=verifyLoggedIn()   # Returns username if logged in, else false
 
-if verify_login==True:  # If the user is logged in, print the question submission form
-    result=generateQuestionForm(redirect, question, description, error_msg)
+if verify_login==False:  # If the user is logged in, print the question submission form
+    result=generateQuestionForm(url, question, description, error_msg)
 
+    form_data = FieldStorage()
+    if len(form_data)!=0:
+        submitted, server_error, input_error, error_msg=controllerSubmission(form_data, verify_login)
 
+        if submitted==True:
+            error_msg = '<p class="error">Question Has Been Submitted</p>'
+            #Provide link to the question page
+        elif server_error==True:
+            error_msg = '<p class="error">Server Error Occurred</p>'
+        elif input_error==True:
+            error_msg = '<p class="error">Invalid Question, Please <em>Do Not</em> Include Profanity Within the Question. ' \
+                        'Profanity Within the Description Will Be Filtered Out</p>'
 
 print('Content-Type: text/html')
 print()

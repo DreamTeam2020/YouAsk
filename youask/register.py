@@ -8,7 +8,7 @@ from controller.ctrl_register import *
 from cgi import FieldStorage
 
 page_name = "register"
-redirect= "register.py"
+url= "register.py"
 user_details=["", "", ""]   # username, email, display_name
 
 messageList=["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]    # Contains error messages to be printed
@@ -20,7 +20,6 @@ if len(form_data) !=0:
 
     if registered==True:
         messageList[4] = '<p class="error">Successfully Registered! <a href=login.py>Login Here</a></p>'
-        redirect = 'registered.py' #Redirect to a different page after registration here
     elif server_error == True:
         messageList[4] = '<p class="error">Server Error Occurred</p>'
     else:
@@ -67,4 +66,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Register", page_name), redirect, user_details[0], messageList[0], user_details[1], messageList[1], user_details[2], messageList[2], messageList[3], messageList[4], generateNav(page_name), pageEnd()))
+    """ % (pageStart("Register", page_name), url, user_details[0], messageList[0], user_details[1], messageList[1], user_details[2], messageList[2], messageList[3], messageList[4], generateNav(page_name), pageEnd()))

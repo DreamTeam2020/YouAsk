@@ -31,5 +31,5 @@ def verifyLoggedIn():
             sid = cookie['UASK'].value
             session_store = open('sess_' + sid, writeback=False)
             if session_store.get('authenticated'):
-                return True
+                return session_store.get('username')
     return False
