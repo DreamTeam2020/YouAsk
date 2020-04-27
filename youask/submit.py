@@ -25,7 +25,7 @@ error_msg="<p> </p>"
 # If logged in print form then do len form data
 verify_login, debug=verifyLoggedIn()   # Returns username if logged in, else false
 
-if verify_login!=False:  # If the user is logged in, print the question submission form
+if verify_login!='UNVERIFIED':  # If the user is logged in, print the question submission form
     debug="<h1>User is logged in already</h1>"
     result=generateQuestionForm(url, question, description, error_msg)
 
