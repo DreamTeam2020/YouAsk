@@ -23,14 +23,15 @@ def sessionCreate(username, email, display_name, sid):
     session_store.close()
 
 def verifyLoggedIn():
+    #Verify if the user is already logged in
     result='UNVERIFIED'
     cookie = SimpleCookie()
     http_cookie_header = environ.get('HTTP_COOKIE')
-    if http_cookie_header:
-        cookie.load(http_cookie_header)
-        if 'UASK' in cookie:
+    if http_cookie_header:  # If the user has a http cookie
+        cookie.load(http_cookie_header)    # Load the cookies
+        if 'UASK' in cookie:    # If this websites cookie is in their list
             sid = cookie['UASK'].value
-            session_store = open('session_store/sess_' + sid, writeback=False)
-            if session_store.get('authenticated'):
+            session_store = open('session_store/sess_' + sid, writeback=False)  # Open the user's session
+            if session_store.get('authenticated'):  # If there is a session then they're logged in
                 result=session_store.get('username')
     return result
