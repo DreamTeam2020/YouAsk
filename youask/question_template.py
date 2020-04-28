@@ -26,7 +26,6 @@ print("""
 
         <main>      <!-- The main part of the website --->
             %s
-            %s
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
@@ -34,4 +33,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Question", page_name), result, debug, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Question", page_name), result, generateNav(page_name), pageEnd()))
