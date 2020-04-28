@@ -9,7 +9,8 @@ def generateQuestion(question):
                             <p>%s</p>
                             <p><small>Submitted By: %s - Score: %d - View Count: %d</small></p>
                         </section>
-        """ % (question[0], question[1], question[2], question[3], question[4])
+        """ % (question['question'], question['submitter'], question['description'],
+               question['score'], question['view_count'])
 
     return result_question, debug
 
@@ -35,22 +36,24 @@ def controllerQuestionAnswers(question_id):
 
 
     question = getQuestion(question_id)
-    question_details=[question['question'], question['submitter'], question['description'],
-               question['score'], question['view_count']]
+    debug='<p>Question: %s -- Username: %s -- Desc: %s -- Score: %s -- Views: %s</p>' % (question['question'], question['submitter'], question['description'],
+               question['score'], question['view_count'])
+
     # From the answers table get all answers with questionID==question.id (If fetchall is empty )
+
+    '''
     if question == "SERVER_ERROR":
         server_error=True
     else:
-        debug = "<h1>debug Got the question now generating</h1>"
-        result_question, debug = generateQuestion(question_details)
+        #debug = "<h1>debug Got the question now generating</h1>"
+        result_question, debug = generateQuestion(question)
 
-        '''
         # Get answers
         answers = getAnswers(question_id)
         if answers == "SERVER_ERROR":
             server_error=True
         elif answers != "EMPTY":
-            debug = "<h1>debug gettingmy friend the answers</h1>"
+            debug = "<h1>debug getting the answers</h1>"
             result_answers = getAnswers(question_id)
     '''
     if server_error:
