@@ -1,4 +1,4 @@
-from cgi import FieldStorage, escape
+from cgi import escape
 from model.model_functions import *
 
 def controllerSubmission(form_data, username):
@@ -11,7 +11,6 @@ def controllerSubmission(form_data, username):
 
     question= escape(form_data.getfirst('question', '').strip())
     description = escape(form_data.getfirst('description', '').strip())
-
 
     if not question:
         error_msg='<p class="error">Question Field Must Be Filled</p>'  # If no question is entered

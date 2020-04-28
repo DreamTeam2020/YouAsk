@@ -8,8 +8,10 @@ from controller.html_functions import *
 from controller.ctrl_question_page import *
 
 page_name='question'
+result="start"
+debug="Start here"
+#result=controllerQuestionAnswers(3)
 
-result=controllerQuestionAnswers(3)
 
 # Add a form to the end so users can answer the question posed
 
@@ -26,6 +28,7 @@ print("""
 
         <main>      <!-- The main part of the website --->
             %s
+            %s
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
@@ -33,4 +36,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Question", page_name), result, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Question", page_name), result, debug, generateNav(page_name), pageEnd()))
