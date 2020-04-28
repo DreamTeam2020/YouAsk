@@ -38,6 +38,7 @@ def controllerQuestionAnswers(question_id):
     # From the answers table get all answers with questionID==question.id (If fetchall is empty )
     if question == "SERVER_ERROR":
         server_error=True
+    '''
     else:
         debug = "<h1>debug Got the question now generating</h1>"
         result_question, debug = generateQuestion(question)
@@ -50,8 +51,8 @@ def controllerQuestionAnswers(question_id):
         elif answers != "EMPTY":
             debug = "<h1>debug getting the answers</h1>"
             result_answers = getAnswers(question_id)
-
-    if server_error==True:
+    '''
+    if server_error:
         result = '<p class="Error">Server Error Has Occurred</p>'
     else:
         result = result_question + result_answers
