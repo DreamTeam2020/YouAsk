@@ -34,11 +34,11 @@ def controllerQuestionAnswers(question_id):
     result_question = '<p> </p>'
     result_answers = '<p>This Question Hasn\'t Been Answered Yet.</p>'
 
+    '''
     question = getQuestion(question_id)
     # From the answers table get all answers with questionID==question.id (If fetchall is empty )
     if question == "SERVER_ERROR":
         server_error=True
-    '''
     else:
         debug = "<h1>debug Got the question now generating</h1>"
         result_question, debug = generateQuestion(question)
