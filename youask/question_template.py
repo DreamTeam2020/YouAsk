@@ -8,7 +8,7 @@ from controller.html_functions import *
 from controller.ctrl_question_page import *
 
 page_name='question'
-result, debug=controllerQuestionAnswers(3)
+result = controllerQuestionAnswers(3)
 
 
 # Add a form to the end so users can answer the question posed

@@ -86,10 +86,10 @@ def submitQuestion(username, question, description):
 def getQuestion(id):
     try:
         connection, cursor = dbConnect()
-        cursor.execute("SELECT * FROM ask_questions WHERE id=3")    #HERE
+        cursor.execute("SELECT * FROM ask_questions WHERE id=3")
         fetch=cursor.fetchall()
         dbClose(connection, cursor)
-        return fetch
+        return fetch[0]    # Fetch returns a list of dictionaries
     except db.Error():
         return "SERVER_ERROR"
 

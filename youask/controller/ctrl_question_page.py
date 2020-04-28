@@ -2,7 +2,6 @@ from model.model_functions import *
 
 def generateQuestion(question):
     # Takes in a question from fetchall
-    debug = "<h1>debug got into generate question</h1>"
     result_question = """
                         <section id="question">
                             <h1>%s</h1>
@@ -12,7 +11,7 @@ def generateQuestion(question):
         """ % (question['question'], question['submitter'], question['description'],
                question['score'], question['view_count'])
 
-    return result_question, debug
+    return result_question
 
 def generateAnswers(answers):
     result_answers = '<section id="answers_list">'
@@ -29,36 +28,33 @@ def generateAnswers(answers):
     return result_answers
 
 def controllerQuestionAnswers(question_id):
-    debug = "<h1>debug entered controller</h1>"
     server_error=False
     result_question = '<p> </p>'
     result_answers = '<p>This Question Hasn\'t Been Answered Yet.</p>'
 
 
     question = getQuestion(question_id)
-    debug='<p>Question: %s -- Username: %s -- Desc: %s -- Score: %s -- Views: %s</p>' % (question['question'], question['submitter'], question['description'],
-               question['score'], question['view_count'])
-
     # From the answers table get all answers with questionID==question.id (If fetchall is empty )
 
-    '''
+
     if question == "SERVER_ERROR":
         server_error=True
     else:
-        #debug = "<h1>debug Got the question now generating</h1>"
-        result_question, debug = generateQuestion(question)
+        result_question = generateQuestion(question)
 
         # Get answers
         answers = getAnswers(question_id)
         if answers == "SERVER_ERROR":
             server_error=True
         elif answers != "EMPTY":
-            debug = "<h1>debug getting the answers</h1>"
             result_answers = getAnswers(question_id)
-    '''
     if server_error:
         result = '<p class="Error">Server Error Has Occurred</p>'
     else:
         result = result_question + result_answers
 
-    return result, debug
+    return result
+
+
+if __name__=="__main__":
+    results=controllerQuestionAnswers(3)
