@@ -19,7 +19,7 @@ url="submit.py"
 question=""
 description=""
 result = loginToAccess()
-error_msg="<p> </p>"
+error_msg="<p>Start of error message</p>"
 
 #Check if user is logged in
 # If logged in print form then do len form data
@@ -41,6 +41,7 @@ if verify_login!='UNVERIFIED':  # If the user is logged in, print the question s
             error_msg = '<p class="error">Invalid Question, Please <em>Do Not</em> Include Profanity Within the Question. ' \
                         'Profanity Within the Description Will Be Filtered Out</p>'
 
+    result = generateQuestionForm(url, question, description, error_msg)
 print('Content-Type: text/html')
 print()
 
