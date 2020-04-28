@@ -94,10 +94,9 @@ def getQuestion(id):
         return "SERVER_ERROR"
 
 def getAnswers(question_id):
-    result=""
     try:
         connection, cursor=dbConnect()
-        cursor.execute("SELECT 8 FROM ask_answers WHERE question_id=%d"), question_id
+        cursor.execute("SELECT * FROM ask_answers WHERE question_id=3") #Edit this %d not working
         if cursor.rowcount>0:
             result=cursor.fetchall()
         else:

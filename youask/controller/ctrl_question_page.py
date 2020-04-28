@@ -8,7 +8,7 @@ def generateQuestion(question):
                             <p>%s</p>
                             <p><small>Submitted By: %s - Score: %d - View Count: %d</small></p>
                         </section>
-        """ % (question['question'], question['submitter'], question['description'],
+        """ % (question['question'], question['description'], question['submitter'],
                question['score'], question['view_count'])
 
     return result_question
@@ -41,14 +41,14 @@ def controllerQuestionAnswers(question_id):
         server_error=True
     else:
         result_question = generateQuestion(question)
-        '''
+
         # Get answers
         answers = getAnswers(question_id)
         if answers == "SERVER_ERROR":
             server_error=True
         elif answers != "EMPTY":
-            result_answers = getAnswers(question_id)
-        '''
+            result_answers = generateAnswers(answers)
+
     if server_error:
         result = '<p class="Error">Server Error Has Occurred</p>'
     else:
@@ -59,3 +59,4 @@ def controllerQuestionAnswers(question_id):
 
 if __name__=="__main__":
     results=controllerQuestionAnswers(3)
+    print(results)
