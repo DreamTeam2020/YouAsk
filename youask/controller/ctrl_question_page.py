@@ -40,10 +40,10 @@ def controllerQuestionAnswers(question_id):
     if question == "SERVER_ERROR":
         server_error=True
     else:
-        '''
         debug = "<h1>debug Got the question now generating</h1>"
         result_question, debug = generateQuestion(question)
 
+        '''
         # Get answers
         answers = getAnswers(question_id)
         if answers == "SERVER_ERROR":
@@ -56,6 +56,5 @@ def controllerQuestionAnswers(question_id):
         result = '<p class="Error">Server Error Has Occurred</p>'
     else:
         result = result_question + result_answers
-        debug = "<h1>Debug done, adding both and returning</h1>"
 
     return result, debug
