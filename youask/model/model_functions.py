@@ -86,7 +86,7 @@ def submitQuestion(username, question, description):
 def getQuestion(id):
     try:
         connection, cursor = dbConnect()
-        cursor.execute("SELECT * FROM ask_questions WHERE id=%d"), id
+        cursor.execute("SELECT * FROM ask_questions WHERE id=3")    #HERE
         fetch=cursor.fetchall()
         dbClose(connection, cursor)
         return fetch
