@@ -67,7 +67,7 @@ def generateQuestionForm(url, question, description, error):
     result="""
         <form action="%s" method="post">
             <fieldset> <!-- Question, Description -->
-                <legend>Submit a Question</legend>
+                <legend>Log In</legend>
     
                 <label for="question">Question: </label>
                 <input type="text" name="question" id="question" value="%s" maxlength="300"/>
@@ -83,26 +83,6 @@ def generateQuestionForm(url, question, description, error):
 
     return result
 
-def generateAnswerForm(url, answer, error):
-    # Generate the answer form to be used
-    result="""
-        <section>
-            <form action="%s" method="post">
-                <fieldset> <!-- Answer -->
-                    <legend>Submit an Answer</legend>
-        
-                    <label for="answer">Answer: </label>
-                    <input type="text" name="answer" id="answer" value="%s"/>
-        
-                    <input type="submit" value="Submit Answer"/>
-                </fieldset
-            </form>
-            %s
-        </section>
-    """ % (url, answer, error)
-
-    return result
-
 
 def generateBugreportForm(url, description, error):
     # Generate the question form to be used if the user is logged in
@@ -115,7 +95,8 @@ def generateBugreportForm(url, description, error):
             </fieldset
         </form>
         %s
-
+     
     """ % (url, description, error)
 
     return result
+

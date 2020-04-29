@@ -1,17 +1,14 @@
 #!/usr/local/bin/python3
 
 from cgitb import enable
+
+from controller.ctrl_BugReport import controllerBugreportSubmission
+
 enable()
 
 from controller.html_functions import *
 from controller.ctrl_cache import *
-from controller.ctrl_submit import *
-from http.cookies import SimpleCookie
-from os import environ
-from shelve import open
 from cgi import FieldStorage
-
-# Can't submit unless logged in, user enters Question and optional description (Markdown) into form
 
 page_name="support"
 url="support.py"
@@ -21,16 +18,14 @@ description=""
 result = loginToAccess()
 error_msg="<p> </p>"
 
-#Check if user is logged in
-# If logged in print form then do len form data
 verify_login=verifyLoggedIn()   # Returns username if logged in, else false
 
 if verify_login!='UNVERIFIED':  # If the user is logged in, print the question submission form
-    result=generateBugreportForm(url, description, error_msg)
+    result=generateBugreportForm(url,  description, error_msg)
 
     form_data = FieldStorage()
     if len(form_data)!=0:
-        submitted, server_error, input_error, error_msg=controllerBugSubmission(form_data, verify_login)
+        submitted, server_error, input_error, error_msg=controllerBugreportSubmission(form_data)
 
         if submitted==True:
             error_msg = '<p class="error">Question Has Been Submitted</p>'
