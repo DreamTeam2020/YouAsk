@@ -82,6 +82,17 @@ def submitQuestion(username, question, description):
     except db.Error():
         return "SERVER_ERROR"
 
+def submitAnswer(username, answer, question_id):
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("""INSERT INTO ask_answers(submitter, answer, question_id)
+                            VALUES (%s, %s, %s)""", (username, answer, question_id))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "submitted"
+    except db.Error():
+        return "SERVER_ERROR"
+
 
 def getQuestion(id):
     try:

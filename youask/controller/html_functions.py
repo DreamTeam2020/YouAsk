@@ -67,7 +67,7 @@ def generateQuestionForm(url, question, description, error):
     result="""
         <form action="%s" method="post">
             <fieldset> <!-- Question, Description -->
-                <legend>Log In</legend>
+                <legend>Submit a Question</legend>
     
                 <label for="question">Question: </label>
                 <input type="text" name="question" id="question" value="%s" maxlength="300"/>
@@ -83,3 +83,22 @@ def generateQuestionForm(url, question, description, error):
 
     return result
 
+def generateAnswerForm(url, answer, error):
+    # Generate the answer form to be used
+    result="""
+        <section>
+            <form action="%s" method="post">
+                <fieldset> <!-- Answer -->
+                    <legend>Submit an Answer</legend>
+        
+                    <label for="answer">Answer: </label>
+                    <input type="text" name="answer" id="answer" value="%s"/>
+        
+                    <input type="submit" value="Submit Answer"/>
+                </fieldset
+            </form>
+            %s
+        </section>
+    """ % (url, answer, error)
+
+    return result

@@ -124,7 +124,7 @@ def profanityFilter(input):
     '''
     return True if input=="turkey" else False
 
-if __name__=="__main__":
+if __name__ == "__main__":
     #Email Testing
     email = "cristianasd223@gmail.com"
     email_test=emailValidationRegistration(email)
