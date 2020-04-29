@@ -89,11 +89,8 @@ def generateBugreportForm(url, description):
     result = """
         <form action="%s" method="post">
             <fieldset> <!--  Description -->
-    
-
                 <label for="description">Description: </label>
                 <input type="text" name="description" id="description" value="%s"/>
-
                 <input type="submit" value="Submit Bug"/>
             </fieldset
         </form>
