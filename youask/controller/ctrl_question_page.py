@@ -38,11 +38,11 @@ def controllerQuestionAnswers(question_id):
 
     question = getQuestion(question_id)
 
+    '''
     if question == "SERVER_ERROR":
         server_error=True
     else:
         result_question = generateQuestion(question)
-        '''
         # Get answers
         answers = getAnswers(question_id)
         if answers == "SERVER_ERROR":
