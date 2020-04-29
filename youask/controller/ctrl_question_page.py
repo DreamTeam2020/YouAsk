@@ -2,6 +2,7 @@ from model.model_functions import *
 from controller.html_functions import *
 from controller.ctrl_cache import *
 from cgi import escape
+from cgi import FieldStorage
 
 def generateQuestion(question):
     # Takes in a question from fetchall
@@ -30,7 +31,7 @@ def generateAnswers(answers):
 
     return result_answers
 
-def controllerQuestionAnswers(question_id, form_data):
+def controllerQuestionAnswers(question_id):
     server_error=False
     result_question = '<p> </p>'
     result_answers = '<p>This Question Hasn\'t Been Answered Yet.</p>'
@@ -39,7 +40,6 @@ def controllerQuestionAnswers(question_id, form_data):
 
     if question == "SERVER_ERROR":
         server_error=True
-    '''
     else:
         result_question = generateQuestion(question)
         
@@ -49,29 +49,29 @@ def controllerQuestionAnswers(question_id, form_data):
             server_error=True
         elif answers != "EMPTY":
             result_answers = generateAnswers(answers)
-    '''
+
     if server_error:
         result = '<p class="Error">Server Error Has Occurred</p>'
     else:
         result = result_question + result_answers
-        '''
         # Check if user is logged in, if so then allow them to answer
         logged=verifyLoggedIn()
         if logged!='UNVERIFIED':
-            answer_form=controllerAnswerForm(logged, question_id, form_data)
+            answer_form=controllerAnswerForm(logged, question_id)
 
             result+=answer_form
-        '''
     return result
 
-def controllerAnswerForm(username, question_id, form_data):
+def controllerAnswerForm(username, question_id):
     # Generate form here, then do len form data, then generate form again for the error messages
     answer = ''
     error_msg = '<p> </p>'
     page_url = 'question_template.py'  # page_url='%d.py' % question_id
 
     answer_form = generateAnswerForm(page_url, answer, error_msg)
-    if len(form_data) > 0:
+    form_data = FieldStorage
+
+    if len(form_data)!=0:
         server_error = False
         input_error = False
         submitted = False
@@ -105,7 +105,5 @@ def controllerAnswerForm(username, question_id, form_data):
 
 if __name__=="__main__":
     # It works
-    #form_data="I LOVE THIS QUESTION"
-    form_data=''
-    results=controllerQuestionAnswers(3, form_data)
+    results=controllerQuestionAnswers(3)
     print(results)

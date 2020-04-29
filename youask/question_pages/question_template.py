@@ -3,15 +3,10 @@
 from cgitb import enable
 enable()
 
-from model.model_functions import *
-from controller.html_functions import *
 from controller.ctrl_question_page import *
-from cgi import FieldStorage
 
 page_name='question'
-form_data=FieldStorage
-result='<p>Work please</p>'
-#result = controllerQuestionAnswers(3, form_data)   # Pass in the form data as well
+result = controllerQuestionAnswers(3)
 
 
 # Add a form to the end so users can answer the question posed
