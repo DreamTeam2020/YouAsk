@@ -11,14 +11,12 @@ from os import environ
 from shelve import open
 from cgi import FieldStorage
 
-# Can't submit unless logged in, user enters Question and optional description (Markdown) into form
-
 page_name="Bugreport"
 url="Bugreport.py"
 
 description=""
 error_msg="<p> </p>"
-result=generateBugreportForm(url, description, error_msg)
+result=generateBugreportForm(url, description)
 result = BugReport(description)
 print('Content-Type: text/html')
 print()
