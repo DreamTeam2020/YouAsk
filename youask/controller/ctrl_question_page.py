@@ -53,15 +53,14 @@ def controllerQuestionAnswers(question_id, form_data):
         result = '<p class="Error">Server Error Has Occurred</p>'
     else:
         result = result_question + result_answers
-
+        '''
         # Check if user is logged in, if so then allow them to answer
         logged=verifyLoggedIn()
         if logged!='UNVERIFIED':
             answer_form=controllerAnswerForm(logged, question_id, form_data)
 
-
             result+=answer_form
-
+        '''
     return result
 
 def controllerAnswerForm(username, question_id, form_data):
@@ -97,14 +96,11 @@ def controllerAnswerForm(username, question_id, form_data):
         elif server_error == True:
             error_msg = '<p class="error">Server Error Occurred</p>'
         elif input_error == True:
-            error_msg = '<p class="error">Invalid question, please <em>Do Not</em> include profanity within the question. ' \
-                        'profanity within the description will be filtered out</p>'
+            error_msg = '<p class="error">Invalid answer, please <em>Do Not</em> include profanity within the question. profanity within the description will be filtered out</p>'
 
         answer_form = generateAnswerForm(page_url, answer, error_msg)
 
     return answer_form
-
-
 
 if __name__=="__main__":
     # It works

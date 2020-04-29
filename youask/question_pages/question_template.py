@@ -10,7 +10,7 @@ from cgi import FieldStorage
 
 page_name='question'
 form_data=FieldStorage
-result = controllerQuestionAnswers(3,form_data)   # Pass in the form data as well
+result = controllerQuestionAnswers(3, form_data)   # Pass in the form data as well
 
 
 # Add a form to the end so users can answer the question posed
