@@ -41,18 +41,18 @@ def controllerQuestionAnswers(question_id, form_data):
         server_error=True
     else:
         result_question = generateQuestion(question)
-
+        '''
         # Get answers
         answers = getAnswers(question_id)
         if answers == "SERVER_ERROR":
             server_error=True
         elif answers != "EMPTY":
             result_answers = generateAnswers(answers)
-
+        '''
     if server_error:
         result = '<p class="Error">Server Error Has Occurred</p>'
     else:
-        result = result_question + result_answers
+        result = result_question# + result_answers
         '''
         # Check if user is logged in, if so then allow them to answer
         logged=verifyLoggedIn()
@@ -90,12 +90,12 @@ def controllerAnswerForm(username, question_id, form_data):
                 else:
                     submitted = True
 
-        if submitted == True:
+        if submitted:
             error_msg = '<p class="error">Question Has Been Submitted</p>'
             # Provide link to the question page
-        elif server_error == True:
+        elif server_error:
             error_msg = '<p class="error">Server Error Occurred</p>'
-        elif input_error == True:
+        elif input_error:
             error_msg = '<p class="error">Invalid answer, please <em>Do Not</em> include profanity within the question. profanity within the description will be filtered out</p>'
 
         answer_form = generateAnswerForm(page_url, answer, error_msg)
