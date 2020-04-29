@@ -117,3 +117,14 @@ def getAnswers(question_id):
     except db.Error():
         result="SERVER_ERROR"
     return result
+
+def BugReport(description):
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("""INSERT INTO ask_BugReport(one)
+                            VALUES (%s)""", (description))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "submitted"
+    except db.Error():
+        return "SERVER_ERROR"

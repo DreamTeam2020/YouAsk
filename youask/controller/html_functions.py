@@ -102,3 +102,20 @@ def generateAnswerForm(url, answer, error):
     """ % (url, answer, error)
 
     return result
+
+
+def generateBugreportForm(url, description, error):
+    # Generate the question form to be used if the user is logged in
+    result = """
+        <form action="%s" method="post">
+            <fieldset> <!--  Description -->
+                <label for="description">Description: </label>
+                <input type="text" name="description" id="description" value="%s"/>
+                <input type="submit" value="Submit Bug"/>
+            </fieldset
+        </form>
+        %s
+
+    """ % (url, description, error)
+
+    return result
