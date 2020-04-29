@@ -39,20 +39,21 @@ def controllerQuestionAnswers(question_id, form_data):
 
     if question == "SERVER_ERROR":
         server_error=True
+    '''
     else:
         result_question = generateQuestion(question)
-        '''
+        
         # Get answers
         answers = getAnswers(question_id)
         if answers == "SERVER_ERROR":
             server_error=True
         elif answers != "EMPTY":
             result_answers = generateAnswers(answers)
-        '''
+    '''
     if server_error:
         result = '<p class="Error">Server Error Has Occurred</p>'
     else:
-        result = result_question# + result_answers
+        result = result_question + result_answers
         '''
         # Check if user is logged in, if so then allow them to answer
         logged=verifyLoggedIn()
