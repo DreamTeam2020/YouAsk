@@ -84,7 +84,7 @@ def generateQuestionForm(url, question, description, error):
     return result
 
 
-def generateBugreportForm(url, description):
+def generateBugreportForm(url, description, error):
     # Generate the question form to be used if the user is logged in
     result = """
         <form action="%s" method="post">
@@ -94,8 +94,9 @@ def generateBugreportForm(url, description):
                 <input type="submit" value="Submit Bug"/>
             </fieldset
         </form>
+        %s
      
-    """ % (url, description)
+    """ % (url, description, error)
 
     return result
 
