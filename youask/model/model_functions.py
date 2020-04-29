@@ -94,7 +94,7 @@ def submitAnswer(username, answer, question_id):
 def getQuestion(id):
     try:
         connection, cursor = dbConnect()
-        cursor.execute("SELECT * FROM ask_questions WHERE id=%d") % id    # Edit this %d not working
+        cursor.execute("SELECT * FROM ask_questions WHERE id=%d") % int(id)    # Edit this %d not working
         fetch=cursor.fetchall()
         dbClose(connection, cursor)
         return fetch[0]    # Fetch returns a list of dictionaries
@@ -104,7 +104,7 @@ def getQuestion(id):
 def getAnswers(question_id):
     try:
         connection, cursor=dbConnect()
-        cursor.execute("SELECT * FROM ask_answers WHERE question_id=%d") % question_id    # Edit this %d not working
+        cursor.execute("SELECT * FROM ask_answers WHERE question_id=%d") % int(question_id)    # Edit this %d not working
         if cursor.rowcount>0:
             result=cursor.fetchall()
         else:
