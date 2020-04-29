@@ -61,6 +61,8 @@ def controllerQuestionAnswers(question_id):
             #answer_form=controllerAnswerForm(logged, question_id)
             answer_form='<h1>logged in</h1>'
             result+=answer_form
+        else:
+            debug="<p>%s</p>" % logged
     return result
 
 def controllerAnswerForm(username, question_id):
