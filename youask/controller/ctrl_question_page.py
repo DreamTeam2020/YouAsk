@@ -7,7 +7,7 @@ from cgi import FieldStorage
 def generateQuestion(question):
     # Takes in a question from fetchall
     result_question = """
-                        <section id="question">
+                        <section class="question">
                             <h1>%s</h1>
                             <p>%s</p>
                             <p><small>Submitted By: %s - Score: %d - View Count: %d</small></p>
@@ -55,6 +55,10 @@ def controllerQuestionAnswers(question_id):
     else:
         result = result_question + result_answers
         # Check if user is logged in, if so then allow them to answer
+
+
+
+
         logged=verifyLoggedIn()
         if logged!='UNVERIFIED':
             answer_form=controllerAnswerForm(logged, question_id)

@@ -2,7 +2,7 @@
 
 from cgitb import enable
 
-from controller.ctrl_BugReport import controllerBugreportSubmission
+from controller.ctrl_bug_report import controllerBugReportSubmission
 
 enable()
 
@@ -10,31 +10,26 @@ from controller.html_functions import *
 from controller.ctrl_cache import *
 from cgi import FieldStorage
 
-page_name="support"
+page_name="Support"
 url="support.py"
 
-question=""
 description=""
-result = loginToAccess()
 error_msg="<p> </p>"
 
-verify_login=verifyLoggedIn()   # Returns username if logged in, else false
+result=generateBugreportForm(url,  description, error_msg)
 
-if verify_login!='UNVERIFIED':  # If the user is logged in, print the question submission form
-    result=generateBugreportForm(url,  description, error_msg)
+form_data = FieldStorage()
+if len(form_data)!=0:
+    submitted, server_error, input_error, error_msg=controllerBugReportSubmission(form_data)
 
-    form_data = FieldStorage()
-    if len(form_data)!=0:
-        submitted, server_error, input_error, error_msg=controllerBugreportSubmission(form_data)
-
-        if submitted==True:
-            error_msg = '<p class="error">Question Has Been Submitted</p>'
-            #Provide link to the question page
-        elif server_error==True:
-            error_msg = '<p class="error">Server Error Occurred</p>'
-        elif input_error==True:
-            error_msg = '<p class="error">Invalid question, please <em>Do Not</em> include profanity within the question. ' \
-                        'profanity within the description will be filtered out</p>'
+    if submitted==True:
+        error_msg = '<p class="error">Question Has Been Submitted</p>'
+        #Provide link to the question page
+    elif server_error==True:
+        error_msg = '<p class="error">Server Error Occurred</p>'
+    elif input_error==True:
+        error_msg = '<p class="error">Invalid question, please <em>Do Not</em> include profanity within the question. ' \
+                    'profanity within the description will be filtered out</p>'
 
     result = generateBugreportForm(url, description, error_msg)
 print('Content-Type: text/html')
