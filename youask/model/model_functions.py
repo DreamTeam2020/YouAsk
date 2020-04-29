@@ -54,8 +54,6 @@ def dbLoginUser(user_email, password):
     except db.Error:
         return "SERVER_ERROR"
 
-
-
 def checkAvailability(user_email, data):
     # Takes in the data type (username or email) and the data itself
     # return clear, message or SERVER_ERROR
@@ -82,6 +80,40 @@ def submitQuestion(username, question, description):
     except db.Error():
         return "SERVER_ERROR"
 
+def submitAnswer(username, answer, question_id):
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("""INSERT INTO ask_answers(submitter, answer, question_id)
+                            VALUES (%s, %s, %s)""", (username, answer, question_id))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "submitted"
+    except db.Error():
+        return "SERVER_ERROR"
+
+def getQuestion(id):
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT * FROM ask_questions WHERE id=3")
+        fetch=cursor.fetchall()
+        dbClose(connection, cursor)
+        return fetch[0]    # Fetch returns a list of dictionaries
+    except db.Error():
+        return "SERVER_ERROR"
+
+def getAnswers(question_id):
+    try:
+        connection, cursor=dbConnect()
+        cursor.execute("SELECT * FROM ask_answers WHERE question_id=3") #Edit this %d not working
+        if cursor.rowcount>0:
+            result=cursor.fetchall()
+        else:
+            result="EMPTY"
+        dbClose(connection, cursor)
+
+    except db.Error():
+        result="SERVER_ERROR"
+    return result
 
 def BugReport(description):
     try:
@@ -93,5 +125,3 @@ def BugReport(description):
         return "submitted"
     except db.Error():
         return "SERVER_ERROR"
-
-
