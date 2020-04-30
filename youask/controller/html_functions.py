@@ -54,11 +54,13 @@ def generateNav(page):
 def loginToAccess():
     # If the user is not logged in this will be displayed
     error_msg = """
-        <p class="Error">To submit a question you must be logged in, you may do so here: </p>
-        <ul>
-            <li><a href="register.py">Register</a></li>
-            <li><a href="login.py">Log In</a></li>
-        </ul>
+        <section
+            <p class="Error">To submit a question you must be logged in, you may do so here: </p>
+            <ul>
+                <li><a href="register.py">Register</a></li>
+                <li><a href="login.py">Log In</a></li>
+            </ul>
+        </section>
     """
     return error_msg
 
