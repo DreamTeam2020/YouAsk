@@ -1,46 +1,128 @@
 #!/usr/local/bin/python3
 
 from cgitb import enable
-
-from model.model_functions import getQuestion
-
 enable()
+import pymysql as db
+from hashlib import sha256
 
-from controller.html_functions import *
+def dbConnect():
+    # Function to open database connection
+    try:
+        connection = db.connect('cs1.ucc.ie', 'cgg1', 'weeS2dih', '2021_cgg1')
+        cursor = connection.cursor(db.cursors.DictCursor)
+        return connection, cursor
 
-list1 = []
-page_name = "questions"
-result = getQuestion()
-length=len(result)
+    except db.Error:
+        # If an error occurs return an error code such that the function can handle the error
+        connection = "SERVER_ERROR"
+        cursor = ""
+        return connection, cursor
 
-print('Content-Type: text/html')
-print()
+def dbClose(connection, cursor):
+    # Close existing connections
 
-print("""
-    %s
-    <body>
-        <header>    <!-- A header section displayed at the top of the page--->
+    cursor.close()
+    connection.close()
 
-        </header>
-        <script>
-        function Add(num) {
-        for(var i=0; i<num;i++){
-    var para = document.createElement("p");
-    para.innerHTML="this is a new paragraph";
-    document.body.appendChild(para);}
-    }
-        </script>
+def dbRegisterUser(username, password, display_name, email):
+    try:
+        sha256_password = sha256(password.encode()).hexdigest()
+        connection, cursor=dbConnect()
+        cursor.execute("""INSERT INTO ask_users(username, pass, display_name, email)
+                            VALUES (%s, %s, %s, %s)""",
+                       (username, sha256_password, display_name, email))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "registered"
+    except db.Error:
+        return "SERVER_ERROR"
 
-        <main>      <!-- The main part of the website --->
-            <h1>test page</h1>
-           Add(%s)
-           %s
-        </main>
+def dbLoginUser(user_email, password):
+    try:
+        sha256_password = sha256(password.encode()).hexdigest()
+        connection, cursor=dbConnect()
+        cursor.execute('SELECT * FROM ask_users WHERE (username=%s OR email=%s) AND pass=%s',
+                       (user_email, user_email, sha256_password))
 
-        <aside>     <!-- A small aside that contains information not related to the main --->
+        if cursor.rowcount == 0:
+            result = "INPUT_ERROR"
+        else:
+            fetch = cursor.fetchall()
+            result = fetch[0]
+        dbClose(connection, cursor)
+        return result
+    except db.Error:
+        return "SERVER_ERROR"
 
-        </aside>
+def checkAvailability(user_email, data):
+    # Takes in the data type (username or email) and the data itself
+    # return clear, message or SERVER_ERROR
+    try:
+        connection, cursor=dbConnect()
+        cursor.execute("SELECT * FROM ask_users WHERE %s = %s", (user_email, data))
+        if cursor.rowcount > 0:
+            result='<p class="error">%s already in use</p>' % user_email
+        else:
+            result='clear'
+        dbClose(connection, cursor)
+        return result
+    except db.Error:
+        return "SERVER_ERROR"
 
-        %s
-        %s
-    """ % (pageStart("Questions", page_name), length, result[0], generateNav(page_name), pageEnd()))
+def submitQuestion(username, question, description):
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("""INSERT INTO ask_questions(submitter, question, description)
+                            VALUES (%s, %s, %s)""", (username, question, description))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "submitted"
+    except db.Error():
+        return "SERVER_ERROR"
+
+def submitAnswer(username, answer, question_id):
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("""INSERT INTO ask_answers(submitter, answer, question_id)
+                            VALUES (%s, %s, %s)""", (username, answer, question_id))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "submitted"
+    except db.Error():
+        return "SERVER_ERROR"
+
+def getQuestion():
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT * FROM ask_questions")
+        fetch = cursor.fetchall()
+        dbClose(connection, cursor)
+        return fetch  # Fetch returns a list of dictionaries
+    except db.Error():
+        return "SERVER_ERROR"
+
+
+def getAnswers(answer_id):
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT * FROM ask_answers WHERE question_id=%d") % int(answer_id)  # Edit this %d not working
+        if cursor.rowcount > 0:
+            result = cursor.fetchall()
+        else:
+            result = "EMPTY"
+        dbClose(connection, cursor)
+
+    except db.Error():
+        result = "SERVER_ERROR"
+    return result
+
+def bugReport(description):
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("""INSERT INTO ask_BugReport(one)
+                            VALUES (%s)""", description)
+        connection.commit()
+        dbClose(connection, cursor)
+        return "submitted"
+    except db.Error():
+        return "SERVER_ERROR"
