@@ -11,7 +11,7 @@ from controller.html_functions import *
 list1 = []
 page_name = "questions"
 result = getQuestion()
-length=len(result)
+length = len(result)
 
 print('Content-Type: text/html')
 print()
@@ -26,9 +26,9 @@ print("""
 
         <main>      <!-- The main part of the website --->
             <h1>test page</h1>
-           """ %pageStart("Questions", page_name))
-for x in range(length):
-  print(""" <p> %s </p>""") %result[x]
+           """ % pageStart("Questions", page_name))
+for x in result:
+    print(""" <p> %s </p>""" % x)
 print("""          %s
         </main>
 
@@ -38,4 +38,4 @@ print("""          %s
 
         %s
         %s
-    """ %  generateNav(page_name), pageEnd())
+    """ % generateNav(page_name), pageEnd())
