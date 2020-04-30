@@ -32,5 +32,5 @@ print("""
             </aside>
         </body>
     </html>
-    """)
+""")
 

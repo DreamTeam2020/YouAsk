@@ -3,8 +3,8 @@
 from cgitb import enable
 enable()
 
-from controller.ctrl_question_page import *
-from controller.html_functions import *
+from ..controller.ctrl_question_page import *
+from ..controller.html_functions import *
 
 page_name='question'
 #result = '<p>Please work</p>'
