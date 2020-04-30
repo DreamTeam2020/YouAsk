@@ -36,6 +36,5 @@ print("""          %s
 
         </aside>
 
-        %s
-        %s
+        
     """ % generateNav(page_name), pageEnd())
