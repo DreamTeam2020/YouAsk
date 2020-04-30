@@ -39,6 +39,9 @@ def controllerSubmission():
                     if submission_result=="SERVER_ERROR":
                         error_msg = '<p class="error">Server Error Occurred</p>'
                     else:
+                        #Question was submitted
+                        question=''
+                        description=''
                         error_msg = '<p class="error">Question Has Been Submitted</p>'
 
             result = generateQuestionForm(url, question, description, error_msg)
