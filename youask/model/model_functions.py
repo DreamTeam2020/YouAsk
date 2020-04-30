@@ -91,28 +91,29 @@ def submitAnswer(username, answer, question_id):
     except db.Error():
         return "SERVER_ERROR"
 
-def getQuestion(id):
+def getQuestion():
     try:
         connection, cursor = dbConnect()
-        cursor.execute("SELECT * FROM ask_questions WHERE id=%s", id)
-        fetch=cursor.fetchall()
+        cursor.execute("SELECT * FROM ask_questions")
+        fetch = cursor.fetchall()
         dbClose(connection, cursor)
-        return fetch[0]    # Fetch returns a list of dictionaries
+        return fetch  # Fetch returns a list of dictionaries
     except db.Error():
         return "SERVER_ERROR"
 
-def getAnswers(question_id):
+
+def getAnswers(answer_id):
     try:
-        connection, cursor=dbConnect()
-        cursor.execute("SELECT * FROM ask_answers WHERE question_id=%s", question_id)
-        if cursor.rowcount>0:
-            result=cursor.fetchall()
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT * FROM ask_answers WHERE question_id=%d") % int(answer_id)  # Edit this %d not working
+        if cursor.rowcount > 0:
+            result = cursor.fetchall()
         else:
-            result="EMPTY"
+            result = "EMPTY"
         dbClose(connection, cursor)
 
     except db.Error():
-        result="SERVER_ERROR"
+        result = "SERVER_ERROR"
     return result
 
 def bugReport(description):
