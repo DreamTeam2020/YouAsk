@@ -35,7 +35,7 @@ print("""
 
         <main>      <!-- The main part of the website --->
             <h1>test page</h1>
-            Add(list1)
+           %s
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
@@ -44,4 +44,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Questions", page_name),  generateNav(page_name), pageEnd()))
+    """ % (pageStart("Questions", page_name), result, generateNav(page_name), pageEnd()))
