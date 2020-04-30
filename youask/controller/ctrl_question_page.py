@@ -56,15 +56,16 @@ def controllerQuestionAnswers(question_id):
         result = result_question + result_answers
         # Check if user is logged in, if so then allow them to answer
 
-        logged=verifyLoggedIn()
+        logged=verifyLoggedIn(True)
+        debug="<p>%s</p>" % logged
         if logged!='UNVERIFIED':
             #answer_form=controllerAnswerForm(logged, question_id)
             answer_form='<h1>logged in</h1>'
             result+=answer_form
         else:
-            debug="<p>%s</p>" % logged
+            #debug="<p>%s</p>" % logged
             result+="<h1>NOT LOGGED IN YAHOOO</h1>"
-            result+=debug
+        result+=debug
     return result
 
 def controllerAnswerForm(username, question_id):
