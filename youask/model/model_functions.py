@@ -91,6 +91,16 @@ def submitAnswer(username, answer, question_id):
     except db.Error():
         return "SERVER_ERROR"
 
+def getSpecificQuestion(id):
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT * FROM ask_questions WHERE id=%s", id)
+        fetch=cursor.fetchall()
+        dbClose(connection, cursor)
+        return fetch[0]    # Fetch returns a list of dictionaries
+    except db.Error():
+        return "SERVER_ERROR"
+
 def getQuestion():
     try:
         connection, cursor = dbConnect()
@@ -102,10 +112,11 @@ def getQuestion():
         return "SERVER_ERROR"
 
 
-def getAnswers(answer_id):
+def getAnswers(question_id):
+    # This returns a list of answers when given what question they're responding to
     try:
         connection, cursor = dbConnect()
-        cursor.execute("SELECT * FROM ask_answers WHERE question_id=%d") % int(answer_id)  # Edit this %d not working
+        cursor.execute("SELECT * FROM ask_answers WHERE question_id=%d") % int(question_id)  # Edit this %d not working
         if cursor.rowcount > 0:
             result = cursor.fetchall()
         else:
