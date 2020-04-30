@@ -22,19 +22,14 @@ print("""
         <header>    <!-- A header section displayed at the top of the page--->
 
         </header>
-        <script>
-        function Add(num) {
-        for(var i=0; i<num;i++){
-    var para = document.createElement("p");
-    para.innerHTML="this is a new paragraph";
-    document.body.appendChild(para);}
-    }
-        </script>
+
 
         <main>      <!-- The main part of the website --->
             <h1>test page</h1>
-           Add(%s)
-           %s
+           """ %pageStart("Questions", page_name))
+for x in range(length):
+  print(""" <p> %s </p>""") %result[x]
+print("""          %s
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
@@ -43,4 +38,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Questions", page_name), length, result[0], generateNav(page_name), pageEnd()))
+    """ %  generateNav(page_name), pageEnd())
