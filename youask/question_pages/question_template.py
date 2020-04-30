@@ -7,9 +7,9 @@ sys.path.append("../")  # Because it's a subdirectory we append this to all of t
 
 from controller.ctrl_question_page import *
 from controller.html_functions import *
+from controller.ctrl_cache import *
 
 page_name='question'
-#result = '<p>Please work</p>'
 result = controllerQuestionAnswers(3)
 
 

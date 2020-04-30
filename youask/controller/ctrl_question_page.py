@@ -36,7 +36,7 @@ def controllerQuestionAnswers(question_id):
     result_question = '<p> </p>'
     result_answers = '<p>This Question Hasn\'t Been Answered Yet.</p>'
 
-    question = getQuestion(question_id)
+    question = getSpecificQuestion(question_id)
 
 
     if question == "SERVER_ERROR":

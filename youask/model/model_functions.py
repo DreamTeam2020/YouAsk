@@ -116,7 +116,7 @@ def getAnswers(question_id):
     # This returns a list of answers when given what question they're responding to
     try:
         connection, cursor = dbConnect()
-        cursor.execute("SELECT * FROM ask_answers WHERE question_id=%d") % int(question_id)  # Edit this %d not working
+        cursor.execute("SELECT * FROM ask_answers WHERE question_id=%s", question_id)  # Edit this %d not working
         if cursor.rowcount > 0:
             result = cursor.fetchall()
         else:
