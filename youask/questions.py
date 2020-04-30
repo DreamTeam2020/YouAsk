@@ -12,9 +12,9 @@ list1 = []
 page_name = "questions"
 result = getQuestion()
 length = len(result)
-questions=''
+questions = ''
 for x in result:
-    questions +='<p>%s</p>' % x
+    questions += '<p>%s</p>' % x
 
 print('Content-Type: text/html')
 print()
@@ -39,4 +39,4 @@ print("""
 
         %s
         %s
-    """ %  pageStart("Questions", page_name)), questions, generateNav(page_name), pageEnd()
+    """ % (pageStart("Questions", page_name), questions, generateNav(page_name), pageEnd()))
