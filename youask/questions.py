@@ -11,8 +11,7 @@ from controller.html_functions import *
 list1 = []
 page_name = "questions"
 result = getQuestion()
-for x in result:
-    list1.append(result[x])
+length=len(result)
 
 print('Content-Type: text/html')
 print()
@@ -24,17 +23,17 @@ print("""
 
         </header>
         <script>
-        function Add(one) {
-        for(var i=0; i<one.length;i++){
+        function Add(num) {
+        for(var i=0; i<num;i++){
     var para = document.createElement("p");
-    para.innerHTML=one[i];
+    para.innerHTML="this is a new paragraph";
     document.body.appendChild(para);}
     }
-        
         </script>
 
         <main>      <!-- The main part of the website --->
             <h1>test page</h1>
+           Add(%s)
            %s
         </main>
 
@@ -44,4 +43,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Questions", page_name), result, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Questions", page_name), length, result[0], generateNav(page_name), pageEnd()))
