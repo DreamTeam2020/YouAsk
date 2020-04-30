@@ -1,12 +1,10 @@
 from controller.ctrl_validation import *
 from controller.ctrl_cache import *
-from hashlib import sha256
 from cgi import FieldStorage, escape
-import pymysql
 from model.model_functions import *
 
 def inputControllerLogin():
-    user_email=""
+    user_email=''
     error_msg="<p> </p>"
 
     form_data = FieldStorage()
@@ -42,6 +40,7 @@ def inputControllerLogin():
                     cookie, sid = cookieCreate()
                     sessionCreate(result['username'], result['email'], result['display_name'], sid)
                     error_msg = '<p class="error">Successfully Logged In!</p>'
+                    user_email = ''
                     print(cookie)
 
             if server_error:

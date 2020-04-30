@@ -9,22 +9,9 @@ from cgi import FieldStorage
 
 page_name = "register"
 url= "register.py"
-user_details=["", "", ""]   # username, email, display_name
 
-messageList=["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]    # Contains error messages to be printed
 
-form_data=FieldStorage()
-
-if len(form_data) !=0:
-    registered, server_error, user_details, messageList=inputControllerRegistration(form_data)
-
-    if registered==True:
-        messageList[4] = '<p class="error">Successfully Registered! <a href=login.py>Login Here</a></p>'
-    elif server_error == True:
-        messageList[4] = '<p class="error">Server Error Occurred</p>'
-    else:
-        messageList=messageList
-
+user_details, message_list=inputControllerRegistration()
 
 print('Content-Type: text/html')
 print()
@@ -66,4 +53,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Register", page_name), url, user_details[0], messageList[0], user_details[1], messageList[1], user_details[2], messageList[2], messageList[3], messageList[4], generateNav(page_name), pageEnd()))
+    """ % (pageStart("Register", page_name), url, user_details[0], message_list[0], user_details[1], message_list[1], user_details[2], message_list[2], message_list[3], message_list[4], generateNav(page_name), pageEnd()))
