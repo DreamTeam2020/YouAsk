@@ -8,7 +8,7 @@ from controller.html_functions import *
 
 page_name='question'
 #result = '<p>Please work</p>'
-result = controllerQuestionAnswers(12)
+result = controllerQuestionAnswers(3)
 
 
 # Add a form to the end so users can answer the question posed

@@ -63,7 +63,7 @@ def controllerQuestionAnswers(question_id):
             result+=answer_form
         else:
             debug="<p>%s</p>" % logged
-            result+="<h1>LOGGED IN YAHOOO</h1>"
+            result+="<h1>NOT LOGGED IN YAHOOO</h1>"
             result+=debug
     return result
 
