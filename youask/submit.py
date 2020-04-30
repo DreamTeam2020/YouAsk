@@ -39,7 +39,7 @@ if verify_login!='UNVERIFIED':  # If the user is logged in, print the question s
             error_msg = '<p class="error">Server Error Occurred</p>'
         elif input_error==True:
             error_msg = '<p class="error">Invalid question, please <em>Do Not</em> include profanity within the question. ' \
-                        'profanity within the description will be filtered out</p>'
+                        'Profanity within the description will be filtered out</p>'
 
         result = generateQuestionForm(url, question, description, error_msg)
 print('Content-Type: text/html')

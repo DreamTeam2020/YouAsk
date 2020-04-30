@@ -71,7 +71,7 @@ def controllerAnswerForm(username, question_id):
     page_url = 'question_template.py'  # page_url='%d.py' % question_id
 
     answer_form = generateAnswerForm(page_url, answer, error_msg)
-    form_data = FieldStorage
+    form_data = FieldStorage()
 
     if len(form_data)!=0:
         server_error = False
@@ -94,12 +94,12 @@ def controllerAnswerForm(username, question_id):
                     submitted = True
 
         if submitted:
-            error_msg = '<p class="error">Question Has Been Submitted</p>'
+            error_msg = '<p class="error">Answer Has Been Submitted</p>'
             # Provide link to the question page
         elif server_error:
             error_msg = '<p class="error">Server Error Occurred</p>'
         elif input_error:
-            error_msg = '<p class="error">Invalid answer, please <em>Do Not</em> include profanity within the question. profanity within the description will be filtered out</p>'
+            error_msg = '<p class="error">Invalid answer, please ensure the answer is more than 3 characters, profanity within the answer will be filtered out</p>'
 
         answer_form = generateAnswerForm(page_url, answer, error_msg)
 
