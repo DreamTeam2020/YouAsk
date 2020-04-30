@@ -13,7 +13,7 @@ def inputControllerRegistration():
         # Validate and potentially register the user
 
         server_error=False
-        message_list=["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]   # Message list to contain error messages
+        message_list = ["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]   # Message list to contain error messages
         error_msg="<p> </p>"
 
         # Get the data from the form
@@ -32,6 +32,8 @@ def inputControllerRegistration():
 
             if user_result == 'clear' and email_result == 'clear' and display_result == 'clear' and pass_result == 'clear' and password1 == password2:  # If all fields are validated
                 error_check=dbRegisterUser(username, password1, display_name, email.lower())    # Register the user using the model function
+
+
                 if error_check=="SERVER_ERROR":    # If an error occurs set boolean to True
                     server_error=True
                 else:
@@ -39,7 +41,7 @@ def inputControllerRegistration():
                     cookie, sid = cookieCreate()
                     sessionCreate(username, email, display_name, sid)
                     user_details = ["", "", ""]
-                    message_list[4] = '<p class="error">Successfully Registered! <a href=login.py>Login Here</a></p>'
+                    error_msg = '<p class="error">Successfully Registered! <a href=login.py>Login Here</a></p>'
                     print(cookie)
             else:
                 if user_result=="SERVER_ERROR" or email_result=="SERVER_ERROR":
@@ -48,8 +50,8 @@ def inputControllerRegistration():
                     # If it gets to here then there is an issue with one of the fields, check which field and generate the correct error messages
                     message_list=inputErrorMessage(user_result, email_result, display_result, password1, password2, pass_result)
 
-        if server_error == True:
-            message_list[4] = '<p class="error">Server Error Occurred</p>'
+        if server_error:
+            error_msg = '<p class="error">Server Error Occurred</p>'
 
         message_list.append(error_msg)
     return user_details, message_list
