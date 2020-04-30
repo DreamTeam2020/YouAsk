@@ -33,16 +33,12 @@ def inputControllerRegistration():
             if user_result == 'clear' and email_result == 'clear' and display_result == 'clear' and pass_result == 'clear' and password1 == password2:  # If all fields are validated
                 error_check=dbRegisterUser(username, password1, display_name, email.lower())    # Register the user using the model function
 
-
                 if error_check=="SERVER_ERROR":    # If an error occurs set boolean to True
                     server_error=True
                 else:
-                    # Create cookie and session store for the user
-                    cookie, sid = cookieCreate()
-                    sessionCreate(username, email, display_name, sid)
+                    # If the user registers successfully, then make them login
                     user_details = ["", "", ""]
                     error_msg = '<p class="error">Successfully Registered! <a href=login.py>Login Here</a></p>'
-                    print(cookie)
             else:
                 if user_result=="SERVER_ERROR" or email_result=="SERVER_ERROR":
                     server_error=True
