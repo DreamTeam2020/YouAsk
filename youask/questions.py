@@ -12,6 +12,9 @@ list1 = []
 page_name = "questions"
 result = getQuestion()
 length = len(result)
+questions = ''
+for x in result:
+    questions += '<p>%s</p>' % x
 
 print('Content-Type: text/html')
 print()
@@ -26,15 +29,14 @@ print("""
 
         <main>      <!-- The main part of the website --->
             <h1>test page</h1>
-           """ % pageStart("Questions", page_name))
-for x in result:
-    print(""" <p> %s </p>""" % x)
-print("""          %s
+    <a href="sumbit.py">sumbit</a>
+        %s
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
 
         </aside>
 
-        
-    """ % generateNav(page_name), pageEnd())
+        %s
+        %s
+    """ % (pageStart("Questions", page_name), questions, generateNav(page_name), pageEnd()))
