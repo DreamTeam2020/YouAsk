@@ -3,7 +3,7 @@
 from cgitb import enable
 enable()
 import sys
-sys.path.append("../")
+sys.path.append("../")  #This works when not logged in
 
 from controller.ctrl_question_page import *
 from controller.html_functions import *
