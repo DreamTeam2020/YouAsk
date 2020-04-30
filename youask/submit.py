@@ -23,7 +23,7 @@ error_msg="<p> </p>"
 
 #Check if user is logged in
 # If logged in print form then do len form data
-verify_login=verifyLoggedIn()   # Returns username if logged in, else false
+verify_login=verifyLoggedIn(False)   # Returns username if logged in, else false
 
 if verify_login!='UNVERIFIED':  # If the user is logged in, print the question submission form
     result=generateQuestionForm(url, question, description, error_msg)

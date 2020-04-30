@@ -3,13 +3,10 @@
 from cgitb import enable
 enable()
 import sys
-sys.path.append("../")  #This works when not logged in
+sys.path.append("../")  # Because it's a subdirectory we append this to all of the subsequent imports
 
 from controller.ctrl_question_page import *
 from controller.html_functions import *
-
-#from ..controller.ctrl_question_page import *      These also don't work
-#from ..controller.html_functions import *
 
 page_name='question'
 #result = '<p>Please work</p>'
