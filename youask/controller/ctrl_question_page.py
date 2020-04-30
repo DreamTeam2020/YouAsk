@@ -76,7 +76,6 @@ def controllerAnswerForm(username, question_id):
     if len(form_data)!=0:
         server_error = False
         input_error = False
-        submitted = False
 
         answer = escape(form_data.getfirst('answer', '').strip())
         if not answer:
@@ -91,13 +90,10 @@ def controllerAnswerForm(username, question_id):
                 if submission_result == "SERVER_ERROR":
                     server_error = True
                 else:
-                    submitted = True
+                    error_msg = '<p class="error">Answer Has Been Submitted</p>'
                     answer=''
 
-        if submitted:
-            error_msg = '<p class="error">Answer Has Been Submitted</p>'
-            # Provide link to the question page
-        elif server_error:
+        if server_error:
             error_msg = '<p class="error">Server Error Occurred</p>'
         elif input_error:
             error_msg = '<p class="error">Invalid answer, please ensure the answer is more than 3 characters, profanity within the answer will be filtered out</p>'
