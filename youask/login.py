@@ -9,21 +9,8 @@ from cgi import FieldStorage
 
 page_name = "login"
 url= "login.py"
-user_email=""
 
-error_msg="<p> </p>"
-
-form_data = FieldStorage()
-
-if len(form_data) !=0:
-    logged_in, input_error, server_error, user_email, error_msg=inputControllerLogin(form_data)
-
-    if logged_in==True:
-        error_msg = '<p class="error">Successfully Logged In!</p>'
-    if server_error==True:
-        error_msg = '<p class="error">Server Error Occurred</p>'
-    elif input_error==True:
-        error_msg = '<p class="error">Invalid Username or Password</p>'
+user_email, error_msg=inputControllerLogin()
 
 print('Content-Type: text/html')
 print()

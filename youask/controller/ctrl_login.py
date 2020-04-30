@@ -5,42 +5,48 @@ from cgi import FieldStorage, escape
 import pymysql
 from model.model_functions import *
 
-def inputControllerLogin(form_data):
-    server_error=False
-    input_error=False
-    logged=False
-
+def inputControllerLogin():
+    user_email=""
     error_msg="<p> </p>"
 
-    # Get user input from the form
-    user_email = escape(form_data.getfirst('user_email', '').strip())
-    password = escape(form_data.getfirst('password', '').strip())
+    form_data = FieldStorage()
+    if len(form_data) != 0:
+        server_error=False
+        input_error=False
 
-    if not user_email or not password:
-        error_msg='<p class="error">All Fields Must Be Filled</p>'  # If all fields are not filled
-    else:
+        # Get user input from the form
+        user_email = escape(form_data.getfirst('user_email', '').strip())
+        password = escape(form_data.getfirst('password', '').strip())
 
-        user_result, pass_result=loginValidation(user_email, password)  # Validate the user input
-
-        if user_result=='username':
-            user_result='clear'
-        elif user_result=='email':
-            user_result='clear'
-
-        if user_result!='clear' or pass_result!='clear':    # Both inputs must be validated
-            input_error=True
+        if not user_email or not password:
+            error_msg='<p class="error">All Fields Must Be Filled</p>'  # If all fields are not filled
         else:
-            result=dbLoginUser(user_email, password)    # Attempt to the log the user in
+            user_result, pass_result=loginValidation(user_email, password)  # Validate the user input
 
-            if result=="INPUT_ERROR":
+            if user_result=='username':
+                user_result='clear'
+            elif user_result=='email':
+                user_result='clear'
+
+            if user_result!='clear' or pass_result!='clear':    # Both inputs must be validated
                 input_error=True
-            elif result=="SERVER_ERROR":
-                server_error=True
             else:
-                # Create a cookie and session for the user
-                cookie, sid = cookieCreate()
-                sessionCreate(result['username'], result['email'], result['display_name'], sid)
-                logged=True
-                print(cookie)
+                result=dbLoginUser(user_email, password)    # Attempt to the log the user in
 
-    return logged, input_error, server_error, user_email, error_msg
+                if result=="INPUT_ERROR":
+                    input_error=True
+                elif result=="SERVER_ERROR":
+                    server_error=True
+                else:
+                    # Create a cookie and session for the user
+                    cookie, sid = cookieCreate()
+                    sessionCreate(result['username'], result['email'], result['display_name'], sid)
+                    error_msg = '<p class="error">Successfully Logged In!</p>'
+                    print(cookie)
+
+            if server_error:
+                error_msg = '<p class="error">Server Error Occurred</p>'
+            elif input_error==True:
+                error_msg = '<p class="error">Invalid Username or Password</p>'
+
+    return user_email, error_msg

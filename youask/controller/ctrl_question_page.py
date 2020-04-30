@@ -83,7 +83,7 @@ def controllerAnswerForm(username, question_id):
             error_msg = '<p class="error">Answer Field Must Be Filled</p>'  # If no answer is entered
         else:
             # Filter out profanity on the answer here
-            if len(answer) < 4:  # Remove this later for proper verification
+            if len(answer) < 3:  # Remove this later for proper verification
                 input_error = True
             else:
                 # If input has been verified then insert the user's answer in the database
@@ -92,6 +92,7 @@ def controllerAnswerForm(username, question_id):
                     server_error = True
                 else:
                     submitted = True
+                    answer=''
 
         if submitted:
             error_msg = '<p class="error">Answer Has Been Submitted</p>'
