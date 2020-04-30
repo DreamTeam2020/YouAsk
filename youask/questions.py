@@ -33,8 +33,10 @@ print("""
 
         <main>      <!-- The main part of the website --->
             <h1>test page</h1>
-           Add(%s)
-           %s
+           """ %pageStart("Questions", page_name))
+for x in range(length):
+  print(""" <p> a new paragraph</p>""")
+print("""          %s
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
@@ -43,4 +45,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Questions", page_name), length, result[0], generateNav(page_name), pageEnd()))
+    """ % length, result[0], generateNav(page_name), pageEnd())
