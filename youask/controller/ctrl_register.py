@@ -2,54 +2,61 @@ from controller.ctrl_validation import *
 from controller.ctrl_cache import *
 from cgi import FieldStorage, escape
 from model.model_functions import *
+from controller.html_functions import *
 
 def inputControllerRegistration():
+
     user_details = ["", "", ""]  # username, email, display_name
     message_list = ["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]  # Contains error messages to be printed
 
-    form_data=FieldStorage()
+    verify_logged = verifyLoggedIn(False)
+    if verify_logged != "UNVERIFIED":
+        # If the user is already logged in, prevent them from registering
+        message_list[4]=alreadyLoggedIn()
+    else:
+        form_data=FieldStorage()
 
-    if len(form_data) != 0:
-        # Validate and potentially register the user
+        if len(form_data) != 0:
+            # Validate and potentially register the user
 
-        server_error=False
-        message_list = ["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]   # Message list to contain error messages
-        error_msg="<p> </p>"
+            server_error=False
+            message_list = ["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]   # Message list to contain error messages
+            error_msg="<p> </p>"
 
-        # Get the data from the form
-        username = escape(form_data.getfirst('username', '').strip())
-        email=escape(form_data.getfirst('email', '').strip())
-        display_name=escape(form_data.getfirst('display_name', '').strip())
-        password1=escape(form_data.getfirst('password1', '').strip())
-        password2=escape(form_data.getfirst('password2', '').strip())
+            # Get the data from the form
+            username = escape(form_data.getfirst('username', '').strip())
+            email=escape(form_data.getfirst('email', '').strip())
+            display_name=escape(form_data.getfirst('display_name', '').strip())
+            password1=escape(form_data.getfirst('password1', '').strip())
+            password2=escape(form_data.getfirst('password2', '').strip())
 
-        user_details=[username, email, display_name]
+            user_details=[username, email, display_name]
 
-        if not username or not email or not display_name or not password1 or not password2:    # If all fields are not filled, return error message
-            error_msg='<p class="error">All Fields Must Be Filled</p>'
-        else:
-            user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password1)   # Validate the user input
-
-            if user_result == 'clear' and email_result == 'clear' and display_result == 'clear' and pass_result == 'clear' and password1 == password2:  # If all fields are validated
-                error_check=dbRegisterUser(username, password1, display_name, email.lower())    # Register the user using the model function
-
-                if error_check=="SERVER_ERROR":    # If an error occurs set boolean to True
-                    server_error=True
-                else:
-                    # If the user registers successfully, then make them login
-                    user_details = ["", "", ""]
-                    error_msg = '<p class="error">Successfully Registered! <a href=login.py>Login Here</a></p>'
+            if not username or not email or not display_name or not password1 or not password2:    # If all fields are not filled, return error message
+                error_msg='<p class="error">All Fields Must Be Filled</p>'
             else:
-                if user_result=="SERVER_ERROR" or email_result=="SERVER_ERROR":
-                    server_error=True
+                user_result, email_result, display_result, pass_result = registrationValidation(username, email, display_name, password1)   # Validate the user input
+
+                if user_result == 'clear' and email_result == 'clear' and display_result == 'clear' and pass_result == 'clear' and password1 == password2:  # If all fields are validated
+                    error_check=dbRegisterUser(username, password1, display_name, email.lower())    # Register the user using the model function
+
+                    if error_check=="SERVER_ERROR":    # If an error occurs set boolean to True
+                        server_error=True
+                    else:
+                        # If the user registers successfully, then make them login
+                        user_details = ["", "", ""]
+                        error_msg = '<p class="error">Successfully Registered! <a href=login.py>Login Here</a></p>'
                 else:
-                    # If it gets to here then there is an issue with one of the fields, check which field and generate the correct error messages
-                    message_list=inputErrorMessage(user_result, email_result, display_result, password1, password2, pass_result)
+                    if user_result=="SERVER_ERROR" or email_result=="SERVER_ERROR":
+                        server_error=True
+                    else:
+                        # If it gets to here then there is an issue with one of the fields, check which field and generate the correct error messages
+                        message_list=inputErrorMessage(user_result, email_result, display_result, password1, password2, pass_result)
 
-        if server_error:
-            error_msg = '<p class="error">Server Error Occurred</p>'
+            if server_error:
+                error_msg = '<p class="error">Server Error Occurred</p>'
 
-        message_list.append(error_msg)
+            message_list.append(error_msg)
     return user_details, message_list
 
 

@@ -65,6 +65,14 @@ def loginToAccess():
     """
     return error_msg
 
+def alreadyLoggedIn():
+    # If the user is already logged in and tries to log in
+    error_msg="""
+        <p class="Error">You are already logged in.</p>
+        <p><a href="logout.py">Logout Here</a></p>
+    """
+    return error_msg
+
 def generateQuestionForm(url, question, description, error):
     # Generate the question form to be used if the user is logged in
     result = """
