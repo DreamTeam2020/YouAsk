@@ -2,7 +2,7 @@
 
 from cgitb import enable
 
-from controller.ctrl_BugReport import controllerBugreportSubmission, controllersupport
+from controller.ctrl_bug_report import controllersupport
 
 enable()
 
@@ -10,10 +10,8 @@ from controller.html_functions import *
 from controller.ctrl_cache import *
 from cgi import FieldStorage
 
-page_name="support"
+page_name = "support"
 result = controllersupport()
-
-
 
 print('Content-Type: text/html')
 print()
