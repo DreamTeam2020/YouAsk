@@ -2,7 +2,7 @@
 
 from cgitb import enable
 
-from controller.ctrl_bug_report import controllerBugReportSubmission
+from controller.ctrl_BugReport import controllerBugreportSubmission, controllersupport
 
 enable()
 
@@ -10,28 +10,11 @@ from controller.html_functions import *
 from controller.ctrl_cache import *
 from cgi import FieldStorage
 
-page_name="Support"
-url="support.py"
+page_name="support"
+result = controllersupport()
 
-description=""
-error_msg="<p> </p>"
 
-result=generateBugreportForm(url,  description, error_msg)
 
-form_data = FieldStorage()
-if len(form_data)!=0:
-    submitted, server_error, input_error, error_msg=controllerBugReportSubmission(form_data)
-
-    if submitted==True:
-        error_msg = '<p class="error">Question Has Been Submitted</p>'
-        #Provide link to the question page
-    elif server_error==True:
-        error_msg = '<p class="error">Server Error Occurred</p>'
-    elif input_error==True:
-        error_msg = '<p class="error">Invalid question, please <em>Do Not</em> include profanity within the question. ' \
-                    'profanity within the description will be filtered out</p>'
-
-    result = generateBugreportForm(url, description, error_msg)
 print('Content-Type: text/html')
 print()
 
