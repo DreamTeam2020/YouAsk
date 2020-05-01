@@ -3,6 +3,7 @@ from model.model_functions import *
 from controller.html_functions import *
 from controller.ctrl_cache import *
 from cgi import FieldStorage
+from controller.ctrl_question_page import generateQuestionPage
 
 def controllerSubmission():
     # Controller for the submit view, verify user input and then submit the question if verified
@@ -42,7 +43,9 @@ def controllerSubmission():
                         #Question was submitted
                         question=''
                         description=''
-                        error_msg = '<p class="error">Question Has Been Submitted</p>'
+                        new_file=generateQuestionPage(submission_result)
+                        error_msg = '<p class="error">Question has been submitted, ' \
+                                    'continue to question page <a href="question_pages/%s">here</a></p>' % new_file
 
             result = generateQuestionForm(url, question, description, error_msg)
     return result

@@ -3,6 +3,18 @@ from controller.html_functions import *
 from controller.ctrl_cache import *
 from cgi import escape
 from cgi import FieldStorage
+from shutil import copyfile
+import subprocess
+
+def generateQuestionPage(question_id):
+    # Copy the question template file, use sed to replace the question id
+    new_file_name='question_%d.py' % question_id
+    copyfile('question_pages/question_template', 'question_pages/%s' % new_file_name)
+
+    #sed -i 's/820399/%d/g' % question_id
+    subprocess.call(['sed', '-i', 's/820399/%d/g' % question_id, 'question_pages/%s' % new_file_name])
+
+    return new_file_name
 
 def generateQuestion(question):
     # Takes in a question from fetchall

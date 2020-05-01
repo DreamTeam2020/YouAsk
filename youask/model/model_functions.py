@@ -70,13 +70,14 @@ def checkAvailability(user_email, data):
         return "SERVER_ERROR"
 
 def submitQuestion(username, question, description):
+    # Insert question into table and return the id
     try:
         connection, cursor = dbConnect()
         cursor.execute("""INSERT INTO ask_questions(submitter, question, description)
                             VALUES (%s, %s, %s)""", (username, question, description))
         connection.commit()
         dbClose(connection, cursor)
-        return "submitted"
+        return cursor.lastrowid
     except db.Error():
         return "SERVER_ERROR"
 
