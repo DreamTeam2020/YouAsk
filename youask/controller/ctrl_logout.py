@@ -24,7 +24,7 @@ def controllerLogout():
         session_store.close()
         result="""
                 <p>You are now logged out.</p>
-                <p><a href="login.py">Log Back In Here</a></p>"""
+                <p>Log Back In <a href="login.py">Here</a></p>"""
 
 
 
