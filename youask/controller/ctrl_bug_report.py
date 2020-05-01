@@ -24,15 +24,13 @@ def controllerBugreportSubmission(form_data):
 
 
 def controllersupport():
+    result = ''
     url = "support.py"
-
-    question = ""
+    email=""
     description = ""
-    email = ""
-    result = loginToAccess()
     error_msg = "<p> </p>"
+    verify_login = verifyLoggedIn(False)  # Returns username if logged in, else false
 
-    verify_login = verifyLoggedIn()  # Returns username if logged in, else false
     if verify_login != 'UNVERIFIED':  # If the user is logged in, print the question submission form
         result = generateBugreportForm(url, description, error_msg)
 
@@ -49,7 +47,7 @@ def controllersupport():
                 error_msg = '<p class="error">Invalid question, please <em>Do Not</em> include profanity within the question. ' \
                             'profanity within the description will be filtered out</p>'
 
-        result = generateBugreportForm(url, description, error_msg)
+            result = generateBugreportForm(url, description, error_msg)
     else:
         result = generateBugreportFormWithEmail(url, description, email, error_msg)
 
@@ -66,5 +64,5 @@ def controllersupport():
                 error_msg = '<p class="error">Invalid question, please <em>Do Not</em> include profanity within the question. ' \
                             'profanity within the description will be filtered out</p>'
 
-        result = generateBugreportFormWithEmail(url, description, email, error_msg)
+            result = generateBugreportFormWithEmail(url, description, email, error_msg)
     return result

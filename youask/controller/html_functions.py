@@ -14,6 +14,7 @@ def pageStart(title, id):
     # <link rel="stylesheet" href="styles/styles.css" />
     return result
 
+
 def pageEnd():
     # This will generate the end of each html page, including the <footer>
 
@@ -24,6 +25,7 @@ def pageEnd():
         </html>"""
 
     return result
+
 
 def generateNav(page):
     # This will generate the nav bar based on input for each page
@@ -52,6 +54,7 @@ def generateNav(page):
         </nav>
         """ % (home, questions, profile, support)
 
+
 def loginToAccess():
     # If the user is not logged in this will be displayed
     error_msg = """
@@ -65,13 +68,15 @@ def loginToAccess():
     """
     return error_msg
 
+
 def alreadyLoggedIn():
     # If the user is already logged in and tries to log in
-    error_msg="""
+    error_msg = """
         <p class="Error">You are already logged in.</p>
         <p><a href="logout.py">Logout Here</a></p>
     """
     return error_msg
+
 
 def generateQuestionForm(url, question, description, error):
     # Generate the question form to be used if the user is logged in
@@ -94,6 +99,7 @@ def generateQuestionForm(url, question, description, error):
 
     return result
 
+
 def generateAnswerForm(url, answer, error):
     # Generate the answer form to be used
     result = """
@@ -113,6 +119,7 @@ def generateAnswerForm(url, answer, error):
     """ % (url, answer, error)
 
     return result
+
 
 def generateBugreportForm(url, description, error):
     # Generate the question form to be used if the user is logged in
@@ -138,6 +145,7 @@ def generateBugreportFormWithEmail(url, description, email, error):
             <fieldset> <!--  Description -->
                 <label for="description">Description: </label>
                 <input type="text" name="description" id="description" value="%s"/>
+                <label for="description">Your email: </label>
                  <input type="text" name="email" id="email" value="%s"/>
                 <input type="submit" value="Submit Bug"/>
             </fieldset
