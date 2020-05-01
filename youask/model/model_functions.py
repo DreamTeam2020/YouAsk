@@ -127,13 +127,26 @@ def getAnswers(question_id):
         result = "SERVER_ERROR"
     return result
 
-def bugReport(description):
+def bugReportOne(description):
     try:
         connection, cursor = dbConnect()
-        cursor.execute("""INSERT INTO ask_BugReport(one)
+        cursor.execute("""INSERT INTO ask_support_inbox(message)
                             VALUES (%s)""", description)
         connection.commit()
         dbClose(connection, cursor)
         return "submitted"
     except db.Error():
         return "SERVER_ERROR"
+
+def bugReportTwo(description, email):
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("""INSERT INTO ask_BugReport(email, message)
+                            VALUES (%s, %s)""", description, email)
+        connection.commit()
+        dbClose(connection, cursor)
+        return "submitted"
+    except db.Error():
+        return "SERVER_ERROR"
+
+

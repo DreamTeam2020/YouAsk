@@ -145,7 +145,7 @@ def generateBugreportFormWithEmail(url, description, email, error):
             <fieldset> <!--  Description -->
                 <label for="description">Description: </label>
                 <input type="text" name="description" id="description" value="%s"/>
-                <label for="description">Your email: </label>
+                <label for="email">Your email: </label>
                  <input type="text" name="email" id="email" value="%s"/>
                 <input type="submit" value="Submit Bug"/>
             </fieldset

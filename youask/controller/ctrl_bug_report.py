@@ -5,7 +5,7 @@ from controller.html_functions import loginToAccess, generateBugreportForm, gene
 from model.model_functions import *
 
 
-def controllerBugreportSubmission(form_data):
+def controllerBugreportSubmission(form_data, tpye):
     # Controller for the submit view, take in the form_data, verify it and then submit the question if verified
     server_error = False
     input_error = False
@@ -13,8 +13,11 @@ def controllerBugreportSubmission(form_data):
 
     error_msg = "<p> </p>"
     description = escape(form_data.getfirst('description', '').strip())
-
-    submission_result = bugReport(description)
+    email = escape(form_data.getfirst('email', '').strip())
+    if tpye==1:
+        submission_result = bugReportOne(description)
+    else:
+        submission_result = bugReportTwo(description, email)
     if submission_result == "SERVER_ERROR":
         server_error = True
     else:
@@ -36,7 +39,7 @@ def controllersupport():
 
         form_data = FieldStorage()
         if len(form_data) != 0:
-            submitted, server_error, input_error, error_msg = controllerBugreportSubmission(form_data)
+            submitted, server_error, input_error, error_msg = controllerBugreportSubmission(form_data,1)
 
             if submitted == True:
                 error_msg = '<p class="error">Question Has Been Submitted</p>'
