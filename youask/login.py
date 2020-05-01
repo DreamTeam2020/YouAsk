@@ -5,7 +5,6 @@ enable()
 
 from controller.html_functions import *
 from controller.ctrl_login import *
-from cgi import FieldStorage
 
 page_name = "login"
 url= "login.py"

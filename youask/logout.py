@@ -3,13 +3,12 @@
 from cgitb import enable
 enable()
 
-from controller.ctrl_submit import *
+from controller.html_functions import *
+from controller.ctrl_logout import *
 
-# Can't submit unless logged in, user enters Question and optional description (Markdown) into form
+page_name="logout"
 
-page_name="submit"
-
-result=controllerSubmission()
+result=controllerLogout()
 
 print('Content-Type: text/html')
 print()
@@ -30,4 +29,7 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Submit", page_name), result, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Logout", page_name), result, generateNav(page_name), pageEnd()))
+
+
+
