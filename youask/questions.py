@@ -8,13 +8,10 @@ enable()
 
 from controller.html_functions import *
 
-list1 = []
+
 page_name = "questions"
-result = getQuestion()
-length = len(result)
-questions = ''
-for x in result:
-    questions += '<p>%s</p>' % x
+questions = controllerQuestions()
+
 
 print('Content-Type: text/html')
 print()
