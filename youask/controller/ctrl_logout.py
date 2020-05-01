@@ -18,7 +18,7 @@ def controllerLogout():
         cookie=SimpleCookie()
         http_cookie_header = environ.get('HTTP_COOKIE')
         cookie.load(http_cookie_header)
-        sid = cookie['sid'].value
+        sid = cookie['UASK'].value
         session_store = open('session_store/sess_' + sid, writeback=True)
         session_store['authenticated'] = False
         session_store.close()
