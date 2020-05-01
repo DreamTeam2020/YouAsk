@@ -2,7 +2,7 @@
 
 from cgitb import enable
 
-from model.model_functions import getQuestion
+from controller.ctrl_questions import controllerQuestions
 
 enable()
 
