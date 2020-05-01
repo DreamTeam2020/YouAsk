@@ -7,10 +7,11 @@ def pageStart(title, id):
             <head>
                 <meta charset="utf-8" />
                 <title>%s - YouAsk</title>
-                <link rel="stylesheet" href="styles/styles.css" />
+                
                 <meta name-"viewport" content="initial-scale=1.0, width=device-width" />
             </head>
     """ % (id, title)
+    #<link rel="stylesheet" href="styles/styles.css" />
     return result
 
 def pageEnd():

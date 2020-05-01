@@ -23,7 +23,6 @@ print("""
     %s
     <body>
         <header>    <!-- A header section displayed at the top of the page--->
-         <link rel="stylesheet" type="text/css" href="../youask/styles/styles.css">
 
         </header>
 

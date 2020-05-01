@@ -32,7 +32,7 @@ def controllerSubmission():
                 # Filter out profanity on description, block questions that include profanity
                 if len(question) < 5:    # Remove this later for proper verification
                     error_msg = '<p class="error">Invalid question, please <em>Do Not</em> include profanity ' \
-                                'within the question. Profanity within the description will be filtered out</p>'
+                                'within the question. Profanity within the description will be filtered out.</p>'
                 else:
                     # If input has been verified then insert the user's question in the database
                     submission_result = submitQuestion(username, question, description)

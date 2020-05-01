@@ -3,10 +3,7 @@
 from cgitb import enable
 enable()
 
-from controller.html_functions import *
-from controller.ctrl_cache import *
 from controller.ctrl_submit import *
-from cgi import FieldStorage
 
 # Can't submit unless logged in, user enters Question and optional description (Markdown) into form
 
