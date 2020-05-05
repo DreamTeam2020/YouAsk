@@ -20,7 +20,6 @@ def controllerBugreportSubmission(form_data, type):
         submitted=False
         server_error=False
         input_error=True
-        return submitted, server_error, input_error, error_msg
     if type == 1:
         submission_result = bugReportOne(description)
     else:
