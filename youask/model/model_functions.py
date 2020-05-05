@@ -139,11 +139,11 @@ def bugReportOne(description):
     except db.Error():
         return "SERVER_ERROR"
 
-def bugReportTwo(email,description):
+def bugReportTwo(description, email):
     try:
         connection, cursor = dbConnect()
-        cursor.execute("""INSERT INTO ask_support_inbox(email,message)
-                            VALUES (%s, %s)""", (email,description)
+        cursor.execute("""INSERT INTO ask_support_inbox(message,email)
+                            VALUES (%s, %s)""", description, email)
         connection.commit()
         dbClose(connection, cursor)
         return "submitted"
