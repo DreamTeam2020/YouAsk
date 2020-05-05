@@ -18,13 +18,13 @@ def controllerBugReportSubmission(type, description, email):
         submission_result = bugReportLogged(description, username, email)
 
     else:   # User is logged in
-        email = emailValidationLogin(email)
+        email_result = emailValidationLogin(email)
 
-        if email == "unsafe":
+        if email_result == "unsafe":
             input_error = True
             return submitted, server_error, input_error
-
-        submission_result = bugReportNotLogged(email, description)
+        else:
+            submission_result = bugReportNotLogged(email, description)
 
     if submission_result == "SERVER_ERROR":
         server_error = True
