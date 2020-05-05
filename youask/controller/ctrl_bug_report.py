@@ -58,7 +58,7 @@ def controllerSupport():
             elif server_error == True:
                 error_msg = '<p class="error">Server Error Occurred</p>'
             elif input_error == True:
-                error_msg = '<p class="error"> input error</p>'
+                error_msg = '<p class="error">Please ensure there is no profanity in message.</p>'
 
             result = generateBugreportForm(url, description, error_msg)
     else:
@@ -69,16 +69,19 @@ def controllerSupport():
         if len(form_data) != 0:
             description = escape(form_data.getfirst('description', '').strip())
             email = escape(form_data.getfirst('email', '').strip())
-            submitted, server_error, input_error = controllerBugReportSubmission(form_data, 2, description, email)
+            if not description or not email:
+                error_msg='<p class="error">All Fields Must Be Filled</p>'
+            else:
+                submitted, server_error, input_error = controllerBugReportSubmission(form_data, 2, description, email)
 
-            if submitted == True:
-                error_msg = '<p class="error">Question Has Been Submitted</p>'
-                email=''
-                description=''
-            elif server_error == True:
-                error_msg = '<p class="error">Server Error Occurred</p>'
-            elif input_error == True:
-                error_msg = '<p class="error">input error</p>'
+                if submitted == True:
+                    error_msg = '<p class="error">Question Has Been Submitted</p>'
+                    email=''
+                    description=''
+                elif server_error == True:
+                    error_msg = '<p class="error">Server Error Occurred</p>'
+                elif input_error == True:
+                    error_msg = '<p class="error">Please ensure there is no profanity in the message and that a valid email address has been provided</p>'
 
             result = generateBugreportFormWithEmail(url, description, email, error_msg)
     return result

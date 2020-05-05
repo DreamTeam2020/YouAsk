@@ -26,7 +26,7 @@ print("""
 
         <main>      <!-- The main part of the website --->
             <h1>test page</h1>
-    <a href="sumbit.py">sumbit</a>
+    <a href="submit.py">submit</a>
         %s
         </main>
 
