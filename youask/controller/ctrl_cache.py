@@ -39,21 +39,3 @@ def verifyLoggedIn(sub_dir):    # If sub_dir is true then a view within a subdir
             if session_store.get('authenticated'):  # If the session is authenticated then they're logged in
                 result=session_store.get('username')
     return result
-
-def verifyLoggedInemail(sub_dir):    # If sub_dir is true then a view within a subdirectory is calling this function
-    #Verify if the user is already logged in
-    result='UNVERIFIED'
-    email=''
-    cookie = SimpleCookie()
-    http_cookie_header = environ.get('HTTP_COOKIE')
-    if http_cookie_header:  # If the user has a http cookie
-        cookie.load(http_cookie_header)    # Load the cookies
-        if 'UASK' in cookie:    # If this websites cookie is in their list
-            sid = cookie['UASK'].value
-            if sub_dir:
-                session_store = open('../session_store/sess_' + sid, writeback=False)  # Open the user's session
-            else:
-                session_store = open('session_store/sess_' + sid, writeback=False)  # Open the user's session
-            if session_store.get('authenticated'):  # If the session is authenticated then they're logged in
-                email=session_store.get('email')
-    return email
