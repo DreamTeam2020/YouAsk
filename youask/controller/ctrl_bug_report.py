@@ -1,6 +1,7 @@
 from cgi import FieldStorage, escape
 
 from controller.ctrl_cache import verifyLoggedIn
+from controller.ctrl_validation import supportemailvaildation
 from controller.html_functions import loginToAccess, generateBugreportForm, generateBugreportFormWithEmail
 from model.model_functions import *
 
@@ -14,7 +15,12 @@ def controllerBugreportSubmission(form_data, type):
     error_msg = "<p> </p>"
     description = escape(form_data.getfirst('description', '').strip())
     email = escape(form_data.getfirst('email', '').strip())
-    if type==1:
+    email = supportemailvaildation(email)
+    if(email=="unsafe"):
+        submitted=False
+        server_error=False
+        input_error=True
+    if type == 1:
         submission_result = bugReportOne(description)
     else:
         submission_result = bugReportTwo(description, email)
@@ -29,7 +35,7 @@ def controllerBugreportSubmission(form_data, type):
 def controllersupport():
     result = ''
     url = "support.py"
-    email=""
+    email = ""
     description = ""
     error_msg = "<p> </p>"
     verify_login = verifyLoggedIn(False)  # Returns username if logged in, else false
@@ -39,7 +45,7 @@ def controllersupport():
 
         form_data = FieldStorage()
         if len(form_data) != 0:
-            submitted, server_error, input_error, error_msg = controllerBugreportSubmission(form_data,1)
+            submitted, server_error, input_error, error_msg = controllerBugreportSubmission(form_data, 1)
 
             if submitted == True:
                 error_msg = '<p class="error">Question Has Been Submitted</p>'
@@ -56,7 +62,7 @@ def controllersupport():
 
         form_data = FieldStorage()
         if len(form_data) != 0:
-            submitted, server_error, input_error, error_msg = controllerBugreportSubmission(form_data,2)
+            submitted, server_error, input_error, error_msg = controllerBugreportSubmission(form_data, 2)
 
             if submitted == True:
                 error_msg = '<p class="error">Question Has Been Submitted</p>'
