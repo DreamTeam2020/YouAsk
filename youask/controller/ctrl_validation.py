@@ -2,111 +2,118 @@ from model.model_functions import *
 import pymysql as db
 import re
 
-def registrationValidation(username, email, display_name, password):
-    #Validate input on registration
 
-    user_result=usernameValidationRegister(username)
-    pass_result=passwordValidation(password)
-    display_result=displayNameValidation(display_name)
-    email_result=emailValidationRegistration(email)
+def registrationValidation(username, email, display_name, password):
+    # Validate input on registration
+
+    user_result = usernameValidationRegister(username)
+    pass_result = passwordValidation(password)
+    display_result = displayNameValidation(display_name)
+    email_result = emailValidationRegistration(email)
 
     return user_result, email_result, display_result, pass_result
 
+
 def loginValidation(username, password):
-    #Validate input on login
-    #Allows the user to enter an email or username
+    # Validate input on login
+    # Allows the user to enter an email or username
 
-    username_email=emailValidationLogin(username)
+    username_email = emailValidationLogin(username)
 
-    if username_email=='email':
-        user_result="email"
+    if username_email == 'email':
+        user_result = "email"
     else:
-        username_email=usernameValidationLogin(username)
-        user_result='username' if username_email=='clear' else username_email
+        username_email = usernameValidationLogin(username)
+        user_result = 'username' if username_email == 'clear' else username_email
 
-    pass_result=passwordValidation(password)
+    pass_result = passwordValidation(password)
 
     return user_result, pass_result
 
+
 def emailValidationRegistration(email):
-    #Use regular expression to validate email
+    # Use regular expression to validate email
 
     if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
-        result=checkAvailability("Email", email)
+        result = checkAvailability("Email", email)
     else:
-        result='<p class="error">Invalid email address<p>'
+        result = '<p class="error">Invalid email address<p>'
 
     return result
+
 
 def emailValidationLogin(email):
     return 'email' if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email) else 'unsafe'
 
-def displayNameValidation(display_name):
-    #Validate display name
 
-    result='clear'
-    if len(display_name)<5:
-        result='<p class="error">Display name must be longer than 4 characters</p>'
-    #elif profanityFilter(display_name)==True:
+def displayNameValidation(display_name):
+    # Validate display name
+
+    result = 'clear'
+    if len(display_name) < 5:
+        result = '<p class="error">Display name must be longer than 4 characters</p>'
+    # elif profanityFilter(display_name)==True:
     #    result='<p class="error">Display name cannot include profanity</p>'
     return result
 
-def usernameValidationLogin(username):
-    #Validate username
-    result='clear'
 
-    if len(username)<5 or len(username)>20:
-        result='unsafe'
-    #elif profanityFilter(username)==True:
+def usernameValidationLogin(username):
+    # Validate username
+    result = 'clear'
+
+    if len(username) < 5 or len(username) > 20:
+        result = 'unsafe'
+    # elif profanityFilter(username)==True:
     #  result='unsafe'
     else:
         for char in username:
-            if char==' ':
-                result='unsafe'
+            if char == ' ':
+                result = 'unsafe'
                 break
 
-    if result=="unsafe":
-        result='<p class="error">Username must be longer than 4 characters and cannot include space or profanity</p>'
+    if result == "unsafe":
+        result = '<p class="error">Username must be longer than 4 characters and cannot include space or profanity</p>'
 
     return result
+
 
 def usernameValidationRegister(username):
+    # Validate username on registration
+    result = usernameValidationLogin(username)
 
-    #Validate username on registration
-    result=usernameValidationLogin(username)
-
-    if result=='clear':
-        result=checkAvailability("Username", username)
+    if result == 'clear':
+        result = checkAvailability("Username", username)
 
     return result
 
-def passwordValidation(password):
-    #Validate password
 
-    #3 counters for each type, increment when one is seen
-    if len(password)<8:
-        result='unsafe'
+def passwordValidation(password):
+    # Validate password
+
+    # 3 counters for each type, increment when one is seen
+    if len(password) < 8:
+        result = 'unsafe'
     elif password.islower():
-        result='unsafe'
+        result = 'unsafe'
     elif password.isupper():
-        result='unsafe'
+        result = 'unsafe'
     else:
-        letter_count=0
-        num_count=0
-        special_count=0
-        result='clear'
+        letter_count = 0
+        num_count = 0
+        special_count = 0
+        result = 'clear'
         for char in password:
             if char.isalpha():
-                letter_count+=1
+                letter_count += 1
             elif char.isnumeric():
-                num_count+=1
+                num_count += 1
             else:
-                special_count+=1
-        if letter_count==0 or num_count==0 or special_count==0:
-            result="unsafe"
+                special_count += 1
+        if letter_count == 0 or num_count == 0 or special_count == 0:
+            result = "unsafe"
 
-    if result=='unsafe':
-        result='<p class="error">Passwords must be at least 7 characters long and contain a number, special ' \
+    if result == 'unsafe':
+        result = '<p class="error">Passwords must be at least 7 characters long and contain a number, special ' \
                  'character and a mix of upper and lower case letters</p>'
 
     return result
@@ -122,62 +129,70 @@ def profanityFilter(input):
     parsed_input = re.sub(r'[^a-zA-Z ]+', '', input)
     return True if pf.is_profane(parsed_input) else False
     '''
-    return True if input=="turkey" else False
+    return True if input == "turkey" else False
+
 
 if __name__ == "__main__":
-    #Email Testing
+    # Email Testing
     email = "cristianasd223@gmail.com"
-    email_test=emailValidationRegistration(email)
-    if email_test=="clear":
+    email_test = emailValidationRegistration(email)
+    if email_test == "clear":
         print('Email: Tested')
     else:
         print('Email: Error')
 
-    #Password Testing
+    # Password Testing
     password = "yuU123#/#wertfW"
-    password_test=passwordValidation(password)
-    if password_test=="clear":
+    password_test = passwordValidation(password)
+    if password_test == "clear":
         print("Password: Tested")
     else:
         print("Password: Error")
-    password="geogitvI67"
-    password_test=passwordValidation(password)
-    if password_test=="clear":
+    password = "geogitvI67"
+    password_test = passwordValidation(password)
+    if password_test == "clear":
         print("Password: Error")
     else:
         print("Password: Fail Test Passed")
 
-    #Display Name Testing
-    display_name="Cristian"
-    display_test=displayNameValidation(display_name)
-    if display_test=="clear":
+    # Display Name Testing
+    display_name = "Cristian"
+    display_test = displayNameValidation(display_name)
+    if display_test == "clear":
         print("Display_Name: Tested")
     else:
         print(display_test)
 
-    #Username Testing
-    username="Horrace321"
-    username_test=usernameValidationRegister(username)
-    if username_test=="clear":
+    # Username Testing
+    username = "Horrace321"
+    username_test = usernameValidationRegister(username)
+    if username_test == "clear":
         print("Username: Tested")
     else:
         print(username_test)
 
-    #Login Testing
-    username="Horrace321"
-    display_name="Cristian"
+    # Login Testing
+    username = "Horrace321"
+    display_name = "Cristian"
     email = "cristianasd223@gmail.com"
-    password="yuU123#/#wertfW"
-    user_test, email_test, display_test, pass_test=registrationValidation(username, email, display_name, password)
-    if user_test == "clear" and pass_test=="clear" and display_test == "clear" and email_test == "clear":
+    password = "yuU123#/#wertfW"
+    user_test, email_test, display_test, pass_test = registrationValidation(username, email, display_name, password)
+    if user_test == "clear" and pass_test == "clear" and display_test == "clear" and email_test == "clear":
         print("Login: Tested")
     else:
         print("Login: %s - %s - %s - %s " % (user_test, email_test, display_test, pass_test))
 
-    username="horrace@mail.com"
-    password="yuU123#/#wertfW"
-    user_test, pass_test=loginValidation(username, password)
-    if user_test == "clear" and pass_test=="clear":
+    username = "horrace@mail.com"
+    password = "yuU123#/#wertfW"
+    user_test, pass_test = loginValidation(username, password)
+    if user_test == "clear" and pass_test == "clear":
         print("Login: Tested")
     else:
         print("Login: %s - %s" % (user_test, pass_test))
+
+
+def supportemailvaildation(email):
+    if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+[a-zA-Z0-9-.]+$)", email):
+        return email
+    else:
+        return 'unsafe'
