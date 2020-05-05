@@ -14,7 +14,7 @@ def generateQuestionPage(question_id):
     # sed -i 's/820399/%d/g' % question_id
     subprocess.call(['sed', '-i', 's/820399/%d/g' % question_id, 'question_pages/%s' % new_file_name])
     # chmod 705 question_pages/question_*
-    subprocess.call(['chmod', '705', 'question_pages/question_*'])
+    subprocess.call(['chmod', '705', 'question_pages/%s' % new_file_name])
 
     return new_file_name
 
