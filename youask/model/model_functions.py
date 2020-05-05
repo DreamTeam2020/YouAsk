@@ -1,10 +1,8 @@
 #!/usr/local/bin/python3
 
 from cgitb import enable
-from http.cookies import SimpleCookie
-from os import environ
 
-from controller.ctrl_cache import verifyLoggedIn, verifyLoggedInemail
+from controller.ctrl_cache import verifyLoggedIn, verifyLoggedInEmail
 
 enable()
 import pymysql as db
@@ -143,15 +141,12 @@ def getAnswers(question_id):
     return result
 
 
-def bugReportOne(description):
+def bugReportLogged(description, submitter, email):
     try:
         connection, cursor = dbConnect()
 
-        submitter=verifyLoggedIn(False)
-        email=verifyLoggedInemail(False)
-
-        cursor.execute("""INSERT INTO ask_support_inbox(submitter,email,message)
-                            VALUES (%s,%s,%s)""", (submitter, email,description))
+        cursor.execute("""INSERT INTO ask_support_inbox(submitter, email, message)
+                            VALUES (%s,%s,%s)""", (submitter, email, description))
         connection.commit()
         dbClose(connection, cursor)
         return "submitted"
@@ -159,7 +154,7 @@ def bugReportOne(description):
         return "SERVER_ERROR"
 
 
-def bugReportTwo(email, description):
+def bugReportNotLogged(email, description):
     try:
         connection, cursor = dbConnect()
 

@@ -1,5 +1,4 @@
 from model.model_functions import *
-import pymysql as db
 import re
 
 
@@ -189,10 +188,3 @@ if __name__ == "__main__":
         print("Login: Tested")
     else:
         print("Login: %s - %s" % (user_test, pass_test))
-
-
-def supportemailvaildation(email):
-    if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+[a-zA-Z0-9-.]+$)", email):
-        return email
-    else:
-        return 'unsafe'

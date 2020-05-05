@@ -2,16 +2,14 @@
 
 from cgitb import enable
 
-from controller.ctrl_bug_report import controllersupport
+from controller.ctrl_bug_report import controllerSupport
 
 enable()
 
 from controller.html_functions import *
-from controller.ctrl_cache import *
-from cgi import FieldStorage
 
 page_name = "support"
-result = controllersupport()
+result = controllerSupport()
 
 print('Content-Type: text/html')
 print()
