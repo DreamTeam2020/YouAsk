@@ -1,9 +1,11 @@
 #!/usr/local/bin/python3
 
 from cgitb import enable
+
 enable()
 import pymysql as db
 from hashlib import sha256
+
 
 def dbConnect():
     # Function to open database connection
@@ -18,16 +20,18 @@ def dbConnect():
         cursor = ""
         return connection, cursor
 
+
 def dbClose(connection, cursor):
     # Close existing connections
 
     cursor.close()
     connection.close()
 
+
 def dbRegisterUser(username, password, display_name, email):
     try:
         sha256_password = sha256(password.encode()).hexdigest()
-        connection, cursor=dbConnect()
+        connection, cursor = dbConnect()
         cursor.execute("""INSERT INTO ask_users(username, pass, display_name, email)
                             VALUES (%s, %s, %s, %s)""",
                        (username, sha256_password, display_name, email))
@@ -37,10 +41,11 @@ def dbRegisterUser(username, password, display_name, email):
     except db.Error:
         return "SERVER_ERROR"
 
+
 def dbLoginUser(user_email, password):
     try:
         sha256_password = sha256(password.encode()).hexdigest()
-        connection, cursor=dbConnect()
+        connection, cursor = dbConnect()
         cursor.execute('SELECT * FROM ask_users WHERE (username=%s OR email=%s) AND pass=%s',
                        (user_email, user_email, sha256_password))
 
@@ -54,20 +59,22 @@ def dbLoginUser(user_email, password):
     except db.Error:
         return "SERVER_ERROR"
 
+
 def checkAvailability(user_email, data):
     # Takes in the data type (username or email) and the data itself
     # return clear, message or SERVER_ERROR
     try:
-        connection, cursor=dbConnect()
+        connection, cursor = dbConnect()
         cursor.execute("SELECT * FROM ask_users WHERE %s = %s", (user_email, data))
         if cursor.rowcount > 0:
-            result='<p class="error">%s already in use</p>' % user_email
+            result = '<p class="error">%s already in use</p>' % user_email
         else:
-            result='clear'
+            result = 'clear'
         dbClose(connection, cursor)
         return result
     except db.Error:
         return "SERVER_ERROR"
+
 
 def submitQuestion(username, question, description):
     # Insert question into table and return the id
@@ -81,6 +88,7 @@ def submitQuestion(username, question, description):
     except db.Error():
         return "SERVER_ERROR"
 
+
 def submitAnswer(username, answer, question_id):
     try:
         connection, cursor = dbConnect()
@@ -92,15 +100,17 @@ def submitAnswer(username, answer, question_id):
     except db.Error():
         return "SERVER_ERROR"
 
+
 def getSpecificQuestion(id):
     try:
         connection, cursor = dbConnect()
         cursor.execute("SELECT * FROM ask_questions WHERE id=%s", id)
-        fetch=cursor.fetchall()
+        fetch = cursor.fetchall()
         dbClose(connection, cursor)
-        return fetch[0]    # Fetch returns a list of dictionaries
+        return fetch[0]  # Fetch returns a list of dictionaries
     except db.Error():
         return "SERVER_ERROR"
+
 
 def getQuestion():
     try:
@@ -128,6 +138,7 @@ def getAnswers(question_id):
         result = "SERVER_ERROR"
     return result
 
+
 def bugReportOne(description):
     try:
         connection, cursor = dbConnect()
@@ -139,15 +150,14 @@ def bugReportOne(description):
     except db.Error():
         return "SERVER_ERROR"
 
-def bugReportTwo(description, email):
+
+def bugReportTwo(email, description):
     try:
         connection, cursor = dbConnect()
-        cursor.execute("""INSERT INTO ask_support_inbox(message,email)
-                            VALUES (%s, %s)""", description, email)
+        cursor.execute("""INSERT INTO ask_support_inbox(email, message)
+                            VALUES (%s, %s)""", (email, description))
         connection.commit()
         dbClose(connection, cursor)
         return "submitted"
     except db.Error():
         return "SERVER_ERROR"
-
-
