@@ -142,7 +142,7 @@ def bugReportOne(description):
 def bugReportTwo(description, email):
     try:
         connection, cursor = dbConnect()
-        cursor.execute("""INSERT INTO ask_BugReport(email, message)
+        cursor.execute("""INSERT INTO ask_support_inbox(email, message)
                             VALUES (%s, %s)""", description, email)
         connection.commit()
         dbClose(connection, cursor)
