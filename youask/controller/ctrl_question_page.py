@@ -11,7 +11,7 @@ def generateQuestionPage(question_id):
     new_file_name='question_%d.py' % question_id
     copyfile('question_pages/question_template.py', 'question_pages/%s' % new_file_name)
 
-    #sed -i 's/820399/%d/g' % question_id
+    # sed -i 's/820399/%d/g' % question_id
     subprocess.call(['sed', '-i', 's/820399/%d/g' % question_id, 'question_pages/%s' % new_file_name])
 
     return new_file_name
@@ -80,7 +80,7 @@ def controllerAnswerForm(username, question_id):
     # Generate form here, then do len form data, then generate form again for the error messages
     answer = ''
     error_msg = '<p> </p>'
-    page_url = 'question_template.py'  # page_url='%d.py' % question_id
+    page_url='question_%d.py' % question_id
 
     answer_form = generateAnswerForm(page_url, answer, error_msg)
     form_data = FieldStorage()
