@@ -43,4 +43,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Login", page_name), url, user_email, error_msg, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Login", page_name, False), url, user_email, error_msg, generateNav(page_name, False), pageEnd()))

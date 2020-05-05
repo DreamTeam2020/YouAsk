@@ -28,4 +28,4 @@ print("""
         
         %s
         %s
-    """ % (pageStart("Home", page_name),  generateNav(page_name), pageEnd()))
+    """ % (pageStart("Home", page_name, False),  generateNav(page_name, False), pageEnd()))

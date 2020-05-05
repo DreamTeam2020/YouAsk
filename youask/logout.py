@@ -29,7 +29,7 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Logout", page_name), result, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Logout", page_name, False), result, generateNav(page_name, False), pageEnd()))
 
 
 

@@ -29,4 +29,4 @@ print("""
         </aside>
         %s
         %s
-    """ % (pageStart("support", page_name), result, generateNav(page_name), pageEnd()))
+    """ % (pageStart("support", page_name, False), result, generateNav(page_name, False), pageEnd()))

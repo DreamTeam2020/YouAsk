@@ -30,4 +30,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Submit", page_name), result, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Submit", page_name, False), result, generateNav(page_name, False), pageEnd()))

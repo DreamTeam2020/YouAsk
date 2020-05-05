@@ -36,4 +36,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Questions", page_name), questions, generateNav(page_name), pageEnd()))
+    """ % (pageStart("Questions", page_name, False), questions, generateNav(page_name, False), pageEnd()))
