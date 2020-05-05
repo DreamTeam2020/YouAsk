@@ -9,10 +9,12 @@ import subprocess
 def generateQuestionPage(question_id):
     # Copy the question template file, use sed to replace the question id
     new_file_name='question_%d.py' % question_id
-    copyfile('question_pages/question_template.py', 'question_pages/%s' % new_file_name)
+    copyfile('question_pages/template_question.py', 'question_pages/%s' % new_file_name)
 
     # sed -i 's/820399/%d/g' % question_id
     subprocess.call(['sed', '-i', 's/820399/%d/g' % question_id, 'question_pages/%s' % new_file_name])
+    # chmod 705 question_pages/question_*
+    subprocess.call(['chmod', '705', 'question_pages/question_*'])
 
     return new_file_name
 
