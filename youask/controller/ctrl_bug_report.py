@@ -5,7 +5,7 @@ from controller.html_functions import generateBugreportForm, generateBugreportFo
 from model.model_functions import *
 
 
-def controllerBugReportSubmission(form_data, type, description, email):
+def controllerBugReportSubmission(type, description, email):
     # Controller for the submit view, take in the form_data, verify it and then submit the question if verified
     server_error = False
     input_error = False
@@ -24,7 +24,7 @@ def controllerBugReportSubmission(form_data, type, description, email):
             input_error = True
             return submitted, server_error, input_error
 
-        submission_result = bugReportNotLogged(description, email)
+        submission_result = bugReportNotLogged(email, description)
 
     if submission_result == "SERVER_ERROR":
         server_error = True
@@ -50,7 +50,7 @@ def controllerSupport():
             description = escape(form_data.getfirst('description', '').strip())
             email=''
 
-            submitted, server_error, input_error = controllerBugReportSubmission(form_data, 1, description, email)
+            submitted, server_error, input_error = controllerBugReportSubmission(1, description, email)
 
             if submitted == True:
                 error_msg = '<p class="error">Question Has Been Submitted</p>'
@@ -72,7 +72,7 @@ def controllerSupport():
             if not description or not email:
                 error_msg='<p class="error">All Fields Must Be Filled</p>'
             else:
-                submitted, server_error, input_error = controllerBugReportSubmission(form_data, 2, description, email)
+                submitted, server_error, input_error = controllerBugReportSubmission(2, description, email)
 
                 if submitted == True:
                     error_msg = '<p class="error">Question Has Been Submitted</p>'
