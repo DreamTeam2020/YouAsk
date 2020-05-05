@@ -60,17 +60,20 @@ def generateNav(page, sub_dir):
         """ % (home, questions, profile, support)
 
 
-def loginToAccess():
+def loginToAccess(sub_dir):
     # If the user is not logged in this will be displayed
+    # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
+    prefix='../' if sub_dir else ''
+
     error_msg = """
         <section
             <p class="Error">To submit a question you must be logged in, you may do so here: </p>
             <ul>
-                <li><a href="register.py">Register</a></li>
-                <li><a href="login.py">Log In</a></li>
+                <li><a href="%sregister.py">Register</a></li>
+                <li><a href="%slogin.py">Log In</a></li>
             </ul>
         </section>
-    """
+    """ % (prefix, prefix)
     return error_msg
 
 

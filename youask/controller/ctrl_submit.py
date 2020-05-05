@@ -11,7 +11,7 @@ def controllerSubmission():
     url = "submit.py"
     question = ""
     description = ""
-    result = loginToAccess()
+    result = loginToAccess(False)
     error_msg = "<p> </p>"
 
     # Check if user is logged in
