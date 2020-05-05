@@ -47,27 +47,19 @@ def generateAnswers(answers):
 
 def controllerQuestionAnswers(question_id):
     server_error=False
+    result='<p> </p>'
     result_question = '<p> </p>'
     result_answers = '<p>This Question Hasn\'t Been Answered Yet.</p>'
 
     question = getSpecificQuestion(question_id)
 
-
     if question == "SERVER_ERROR":
         server_error=True
     else:
         result_question = generateQuestion(question)
-        # Get answers
-        answers = getAnswers(question_id)
-        if answers == "SERVER_ERROR":
-            server_error=True
-        elif answers != "EMPTY":
-            result_answers = generateAnswers(answers)
 
-    if server_error:
-        result = '<p class="Error">Server Error Has Occurred</p>'
-    else:
-        result = result_question + result_answers
+    if not server_error:
+        result = result_question
         # Check if user is logged in, if so then allow them to answer
 
         logged=verifyLoggedIn(True)
@@ -75,7 +67,20 @@ def controllerQuestionAnswers(question_id):
             answer_form=controllerAnswerForm(logged, question_id)
             result+=answer_form
         else:
-            result+=loginToAccess()
+            result+=loginToAccess(True)
+
+        # Get answers
+        answers = getAnswers(question_id)
+        if answers == "SERVER_ERROR":
+            server_error=True
+        elif answers != "EMPTY":
+            result_answers = generateAnswers(answers)
+
+        result+=result_answers
+
+    if server_error:
+        result = '<p class="Error">Server Error Has Occurred</p>'
+
     return result
 
 def controllerAnswerForm(username, question_id):
