@@ -213,3 +213,14 @@ def bugReportNotLogged(email, description):
         return "submitted"
     except db.Error():
         return "SERVER_ERROR"
+
+
+def questionsearch(form_data):
+    connection, cursor = dbConnect()
+
+    cursor.execute("SELECT question FROM ask_questions WHERE question  REGEXP  %s", form_data)
+    connection.commit()
+    fetch = cursor.fetchall()
+    dbClose(connection, cursor)
+    return fetch
+
