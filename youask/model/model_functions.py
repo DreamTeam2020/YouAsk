@@ -88,6 +88,44 @@ def getUserDetails(username):
     except db.Error():
         return "SERVER_ERROR"
 
+def checkOldPassword(username, old_password):
+    # Check if old_password is the same as the user's current password, False if doesn't match
+    try:
+        sha256_password = sha256(old_password.encode()).hexdigest()
+        connection, cursor = dbConnect()
+        cursor.execute('SELECT * FROM ask_users WHERE username=%s AND pass=%s', (username, sha256_password))
+        if cursor.rowcount == 0:
+            return False
+        else:
+            return True
+
+    except db.Error():
+        return "SERVER_ERROR"
+
+def updateUserDisplayName(username, display_name):
+    # Update the user's display name
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute('UPDATE ask_users SET display_name=%s WHERE username=%s', (display_name, username))
+        connection.commit()
+        dbClose(connection, cursor)
+        return 'updated'
+    except db.Error():
+        return 'SERVER_ERROR'
+
+def updateUserPassword(username, password):
+    # Update the user's password
+    try:
+        sha256_password = sha256(password.encode()).hexdigest()
+        connection, cursor = dbConnect()
+        cursor.execute('UPDATE ask_users SET pass=%s WHERE username=%s', (sha256_password, username))
+        connection.commit()
+        dbClose(connection, cursor)
+        return 'updated'
+    except db.Error():
+        return 'SERVER_ERROR'
+
+
 def submitQuestion(username, question, description):
     # Insert question into table and return the id
     try:
