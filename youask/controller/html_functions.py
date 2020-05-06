@@ -174,8 +174,8 @@ def generateEditDetailsForm(url, details, new_display_name, old_password, new_pa
                     <p>Email: %s</p>
                     <p>Display Name: %s</p>
                     
-                    <label for="display_name">New Display Name: </label>
-                    <input type="text" name="display_name" id="display_name" value="%s" maxlength="35"/>
+                    <label for="new_display_name">New Display Name: </label>
+                    <input type="text" name="new_display_name" id="new_display_name" value="%s" maxlength="35"/>
                     %s
                     
                     <label for="current_password">Current Password: </label>
@@ -192,4 +192,8 @@ def generateEditDetailsForm(url, details, new_display_name, old_password, new_pa
             </form>
             %s
         </section>
-    """ % (url, details['username'], details['email'], details['display_name'], new_display_name, error_messages[0], old_password, error_messages[1], new_password1, new_password2, error_messages[2], error_messages[3])
+    """ % (url, details['username'], details['email'], details['display_name'], new_display_name, error_messages[0],
+           old_password, error_messages[1], new_password1, new_password2, error_messages[2], error_messages[3])
+
+    return result
+
