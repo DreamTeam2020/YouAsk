@@ -4,9 +4,8 @@ from model.model_functions import dbConnect, dbClose
 def searchkeyword(keyword):
     connection, cursor = dbConnect()
 
-    cursor.execute("""SELECT question FROM ask_questions
-                              WHERE question=*"question"*""")
+    cursor.execute("SELECT question FROM ask_questions WHERE question  REGEXP  %s", keywo$
     connection.commit()
     fetch = cursor.fetchall()
     dbClose(connection, cursor)
-    return fetch[0]
+    return fetch

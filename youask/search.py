@@ -1,17 +1,13 @@
 #!/usr/local/bin/python3
 
 from cgitb import enable
-
-from controller.ctrl_bug_report import controllerSupport
-from controller.ctrl_search import searchkeyword
-
 enable()
 
 from controller.html_functions import *
+from controller.ctrl_search import *
 
 page_name = "search"
-result=searchkeyword()
-
+result = searchkeyword("question")
 print('Content-Type: text/html')
 print()
 
