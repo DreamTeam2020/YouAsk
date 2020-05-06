@@ -67,7 +67,7 @@ def loginToAccess(sub_dir):
 
     error_msg = """
         <section
-            <p class="Error">To submit a question you must be logged in, you may do so here: </p>
+            <p class="Error">To access this you must be logged in, you may do so here: </p>
             <ul>
                 <li><a href="%sregister.py">Register</a></li>
                 <li><a href="%slogin.py">Log In</a></li>
@@ -150,11 +150,11 @@ def generateBugreportFormWithEmail(url, description, email, error):
     # Generate the question form to be used if the user is logged in
     result = """
         <form action="%s" method="post">
-            <fieldset> <!--  Description -->
+            <fieldset> <!--  Description, Email -->
                 <label for="description">Description: </label>
                 <input type="text" name="description" id="description" value="%s"/>
                 <label for="email">Your email: </label>
-                 <input type="text" name="email" id="email" value="%s"/>
+                <input type="text" name="email" id="email" value="%s"/>
                 <input type="submit" value="Submit Bug"/>
             </fieldset
         </form>
@@ -163,3 +163,33 @@ def generateBugreportFormWithEmail(url, description, email, error):
     """ % (url, description, email, error)
 
     return result
+
+def generateEditDetailsForm(url, details, new_display_name, old_password, new_password1, new_password2, error_messages):
+    # Generate the form that will allow the user to change some of their details
+    result = """
+        <section>
+            <form action="%s" method="post">
+                <fieldset>
+                    <p>Username: %s</p>
+                    <p>Email: %s</p>
+                    <p>Display Name: %s</p>
+                    
+                    <label for="display_name">New Display Name: </label>
+                    <input type="text" name="display_name" id="display_name" value="%s" maxlength="35"/>
+                    %s
+                    
+                    <label for="current_password">Current Password: </label>
+                    <input type="password" name="current_password" id="current_password" value="%s"/>
+                    %s
+                    <label for="password1">New Password: </label>
+                    <input type="password" name="password1" id="password1" value="%s"/>
+                    <label for="password2">Re-Enter New Password: </label>
+                    <input type="password" name="password2" id="password2" value="%s"/>
+                    %s
+                    
+                    
+                </fieldset>
+            </form>
+            %s
+        </section>
+    """ % (url, details['username'], details['email'], details['display_name'], new_display_name, error_messages[0], old_password, error_messages[1], new_password1, new_password2, error_messages[2], error_messages[3])

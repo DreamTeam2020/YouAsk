@@ -2,16 +2,16 @@
 
 from cgitb import enable
 
-from controller.ctrl_questions import controllerQuestions
-
 enable()
 
 from controller.html_functions import *
+from controller.ctrl_edit_profile import *
 
+page_name = "edit_profile"
+edit=controllerEditProfile()
 
-page_name = "questions"
-questions = controllerQuestions()
-
+print('Content-Type: text/html')
+print()
 
 print('Content-Type: text/html')
 print()
@@ -20,20 +20,16 @@ print("""
     %s
     <body>
         <header>    <!-- A header section displayed at the top of the page--->
-
+            <h1>HEADER</h1>
         </header>
 
-
         <main>      <!-- The main part of the website --->
-            <h1>test page</h1>
-            <a href="submit.py">submit</a>
             %s
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
-
         </aside>
 
         %s
         %s
-    """ % (pageStart("Questions", page_name, False), questions, generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Logout", page_name, False), edit, generateNav(page_name, False), pageEnd()))

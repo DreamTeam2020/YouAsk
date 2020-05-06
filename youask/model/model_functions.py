@@ -77,6 +77,16 @@ def checkAvailability(user_email, data):
     except db.Error:
         return "SERVER_ERROR"
 
+def getUserDetails(username):
+    # Takes in username and returns row from table
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT * FROM ask_users WHERE username = %s", username)
+        fetch = cursor.fetchall()
+        dbClose(connection, cursor)
+        return fetch[0]  # Fetch returns a list of dictionaries
+    except db.Error():
+        return "SERVER_ERROR"
 
 def submitQuestion(username, question, description):
     # Insert question into table and return the id
