@@ -237,9 +237,9 @@ def generateStudyFieldsForm(url, fields, error_msg):
         # For the id's use the field name in lower case and replace spaces with underscores
         field_code=row['field'].lower().replace(' ', '_')
         result+="""
-                        <input type="checkbox" name="%s" id="%s" value="%s"/>
+                        <input type="checkbox" name="fields_of_study" id="%s" value="%s"/>
                         <label for="%s">%s</label>
-        """ % (field_code, field_code, field_code, field_code, row['field'])
+        """ % (field_code, field_code, field_code, row['field'])
 
     result+="""
                     <input type="submit" value="Select Fields"/>
