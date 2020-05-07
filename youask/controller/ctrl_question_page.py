@@ -44,7 +44,7 @@ def generateAnswers(answers):
     result_answers += '</section>'
 
     return result_answers
-#
+
 def controllerQuestionAnswers(question_id):
     server_error=False
     result='<p> </p>'

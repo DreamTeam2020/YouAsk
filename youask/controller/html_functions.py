@@ -187,7 +187,7 @@ def generateEditDetailsForm(url, details, new_display_name, old_password, new_pa
                     <input type="password" name="password2" id="password2" value="%s"/>
                     %s
                     
-                    
+                    <input type="submit" value="Update"/>
                 </fieldset>
             </form>
             %s

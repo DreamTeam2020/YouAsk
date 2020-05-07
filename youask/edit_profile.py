@@ -13,9 +13,6 @@ edit=controllerEditProfile()
 print('Content-Type: text/html')
 print()
 
-print('Content-Type: text/html')
-print()
-
 print("""
     %s
     <body>
