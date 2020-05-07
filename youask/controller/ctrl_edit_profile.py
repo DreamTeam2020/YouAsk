@@ -36,7 +36,7 @@ def controllerEditProfile():
             form_data=FieldStorage()
             if len(form_data)!=0:
                 new_display_name= escape(form_data.getfirst('new_display_name', '').strip())
-                old_password = escape(form_data.getfirst('description', '').strip())
+                old_password = escape(form_data.getfirst('old_password', '').strip())
                 password1= escape(form_data.getfirst('password1', '').strip())
                 password2 = escape(form_data.getfirst('password2', '').strip())
 

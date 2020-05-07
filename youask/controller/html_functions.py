@@ -178,8 +178,8 @@ def generateEditDetailsForm(url, details, new_display_name, old_password, new_pa
                     <input type="text" name="new_display_name" id="new_display_name" value="%s" maxlength="35"/>
                     %s
                     
-                    <label for="current_password">Current Password: </label>
-                    <input type="password" name="current_password" id="current_password" value="%s"/>
+                    <label for="old_password">Current Password: </label>
+                    <input type="password" name="old_password" id="old_password" value="%s"/>
                     %s
                     <label for="password1">New Password: </label>
                     <input type="password" name="password1" id="password1" value="%s"/>
