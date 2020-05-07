@@ -199,22 +199,22 @@ def generateEditDetailsForm(url, details, new_display_name, old_password, new_pa
     return result
 
 def generateFieldHeadingsForm(url, error_msg):
-    # Generate the checklist form that will contain the 4 main fields of study
+    # Generate radio form that will contain the 4 main fields of study
     result="""
         <section>
             <form action="%s" method="post">
                 <fieldset>
                     <label for="humanities">Humanities and Social Science</label>
-                    <input type="checkbox" name="humanities" id="humanities"/>
+                    <input type="radio" name="main_fields" id="humanities" value="humanities"/>
                     
                     <label for="natural_sciences">Natural Sciences</label>
-                    <input type="checkbox" name="natural_sciences" id="natural_sciences"/>
+                    <input type="radio" name="main_fields" id="natural_sciences" value="natural_sciences"/>
                     
                     <label for="formal_sciences">Formal Sciences</label>
-                    <input type="checkbox" name="formal_sciences" id="formal_sciences"/>
+                    <input type="radio" name="main_fields" id="formal_sciences" value="formal_sciences"/>
                     
                     <label for="professions">Professions and Applied Sciences</label>
-                    <input type="checkbox" name="professions" id="professions"/>
+                    <input type="radio" name="main_fields" id="professions" value="professions"/>
                 </fieldset>
             </form>
             %s

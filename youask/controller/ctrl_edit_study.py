@@ -5,8 +5,8 @@ from cgi import FieldStorage, escape
 
 def controllerEditStudy():
     # Edit the user's fields of study
-    # Check if user is logged in, generate a form of the 4 main fields, on submission generate a new form containing
-    # the sub fields of said heading (checklist for both), on submit prevent user selecting all fields
+    # Check if user is logged in, generate a form of the 4 main fields (radio), on submission generate a new form containing
+    # the sub fields of said heading (checklist), on submit prevent user selecting all fields
 
     url = "edit_study.py"
     error_msg="<p></p>"
@@ -19,7 +19,7 @@ def controllerEditStudy():
         form_data=FieldStorage()
 
         if len(form_data)!=0:
-
-
+            #Check which heading was selected and then generate the next form using the sub fields
+            result="success"
 
     return result
