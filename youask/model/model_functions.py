@@ -218,7 +218,7 @@ def bugReportNotLogged(email, description):
 def questionsearch(form_data):
     connection, cursor = dbConnect()
 
-    cursor.execute("SELECT question FROM ask_questions WHERE question  REGEXP  %s", form_data)
+    cursor.execute("SELECT * FROM ask_questions WHERE question  REGEXP  %s", form_data)
     connection.commit()
     fetch = cursor.fetchall()
     dbClose(connection, cursor)
