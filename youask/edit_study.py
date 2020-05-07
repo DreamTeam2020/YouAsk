@@ -5,10 +5,10 @@ from cgitb import enable
 enable()
 
 from controller.html_functions import *
-from controller.ctrl_edit_profile import *
+from controller.ctrl_edit_study import *
 
-page_name = "edit_profile"
-edit=controllerEditProfile()
+page_name = "edit_study"
+edit=controllerEditStudy()
 
 print('Content-Type: text/html')
 print()
@@ -29,4 +29,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Edit Profile", page_name, False), edit, generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Fields of Study", page_name, False), edit, generateNav(page_name, False), pageEnd()))
