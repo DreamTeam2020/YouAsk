@@ -235,12 +235,11 @@ def generateStudyFieldsForm(url, fields, error_msg):
     """ % url
     for row in fields:
         # For the id's use the field name in lower case and replace spaces with underscores
-        field_code=row['fields'].lower()
-        field_code.replace(' ', '_')
+        field_code=row['field'].lower().replace(' ', '_')
         result+="""
                         <input type="checkbox" name="%s" id="%s" value="%s"/>
                         <label for="%s">%s</label>
-        """ % (field_code, field_code, field_code, field_code, row['fields'])
+        """ % (field_code, field_code, field_code, field_code, row['field'])
 
     result+="""
                     <input type="submit" value="Select Fields"/>
@@ -252,3 +251,17 @@ def generateStudyFieldsForm(url, fields, error_msg):
 
     return result
 
+if __name__=="__main__":
+    from model.model_functions import *
+    # append main_fields to ask_ and get all fields from that table
+
+    table_name = "ask_humanities"
+    # Get all fields from table_name
+    fields = getFieldsOfStudy(table_name)
+
+    url='edit_study.py'
+    error_msg="<p> </p>"
+    # Pass fields into a html_functions function and have it loop
+    # through the dict adding a label and input each round
+    result = generateStudyFieldsForm(url, fields, error_msg)
+    print(result)

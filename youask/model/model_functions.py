@@ -192,7 +192,7 @@ def getFieldsOfStudy(table_name):
     # Returns all the fields within the provided table
     try:
         connection, cursor = dbConnect()
-        cursor.execute("SELECT DISTINCT field FROM %s", table_name)
+        cursor.execute("SELECT DISTINCT field FROM %s" % table_name)
         result = cursor.fetchall()
         dbClose(connection, cursor)
     except db.Error():
