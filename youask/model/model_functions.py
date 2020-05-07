@@ -7,6 +7,9 @@ from controller.ctrl_cache import verifyLoggedIn, verifyLoggedInEmail
 enable()
 import pymysql as db
 from hashlib import sha256
+import base64
+from PIL import Image
+import PIL.Image
 
 
 def dbConnect():
@@ -236,4 +239,13 @@ def questionsearch(form_data):
     fetch = cursor.fetchall()
     dbClose(connection, cursor)
     return fetch
+
+def picture():
+    connection, cursor = dbConnect()
+    with open("../images/blank.png", "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read())
+    cursor.execute("INSERT INTO ask_users(profile_picture) VALUES(%s)", encoded_string)
+    connection.commit()
+    dbClose(connection, cursor)
+
 
