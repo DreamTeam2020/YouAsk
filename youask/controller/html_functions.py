@@ -204,17 +204,19 @@ def generateFieldHeadingsForm(url, error_msg):
         <section>
             <form action="%s" method="post">
                 <fieldset>
-                    <label for="humanities">Humanities and Social Science</label>
                     <input type="radio" name="main_fields" id="humanities" value="humanities"/>
+                    <label for="humanities">Humanities and Social Science</label>
                     
-                    <label for="natural_sciences">Natural Sciences</label>
                     <input type="radio" name="main_fields" id="natural_sciences" value="natural_sciences"/>
+                    <label for="natural_sciences">Natural Sciences</label>
                     
-                    <label for="formal_sciences">Formal Sciences</label>
                     <input type="radio" name="main_fields" id="formal_sciences" value="formal_sciences"/>
+                    <label for="formal_sciences">Formal Sciences</label>
                     
-                    <label for="professions">Professions and Applied Sciences</label>
                     <input type="radio" name="main_fields" id="professions" value="professions"/>
+                    <label for="professions">Professions and Applied Sciences</label>
+                    
+                    <input type="submit" value="Select"/>
                 </fieldset>
             </form>
             %s
@@ -223,4 +225,43 @@ def generateFieldHeadingsForm(url, error_msg):
 
     return result
 
+def generateStudyFieldsForm(url, fields, error_msg):
+    # Generate the checklist form containing all sub fields of study within the given field
 
+    result="""
+        <section>
+            <form action ="%s" method="post">
+                <fieldset>
+    """ % url
+    for row in fields:
+        # For the id's use the field name in lower case and replace spaces with underscores
+        field_code=row['field'].lower().replace(' ', '_')
+        result+="""
+                        <input type="checkbox" name="%s" id="%s" value="%s"/>
+                        <label for="%s">%s</label>
+        """ % (field_code, field_code, field_code, field_code, row['field'])
+
+    result+="""
+                    <input type="submit" value="Select Fields"/>
+                </form>
+            </fieldset>
+            %s
+        </section>
+    """ % error_msg
+
+    return result
+
+if __name__=="__main__":
+    from model.model_functions import *
+    # append main_fields to ask_ and get all fields from that table
+
+    table_name = "ask_humanities"
+    # Get all fields from table_name
+    fields = getFieldsOfStudy(table_name)
+
+    url='edit_study.py'
+    error_msg="<p> </p>"
+    # Pass fields into a html_functions function and have it loop
+    # through the dict adding a label and input each round
+    result = generateStudyFieldsForm(url, fields, error_msg)
+    print(result)

@@ -1,5 +1,6 @@
 from controller.ctrl_cache import *
 from controller.html_functions import *
+from model.model_functions import getFieldsOfStudy
 from cgi import FieldStorage, escape
 
 
@@ -19,7 +20,17 @@ def controllerEditStudy():
         form_data=FieldStorage()
 
         if len(form_data)!=0:
-            #Check which heading was selected and then generate the next form using the sub fields
-            result="success"
+            # Check which heading was selected and then generate the next form using the sub fields
+
+            main_field= form_data.getfirst('main_fields', '')
+            # append main_fields to ask_ and get all fields from that table
+
+            table_name="ask_%s" % main_field
+            # Get all fields from table_name
+            fields=getFieldsOfStudy(table_name)
+
+            # Pass fields into a html_functions function and have it loop
+            # through the dict adding a label and input each round
+            result = generateStudyFieldsForm(url, fields, error_msg)
 
     return result
