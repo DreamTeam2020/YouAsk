@@ -177,7 +177,7 @@ def getAnswers(question_id):
     # This returns a list of answers when given what question they're responding to
     try:
         connection, cursor = dbConnect()
-        cursor.execute("SELECT * FROM ask_answers WHERE question_id=%s", question_id)  # Edit this %d not working
+        cursor.execute("SELECT * FROM ask_answers WHERE question_id=%s", question_id)
         if cursor.rowcount > 0:
             result = cursor.fetchall()
         else:
@@ -187,6 +187,19 @@ def getAnswers(question_id):
     except db.Error():
         result = "SERVER_ERROR"
     return result
+
+def getFieldsOfStudy(table_name):
+    # Returns all the fields within the provided table
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT DISTINCT field FROM %s", table_name)
+        result = cursor.fetchall()
+        dbClose(connection, cursor)
+    except db.Error():
+        result = "SERVER_ERROR"
+    return result
+
+
 
 
 def bugReportLogged(description, submitter, email):

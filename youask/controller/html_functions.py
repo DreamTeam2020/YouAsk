@@ -215,6 +215,8 @@ def generateFieldHeadingsForm(url, error_msg):
                     
                     <label for="professions">Professions and Applied Sciences</label>
                     <input type="radio" name="main_fields" id="professions" value="professions"/>
+                    
+                    <input type="submit" value="Select"/>
                 </fieldset>
             </form>
             %s
