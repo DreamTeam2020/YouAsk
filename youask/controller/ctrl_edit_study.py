@@ -22,16 +22,16 @@ def controllerEditStudy():
         if len(form_data)!=0:
             # Check which heading was selected and then generate the next form using the sub fields
 
-            main_field= form_data.getfirst('main_fields', '')
-            # append main_fields to ask_ and get all fields from that table
+            # Maybe do if main_field or fields of study
+            main_field = form_data.getfirst('fields_of_study', '')
 
-            table_name="ask_%s" % main_field
+            table_name="ask_%s" % main_field    # append main_fields to ask_ and get all fields from that table
             # Get all fields from table_name
             fields=getFieldsOfStudy(table_name)
 
             # Pass fields into a html_functions function and have it loop
             # through the dict adding a label and input each round
-            #result = generateStudyFieldsForm(url, fields, error_msg)
+            result = generateStudyFieldsForm(url, fields, error_msg)
             form_data_sub = FieldStorage()
 
             if len(form_data)!=0:
@@ -39,7 +39,10 @@ def controllerEditStudy():
                 for x in fields_of_study:
                     error_msg+='<p>%s</p>' % x
 
-            result=generateStudyFieldsForm(url, fields, error_msg)
+            # result=generateStudyFieldsForm(url, fields, error_msg)
+
+
+            # Can't get form data twice, once you submit on the first form then it will loop back to top of file and start again
 
 
 
