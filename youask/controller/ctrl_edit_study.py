@@ -22,24 +22,25 @@ def controllerEditStudy():
         if len(form_data)!=0:
             # Check which heading was selected and then generate the next form using the sub fields
 
-            # Maybe do if main_field or fields of study
-            main_field = form_data.getfirst('fields_of_study', '')
+            # Maybe do if main_field or fields of study - doesn't work
+            # Maybe use a boolean to track if user submits on first form - won't work cuz of refresh
+            # Maybe set the name in both forms to be the same, then depending on length of get list
+            fields_of_study = form_data.getlist('fields_of_study')
+            if len(fields_of_study)<6:
+                # If the returned list is short, then the form must be main fields
+                table_name="ask_%s" % fields_of_study[0]    # append fields_of_study to ask_ and get all fields from that table
+                # Get all fields from table_name
+                fields=getFieldsOfStudy(table_name)
 
-            table_name="ask_%s" % main_field    # append main_fields to ask_ and get all fields from that table
-            # Get all fields from table_name
-            fields=getFieldsOfStudy(table_name)
-
-            # Pass fields into a html_functions function and have it loop
-            # through the dict adding a label and input each round
-            result = generateStudyFieldsForm(url, fields, error_msg)
-            form_data_sub = FieldStorage()
-
-            if len(form_data)!=0:
-                fields_of_study = form_data_sub.getlist('fields_of_study')
+                # Pass fields into a html_functions function and have it loop
+                # through the dict adding a label and input each round
+                result = generateStudyFieldsForm(url, fields, error_msg)
+            else:
+                # Else it must be one of the sub fields
                 for x in fields_of_study:
-                    error_msg+='<p>%s</p>' % x
+                    result+='<p>%s</p>' % x
 
-            # result=generateStudyFieldsForm(url, fields, error_msg)
+                #result=generateStudyFieldsForm(url, fields, error_msg)
 
 
             # Can't get form data twice, once you submit on the first form then it will loop back to top of file and start again

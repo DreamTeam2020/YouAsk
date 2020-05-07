@@ -204,16 +204,16 @@ def generateFieldHeadingsForm(url, error_msg):
         <section>
             <form action="%s" method="post">
                 <fieldset>
-                    <input type="radio" name="main_fields" id="humanities" value="humanities"/>
+                    <input type="radio" name="fields_of_study" id="humanities" value="humanities"/>
                     <label for="humanities">Humanities and Social Science</label>
                     
-                    <input type="radio" name="main_fields" id="natural_sciences" value="natural_sciences"/>
+                    <input type="radio" name="fields_of_study" id="natural_sciences" value="natural_sciences"/>
                     <label for="natural_sciences">Natural Sciences</label>
                     
-                    <input type="radio" name="main_fields" id="formal_sciences" value="formal_sciences"/>
+                    <input type="radio" name="fields_of_study" id="formal_sciences" value="formal_sciences"/>
                     <label for="formal_sciences">Formal Sciences</label>
                     
-                    <input type="radio" name="main_fields" id="professions" value="professions"/>
+                    <input type="radio" name="fields_of_study" id="professions" value="professions"/>
                     <label for="professions">Professions and Applied Sciences</label>
                     
                     <input type="submit" value="Select"/>
