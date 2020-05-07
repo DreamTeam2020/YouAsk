@@ -20,14 +20,17 @@ def controllerEditStudy():
         form_data=FieldStorage()
 
         if len(form_data)!=0:
-            #Check which heading was selected and then generate the next form using the sub fields
+            # Check which heading was selected and then generate the next form using the sub fields
 
             main_field= form_data.getfirst('main_fields', '')
-            result="<p>%s</p>" % main_field
-            # if i can just get data from the form under main_fields and it returns an id, then append to ask_ and get all fields from that table
+            # append main_fields to ask_ and get all fields from that table
 
-            #table_name="ask_%s" % main_field
-            #get all fields from table_name
-            #fields=getFieldsOfStudy(table_name)
+            table_name="ask_%s" % main_field
+            # Get all fields from table_name
+            fields=getFieldsOfStudy(table_name)
+
+            # Pass fields into a html_functions function and have it loop
+            # through the dict adding a label and input each round
+            result = generateStudyFieldsForm(url, fields, error_msg)
 
     return result
