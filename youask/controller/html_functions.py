@@ -191,9 +191,36 @@ def generateEditDetailsForm(url, details, new_display_name, old_password, new_pa
                 </fieldset>
             </form>
             %s
+            <p>To Edit Your Fields of Study Click <a href="edit_study.py">Here</a></p>
         </section>
     """ % (url, details['username'], details['email'], details['display_name'], new_display_name, error_messages[0],
            old_password, error_messages[1], new_password1, new_password2, error_messages[2], error_messages[3])
 
     return result
+
+def generateFieldHeadingsForm(url, error_msg):
+    # Generate the checklist form that will contain the 4 main fields of study
+    result="""
+        <section>
+            <form action="%s" method="post">
+                <fieldset>
+                    <label for="humanities">Humanities and Social Science</label>
+                    <input type="checkbox" name="humanities" id="humanities"/>
+                    
+                    <label for="natural_sciences">Natural Sciences</label>
+                    <input type="checkbox" name="natural_sciences" id="natural_sciences"/>
+                    
+                    <label for="formal_sciences">Formal Sciences</label>
+                    <input type="checkbox" name="formal_sciences" id="formal_sciences"/>
+                    
+                    <label for="professions">Professions and Applied Sciences</label>
+                    <input type="checkbox" name="professions" id="professions"/>
+                </fieldset>
+            </form>
+            %s
+        </section
+    """ % (url, error_msg)
+
+    return result
+
 
