@@ -31,6 +31,16 @@ def controllerEditStudy():
 
             # Pass fields into a html_functions function and have it loop
             # through the dict adding a label and input each round
-            result = generateStudyFieldsForm(url, fields, error_msg)
+            #result = generateStudyFieldsForm(url, fields, error_msg)
+            form_data_sub = FieldStorage()
+
+            if len(form_data)!=0:
+                fields_of_study = form_data_sub.getlist('fields_of_study')
+                for x in fields_of_study:
+                    error_msg+='<p>%s</p>' % x
+
+            result=generateStudyFieldsForm(url, fields, error_msg)
+
+
 
     return result
