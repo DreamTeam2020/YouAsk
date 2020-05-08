@@ -24,21 +24,22 @@ def controllerEditStudy():
 
             # Maybe do if main_field or fields of study - doesn't work
             # Maybe use a boolean to track if user submits on first form - won't work cuz of refresh
-            # Maybe set the name in both forms to be the same, then depending on length of get list
+            # Maybe set the name in both forms to be the same, then depending on length of get list  -- This almost works however, what if the user just selects 1 thing from the checklist
+            # Radio buttons can only be 4 values, so just do if fields_of_study equals one of the 4 else its sub form
             fields_of_study = form_data.getlist('fields_of_study')
-            if len(fields_of_study)<6:
-                # If the returned list is short, then the form must be main fields
-                table_name="ask_%s" % fields_of_study[0]    # append fields_of_study to ask_ and get all fields from that table
-                # Get all fields from table_name
-                fields=getFieldsOfStudy(table_name)
+
+            if fields_of_study=='humanities' or fields_of_study=='natural_sciences' or fields_of_study=='formal_sciences' or fields_of_study=='professions':
+                table_name = "ask_%s" % fields_of_study[0]    # append fields_of_study to ask and get all fields from that table
+                fields = getFieldsOfStudy(table_name)   # Get all fields from table_name
 
                 # Pass fields into a html_functions function and have it loop
                 # through the dict adding a label and input each round
                 result = generateStudyFieldsForm(url, fields, error_msg)
             else:
-                # Else it must be one of the sub fields
+                # Else form must be one of the sub fields
                 for x in fields_of_study:
                     result+='<p>%s</p>' % x
+
 
                 #result=generateStudyFieldsForm(url, fields, error_msg)
 
