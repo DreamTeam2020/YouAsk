@@ -2,7 +2,8 @@
 
 from cgitb import enable
 
-from model.model_functions import picture
+from controller.ctrl_picture import ctrlpicture
+
 
 enable()
 
@@ -14,7 +15,8 @@ page_name = "profile_picture"
 print('Content-Type: text/html')
 print()
 picsrc=""
-result=picture()
+result=ctrlpicture()
+
 
 print("""
     %s
@@ -24,12 +26,24 @@ print("""
         </header>
 
         <main>      <!-- The main part of the website --->
-            <h1>test page</h1>
+         
             <div>
   
   <img src="data:image/png;base64, %s" alt="Red dot" />
 </div>
 %s   it is a log
+
+  <form action="profile_picture.py" method="post">
+                
+                  
+                    
+                    <label for="Upload a pic ">Upload Pic:  please type the pic's name (which is in images folder)</label>
+                    <input type="text" name="Upload" id="Upload"/>
+                    
+                    <input type="submit" value="Click to upload"/>
+            
+            </form>
+
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->

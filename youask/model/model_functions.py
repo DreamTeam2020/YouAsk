@@ -243,14 +243,11 @@ def questionsearch(form_data):
 
 
 
-
-def picture():
+def uploadpicture(picname):
     connection, cursor = dbConnect()
-    opensrc = os.getcwd() + "/images/blank.png"
+    opensrc = os.getcwd() + "/images/"+picname
     with open(opensrc, "rb") as image_file:
-         encoded_string = base64.b64encode(image_file.read())
+        encoded_string = base64.b64encode(image_file.read())
     cursor.execute("INSERT INTO ask_picture_test(pic) VALUES(%s)",  encoded_string)
     connection.commit()
     dbClose(connection, cursor)
-    return os.getcwd()
-
