@@ -28,7 +28,9 @@ def controllerEditStudy():
             # Radio buttons can only be 4 values, so just do if fields_of_study equals one of the 4 else its sub form
             fields_of_study = form_data.getlist('fields_of_study')
 
-            if fields_of_study=='humanities' or fields_of_study=='natural_sciences' or fields_of_study=='formal_sciences' or fields_of_study=='professions':
+            if fields_of_study[0] == 'humanities' or fields_of_study[0] == 'natural_sciences' or \
+                            fields_of_study[0] == 'formal_sciences' or fields_of_study[0]=='professions':
+
                 table_name = "ask_%s" % fields_of_study[0]    # append fields_of_study to ask and get all fields from that table
                 fields = getFieldsOfStudy(table_name)   # Get all fields from table_name
 
