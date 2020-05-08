@@ -251,3 +251,10 @@ def uploadpicture(picname):
     cursor.execute("INSERT INTO ask_picture_test(pic) VALUES(%s)",  encoded_string)
     connection.commit()
     dbClose(connection, cursor)
+
+def getpicturecode():
+    connection, cursor = dbConnect()
+    sql1 = 'select pic from ask_picture_test'
+    cursor.execute(sql1)
+    data = cursor.fetchall()
+    return data[0]["pic"]

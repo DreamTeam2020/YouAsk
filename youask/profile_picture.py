@@ -3,7 +3,7 @@
 from cgitb import enable
 
 from controller.ctrl_picture import ctrlpicture
-
+from model.model_functions import getpicturecode
 
 enable()
 
@@ -14,7 +14,7 @@ page_name = "profile_picture"
 
 print('Content-Type: text/html')
 print()
-picsrc=""
+picsrc=getpicturecode()
 result=ctrlpicture()
 
 
@@ -31,7 +31,7 @@ print("""
   
   <img src="data:image/png;base64, %s" alt="Red dot" />
 </div>
-%s   it is a log
+%s   it is a log    %s
 
   <form action="profile_picture.py" method="post">
                 
@@ -52,4 +52,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("profile_picture", page_name, False), picsrc, result, generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("profile_picture", page_name, False), picsrc, result, getpicturecode(), generateNav(page_name, False), pageEnd()))
