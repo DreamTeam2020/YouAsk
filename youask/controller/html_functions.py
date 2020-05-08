@@ -173,6 +173,7 @@ def generateEditDetailsForm(url, details, new_display_name, old_password, new_pa
                     <p>Username: %s</p>
                     <p>Email: %s</p>
                     <p>Display Name: %s</p>
+                    <p>To edit your fields of study click <a href="edit_study.py">here</a></p>
                     
                     <label for="new_display_name">New Display Name: </label>
                     <input type="text" name="new_display_name" id="new_display_name" value="%s" maxlength="35"/>
@@ -204,6 +205,7 @@ def generateFieldHeadingsForm(url, error_msg):
         <section>
             <form action="%s" method="post">
                 <fieldset>
+                    <p>Fields were set up following this <a href="https://en.wikipedia.org/wiki/List_of_academic_fields">format</a></p>
                     <input type="radio" name="fields_of_study" id="humanities" value="humanities"/>
                     <label for="humanities">Humanities and Social Science</label>
                     
@@ -264,5 +266,5 @@ if __name__=="__main__":
     error_msg="<p> </p>"
     # Pass fields into a html_functions function and have it loop
     # through the dict adding a label and input each round
-    result = generateStudyFieldsForm(url, fields, error_msg)
+    result = generateStudyFieldsForm(table_name, url, fields, error_msg)
     print(result)

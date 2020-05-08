@@ -22,10 +22,6 @@ def controllerEditStudy():
         if len(form_data)!=0:
             # Check which heading was selected and then generate the next form using the sub fields
 
-            # Maybe do if main_field or fields of study - doesn't work
-            # Maybe use a boolean to track if user submits on first form - won't work cuz of refresh
-            # Maybe set the name in both forms to be the same, then depending on length of get list  -- This almost works however, what if the user just selects 1 thing from the checklist
-            # Radio buttons can only be 4 values, so just do if fields_of_study equals one of the 4 else its sub form
             fields_of_study = form_data.getlist('fields_of_study')
 
             if fields_of_study[0] == 'humanities' or fields_of_study[0] == 'natural_sciences' or \
