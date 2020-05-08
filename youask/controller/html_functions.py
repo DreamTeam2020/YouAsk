@@ -225,7 +225,7 @@ def generateFieldHeadingsForm(url, error_msg):
 
     return result
 
-def generateStudyFieldsForm(url, fields, error_msg):
+def generateStudyFieldsForm(table_name, url, fields, error_msg):
     # Generate the checklist form containing all sub fields of study within the given field
 
     result="""
@@ -236,6 +236,7 @@ def generateStudyFieldsForm(url, fields, error_msg):
     for row in fields:
         # For the id's use the field name in lower case and replace spaces with underscores
         field_code=row['field'].lower().replace(' ', '_')
+        field_code+='~%s' % table_name
         result+="""
                         <input type="checkbox" name="fields_of_study" id="%s" value="%s"/>
                         <label for="%s">%s</label>

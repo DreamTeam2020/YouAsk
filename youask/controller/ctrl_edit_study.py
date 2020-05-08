@@ -41,17 +41,29 @@ def controllerEditStudy():
 
                 # Pass fields into a html_functions function and have it loop
                 # through the dict adding a label and input each round
-                result = generateStudyFieldsForm(url, fields, error_msg)
+                result = generateStudyFieldsForm(table_name, url, fields, error_msg)
             else:
                 # Else form must be one of the sub fields
                 # Insert the data into the table ( Try to avoid 1 by 1 insertion )
                 # ( Sql statement equals and do += in each loop to add field and username pair to end of insert statement )
-                # ( How to get the table name? )
-                sql_insert = """INSERT INTO table (field, username) VALUES """
+                # ( How to get the table name? ) -- Append a value to the end of each value/id in the form to signify which table to use
+
+                separator = '~'   # This will define the value used to split the table name from the field name
+                table = fields_of_study[0].split(separator, 1)[-1]
+
+                sql_insert = """INSERT INTO %s (field, username) VALUES """ % table
                 for field in fields_of_study:
+                    field=field.split(separator, 1)[0]    # Remove the table name from the field
                     sql_insert += '(%s, %s)' % (field, username)
 
-                # result=generateStudyFieldsForm(url, fields, error_msg)
+                query_result=executeInsertQuery(sql_insert)    # Insert into db
+                if query_result=='SERVER_ERROR':
+                    error_msg='<p class="Error">Server Error Occurred</p>'
+                else:
+                    error_msg='<p class="Error">Successfully Updated</p>'
+
+                fields = getFieldsOfStudy(table)   # Get all fields from table_name
+                result = generateStudyFieldsForm(table, url, fields, error_msg)
 
 
             # Can't get form data twice, once you submit on the first form then it will loop back to top of file and start again

@@ -202,7 +202,16 @@ def getFieldsOfStudy(table_name):
         result = "SERVER_ERROR"
     return result
 
-
+def executeInsertQuery(query):
+    # Executes a given insert query
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute(query)
+        connection.commit()
+        dbClose(connection, cursor)
+        return "updated"
+    except db.Error():
+        return "SERVER_ERROR"
 
 
 def bugReportLogged(description, submitter, email):
