@@ -3,7 +3,8 @@
 from cgitb import enable
 
 from controller.ctrl_cache import verifyLoggedIn, verifyLoggedInEmail
-
+import os
+import io
 enable()
 import pymysql as db
 from hashlib import sha256
@@ -249,12 +250,20 @@ def questionsearch(form_data):
     dbClose(connection, cursor)
     return fetch
 
-def picture():
+
+
+def uploadpicture(picname):
     connection, cursor = dbConnect()
-    with open("../images/blank.png", "rb") as image_file:
+    opensrc = os.getcwd() + "/images/"+picname
+    with open(opensrc, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read())
-    cursor.execute("INSERT INTO ask_users(profile_picture) VALUES(%s)", encoded_string)
+    cursor.execute("INSERT INTO ask_picture_test(pic) VALUES(%s)",  encoded_string)
     connection.commit()
     dbClose(connection, cursor)
 
-
+def getpicturecode():
+    connection, cursor = dbConnect()
+    sql1 = 'select pic from ask_picture_test'
+    cursor.execute(sql1)
+    data = cursor.fetchall()
+    return data[0]["pic"]
