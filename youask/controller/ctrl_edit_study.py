@@ -30,20 +30,28 @@ def controllerEditStudy():
 
             if fields_of_study[0] == 'humanities' or fields_of_study[0] == 'natural_sciences' or \
                             fields_of_study[0] == 'formal_sciences' or fields_of_study[0]=='professions':
+                # If the data in fields_of_study is equal to one of the main fields
 
                 table_name = "ask_%s" % fields_of_study[0]    # append fields_of_study to ask and get all fields from that table
                 fields = getFieldsOfStudy(table_name)   # Get all fields from table_name
+
+
+                # Get user's current fields from the table and display them as selected
+
 
                 # Pass fields into a html_functions function and have it loop
                 # through the dict adding a label and input each round
                 result = generateStudyFieldsForm(url, fields, error_msg)
             else:
                 # Else form must be one of the sub fields
-                for x in fields_of_study:
-                    result+='<p>%s</p>' % x
+                # Insert the data into the table ( Try to avoid 1 by 1 insertion )
+                # ( Sql statement equals and do += in each loop to add field and username pair to end of insert statement )
+                # ( How to get the table name? )
+                sql_insert = """INSERT INTO table (field, username) VALUES """
+                for field in fields_of_study:
+                    sql_insert += '(%s, %s)' % (field, username)
 
-
-                #result=generateStudyFieldsForm(url, fields, error_msg)
+                # result=generateStudyFieldsForm(url, fields, error_msg)
 
 
             # Can't get form data twice, once you submit on the first form then it will loop back to top of file and start again
