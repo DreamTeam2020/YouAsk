@@ -1,6 +1,6 @@
 from controller.ctrl_cache import *
 from controller.html_functions import *
-from model.model_functions import getFieldsOfStudy
+from model.model_functions import *
 from cgi import FieldStorage, escape
 
 
