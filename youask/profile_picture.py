@@ -13,7 +13,8 @@ page_name = "profile_picture"
 
 print('Content-Type: text/html')
 print()
-picture()
+picsrc=""
+result=picture()
 
 print("""
     %s
@@ -24,6 +25,11 @@ print("""
 
         <main>      <!-- The main part of the website --->
             <h1>test page</h1>
+            <div>
+  
+  <img src="data:image/png;base64, %s" alt="Red dot" />
+</div>
+%s   it is a log
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
@@ -32,4 +38,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("profile_picture", page_name, False), generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("profile_picture", page_name, False), picsrc, result, generateNav(page_name, False), pageEnd()))
