@@ -1,12 +1,30 @@
+import json
 import requests
 
-url = "https://ai-news-global.p.rapidapi.com/get_news/us"
+url = ('http://newsapi.org/v2/top-headlines?'
+       'country=us&'
+       'apiKey=1e2203fa10234d0a999cf82f685ac8d2')
+response = requests.get(url)
+print(response.json())
 
-headers = {
-    'x-rapidapi-host': "ai-news-global.p.rapidapi.com",
-    'x-rapidapi-key': "47e1c2f69fmsh3bf5d0854827f3ep11bd26jsnaa104e8ab8ae"
-    }
+result = response.text
 
-response = requests.request("GET", url, headers=headers)
+jsonData = json.loads(result)
 
-print(response.text)
+print(jsonData["articles"][0]["title"])
+
+
+def generateNews(x):
+    url = ('http://newsapi.org/v2/top-headlines?'
+           'country=us&'
+           'apiKey=1e2203fa10234d0a999cf82f685ac8d2')
+    response = requests.get(url)
+    jsonData = json.loads(response.text)
+    result = ""
+    for x in range(x):
+        result += '<section><h1>Title:%s</h1><br><h5>%s</h5></section>' % (
+        jsonData["articles"][x]["title"], jsonData["articles"][x]["description"])
+    return result
+
+
+

@@ -1,6 +1,9 @@
 #!/usr/local/bin/python3
 
 from cgitb import enable
+
+from controller.ctrl_index import generateNews
+
 enable()
 
 from controller.html_functions import *
@@ -10,6 +13,7 @@ page_name="home"
 
 print('Content-Type: text/html')
 print()
+result=generateNews(30)
 
 print("""
     %s
@@ -23,9 +27,9 @@ print("""
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
-            
+            %s
         </aside>
         
         %s
         %s
-    """ % (pageStart("Home", page_name, False),  generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Home", page_name, False),  result,generateNav(page_name, False), pageEnd()))
