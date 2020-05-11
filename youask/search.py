@@ -2,7 +2,6 @@
 
 from cgitb import enable
 enable()
-
 from controller.html_functions import *
 from controller.ctrl_search import *
 
