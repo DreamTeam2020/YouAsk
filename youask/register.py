@@ -18,9 +18,7 @@ print()
 print("""
     %s
     <body>
-        <header>    <!-- A header section displayed at the top of the page--->
-            <h1>HEADER</h1>
-        </header>
+        %s
 
         <main>      <!-- The main part of the website --->
             <form action="%s" method="post">
@@ -52,4 +50,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Register", page_name, False), url, user_details[0], message_list[0], user_details[1], message_list[1], user_details[2], message_list[2], message_list[3], message_list[4], generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Register", page_name, False), generateHeader(False), url, user_details[0], message_list[0], user_details[1], message_list[1], user_details[2], message_list[2], message_list[3], message_list[4], generateNav(page_name, False), pageEnd()))

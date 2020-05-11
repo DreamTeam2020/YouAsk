@@ -17,9 +17,7 @@ print()
 print("""
     %s
     <body>
-        <header>    <!-- A header section displayed at the top of the page--->
-            <h1>HEADER</h1>
-        </header>
+        %s
 
         <main>      <!-- The main part of the website --->
             <form action="%s" method="post">
@@ -43,4 +41,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Login", page_name, False), url, user_email, error_msg, generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Login", page_name, False), generateHeader(False), url, user_email, error_msg, generateNav(page_name, False), pageEnd()))

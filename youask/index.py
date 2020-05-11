@@ -18,9 +18,7 @@ result = generateNews(7)
 print("""
     %s
     <body>
-        <header>    <!-- A header section displayed at the top of the page--->
-            
-        </header>
+        %s
         
         <main>      <!-- The main part of the website --->
             <h1>Home page</h1>
@@ -32,4 +30,4 @@ print("""
         
         %s
         %s
-    """ % (pageStart("Home", page_name, False), result, generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Home", page_name, False), generateHeader(False), result, generateNav(page_name, False), pageEnd()))

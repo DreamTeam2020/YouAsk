@@ -1,3 +1,5 @@
+from controller.ctrl_cache import verifyLoggedIn
+
 def pageStart(title, id, sub_dir):
     # This will generate the start of each html page including the <head></head>
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
@@ -26,6 +28,35 @@ def pageEnd():
             </body>
         </html>"""
 
+    return result
+
+
+def generateHeader(sub_dir):
+    # This will generate the header for each page
+    # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
+    prefix = '../' if sub_dir else ''
+
+    display_name=verifyLoggedIn(sub_dir)
+    result="""
+            <header>    <!-- A header section displayed at the top of the page--->
+                <h1>YOUASK HEADER</h1>
+    """
+    if display_name=='UNVERIFIED':
+        result+="""
+                    <section>
+                        <p><a href='%slogin.py'>Login</a> | <a href='%sregister.py'>Register</a></p>
+                    </section>
+        """ % (prefix, prefix)
+    else:
+        result+="""
+                    <section>
+                        <p><a href='%sprofile.py'>%s</a> | <a href='%slogout.py'>Logout</a></p>
+                    </section>
+        """ % (prefix, display_name, prefix)
+
+    result+="""
+            </header>
+    """
     return result
 
 
@@ -75,7 +106,6 @@ def loginToAccess(sub_dir):
         </section>
     """ % (prefix, prefix)
     return error_msg
-
 
 def alreadyLoggedIn():
     # If the user is already logged in and tries to log in
@@ -173,7 +203,7 @@ def generateEditDetailsForm(url, details, new_display_name, old_password, new_pa
                     <p>Username: %s</p>
                     <p>Email: %s</p>
                     <p>Display Name: %s</p>
-                    <p>To edit your fields of study click <a href="edit_study.py">here</a></p>
+                    <p>To Edit Your Fields of Study Click <a href="edit_study.py">Here</a></p>
                     
                     <label for="new_display_name">New Display Name: </label>
                     <input type="text" name="new_display_name" id="new_display_name" value="%s" maxlength="35"/>
@@ -192,7 +222,6 @@ def generateEditDetailsForm(url, details, new_display_name, old_password, new_pa
                 </fieldset>
             </form>
             %s
-            <p>To Edit Your Fields of Study Click <a href="edit_study.py">Here</a></p>
         </section>
     """ % (url, details['username'], details['email'], details['display_name'], new_display_name, error_messages[0],
            old_password, error_messages[1], new_password1, new_password2, error_messages[2], error_messages[3])
@@ -244,7 +273,7 @@ def generateStudyFieldsForm(table_name, url, fields, user_fields, error_msg):
 
         for sub_row in user_fields:
             # If a field in the overall list is found in the user's list of fields, then set checked on input
-            if row['field']==sub_row['field']:
+            if row['field'].lower()==sub_row['field'].lower():
                 result += """
                             <input type="checkbox" name="fields_of_study" id="%s" value="%s" checked/>
                             <label for="%s">%s</label>

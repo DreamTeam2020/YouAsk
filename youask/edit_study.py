@@ -16,9 +16,7 @@ print()
 print("""
     %s
     <body>
-        <header>    <!-- A header section displayed at the top of the page--->
-            <h1>HEADER</h1>
-        </header>
+        %s
 
         <main>      <!-- The main part of the website --->
             %s
@@ -29,4 +27,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Fields of Study", page_name, False), edit, generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Fields of Study", page_name, False), generateHeader(False), edit, generateNav(page_name, False), pageEnd()))
