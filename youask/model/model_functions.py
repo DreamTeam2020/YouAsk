@@ -201,6 +201,18 @@ def getFieldsOfStudy(table_name):
         result = "SERVER_ERROR"
     return result
 
+def getUserFieldsStudy(username, table_name):
+    # Returns all the user's fields within the provided table
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT field FROM %s WHERE username='%s'" % (table_name, username))
+        result = cursor.fetchall()
+        dbClose(connection, cursor)
+    except db.Error():
+        result = "SERVER_ERROR"
+    return result
+
+
 def executeInsertQuery(query):
     # Executes a given insert query
     try:

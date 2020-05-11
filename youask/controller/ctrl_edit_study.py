@@ -32,10 +32,13 @@ def controllerEditStudy():
                 fields = getFieldsOfStudy(table_name)   # Get all fields from table_name
 
                 # Get user's current fields from the table and display them as selected -- checked
+                # Get user's fields from db, pass user_fields to generate form, fetch is dictionary, how to check each row
+
+                user_fields=getUserFieldsStudy(username, table_name)
 
                 # Pass fields into a html_functions function and have it loop
                 # through the dict adding a label and input each round.
-                result = generateStudyFieldsForm(table_name, url, fields, error_msg)
+                result = generateStudyFieldsForm(table_name, url, fields, user_fields, error_msg)
             else:
                 # Else form must be one of the sub fields
                 # Insert the data into the table ( Try to avoid 1 by 1 insertion )

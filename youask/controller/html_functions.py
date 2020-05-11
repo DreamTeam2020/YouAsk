@@ -227,7 +227,7 @@ def generateFieldHeadingsForm(url, error_msg):
 
     return result
 
-def generateStudyFieldsForm(table_name, url, fields, error_msg):
+def generateStudyFieldsForm(table_name, url, fields, user_fields, error_msg):
     # Generate the checklist form containing all sub fields of study within the given field
 
     result="""
@@ -235,14 +235,28 @@ def generateStudyFieldsForm(table_name, url, fields, error_msg):
             <form action ="%s" method="post">
                 <fieldset>
     """ % url
+
     for row in fields:
         # For the id's use the field name in lower case and replace spaces with underscores
         field_code=row['field'].lower().replace(' ', '_')
         field_code+='~%s' % table_name
-        result+="""
-                        <input type="checkbox" name="fields_of_study" id="%s" value="%s"/>
-                        <label for="%s">%s</label>
-        """ % (field_code, field_code, field_code, row['field'])
+        checked=False
+
+        for sub_row in user_fields:
+            # If a field in the overall list is found in the user's list of fields, then set checked on input
+            if row['field']==sub_row['field']:
+                result += """
+                            <input type="checkbox" name="fields_of_study" id="%s" value="%s" checked/>
+                            <label for="%s">%s</label>
+                """ % (field_code, field_code, field_code, row['field'])
+                user_fields.remove(sub_row)
+                checked=True
+
+        if not checked:
+            result+="""
+                            <input type="checkbox" name="fields_of_study" id="%s" value="%s"/>
+                            <label for="%s">%s</label>
+            """ % (field_code, field_code, field_code, row['field'])
 
     result+="""
                     <input type="submit" value="Select Fields"/>
