@@ -49,7 +49,10 @@ def controllerEditStudy():
 
                 sql_insert = """INSERT INTO %s (field, username) VALUES """ % table
                 for field in fields_of_study:
-                    field=field.split(separator, 1)[0]    # Remove the table name from the field
+                    # Remove the table name from the field, title will
+                    # capitalise first letter of each word. Replace underscores with spaces
+                    field = field.split(separator, 1)[0].title().replace("_", " ")
+
                     sql_insert += '("%s", "%s"),' % (field, username)   # Append the field and username onto the end of the query
 
                 sql_insert = sql_insert[:-1]    # Remove the last comma from the query
