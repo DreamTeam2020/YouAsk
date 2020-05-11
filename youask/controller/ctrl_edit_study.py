@@ -28,15 +28,13 @@ def controllerEditStudy():
                             fields_of_study[0] == 'formal_sciences' or fields_of_study[0]=='professions':
                 # If the data in fields_of_study is equal to one of the main fields
 
-                table_name = "ask_%s" % fields_of_study[0]    # append fields_of_study to ask and get all fields from that table
+                table_name = "ask_%s" % fields_of_study[0]    # Append fields_of_study to ask and get all fields from that table
                 fields = getFieldsOfStudy(table_name)   # Get all fields from table_name
 
-
-                # Get user's current fields from the table and display them as selected
-
+                # Get user's current fields from the table and display them as selected -- checked
 
                 # Pass fields into a html_functions function and have it loop
-                # through the dict adding a label and input each round
+                # through the dict adding a label and input each round.
                 result = generateStudyFieldsForm(table_name, url, fields, error_msg)
             else:
                 # Else form must be one of the sub fields
@@ -47,7 +45,7 @@ def controllerEditStudy():
                 separator = '~'   # This will define the value used to split the table name from the field name
                 table = fields_of_study[0].split(separator, 1)[-1]
 
-                sql_insert = """INSERT INTO %s (field, username) VALUES """ % table
+                sql_insert = """INSERT INTO %s (field, username) VALUES """ % table     # This didn't work with comma because its a string, has nothing to do with sql right now
                 for field in fields_of_study:
                     # Remove the table name from the field, title will
                     # capitalise first letter of each word. Replace underscores with spaces
@@ -56,8 +54,9 @@ def controllerEditStudy():
                     sql_insert += '("%s", "%s"),' % (field, username)   # Append the field and username onto the end of the query
 
                 sql_insert = sql_insert[:-1]    # Remove the last comma from the query
-                query_result=executeInsertQuery(sql_insert)    # Insert into db
-                if query_result=='SERVER_ERROR':
+                removal_result=removeFieldsOfStudy(username, table)     # Remove the old data from table to allow user to remove fields
+                insert_result=executeInsertQuery(sql_insert)    # Insert into db
+                if insert_result=='SERVER_ERROR' or removal_result=='SERVER_ERROR':
                     error_msg='<p class="Error">Server Error Occurred</p>'
                 else:
                     error_msg='<p class="Error">Successfully Updated</p>'

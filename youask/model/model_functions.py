@@ -214,6 +214,17 @@ def executeInsertQuery(query):
     except db.Error():
         return "SERVER_ERROR"
 
+def removeFieldsOfStudy(username, table_name):
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("""DELETE FROM %s WHERE username=%s""", (table_name, username))
+        connection.commit()
+        dbClose(connection, cursor)
+
+        return "removed"
+    except db.Error():
+        return "SERVER_ERROR"
+
 
 def bugReportLogged(description, submitter, email):
     try:
