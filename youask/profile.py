@@ -14,9 +14,7 @@ print()
 print("""
     %s
     <body>
-        <header>    <!-- A header section displayed at the top of the page--->
-
-        </header>
+        %s
 
         <main>      <!-- The main part of the website --->
             <h1>test page</h1>
@@ -28,4 +26,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Profile", page_name, False), generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Profile", page_name, False), generateHeader(False), generateNav(page_name, False), pageEnd()))

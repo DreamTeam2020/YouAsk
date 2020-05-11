@@ -19,9 +19,7 @@ print()
 print("""
     %s
     <body>
-        <header>    <!-- A header section displayed at the top of the page--->
-
-        </header>
+        %s
 
 
         <main>      <!-- The main part of the website --->
@@ -36,4 +34,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Questions", page_name, False), questions, generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Questions", page_name, False), generateHeader(False), questions, generateNav(page_name, False), pageEnd()))

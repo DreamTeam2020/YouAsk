@@ -21,9 +21,7 @@ result=ctrlpicture()
 print("""
     %s
     <body>
-        <header>    <!-- A header section displayed at the top of the page--->
-
-        </header>
+        %s
 
         <main>      <!-- The main part of the website --->
          
@@ -52,4 +50,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("profile_picture", page_name, False), picsrc, result, getpicturecode(), generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("profile_picture", page_name, False), generateHeader(False), picsrc, result, getpicturecode(), generateNav(page_name, False), pageEnd()))

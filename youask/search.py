@@ -14,9 +14,8 @@ print()
 print("""
     %s
     <body>
-        <header>    <!-- A header section displayed at the top of the page--->
-            <h1>Search your question</h1>
-        </header>
+        %s
+        
         <main>      <!-- The main part of the website --->
           <form action="%s" method="post">
                 
@@ -34,4 +33,4 @@ print("""
         </aside>
         %s
         %s
-    """ % (pageStart("search", page_name, False), url, result, generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("search", page_name, False), generateHeader(False), url, result, generateNav(page_name, False), pageEnd()))

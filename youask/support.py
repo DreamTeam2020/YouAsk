@@ -17,9 +17,8 @@ print()
 print("""
     %s
     <body>
-        <header>    <!-- A header section displayed at the top of the page--->
-            <h1>HEADER</h1>
-        </header>
+        %s
+        
         <main>      <!-- The main part of the website --->
             %s
         </main>
@@ -27,4 +26,4 @@ print("""
         </aside>
         %s
         %s
-    """ % (pageStart("support", page_name, False), result, generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("support", page_name, False), generateHeader(False), result, generateNav(page_name, False), pageEnd()))
