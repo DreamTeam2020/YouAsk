@@ -2,18 +2,18 @@
 
 from cgitb import enable
 
-from controller.ctrl_index import generateNews
+from controller.ctrl_index import *
 
 enable()
 
 from controller.html_functions import *
 
-page_name="home"
-
+page_name = "home"
 
 print('Content-Type: text/html')
 print()
-result=generateNews(30)
+result = generateNews(7)
+
 
 print("""
     %s
@@ -32,4 +32,4 @@ print("""
         
         %s
         %s
-    """ % (pageStart("Home", page_name, False),  result,generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Home", page_name, False), result, generateNav(page_name, False), pageEnd()))
