@@ -1,6 +1,7 @@
 import json
 import requests
 
+
 def generateNews(x):
     url = ('http://newsapi.org/v2/top-headlines?'
            'country=us&'
@@ -9,7 +10,7 @@ def generateNews(x):
     jsonData = json.loads(response.text)
     result = ""
     for x in range(x):
-        result += '<section><h1>Title:%s</h1><h3>%s</h3></section>' % (
+        result += '<section><h1>Title:%s</h1><h4>%s</h4></section><br>' % (
         jsonData["articles"][x]["title"], jsonData["articles"][x]["description"])
     return result
 
