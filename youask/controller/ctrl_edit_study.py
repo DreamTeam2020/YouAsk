@@ -31,9 +31,7 @@ def controllerEditStudy():
                 table_name = "ask_%s" % fields_of_study[0]    # Append fields_of_study to ask and get all fields from that table
                 fields = getFieldsOfStudy(table_name)   # Get all fields from table_name
 
-                # Get user's current fields from the table and display them as selected -- checked
-                # Get user's fields from db, pass user_fields to generate form, fetch is dictionary, how to check each row
-
+                # Get user's current fields from the table
                 user_fields=getUserFieldsStudy(username, table_name)
 
                 # Pass fields into a html_functions function and have it loop
@@ -65,6 +63,7 @@ def controllerEditStudy():
                     error_msg='<p class="Error">Successfully Updated</p>'
 
                 fields = getFieldsOfStudy(table)   # Get all fields from table_name
-                result = generateStudyFieldsForm(table, url, fields, error_msg)
+                user_fields=getUserFieldsStudy(username, table)
+                result = generateStudyFieldsForm(table, url, fields, user_fields, error_msg)
 
     return result

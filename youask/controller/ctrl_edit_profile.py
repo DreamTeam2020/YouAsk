@@ -46,9 +46,7 @@ def controllerEditProfile():
                         old_password, password1, password2='', '', ''
 
                     details=getUserDetails(username)
-                    result=generateEditDetailsForm(url, details, new_display_name, old_password, password1, password2, error_messages)
-                else:
-                    result=generateEditDetailsForm(url, details, new_display_name, old_password, password1, password2, error_messages)
+                result=generateEditDetailsForm(url, details, new_display_name, old_password, password1, password2, error_messages)
 
     return result
 
