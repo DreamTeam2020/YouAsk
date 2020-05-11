@@ -9,8 +9,6 @@ enable()
 import pymysql as db
 from hashlib import sha256
 import base64
-from PIL import Image
-import PIL.Image
 
 
 def dbConnect():
@@ -217,10 +215,9 @@ def executeInsertQuery(query):
 def removeFieldsOfStudy(username, table_name):
     try:
         connection, cursor = dbConnect()
-        cursor.execute("""DELETE FROM %s WHERE username=%s""", (table_name, username))
+        cursor.execute("""DELETE FROM %s WHERE username='%s'""" % (table_name, username))
         connection.commit()
         dbClose(connection, cursor)
-
         return "removed"
     except db.Error():
         return "SERVER_ERROR"
