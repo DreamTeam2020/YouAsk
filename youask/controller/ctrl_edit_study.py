@@ -65,5 +65,4 @@ def controllerEditStudy():
                 fields = getFieldsOfStudy(table)   # Get all fields from table_name
                 user_fields=getUserFieldsStudy(username, table)
                 result = generateStudyFieldsForm(table, url, fields, user_fields, error_msg)
-
     return result
