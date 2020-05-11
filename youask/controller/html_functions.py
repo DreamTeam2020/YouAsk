@@ -1,3 +1,5 @@
+from controller.ctrl_cache import verifyLoggedIn
+
 def pageStart(title, id, sub_dir):
     # This will generate the start of each html page including the <head></head>
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
@@ -26,6 +28,35 @@ def pageEnd():
             </body>
         </html>"""
 
+    return result
+
+
+def generateHeader(sub_dir):
+    # This will generate the header for each page
+    # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
+    prefix = '../' if sub_dir else ''
+
+    username, display_name=verifyLoggedIn(sub_dir)
+    result="""
+            <header>    <!-- A header section displayed at the top of the page--->
+                <h1>YOUASK HEADER</h1>
+    """
+    if username=='UNVERIFIED':
+        result+="""
+                    <section>
+                        <p><a href='%slogin.py'>Login</a> | <a href='%sregister.py'>Register</a></p>
+                    </section>
+        """ % (prefix, prefix)
+    else:
+        result+="""
+                    <section>
+                        <p><a href='%sprofile.py'>%s</a> | <a href='%slogout.py'>Logout</a></p>
+                    </section>
+        """ % (prefix, display_name, prefix)
+
+    result+="""
+            </header>
+    """
     return result
 
 
@@ -75,7 +106,6 @@ def loginToAccess(sub_dir):
         </section>
     """ % (prefix, prefix)
     return error_msg
-
 
 def alreadyLoggedIn():
     # If the user is already logged in and tries to log in
