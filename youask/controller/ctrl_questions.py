@@ -1,5 +1,5 @@
 from model.model_functions import getQuestion
-import datetime
+
 
 
 
@@ -23,7 +23,6 @@ def controllerQuestions():
 
 def conventdate(arr):
     for i in range(len(arr)):
-        print(i+1)
         arr[i]["submission_date"]=arr[i]["submission_date"].strftime("%y")+ arr[i]["submission_date"].strftime("%m")+arr[i]["submission_date"].strftime("%d")+arr[i]["submission_date"].strftime("%H")+ arr[i]["submission_date"].strftime("%M")+arr[i]["submission_date"].strftime("%S")
         arr[i]["submission_date"]=int(arr[i]["submission_date"])
     return arr
@@ -32,16 +31,16 @@ def conventdate(arr):
 
 def insertionSort(arr):
     for i in range(1, len(arr)):
-        key =arr[i]["submission_date"]
+        key = arr[i]["submission_date"]
+        key1=arr[i]
         j = i - 1
         while j >= 0 and key > arr[j]["submission_date"]:
             arr[j + 1] = arr[j]
             j -= 1
 
         arr[j + 1]["submission_date"] = key
+        arr[j+1]=key1
     return arr
-
-
 
 
 
