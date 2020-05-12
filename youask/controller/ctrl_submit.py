@@ -36,7 +36,7 @@ def controllerSubmission():
 
                 # Get user's current fields from the table
 
-                result = generateQuestionForm(url, question, description, fields, error_msg)
+                result = generateQuestionForm(url, question, description, fields, table_name, error_msg)
             else:
                 '''
                 separator = '~'  # This will define the value used to split the table name from the field name
