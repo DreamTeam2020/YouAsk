@@ -46,7 +46,7 @@ def controllerEditStudy():
                 separator = '~'   # This will define the value used to split the table name from the field name
                 table = fields_of_study[0].split(separator, 1)[-1]
 
-                sql_insert = """INSERT INTO %s (field, username) VALUES """ % table     # This didn't work with comma because its a string, has nothing to do with sql right now
+                sql_insert = """INSERT INTO %s (field, username) VALUES """ % table
                 for field in fields_of_study:
                     # Remove the table name from the field, title will
                     # capitalise first letter of each word. Replace underscores with spaces

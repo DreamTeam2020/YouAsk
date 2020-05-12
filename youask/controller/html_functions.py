@@ -116,7 +116,7 @@ def alreadyLoggedIn():
     return error_msg
 
 
-def generateQuestionForm(url, question, description, fields, table_name, error):
+def generateQuestionForm(url, question, description, fields, error):
     # Generate the question form to be used if the user is logged in
     result = """
         <form action="%s" method="post">
@@ -133,7 +133,6 @@ def generateQuestionForm(url, question, description, fields, table_name, error):
     for row in fields:
         # For the id's use the field name in lower case and replace spaces with underscores
         field_code=row['field'].lower().replace(' ', '_')
-        field_code+='~%s' % table_name
 
         result+="""
                 <input type="checkbox" name="fields_of_study" id="%s" value="%s"/>

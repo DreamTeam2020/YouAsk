@@ -14,6 +14,8 @@ def controllerSubmission():
     result = loginToAccess(False)
     error_msg = "<p> </p>"
 
+    session_table_key='question_submission_field_table'
+
     # Check if user is logged in
     # If logged in print form then do len form data
     username=verifyLoggedIn(False)   # Returns username if logged in, else UNVERIFIED
@@ -35,72 +37,64 @@ def controllerSubmission():
                 fields = getFieldsOfStudy(table_name)  # Get all fields from table_name
 
                 # Get user's current fields from the table
-
-                result = generateQuestionForm(url, question, description, fields, table_name, error_msg)
+                saveToSession(session_table_key, table_name, False)    # Save table name to session for later use
+                result = generateQuestionForm(url, question, description, fields, error_msg)
             else:
-                '''
-                separator = '~'  # This will define the value used to split the table name from the field name
-                table = fields_of_study[0].split(separator, 1)[-1]
-                
                 question = escape(form_data.getfirst('question', '').strip())
                 description = escape(form_data.getfirst('description', '').strip())
+                fields_of_study = form_data.getlist('fields_of_study')
+                # If not description and len form_data == 1 or if description and len form_data == 2 then no fields selected
 
                 if not question:
                     error_msg = '<p class="error">Question Field Must Be Filled</p>'  # If no question is entered
                 else:
-                    # Filter out profanity on description, block questions that include profanity
-                    if len(question) < 5:  # Remove this later for proper verification
-                        error_msg = '<p class="error">Invalid question, please <em>Do Not</em> include profanity ' \
-                                    'within the question. Profanity within the description will be filtered out.</p>'
+                    if (not description and len(fields_of_study) == 1) or (description and len(fields_of_study) == 2):
+                        # If this passes then there must be no fields selected
+                        error_msg = '<p class="error">Please Select At Least One Field</p>'
                     else:
-                        # If input has been verified then insert the user's question in the database
-                        submission_result = submitQuestion(username, question, description)
-                        if submission_result == "SERVER_ERROR":
-                            error_msg = '<p class="error">Server Error Occurred</p>'
+                        # Remove the question and description from the list
+                        fields_of_study.remove(question)
+                        if description:
+                            fields_of_study.remove(description)
+
+                        if len(question) < 5:  # Remove this later for proper verification
+                            error_msg = '<p class="error">Invalid question, please <em>Do Not</em> include profanity ' \
+                                        'within the question. Profanity within the description will be filtered out.</p>'
                         else:
-                            # Question was submitted
-                            question = ''
-                            description = ''
-                            new_file = generateQuestionPage(submission_result)
-                            error_msg = '<p class="error">Question has been submitted, ' \
-                                        'continue to question page <a href="question_pages/%s">here</a></p>' % new_file
 
-                result = generateQuestionForm(url, question, description, error_msg)
-                '''
-                result='<h1>test</h1>'
+                            # If input has been verified then insert the user's question in the database
+                            submission_result = submitQuestion(username, question,
+                                                               description)  # Returns question id if success
+                            if submission_result == "SERVER_ERROR":
+                                error_msg = '<p class="error">Server Error Occurred</p>'
+                            else:
+                                # Add question fields to table
+                                separator = '~'  # This will define the value used to split the table name from the field name
+                                table=getValueFromSession(session_table_key, False)
 
+                                sql_insert = """INSERT INTO ask_question_fields (question_id, area, field) VALUES """
+                                for field in fields_of_study:
+                                    # Remove the table name from the field, title will
+                                    # capitalise first letter of each word. Replace underscores with spaces
+                                    field = field.title().replace("_", " ")
 
+                                    sql_insert += '("%s", "%s", "%s"),' % (submission_result, table, field)  # Append the question id, area and field onto the end of the query
 
+                                sql_insert = sql_insert[:-1]  # Remove the last comma from the query
+                                insert_result = executeInsertQuery(sql_insert)  # Insert into db
+                                if insert_result == 'SERVER_ERROR':
+                                    error_msg = '<p class="Error">Server Error Occurred</p>'
+                                else:
+                                    # Question was submitted
+                                    question = ''
+                                    description = ''
+                                    new_file = generateQuestionPage(submission_result)
+                                    removeKeyFromSession(session_table_key, False)
+                                    error_msg = '<p class="error">Question has been submitted, ' \
+                                                'continue to question page <a href="question_pages/%s">here</a></p>' % new_file
 
-        '''
-        result = generateQuestionForm(url, question, description, error_msg)
+                table_name=getValueFromSession(session_table_key, False)
+                fields = getFieldsOfStudy(table_name)  # Get all fields from table_name
+                result = generateQuestionForm(url, question, description, fields, error_msg)
 
-        form_data=FieldStorage()
-
-        if len(form_data)!=0:
-            question= escape(form_data.getfirst('question', '').strip())
-            description = escape(form_data.getfirst('description', '').strip())
-
-            if not question:
-                error_msg='<p class="error">Question Field Must Be Filled</p>'  # If no question is entered
-            else:
-                # Filter out profanity on description, block questions that include profanity
-                if len(question) < 5:    # Remove this later for proper verification
-                    error_msg = '<p class="error">Invalid question, please <em>Do Not</em> include profanity ' \
-                                'within the question. Profanity within the description will be filtered out.</p>'
-                else:
-                    # If input has been verified then insert the user's question in the database
-                    submission_result = submitQuestion(username, question, description)
-                    if submission_result=="SERVER_ERROR":
-                        error_msg = '<p class="error">Server Error Occurred</p>'
-                    else:
-                        #Question was submitted
-                        question=''
-                        description=''
-                        new_file=generateQuestionPage(submission_result)
-                        error_msg = '<p class="error">Question has been submitted, ' \
-                                    'continue to question page <a href="question_pages/%s">here</a></p>' % new_file
-
-            result = generateQuestionForm(url, question, description, error_msg)
-        '''
     return result
