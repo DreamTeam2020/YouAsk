@@ -43,20 +43,15 @@ def controllerSubmission():
                 question = escape(form_data.getfirst('question', '').strip())
                 description = escape(form_data.getfirst('description', '').strip())
                 fields_of_study = form_data.getlist('fields_of_study')
-                # If not description and len form_data == 1 or if description and len form_data == 2 then no fields selected
+                # NOTE: in this instance, after doing getfirst, said data will then not be in the following getlist
 
                 if not question:
                     error_msg = '<p class="error">Question Field Must Be Filled</p>'  # If no question is entered
                 else:
-                    if (not description and len(fields_of_study) == 1) or (description and len(fields_of_study) == 2):
+                    if len(fields_of_study) == 0:
                         # If this passes then there must be no fields selected
                         error_msg = '<p class="error">Please Select At Least One Field</p>'
                     else:
-                        # Remove the question and description from the list
-                        fields_of_study.remove(question)
-                        if description:
-                            fields_of_study.remove(description)
-
                         if len(question) < 5:  # Remove this later for proper verification
                             error_msg = '<p class="error">Invalid question, please <em>Do Not</em> include profanity ' \
                                         'within the question. Profanity within the description will be filtered out.</p>'
