@@ -43,7 +43,6 @@ def controllerSubmission():
                 question = escape(form_data.getfirst('question', '').strip())
                 description = escape(form_data.getfirst('description', '').strip())
                 fields_of_study = form_data.getlist('fields_of_study')
-                # NOTE: in this instance, after doing getfirst, said data will then not be in the following getlist
 
                 if not question:
                     error_msg = '<p class="error">Question Field Must Be Filled</p>'  # If no question is entered
@@ -58,13 +57,12 @@ def controllerSubmission():
                         else:
 
                             # If input has been verified then insert the user's question in the database
-                            submission_result = submitQuestion(username, question,
-                                                               description)  # Returns question id if success
+                            submission_result = submitQuestion(username, question, description)  # Returns question id if success
+
                             if submission_result == "SERVER_ERROR":
                                 error_msg = '<p class="error">Server Error Occurred</p>'
                             else:
                                 # Add question fields to table
-                                separator = '~'  # This will define the value used to split the table name from the field name
                                 table=getValueFromSession(session_table_key, False)
 
                                 sql_insert = """INSERT INTO ask_question_fields (question_id, area, field) VALUES """
@@ -84,12 +82,12 @@ def controllerSubmission():
                                     question = ''
                                     description = ''
                                     new_file = generateQuestionPage(submission_result)
-                                    removeKeyFromSession(session_table_key, False)
                                     error_msg = '<p class="error">Question has been submitted, ' \
                                                 'continue to question page <a href="question_pages/%s">here</a></p>' % new_file
 
                 table_name=getValueFromSession(session_table_key, False)
                 fields = getFieldsOfStudy(table_name)  # Get all fields from table_name
                 result = generateQuestionForm(url, question, description, fields, error_msg)
+                removeKeyFromSession(session_table_key, False)
 
     return result
