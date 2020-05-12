@@ -43,7 +43,7 @@ def insertionSort(arr):
     for i in range(1, len(arr)):
         key =arr[i]["submission_date"]
         j = i - 1
-        while j >= 0 and key < arr[j]["submission_date"]:
+        while j >= 0 and key > arr[j]["submission_date"]:
             arr[j + 1] = arr[j]
             j -= 1
 
