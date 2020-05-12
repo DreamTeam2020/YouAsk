@@ -6,6 +6,7 @@ import datetime
 
 def controllerQuestions():
     result = getQuestion()
+    result=conventdate(result)
     result=insertionSort(result)
     questions = '<h1>question &nbsp submitter &nbsp score &nbsp view count &nbsp time &nbsp</h1>  '
     for x in result:
@@ -18,16 +19,6 @@ def controllerQuestions():
 
 
 
-
-def dateconvert(s):
-   news=""
-   for x in range(19):
-       if 48 <= ord(s[x]) <= 57:
-           news+=s[x]
-
-
-
-   return (news)
 
 
 def conventdate(arr):
@@ -49,6 +40,9 @@ def insertionSort(arr):
 
         arr[j + 1]["submission_date"] = key
     return arr
+
+
+
 
 
 
