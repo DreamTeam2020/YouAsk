@@ -1,3 +1,5 @@
+from controller.ctrl_cache import verifyLoggedIn    # This is used, ignore pycharm
+
 def pageStart(title, id, sub_dir):
     # This will generate the start of each html page including the <head></head>
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
