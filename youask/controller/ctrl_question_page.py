@@ -19,15 +19,29 @@ def generateQuestionPage(question_id):
     return new_file_name
 
 def generateQuestion(question):
-    # Takes in a question from fetchall
+    # Takes in a question from fetchall and generate the question display (will also generate the question's fields)
     result_question = """
-                        <section class="question">
-                            <h1>%s</h1>
-                            <p>%s</p>
-                            <p><small>Submitted By: %s - Score: %d - View Count: %d</small></p>
-                        </section>
-        """ % (question['question'], question['description'], question['submitter'],
-               question['score'], question['view_count'])
+                    <section class="question">
+                        <h1>%s</h1>
+                        <p>%s</p>
+        """ % (question['question'], question['description'])
+
+    question_id=question['id']
+    fields=getQuestionFields(question_id)   #Returns a fetchall of the fields used by the question
+    if fields=='EMPTY':
+        fields_of_study='<p class="Error">No Fields available</p>'
+    else:
+        fields_of_study='<p>Fields of Study: '
+        for row in fields:
+            fields_of_study+='%s | ' % row['field']
+
+        fields_of_study=fields_of_study[:-3]    # Remove the last 3 characters of the string
+
+    result_question+="""
+                        %s
+                        <p><small>Submitted By: %s - Score: %d - View Count: %d</small></p>
+                    </section>
+    """ % (fields_of_study, question['submitter'], question['score'], question['view_count'])
 
     return result_question
 
@@ -56,16 +70,44 @@ def controllerQuestionAnswers(question_id):
     if question == "SERVER_ERROR":
         server_error=True
     else:
-        result_question = generateQuestion(question)
+        result_question,= generateQuestion(question)
 
     if not server_error:
         result = result_question
-        # Check if user is logged in, if so then allow them to answer
+        submitter=question['submitter']
 
+        # Check if user is logged in, if so then allow them to answer
         logged=verifyLoggedIn(True)
-        if logged!='UNVERIFIED':
-            answer_form=controllerAnswerForm(logged, question_id)
-            result+=answer_form
+        if logged!='UNVERIFIED': # If logged in
+            # If the user is the submitter of the question (else if the user has the correct fields to answer)
+
+            question_fields = getQuestionFields(question_id)
+
+            if logged==submitter:
+                answer_form=controllerAnswerForm(logged, question_id)
+                result+=answer_form
+            elif question_fields!='EMPTY':
+                # Get the user's fields of study from the table that contains the questions fields
+                user_fields=getUserFieldsStudy(logged, question_fields[0]['area'])
+                authorised=False
+                for row in question_fields:
+                    for user_row in user_fields:
+                        if row['field']==user_row['field']:
+                            authorised=True
+                            break
+                    if authorised:
+                        break
+
+                if authorised:
+                    # The user has at least one field the same as the question
+                    answer_form=controllerAnswerForm(logged, question_id)
+                    result+=answer_form
+                else:
+                    # The user is not the submitter and does not have the correct fields
+                    result += '<section><p class="Error">To answer this question you must be in the same field of study or be the original submitter of the question. You can edit your fields on your profile page <a href="../profile.py">here</a>.</p></section>'
+            else:
+                # The query was either empty of a server error occurred
+                result += '<section><p class="Error">Server Error Has Occurred.</p></section>'
         else:
             result+=loginToAccess(True)
 
