@@ -98,7 +98,7 @@ def loginToAccess(sub_dir):
 
     error_msg = """
         <section>
-            <p class="Error">To access this you must be logged in, you may do so here: </p>
+            <p class="error">To access this you must be logged in, you may do so here: </p>
             <ul>
                 <li><a href="%sregister.py">Register</a></li>
                 <li><a href="%slogin.py">Log In</a></li>
@@ -110,7 +110,7 @@ def loginToAccess(sub_dir):
 def alreadyLoggedIn():
     # If the user is already logged in and tries to log in
     error_msg = """
-        <p class="Error">You are already logged in.</p>
+        <p class="error">You are already logged in.</p>
         <p><a href="logout.py">Logout Here</a></p>
     """
     return error_msg

@@ -26,7 +26,7 @@ def controllerEditProfile():
         # Get user's details
         details=getUserDetails(username)
         if details == 'SEVER_ERROR':
-            result='<p class="Error">Server Error Occurred</p>'
+            result='<p class="error">Server Error Occurred</p>'
         else:
             # Generate the form / the user doesnt have to fill the whole form in
             # ( i.e they just want to change display name not password )
@@ -58,12 +58,12 @@ def checkErrors(username, new_display_name, old_password, password1, password2):
     error_messages=['<p> </p>', '<p> </p>', '<p> </p>', '<p> </p>']
 
     if (old_password and (not password1 or not password2)) or (password1 and (not old_password or not password2)) or (password2 and (not old_password or not password1)):
-        error_messages[2]='<p class="Error">If you are changing password, please fill in all password fields</p>'
+        error_messages[2]='<p class="error">If you are changing password, please fill in all password fields</p>'
     elif old_password and password1 and password2:
         # Check if old_password matches user's password
         match=checkOldPassword(username, old_password)
         if not match:
-            error_messages[1]='<p class="Error">Password does not match the user\'s password</p>'
+            error_messages[1]='<p class="error">Password does not match the user\'s password</p>'
 
         if password1!=password2:
             error_messages[2] = '<p class="error">New Passwords Must Match</p>'
@@ -75,9 +75,9 @@ def checkErrors(username, new_display_name, old_password, password1, password2):
                 # Update user's password & add success message to error_messages
                 update_result_password = updateUserPassword(username, password1)
                 if update_result_password == 'SERVER_ERROR':
-                    error_messages[3] = '<p class="Error">Server Error Occurred</p>'
+                    error_messages[3] = '<p class="error">Server Error Occurred</p>'
                 else:
-                    error_messages[3] = '<p class="Error">Password Successfully Updated</p>'
+                    error_messages[3] = '<p class="error">Password Successfully Updated</p>'
                     password_updated = True
 
     if new_display_name:
@@ -89,9 +89,9 @@ def checkErrors(username, new_display_name, old_password, password1, password2):
             # Update user's display name in db and session & add success message to error_messages
             update_result_display=updateUserDisplayName(username, new_display_name)
             if update_result_display=='SERVER_ERROR':
-                error_messages[3]='<p class="Error">Server Error Occurred</p>'
+                error_messages[3]='<p class="error">Server Error Occurred</p>'
             else:
-                error_messages[1]='<p class="Error">Display Name Successfully Updated</p>'
+                error_messages[1]='<p class="error">Display Name Successfully Updated</p>'
                 display_updated=True
 
     return display_updated, password_updated, error_messages
