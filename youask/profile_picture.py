@@ -2,8 +2,8 @@
 
 from cgitb import enable
 
-from controller.ctrl_picture import ctrlpicture
-from model.model_functions import getpicturecode
+from controller.ctrl_picture import ctrlPicture
+from model.model_functions import getPictureCode
 
 enable()
 
@@ -14,8 +14,8 @@ page_name = "profile_picture"
 
 print('Content-Type: text/html')
 print()
-picsrc=getpicturecode()
-result=ctrlpicture()
+picsrc=getPictureCode()
+result=ctrlPicture()
 
 
 print("""
