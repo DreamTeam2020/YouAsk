@@ -70,7 +70,7 @@ def controllerQuestionAnswers(question_id):
     if question == "SERVER_ERROR":
         server_error=True
     else:
-        result_question,= generateQuestion(question)
+        result_question = generateQuestion(question)
 
     if not server_error:
         result = result_question
@@ -86,17 +86,19 @@ def controllerQuestionAnswers(question_id):
             if logged==submitter:
                 answer_form=controllerAnswerForm(logged, question_id)
                 result+=answer_form
-            elif question_fields!='EMPTY':
+            elif question_fields!='EMPTY' and question_fields!='SERVER_ERROR':
                 # Get the user's fields of study from the table that contains the questions fields
-                user_fields=getUserFieldsStudy(logged, question_fields[0]['area'])
                 authorised=False
-                for row in question_fields:
-                    for user_row in user_fields:
-                        if row['field']==user_row['field']:
-                            authorised=True
+                user_fields=getUserFieldsStudy(logged, question_fields[0]['area'])
+                
+                if user_fields!='EMPTY' and user_fields!='SERVER_ERROR':
+                    for row in question_fields:
+                        for user_row in user_fields:
+                            if row['field'] == user_row['field']:
+                                authorised = True
+                                break
+                        if authorised:
                             break
-                    if authorised:
-                        break
 
                 if authorised:
                     # The user has at least one field the same as the question

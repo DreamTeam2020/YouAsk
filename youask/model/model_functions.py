@@ -221,7 +221,10 @@ def getUserFieldsStudy(username, table_name):
     try:
         connection, cursor = dbConnect()
         cursor.execute("SELECT field FROM %s WHERE username='%s'" % (table_name, username))
-        result = cursor.fetchall()
+        if cursor.rowcount > 0:
+            result = cursor.fetchall()
+        else:
+            result = "EMPTY"
         dbClose(connection, cursor)
     except db.Error():
         result = "SERVER_ERROR"
