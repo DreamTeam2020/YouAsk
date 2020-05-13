@@ -1,4 +1,4 @@
-from controller.ctrl_cache import verifyLoggedIn
+from controller.ctrl_cache import verifyLoggedIn    # This is used, ignore pycharm
 
 def pageStart(title, id, sub_dir):
     # This will generate the start of each html page including the <head></head>
@@ -11,11 +11,11 @@ def pageStart(title, id, sub_dir):
             <head>
                 <meta charset="utf-8" />
                 <title>%s | YouAsk</title>
-
+                <link rel="stylesheet" href="%sstyles/styles.css" />
                 <meta name-"viewport" content="initial-scale=1.0, width=device-width" />
             </head>
-    """ % (id, title)
-    # <link rel="stylesheet" href="styles/styles.css" />
+    """ % (id, title, prefix)
+
     return result
 
 
@@ -281,16 +281,16 @@ def generateStudyFieldsForm(table_name, url, fields, user_fields, error_msg):
         field_code=row['field'].lower().replace(' ', '_')
         field_code+='~%s' % table_name
         checked=False
-
-        for sub_row in user_fields:
-            # If a field in the overall list is found in the user's list of fields, then set checked on input
-            if row['field'].lower()==sub_row['field'].lower():
-                result += """
-                            <input type="checkbox" name="fields_of_study" id="%s" value="%s" checked/>
-                            <label for="%s">%s</label>
-                """ % (field_code, field_code, field_code, row['field'])
-                user_fields.remove(sub_row)
-                checked=True
+        if user_fields!='EMPTY':
+            for sub_row in user_fields:
+                # If a field in the overall list is found in the user's list of fields, then set checked on input
+                if row['field'].lower()==sub_row['field'].lower():
+                    result += """
+                                <input type="checkbox" name="fields_of_study" id="%s" value="%s" checked/>
+                                <label for="%s">%s</label>
+                    """ % (field_code, field_code, field_code, row['field'])
+                    user_fields.remove(sub_row)
+                    checked=True
 
         if not checked:
             result+="""

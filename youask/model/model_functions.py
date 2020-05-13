@@ -190,21 +190,6 @@ def getAnswers(question_id):
         result = "SERVER_ERROR"
     return result
 
-def getQuestionFields(question_id):
-    # Get a question's fields of study given the question id
-    try:
-        connection, cursor = dbConnect()
-        cursor.execute("SELECT field FROM ask_question_fields WHERE question_id=%s", question_id)
-        if cursor.rowcount > 0:
-            result = cursor.fetchall()
-        else:
-            result = "EMPTY"
-        dbClose(connection, cursor)
-
-    except db.Error():
-        result = "SERVER_ERROR"
-    return result
-
 def getFieldsOfStudy(table_name):
     # Returns all the fields within the provided table
     try:
@@ -216,12 +201,31 @@ def getFieldsOfStudy(table_name):
         result = "SERVER_ERROR"
     return result
 
+def getQuestionFields(question_id):
+    # Get a question's fields of study given the question id
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT area, field FROM ask_question_fields WHERE question_id=%s", question_id)
+        if cursor.rowcount > 0:
+            result = cursor.fetchall()
+        else:
+            result = "EMPTY"
+        dbClose(connection, cursor)
+
+    except db.Error():
+        result = "SERVER_ERROR"
+    return result
+
+
 def getUserFieldsStudy(username, table_name):
     # Returns all the user's fields within the provided table
     try:
         connection, cursor = dbConnect()
         cursor.execute("SELECT field FROM %s WHERE username='%s'" % (table_name, username))
-        result = cursor.fetchall()
+        if cursor.rowcount > 0:
+            result = cursor.fetchall()
+        else:
+            result = "EMPTY"
         dbClose(connection, cursor)
     except db.Error():
         result = "SERVER_ERROR"
