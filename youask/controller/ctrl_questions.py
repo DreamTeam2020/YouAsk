@@ -1,3 +1,5 @@
+import os
+
 from model.model_functions import getQuestion
 
 def conventdate(arr):
@@ -24,13 +26,15 @@ def insertionSort(arr):
 
 
 def controllerQuestions():
+    facebooksrc = os.getcwd() + "/images/Facebook.png"
+    twittersrc = os.getcwd() + "/images/Twitter.png"
     result = getQuestion()
     result=conventdate(result)
     result=insertionSort(result)
     questions = '<h1>question &nbsp submitter &nbsp score &nbsp view count &nbsp time &nbsp</h1>  '
     for x in result:
-        SharetoFb = '&nbsp &nbsp &nbsp <a href="https://www.facebook.com/sharer.php?u=https://cs1.ucc.ie/~yc5/cgi-bin/youask/question_pages/question_%s.py" target="_blank" ;">Share to facebook</a> ' % x
-        SharetoTw = '&nbsp &nbsp &nbsp <a href="https://twitter.com/share" target="_blank" data-url=https://cs1.ucc.ie/~yc5/cgi-bin/youask/question_pages/question_%s.py data-text="" data-via=""data-lang="ja">Share to Twitter</a><p></p>' % x
+        SharetoFb = '&nbsp &nbsp &nbsp <a href="https://www.facebook.com/sharer.php?u=https://cs1.ucc.ie/~yc5/cgi-bin/youask/question_pages/question_%s.py" target="_blank" ;"> <img src=%s style="border:none 0;" alt="Share to Facebook" /></a> ' % (x, facebooksrc)
+        SharetoTw = '&nbsp &nbsp &nbsp <a href="https://twitter.com/share" target="_blank" data-url=https://cs1.ucc.ie/~yc5/cgi-bin/youask/question_pages/question_%s.py data-text="" data-via=""data-lang="ja"><img src=%s style="border:none 0;" alt="Share to Twitter" /></a><p></p>' % (x, twittersrc)
         questions += '<section>%s &nbsp %s &nbsp %s &nbsp %s &nbsp %s %s %s</section> ' % (
             x["question"], x["submitter"], x["score"], x["view_count"], x["submission_date"],SharetoFb,SharetoTw)
 
@@ -41,11 +45,3 @@ def controllerQuestions():
 
 
 
-
-
-'''
-result = getQuestion()
-result=conventdate(result)
-result=insertionSort(result)
-print(result)
-'''
