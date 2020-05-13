@@ -97,7 +97,7 @@ def loginToAccess(sub_dir):
     prefix='../' if sub_dir else ''
 
     error_msg = """
-        <section
+        <section>
             <p class="Error">To access this you must be logged in, you may do so here: </p>
             <ul>
                 <li><a href="%sregister.py">Register</a></li>
