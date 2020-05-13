@@ -83,14 +83,14 @@ def controllerQuestionAnswers(question_id):
 
             question_fields = getQuestionFields(question_id)
 
-            if logged==submitter:
+            if logged == submitter:
                 answer_form=controllerAnswerForm(logged, question_id)
-                result+=answer_form
+                result += answer_form
             elif question_fields!='EMPTY' and question_fields!='SERVER_ERROR':
                 # Get the user's fields of study from the table that contains the questions fields
                 authorised=False
                 user_fields=getUserFieldsStudy(logged, question_fields[0]['area'])
-                
+
                 if user_fields!='EMPTY' and user_fields!='SERVER_ERROR':
                     for row in question_fields:
                         for user_row in user_fields:
