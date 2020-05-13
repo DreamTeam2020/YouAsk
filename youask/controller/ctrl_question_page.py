@@ -29,7 +29,7 @@ def generateQuestion(question):
     question_id=question['id']
     fields=getQuestionFields(question_id)   #Returns a fetchall of the fields used by the question
     if fields=='EMPTY':
-        fields_of_study='<p class="Error">No Fields available</p>'
+        fields_of_study='<p class="error">No Fields available</p>'
     else:
         fields_of_study='<p>Fields of Study: '
         for row in fields:
@@ -106,10 +106,10 @@ def controllerQuestionAnswers(question_id):
                     result+=answer_form
                 else:
                     # The user is not the submitter and does not have the correct fields
-                    result += '<section><p class="Error">To answer this question you must be in the same field of study or be the original submitter of the question. You can edit your fields on your profile page <a href="../profile.py">here</a>.</p></section>'
+                    result += '<section><p class="error">To answer this question you must be in the same field of study or be the original submitter of the question. You can edit your fields on your profile page <a href="../profile.py">here</a>.</p></section>'
             else:
                 # The query was either empty of a server error occurred
-                result += '<section><p class="Error">Server Error Has Occurred.</p></section>'
+                result += '<section><p class="error">Server Error Has Occurred.</p></section>'
         else:
             result+=loginToAccess(True)
 
@@ -123,7 +123,7 @@ def controllerQuestionAnswers(question_id):
         result+=result_answers
 
     if server_error:
-        result = '<p class="Error">Server Error Has Occurred</p>'
+        result = '<p class="error">Server Error Has Occurred</p>'
 
     return result
 

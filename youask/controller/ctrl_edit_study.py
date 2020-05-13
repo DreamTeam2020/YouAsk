@@ -58,9 +58,9 @@ def controllerEditStudy():
                 removal_result=removeFieldsOfStudy(username, table)     # Remove the old data from table to allow user to remove fields
                 insert_result=executeInsertQuery(sql_insert)    # Insert into db
                 if insert_result=='SERVER_ERROR' or removal_result=='SERVER_ERROR':
-                    error_msg='<p class="Error">Server Error Occurred</p>'
+                    error_msg='<p class="error">Server Error Occurred</p>'
                 else:
-                    error_msg='<p class="Error">Successfully Updated</p>'
+                    error_msg='<p class="error">Successfully Updated</p>'
 
                 fields = getFieldsOfStudy(table)   # Get all fields from table_name
                 user_fields=getUserFieldsStudy(username, table)

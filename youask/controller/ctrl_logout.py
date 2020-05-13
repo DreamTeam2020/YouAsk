@@ -4,7 +4,7 @@ from os import environ
 
 def controllerLogout():
     result="""  <section>
-                    <p class="Error">You are not logged in</p>
+                    <p class="error">You are not logged in</p>
                     <ul>
                         <li><a href="register.py">Register</a></li>
                         <li><a href="login.py">Log In</a></li>

@@ -1,6 +1,6 @@
-
-.error{
-    color='red'
+/* Class and id names are case sensitive */
+.error {
+    color: red;
 }
 
 /*a:link { text-decoration: none;color: white}

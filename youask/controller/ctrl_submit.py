@@ -76,7 +76,7 @@ def controllerSubmission():
                                 sql_insert = sql_insert[:-1]  # Remove the last comma from the query
                                 insert_result = executeInsertQuery(sql_insert)  # Insert into db
                                 if insert_result == 'SERVER_ERROR':
-                                    error_msg = '<p class="Error">Server Error Occurred</p>'
+                                    error_msg = '<p class="error">Server Error Occurred</p>'
                                 else:
                                     # Question was submitted
                                     question = ''
