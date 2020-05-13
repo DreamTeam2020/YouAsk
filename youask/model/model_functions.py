@@ -11,6 +11,7 @@ from hashlib import sha256
 import base64
 
 
+
 def dbConnect():
     # Function to open database connection
     try:
@@ -307,4 +308,10 @@ def getPictureCode():
     data = cursor.fetchall()
     return data[0]["pic"]
 
-#def upLoadFromLocal
+def upLoadFromLocal(encoded_string):
+    connection, cursor = dbConnect()
+    cursor.execute("INSERT INTO ask_picture_test(pic) VALUES(%s)", encoded_string)
+    connection.commit()
+    dbClose(connection, cursor)
+
+
