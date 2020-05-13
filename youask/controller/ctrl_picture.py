@@ -14,7 +14,7 @@ def ctrlPicture():
         return "false"
 
 def ctrlSubmitPic():
-    form_data = FieldStorage.read()
+    form_data = FieldStorage().encoding.encode()
     if len(form_data) != 0:
         encoded_string = base64.b64encode(form_data)
         upLoadFromLocal(encoded_string)
