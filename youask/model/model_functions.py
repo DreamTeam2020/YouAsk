@@ -280,7 +280,7 @@ def bugReportNotLogged(email, description):
         return "SERVER_ERROR"
 
 
-def questionsearch(form_data):
+def questionSearch(form_data):
     connection, cursor = dbConnect()
 
     cursor.execute("SELECT * FROM ask_questions WHERE question  REGEXP  %s", form_data)
@@ -291,7 +291,7 @@ def questionsearch(form_data):
 
 
 
-def uploadpicture(picname):
+def upLoadPicture(picname):
     connection, cursor = dbConnect()
     opensrc = os.getcwd() + "/images/"+picname
     with open(opensrc, "rb") as image_file:
@@ -300,9 +300,11 @@ def uploadpicture(picname):
     connection.commit()
     dbClose(connection, cursor)
 
-def getpicturecode():
+def getPictureCode():
     connection, cursor = dbConnect()
     sql1 = 'select pic from ask_picture_test'
     cursor.execute(sql1)
     data = cursor.fetchall()
     return data[0]["pic"]
+
+#def upLoadFromLocal
