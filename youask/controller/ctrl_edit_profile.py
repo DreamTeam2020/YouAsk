@@ -30,7 +30,9 @@ def controllerEditProfile():
         else:
             # Generate the form / the user doesnt have to fill the whole form in
             # ( i.e they just want to change display name not password )
-            result=generateEditDetailsForm(url, details, new_display_name, old_password, password1, password2, error_messages)
+            user_fields=generateUserFields(username)    # Generates the user fields section of edit profile
+
+            result=generateEditDetailsForm(url, details, user_fields, new_display_name, old_password, password1, password2, error_messages)
             form_data=FieldStorage()
             if len(form_data)!=0:
                 new_display_name= escape(form_data.getfirst('new_display_name', '').strip())
@@ -97,9 +99,33 @@ def checkErrors(username, new_display_name, old_password, password1, password2):
     return display_updated, password_updated, error_messages
 
 
+def generateUserFields(username):
+    # Display the user's selected fields under the 4 headings, returns a string of html
+    field_data=[]
+    main_fields=['Humanities and Social Science', 'Natural Sciences', 'Formal Sciences', 'Professions and Applied Sciences']
 
+    result='<section><p>Fields of Study: </p>'
+    field_data += getUserFieldsStudy(username, 'ask_humanities')  # Returns a fetchall of the user's fields under given main fields
+    field_data += getUserFieldsStudy(username, 'ask_natural_sciences')
+    field_data += getUserFieldsStudy(username, 'ask_formal_sciences')
+    field_data += getUserFieldsStudy(username, 'ask_professions')
+    result=field_data
+    """
+    for i in range(len(main_fields)):
+        result += '<p>%s: ' % main_fields[i]    # Field heading
+        if field_data[i] == 'EMPTY':
+            result += 'No Fields Selected</p>'
+        else:
+            for row in field_data[i]:
+                result += '%s | ' % row['field']
+                result = result[:-3]  # Remove the last 3 characters of the string
 
+            result += '</p>'
 
+    result += '</section>'
+    """
+    return result
 
-
-
+if __name__=='__main__':
+    result=generateUserFields('whiskers')
+    print(result)

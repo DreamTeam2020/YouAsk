@@ -205,7 +205,7 @@ def generateBugreportFormWithEmail(url, description, email, error):
 
     return result
 
-def generateEditDetailsForm(url, details, new_display_name, old_password, new_password1, new_password2, error_messages):
+def generateEditDetailsForm(url, details, user_fields, new_display_name, old_password, new_password1, new_password2, error_messages):
     # Generate the form that will allow the user to change some of their details
     result = """
         <section>
@@ -214,6 +214,7 @@ def generateEditDetailsForm(url, details, new_display_name, old_password, new_pa
                     <p>Username: %s</p>
                     <p>Email: %s</p>
                     <p>Display Name: %s</p>
+                    %s
                     <p>To Edit Your Fields of Study Click <a href="edit_study.py">Here</a></p>
                     
                     <label for="new_display_name">New Display Name: </label>
@@ -234,7 +235,7 @@ def generateEditDetailsForm(url, details, new_display_name, old_password, new_pa
             </form>
             %s
         </section>
-    """ % (url, details['username'], details['email'], details['display_name'], new_display_name, error_messages[0],
+    """ % (url, details['username'], details['email'], details['display_name'], user_fields, new_display_name, error_messages[0],
            old_password, error_messages[1], new_password1, new_password2, error_messages[2], error_messages[3])
 
     return result
