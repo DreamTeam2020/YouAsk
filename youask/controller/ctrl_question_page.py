@@ -37,9 +37,15 @@ def generateQuestion(question):
 
         fields_of_study=fields_of_study[:-3]    # Remove the last 3 characters of the string
 
+    facebook_src = os.getcwd() + "images/Facebook.png"
+    twitter_src = os.getcwd() + "images/Twitter.png"
+    SharetoFb = '<a href="https://www.facebook.com/sharer.php?u=https://cs1.ucc.ie/~yc5/cgi-bin/youask/question_pages/question_%s.py" target="_blank" ;"> <img src=%s style="border:none 0;" alt="Share to Facebook" /></a> ' % (question_id, facebook_src)
+    SharetoTw = '<a href="https://twitter.com/share" target="_blank" data-url=https://cs1.ucc.ie/~yc5/cgi-bin/youask/question_pages/question_%s.py data-text="" data-via=""data-lang="ja"><img src=%s style="border:none 0;" alt="Share to Twitter" /></a></p>' % (question_id, twitter_src)
+
     result_question+="""
                         %s
                         <p><small>Submitted By: %s - Score: %d - View Count: %d</small></p>
+                        
                     </section>
     """ % (fields_of_study, question['submitter'], question['score'], question['view_count'])
 

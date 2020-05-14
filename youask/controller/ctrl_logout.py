@@ -26,6 +26,4 @@ def controllerLogout():
                 <p>You are now logged out.</p>
                 <p>Log Back In <a href="login.py">Here</a></p>"""
 
-
-
     return result
