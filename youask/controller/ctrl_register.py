@@ -6,7 +6,7 @@ from controller.html_functions import *
 
 def inputControllerRegistration():
 
-    user_details = ["", "", ""]  # username, email, display_name
+    user_details = ["", "", "", "", ""]  # username, email, display_name, password1, password2
     message_list = ["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]  # Contains error messages to be printed
 
     verify_logged = verifyLoggedIn('username', False)    # Returns username if logged in else 'UNVERIFIED'
@@ -30,7 +30,7 @@ def inputControllerRegistration():
             password1=escape(form_data.getfirst('password1', '').strip())
             password2=escape(form_data.getfirst('password2', '').strip())
 
-            user_details=[username, email, display_name]
+            user_details=[username, email, display_name, password1, password2]
 
             if not username or not email or not display_name or not password1 or not password2:    # If all fields are not filled, return error message
                 error_msg='<p class="error">All Fields Must Be Filled</p>'
@@ -44,7 +44,7 @@ def inputControllerRegistration():
                         server_error=True
                     else:
                         # If the user registers successfully, then make them login
-                        user_details = ["", "", ""]
+                        user_details = ["", "", "", "", ""]
                         error_msg = '<p class="error">Successfully Registered! <a href=login.py>Login Here</a></p>'
                 else:
                     if user_result=="SERVER_ERROR" or email_result=="SERVER_ERROR":

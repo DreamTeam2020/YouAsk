@@ -6,6 +6,7 @@ from controller.html_functions import *
 
 def inputControllerLogin():
     user_email=''
+    password=''
     error_msg="<p> </p>"
 
     verify_logged=verifyLoggedIn('username', False)    # Returns username if logged in else 'UNVERIFIED'
@@ -46,6 +47,7 @@ def inputControllerLogin():
                         sessionCreate(result['username'], result['email'], result['display_name'], sid)
                         error_msg = '<p class="error">Successfully Logged In!</p>'
                         user_email = ''
+                        password = ''
                         print(cookie)
 
                 if server_error:
@@ -53,4 +55,4 @@ def inputControllerLogin():
                 elif input_error==True:
                     error_msg = '<p class="error">Invalid Username or Password</p>'
 
-    return user_email, error_msg
+    return user_email, password, error_msg

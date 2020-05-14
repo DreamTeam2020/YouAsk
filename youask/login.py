@@ -9,7 +9,7 @@ from controller.ctrl_login import *
 page_name = "login"
 url= "login.py"
 
-user_email, error_msg=inputControllerLogin()
+user_email, password, error_msg = inputControllerLogin()
 
 print('Content-Type: text/html')
 print()
@@ -28,7 +28,7 @@ print("""
                     <input type="text" name="user_email" id="user_email" value="%s" maxlength="50"/>
                     
                     <label for="password">Password: </label>
-                    <input type="password" name="password" id="password"/>
+                    <input type="password" name="password" id="password" value="%s"/>
                     
                     <input type="submit" value="Log In"/>
                 </fieldset
@@ -41,4 +41,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Login", page_name, False), generateHeader(False), url, user_email, error_msg, generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Login", page_name, False), generateHeader(False), url, user_email, password, error_msg, generateNav(page_name, False), pageEnd()))

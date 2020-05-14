@@ -10,7 +10,7 @@ page_name = "register"
 url= "register.py"
 
 
-user_details, message_list=inputControllerRegistration()
+user_details, message_list = inputControllerRegistration()
 
 print('Content-Type: text/html')
 print()
@@ -35,9 +35,9 @@ print("""
                     <input type="text" name="display_name" id="display_name" value="%s" maxlength="35"/>
                     %s
                     <label for="password1">Password: </label>
-                    <input type="password" name="password1" id="password1"/>
+                    <input type="password" name="password1" id="password1" value="%s"/>
                     <label for="password2">Re-Enter Password: </label>
-                    <input type="password" name="password2" id="password2"/>
+                    <input type="password" name="password2" id="password2" value="%s"/>
                     %s
                     <input type="submit" value="Register"/>
                 </fieldset
@@ -50,4 +50,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Register", page_name, False), generateHeader(False), url, user_details[0], message_list[0], user_details[1], message_list[1], user_details[2], message_list[2], message_list[3], message_list[4], generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Register", page_name, False), generateHeader(False), url, user_details[0], message_list[0], user_details[1], message_list[1], user_details[2], message_list[2], user_details[3], user_details[4], message_list[3], message_list[4], generateNav(page_name, False), pageEnd()))
