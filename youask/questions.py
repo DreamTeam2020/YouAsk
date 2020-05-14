@@ -25,6 +25,15 @@ print("""
         <main>      <!-- The main part of the website --->
             <h1>test page</h1>
             <a href="submit.py">submit</a>
+<p>
+  <form action="questions.py" method="post">
+  <input type="checkbox" id="cbox1" name="cbox1" value="first">
+  <label for="cbox1">Earliest</label>
+  <input type="checkbox" id="cbox2"  name="cbox2" value="second" checked="checked">
+  <label for="cbox2">Latest</label>
+  <input type="submit" value="Submit"/>
+   </form>
+</p>
             %s
         </main>
 

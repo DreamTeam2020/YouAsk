@@ -1,4 +1,5 @@
 import os
+from cgi import FieldStorage, escape
 
 from model.model_functions import getQuestion
 
@@ -10,14 +11,19 @@ def conventdate(arr):
 
 
 
-def insertionSort(arr):
+def insertionSort(arr,text):
     for i in range(1, len(arr)):
         key = arr[i]["submission_date"]
         key1=arr[i]
         j = i - 1
-        while j >= 0 and key > arr[j]["submission_date"]:
-            arr[j + 1] = arr[j]
-            j -= 1
+        if(len(text)==5):
+            while j >= 0 and key < arr[j]["submission_date"]:
+                arr[j + 1] = arr[j]
+                j -= 1
+        else:
+            while j >= 0 and key > arr[j]["submission_date"]:
+                arr[j + 1] = arr[j]
+                j -= 1
 
         arr[j + 1]["submission_date"] = key
         arr[j+1]=key1
@@ -30,7 +36,12 @@ def controllerQuestions():
     twittersrc = os.getcwd() + "/images/Twitter.png"
     result = getQuestion()
     result=conventdate(result)
-    result=insertionSort(result)
+    form_data = FieldStorage()
+    text=""
+    if len(form_data) != 0:
+        text  += escape(form_data.getfirst('cbox1', '').strip())
+        text += escape(form_data.getfirst('cbox2', '').strip())
+    result=insertionSort(result,text)
     questions = '<h1>question &nbsp submitter &nbsp score &nbsp view count &nbsp time &nbsp</h1>  '
     for x in result:
         SharetoFb = '&nbsp &nbsp &nbsp <a href="https://www.facebook.com/sharer.php?u=https://cs1.ucc.ie/~yc5/cgi-bin/youask/question_pages/question_%s.py" target="_blank" ;"> <img src=%s style="border:none 0;" alt="Share to Facebook" /></a> ' % (x, facebooksrc)
@@ -39,9 +50,5 @@ def controllerQuestions():
             x["question"], x["submitter"], x["score"], x["view_count"], x["submission_date"],SharetoFb,SharetoTw)
 
     return questions
-
-
-
-
 
 
