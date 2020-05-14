@@ -32,8 +32,8 @@ def insertionSort(arr,text):
 
 
 def controllerQuestions():
-    facebook_src = os.getcwd() + "images/Facebook.png"
-    twitter_src = os.getcwd() + "images/Twitter.png"
+    facebook_src = "images/Facebook.png"
+    twitter_src = "images/Twitter.png"
     result = getQuestion()
     result=convertDate(result)
     form_data = FieldStorage()
