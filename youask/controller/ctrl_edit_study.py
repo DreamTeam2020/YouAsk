@@ -12,6 +12,8 @@ def controllerEditStudy():
     url = "edit_study.py"
     error_msg="<p></p>"
 
+    session_table_key='question_submission_field_table'
+
     result = loginToAccess(False)
     username = verifyLoggedIn(False)  # Returns username if logged in, else UNVERIFIED
 
@@ -36,21 +38,21 @@ def controllerEditStudy():
 
                 # Pass fields into a html_functions function and have it loop
                 # through the dict adding a label and input each round.
-                result = generateStudyFieldsForm(table_name, url, fields, user_fields, error_msg)
+                saveToSession(session_table_key, table_name, False)    # Save table name to session for later use
+                result = generateStudyFieldsForm(url, fields, user_fields, error_msg)
             else:
                 # Else form must be one of the sub fields
                 # Insert the data into the table ( Try to avoid 1 by 1 insertion )
                 # ( Sql statement equals and do += in each loop to add field and username pair to end of insert statement )
                 # ( How to get the table name? ) -- Append a value to the end of each value/id in the form to signify which table to use
 
-                separator = '~'   # This will define the value used to split the table name from the field name
-                table = fields_of_study[0].split(separator, 1)[-1]
+                table = getValueFromSession(session_table_key, False)
 
                 sql_insert = """INSERT INTO %s (field, username) VALUES """ % table
                 for field in fields_of_study:
                     # Remove the table name from the field, title will
                     # capitalise first letter of each word. Replace underscores with spaces
-                    field = field.split(separator, 1)[0].title().replace("_", " ")
+                    field = field.title().replace("_", " ")
 
                     sql_insert += '("%s", "%s"),' % (field, username)   # Append the field and username onto the end of the query
 
@@ -64,5 +66,5 @@ def controllerEditStudy():
 
                 fields = getFieldsOfStudy(table)   # Get all fields from table_name
                 user_fields=getUserFieldsStudy(username, table)
-                result = generateStudyFieldsForm(table, url, fields, user_fields, error_msg)
+                result = generateStudyFieldsForm(url, fields, user_fields, error_msg)
     return result
