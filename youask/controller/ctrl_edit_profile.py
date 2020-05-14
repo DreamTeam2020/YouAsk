@@ -18,7 +18,7 @@ def controllerEditProfile():
     error_messages=['<p> </p>', '<p> </p>', '<p> </p>', '<p> </p>']  # Display name, current password, new password, error msg
 
     result = loginToAccess(False)
-    username = verifyLoggedIn(False)   # Returns username if logged in, else UNVERIFIED
+    username = verifyLoggedIn('username', False)   # Returns username if logged in, else UNVERIFIED
 
     if username != 'UNVERIFIED':  # If the user is logged in, print the question submission form
         # Display user's details and a form where they can be changed

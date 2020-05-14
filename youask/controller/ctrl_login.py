@@ -8,7 +8,7 @@ def inputControllerLogin():
     user_email=''
     error_msg="<p> </p>"
 
-    verify_logged=verifyLoggedIn(False)
+    verify_logged=verifyLoggedIn('username', False)    # Returns username if logged in else 'UNVERIFIED'
     if verify_logged!="UNVERIFIED":
         error_msg=alreadyLoggedIn()
     else:

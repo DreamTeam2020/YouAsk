@@ -77,7 +77,7 @@ def controllerQuestionAnswers(question_id):
         submitter=question['submitter']
 
         # Check if user is logged in, if so then allow them to answer
-        logged=verifyLoggedIn(True)
+        logged=verifyLoggedIn('username', True)    # Returns username if logged in else 'UNVERIFIED'
         if logged!='UNVERIFIED': # If logged in
             # If the user is the submitter of the question (else if the user has the correct fields to answer)
 

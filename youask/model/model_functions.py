@@ -2,7 +2,6 @@
 
 from cgitb import enable
 
-from controller.ctrl_cache import verifyLoggedIn, verifyLoggedInEmail
 import os
 import io
 enable()

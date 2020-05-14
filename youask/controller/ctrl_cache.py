@@ -23,8 +23,8 @@ def sessionCreate(username, email, display_name, sid):
     session_store['display_name'] = display_name
     session_store.close()
 
-def verifyLoggedIn(sub_dir):    # If sub_dir is true then a view within a subdirectory is calling this function
-    # Verify if the user is already logged in
+def verifyLoggedIn(key, sub_dir):    # If sub_dir is true then a view within a subdirectory is calling this function
+    # Verifies if the user is logged in and then passes back the value of the given key
     result='UNVERIFIED'
     result_display=''
     cookie = SimpleCookie()
@@ -38,7 +38,7 @@ def verifyLoggedIn(sub_dir):    # If sub_dir is true then a view within a subdir
             else:
                 session_store = open('session_store/sess_' + sid, writeback=False)  # Open the user's session
             if session_store.get('authenticated'):  # If the session is authenticated then they're logged in
-                result=session_store.get('username')
+                result=session_store.get(key)   # Get value from session store based on given key
     return result
 
 def verifyLoggedInEmail(sub_dir):    # If sub_dir is true then a view within a subdirectory is calling this function

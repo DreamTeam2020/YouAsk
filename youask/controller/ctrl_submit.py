@@ -18,7 +18,7 @@ def controllerSubmission():
 
     # Check if user is logged in
     # If logged in print form then do len form data
-    username=verifyLoggedIn(False)   # Returns username if logged in, else UNVERIFIED
+    username=verifyLoggedIn('username', False)   # Returns username if logged in, else UNVERIFIED
 
     if username != 'UNVERIFIED':  # If the user is logged in, print the question submission form
         # Present user with main fields, on submission generate question form with checklist below of sub fields

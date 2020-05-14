@@ -10,7 +10,7 @@ def controllerLogout():
                         <li><a href="login.py">Log In</a></li>
                     </ul>
                 </section"""
-    verify_logged=verifyLoggedIn(False)
+    verify_logged=verifyLoggedIn('username', False)    # Returns username if logged in else 'UNVERIFIED'
 
     if verify_logged!='UNVERIFIED':
         # If the user is logged in, log them out

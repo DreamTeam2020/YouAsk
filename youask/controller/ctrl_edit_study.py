@@ -10,12 +10,12 @@ def controllerEditStudy():
     # the sub fields of said heading (checklist), on submit prevent user selecting all fields
 
     url = "edit_study.py"
-    error_msg="<p></p>"
+    error_msg="<p>Go back to edit profile <a href='edit_profile.py>here</a></p>"
 
     session_table_key='question_submission_field_table'
 
     result = loginToAccess(False)
-    username = verifyLoggedIn(False)  # Returns username if logged in, else UNVERIFIED
+    username = verifyLoggedIn('username', False)  # Returns username if logged in, else UNVERIFIED
 
     if username != 'UNVERIFIED':  # If the user is logged in, print first checklist
         result=generateFieldHeadingsForm(url, error_msg)
@@ -59,10 +59,10 @@ def controllerEditStudy():
                 sql_insert = sql_insert[:-1]    # Remove the last comma from the query
                 removal_result=removeFieldsOfStudy(username, table)     # Remove the old data from table to allow user to remove fields
                 insert_result=executeInsertQuery(sql_insert)    # Insert into db
-                if insert_result=='SERVER_ERROR' or removal_result=='SERVER_ERROR':
-                    error_msg='<p class="error">Server Error Occurred</p>'
+                if insert_result == 'SERVER_ERROR' or removal_result=='SERVER_ERROR':
+                    error_msg += '<p class="error">Server Error Occurred</p>'
                 else:
-                    error_msg='<p class="error">Successfully Updated</p>'
+                    error_msg += '<p class="error">Successfully Updated</p>'
 
                 fields = getFieldsOfStudy(table)   # Get all fields from table_name
                 user_fields=getUserFieldsStudy(username, table)

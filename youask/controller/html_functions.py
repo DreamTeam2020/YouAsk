@@ -36,7 +36,7 @@ def generateHeader(sub_dir):
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
     prefix = '../' if sub_dir else ''
 
-    display_name=verifyLoggedIn(sub_dir)
+    display_name=verifyLoggedIn('display_name', sub_dir)    # Returns display_name if logged in else 'UNVERIFIED'
     result="""
             <header>    <!-- A header section displayed at the top of the page--->
                 <h1>YOUASK HEADER</h1>

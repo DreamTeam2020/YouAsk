@@ -9,7 +9,7 @@ def inputControllerRegistration():
     user_details = ["", "", ""]  # username, email, display_name
     message_list = ["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]  # Contains error messages to be printed
 
-    verify_logged = verifyLoggedIn(False)
+    verify_logged = verifyLoggedIn('username', False)    # Returns username if logged in else 'UNVERIFIED'
     if verify_logged != "UNVERIFIED":
         # If the user is already logged in, prevent them from registering
         message_list[4]=alreadyLoggedIn()

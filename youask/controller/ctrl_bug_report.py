@@ -3,6 +3,7 @@ from cgi import FieldStorage, escape
 from controller.ctrl_validation import emailValidationLogin
 from controller.html_functions import generateBugreportForm, generateBugreportFormWithEmail
 from model.model_functions import *
+from controller.ctrl_cache import *
 
 
 def controllerBugReportSubmission(type, description, email):
@@ -13,8 +14,8 @@ def controllerBugReportSubmission(type, description, email):
 
 
     if type == 1:   # User is logged in
-        username=verifyLoggedIn(False)
-        email=verifyLoggedInEmail(False)
+        username=verifyLoggedIn('username', False)
+        email=verifyLoggedIn('email', False)
         submission_result = bugReportLogged(description, username, email)
 
     else:   # User is logged in
@@ -40,7 +41,7 @@ def controllerSupport():
     email = ""
     description = ""
     error_msg = "<p> </p>"
-    verify_login = verifyLoggedIn(False)  # Returns username if logged in, else false
+    verify_login = verifyLoggedIn('username', False)  # Returns username if logged in, else false
 
     if verify_login != 'UNVERIFIED':  # If the user is logged in, print the question submission form
         result = generateBugreportForm(url, description, error_msg)
