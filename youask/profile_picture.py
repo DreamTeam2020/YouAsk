@@ -2,7 +2,7 @@
 
 from cgitb import enable
 
-from controller.ctrl_picture import ctrlPicture
+from controller.ctrl_picture import ctrlPicture, ctrlSubmitPic
 from model.model_functions import getPictureCode
 
 enable()
@@ -15,7 +15,8 @@ page_name = "profile_picture"
 print('Content-Type: text/html')
 print()
 picsrc=getPictureCode()
-result=ctrlPicture()
+result=ctrlSubmitPic()
+
 
 
 print("""
@@ -29,19 +30,16 @@ print("""
   
   <img src="data:image/png;base64, %s" alt="Red dot" />
 </div>
-%s   it is a log    %s
 
-  <form action="profile_picture.py" method="post">
-                
-                  
-                    
-                    <label for="Upload a pic ">Upload Pic:  please type the pic's name (which is in images folder)</label>
-                    <input type="text" name="Upload" id="Upload"/>
-                    
-                    <input type="submit" value="Click to upload"/>
             
-            </form>
-
+             <form action="profile_picture.py" method="post">
+            <fieldset> <!--  Description -->
+                
+               <input type="file" id="myfile" name="myfile"><br><br>
+                <input type="submit" value="Submit Picture"/>
+            </fieldset
+        </form>
+         %s
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
@@ -50,4 +48,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("profile_picture", page_name, False), generateHeader(False), picsrc, result, getpicturecode(), generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("profile_picture", page_name, False), generateHeader(False), picsrc, result,generateNav(page_name, False), pageEnd()))
