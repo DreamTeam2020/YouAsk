@@ -48,7 +48,7 @@ def controllerEditProfile():
                         old_password, password1, password2='', '', ''
 
                     details=getUserDetails(username)
-                result=generateEditDetailsForm(url, details, new_display_name, old_password, password1, password2, error_messages)
+                result=generateEditDetailsForm(url, details, user_fields, new_display_name, old_password, password1, password2, error_messages)
 
     return result
 
@@ -104,24 +104,25 @@ def generateUserFields(username):
     field_data=["", "", "", ""]
     main_fields=['Humanities and Social Science', 'Natural Sciences', 'Formal Sciences', 'Professions and Applied Sciences']
 
-    result='<section><p>Fields of Study: </p>'
+    result='<section><p>Fields of Study: </p><ul>'
     field_data[0] = getUserFieldsStudy(username, 'ask_humanities')  # Returns a fetchall of the user's fields under given main fields
     field_data[1] = getUserFieldsStudy(username, 'ask_natural_sciences')
     field_data[2] = getUserFieldsStudy(username, 'ask_formal_sciences')
     field_data[3] = getUserFieldsStudy(username, 'ask_professions')
 
     for i in range(len(main_fields)):
+        result+='<li>'
         result += '<p>%s: ' % main_fields[i]    # Field heading
         if field_data[i] == 'EMPTY':
-            result += 'No Fields Selected</p>'
+            result += 'No Fields Selected</p></ul>'
         else:
             for row in field_data[i]:
                 result += '%s | ' % row['field']
             result = result[:-3]  # Remove the last 3 characters of the string
 
-            result += '</p>'
+            result += '</p></li>'
 
-    result += '</section>'
+    result += '</ul></section>'
 
     return result
 

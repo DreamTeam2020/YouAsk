@@ -5,8 +5,11 @@ from cgitb import enable
 enable()
 
 from controller.html_functions import *
+from controller.ctrl_profile import *
 
 page_name = "profile"
+
+result=controllerProfile()
 
 print('Content-Type: text/html')
 print()
@@ -17,7 +20,7 @@ print("""
         %s
 
         <main>      <!-- The main part of the website --->
-            <h1>test page</h1>
+            %s
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
@@ -26,4 +29,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Profile", page_name, False), generateHeader(False), generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Profile", page_name, False), generateHeader(False), result, generateNav(page_name, False), pageEnd()))
