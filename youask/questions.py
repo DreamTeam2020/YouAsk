@@ -27,9 +27,9 @@ print("""
             <a href="submit.py">submit</a>
 <p>
   <form action="questions.py" method="post">
-  <input type="checkbox" id="cbox1" name="cbox1" value="first">
+  <input type="radio" id="cbox1" name="cbox" value="first">
   <label for="cbox1">Earliest</label>
-  <input type="checkbox" id="cbox2"  name="cbox2" value="second" checked="checked">
+  <input type="radio" id="cbox2"  name="cbox" value="second" checked="checked">
   <label for="cbox2">Latest</label>
   <input type="submit" value="Submit"/>
    </form>
