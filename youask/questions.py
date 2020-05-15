@@ -29,7 +29,7 @@ print("""
   <form action="questions.py" method="post">
   <input type="radio" id="cbox1" name="cbox" value="first">
   <label for="cbox1">Earliest</label>
-  <input type="radio" id="cbox2"  name="cbox" value="second" checked="checked">
+  <input type="radio" id="cbox2"  name="cbox" value="second" checked>
   <label for="cbox2">Latest</label>
   <input type="submit" value="Submit"/>
    </form>

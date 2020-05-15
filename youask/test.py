@@ -2,15 +2,15 @@
 from controller.html_functions import *
 from model.model_functions import *
 from controller.ctrl_question_page import *
-"""
+
 url = "submit.py"
 table = 'ask_question_fields'
 username='PatrickPeters'
 error_msg = "<p> </p>"
 
-question = "Taco tuesday"
-description = ""
-fields_of_study=['computer_sciences', 'pure_mathematics']
+question = "First I limp to the side"
+description = "Like my legs was broken"
+fields_of_study=['human_physical_performance_and_recreation', 'law']
 
 if not question:
     error_msg = '<p class="error">Question Field Must Be Filled</p>'  # If no question is entered
@@ -25,16 +25,15 @@ else:
         else:
 
             # If input has been verified then insert the user's question in the database
-            submission_result = submitQuestion(username, question,
-                                               description)  # Returns question id if success
+            submission_result = submitQuestion(username, question, description)  # Returns question id if success
+
             if submission_result == "SERVER_ERROR":
                 error_msg = '<p class="error">Server Error Occurred</p>'
             else:
                 # Add question fields to table
-                separator = '~'  # This will define the value used to split the table name from the field name
+                #table = getValueFromSession(session_table_key, False)
 
-
-                
+                sql_insert = """INSERT INTO ask_question_fields (question_id, area, field) VALUES """
                 for field in fields_of_study:
                     # Remove the table name from the field, title will
                     # capitalise first letter of each word. Replace underscores with spaces
@@ -51,13 +50,15 @@ else:
                     # Question was submitted
                     question = ''
                     description = ''
-                    #new_file = generateQuestionPage(submission_result)
-                    new_file='question_%d.py' % submission_result
-                    error_msg = '<p class="error">Question has been submitted, ' \
-                                'continue to question page <a href="question_pages/%s">here</a></p>' % new_file
+                    #error_msg='success'
+                    new_file = generateQuestionPage(submission_result)
+                    error_msg = '<p class="error">Question has been submitted, continue to question page <a href="question_pages/%s">here</a></p>' % new_file
 
-fields = getFieldsOfStudy(table)  # Get all fields from table_name
+#table_name = getValueFromSession(session_table_key, False)
+table_name=table
+fields = getFieldsOfStudy(table_name)  # Get all fields from table_name
 result = generateQuestionForm(url, question, description, fields, error_msg)
+#removeKeyFromSession(session_table_key, False)
 
 print(result)
 """
@@ -88,3 +89,4 @@ else:
     result += '<section><p class="error">To answer this question you must be in the same field of study or be the original submitter of the question. You can edit your fields on your profile page <a href="../profile.py">here</a>.</p></section>'
 
 print(result)
+"""

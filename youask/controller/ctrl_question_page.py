@@ -44,7 +44,7 @@ def generateQuestion(question):
 
     result_question+="""
                         %s
-                        <p><small>Submitted By: %s - Score: %d - View Count: %d</small></p>
+                        <p><small>Submitted By: %s | Score: %d | View Count: %d</small></p>
                         %s %s
                         
                     </section>
