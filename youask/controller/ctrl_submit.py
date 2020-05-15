@@ -29,26 +29,34 @@ def controllerSubmission():
         if len(form_data)!=0:
             # Check which heading was selected and then generate the next form using the sub fields
 
-            fields_of_study = form_data.getlist('fields_of_study')
-            if fields_of_study[0] == 'humanities' or fields_of_study[0] == 'natural_sciences' or \
-                            fields_of_study[0] == 'formal_sciences' or fields_of_study[0] == 'professions':
-                # If the data in fields_of_study is equal to one of the main fields
-                table_name = "ask_%s" % fields_of_study[0]  # Append fields_of_study to ask and get all fields from that table
-                fields = getFieldsOfStudy(table_name)  # Get all fields from table_name
-
-                # Get user's current fields from the table
-                saveToSession(session_table_key, table_name, False)    # Save table name to session for later use
-                result = generateQuestionForm(url, question, description, fields, error_msg)
-            else:
+            if not form_data.getfirst('fields_of_study', ''):
+                # This will only occur on the sub checklist, the heading list will never be blank
+                error_msg = '<p class="error">Please Select At Least One Field</p>'
                 question = escape(form_data.getfirst('question', '').strip())
                 description = escape(form_data.getfirst('description', '').strip())
-                if not form_data.getfirst('fields_of_study', ''):
-                    error_msg = '<p class="error">Question Field Must Be Filled</p>'  # If no question is entered
+
+                table_name = getValueFromSession(session_table_key, False)
+                fields = getFieldsOfStudy(table_name)  # Get all fields from table_name
+                result = generateQuestionForm(url, question, description, fields, error_msg)
+                removeKeyFromSession(session_table_key, False)
+            else:
+                fields_of_study = form_data.getfirst('fields_of_study', '')
+                if fields_of_study[0] == 'humanities' or fields_of_study[0] == 'natural_sciences' or \
+                                fields_of_study[0] == 'formal_sciences' or fields_of_study[0] == 'professions':
+                    # If the data in fields_of_study is equal to one of the main fields
+                    table_name = "ask_%s" % fields_of_study[
+                        0]  # Append fields_of_study to ask and get all fields from that table
+                    fields = getFieldsOfStudy(table_name)  # Get all fields from table_name
+
+                    # Get user's current fields from the table
+                    saveToSession(session_table_key, table_name, False)  # Save table name to session for later use
+                    result = generateQuestionForm(url, question, description, fields, error_msg)
                 else:
-                    fields_of_study = form_data.getlist('fields_of_study')
-                    if len(fields_of_study) == 0:
-                        # If this passes then there must be no fields selected
-                        error_msg = '<p class="error">Please Select At Least One Field</p>'
+                    question = escape(form_data.getfirst('question', '').strip())
+                    description = escape(form_data.getfirst('description', '').strip())
+                    fields_of_study = form_data.getfirst('fields_of_study', '')
+                    if not question:
+                        error_msg = '<p class="error">Question Field Must Be Filled</p>'  # If no question is entered
                     else:
                         if len(question) < 5:  # Remove this later for proper verification
                             error_msg = '<p class="error">Invalid question, please <em>Do Not</em> include profanity ' \
@@ -84,9 +92,9 @@ def controllerSubmission():
                                     error_msg = '<p class="error">Question has been submitted, ' \
                                                 'continue to question page <a href="question_pages/%s">here</a></p>' % new_file
 
-                table_name=getValueFromSession(session_table_key, False)
-                fields = getFieldsOfStudy(table_name)  # Get all fields from table_name
-                result = generateQuestionForm(url, question, description, fields, error_msg)
-                removeKeyFromSession(session_table_key, False)
+                    table_name=getValueFromSession(session_table_key, False)
+                    fields = getFieldsOfStudy(table_name)  # Get all fields from table_name
+                    result = generateQuestionForm(url, question, description, fields, error_msg)
+                    removeKeyFromSession(session_table_key, False)
 
     return result
