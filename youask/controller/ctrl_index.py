@@ -11,13 +11,8 @@ def generateNews(n):
     jsonData = json.loads(convertdata)
     result = ""
     for x in range(n):
-        result += '<article><h1>Title:%s</h1><h4>%s</h4></article><br>' % (
-        jsonData["articles"][x]["title"].encode(), jsonData["articles"][x]["description"].encode())
+        result += '<article><h1>Title:%s</h1><h4>%s</h4></article><br>' % (jsonData["articles"][x]["title"].encode(), jsonData["articles"][x]["description"].encode())
     return result
-
-
-
-
 
 
 
