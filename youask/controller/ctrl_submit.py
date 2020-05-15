@@ -42,11 +42,10 @@ def controllerSubmission():
             else:
                 question = escape(form_data.getfirst('question', '').strip())
                 description = escape(form_data.getfirst('description', '').strip())
-                fields_of_study = form_data.getlist('fields_of_study')
-
-                if not question:
+                if not form_data.getfirst('fields_of_study', ''):
                     error_msg = '<p class="error">Question Field Must Be Filled</p>'  # If no question is entered
                 else:
+                    fields_of_study = form_data.getlist('fields_of_study')
                     if len(fields_of_study) == 0:
                         # If this passes then there must be no fields selected
                         error_msg = '<p class="error">Please Select At Least One Field</p>'
