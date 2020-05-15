@@ -53,7 +53,7 @@ def controllerSubmission():
                 else:
                     question = escape(form_data.getfirst('question', '').strip())
                     description = escape(form_data.getfirst('description', '').strip())
-                    fields_of_study = form_data.getfirst('fields_of_study', '')
+                    fields_of_study = form_data.gelist('fields_of_study')
                     if not question:
                         error_msg = '<p class="error">Question Field Must Be Filled</p>'  # If no question is entered
                     else:
