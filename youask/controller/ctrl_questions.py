@@ -43,8 +43,8 @@ def controllerQuestions():
     result=insertionSort(result,text)
     questions = '<h1>question &nbsp submitter &nbsp score &nbsp view count &nbsp time &nbsp</h1>  '
     for x in result:
-        share_to_fb = '&nbsp &nbsp &nbsp <a href="https://www.facebook.com/sharer.php?u=https://cs1.ucc.ie/~yc5/cgi-bin/youask/question_pages/question_%s.py" target="_blank" ;"> <img src=%s style="border:none 0;" alt="Share to Facebook" /></a> ' % (x, facebook_src)
-        share_to_tw = '&nbsp &nbsp &nbsp <a href="https://twitter.com/share" target="_blank" data-url=https://cs1.ucc.ie/~yc5/cgi-bin/youask/question_pages/question_%s.py data-text="" data-via=""data-lang="ja"><img src=%s style="border:none 0;" alt="Share to Twitter" /></a><p></p>' % (x, twitter_src)
+        share_to_fb = '<a href="https://www.facebook.com/sharer.php?u=https://cs1.ucc.ie/~cgg1/cgi-bin/youask/question_pages/question_%s.py" target="_blank" ;"> <img src=%s style="border:none 0;" alt="Share to Facebook" /></a>' % (x, facebook_src)
+        share_to_tw = '<a href="https://twitter.com/share" target="_blank" data-url=https://cs1.ucc.ie/~cgg1/cgi-bin/youask/question_pages/question_%s.py data-text="" data-via=""data-lang="ja"><img src=%s style="border:none 0;" alt="Share to Twitter" /></a>' % (x, twitter_src)
         questions += '<section>%s &nbsp %s &nbsp %s &nbsp %s &nbsp %s %s %s</section> ' % (
             x["question"], x["submitter"], x["score"], x["view_count"], x["submission_date"], share_to_fb, share_to_tw)
 
