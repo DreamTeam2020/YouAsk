@@ -39,8 +39,7 @@ def controllerQuestions():
     form_data = FieldStorage()
     text=""
     if len(form_data) != 0:
-        text  += escape(form_data.getfirst('cbox1', '').strip())
-        text += escape(form_data.getfirst('cbox2', '').strip())
+        text  += escape(form_data.getfirst('cbox', '').strip())
     result=insertionSort(result,text)
     questions = '<h1>question &nbsp submitter &nbsp score &nbsp view count &nbsp time &nbsp</h1>  '
     for x in result:
