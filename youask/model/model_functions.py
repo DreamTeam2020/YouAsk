@@ -334,3 +334,27 @@ def increaseScore(table, id):
         return "incremented"
     except db.Error():
         return "SERVER_ERROR"
+
+def decrementScore(table, id):
+    # Increment score of question/answer in given table using id, then take the submitter and increment their score
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("""
+            UPDATE %s
+            SET score = score - 1
+            WHERE id='%s'
+        """ % (table, id))
+        connection.commit()
+        cursor.execute("""SELECT submitter FROM %s WHERE id='%s'""" % (table, id))
+        fetch=cursor.fetchall()
+        cursor.execute("""
+            UPDATE ask_users
+            SET score = score - 1
+            WHERE username='%s'
+        """ % (fetch[0]['submitter']))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "decremented"
+    except db.Error():
+        return "SERVER_ERROR"
+
