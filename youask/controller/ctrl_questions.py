@@ -1,22 +1,23 @@
 import os
 from cgi import FieldStorage, escape
 
-from model.model_functions import getQuestion
+from model.model_functions import *
+from controller.html_functions import shareLinks
 
-def convertDate(arr):
-    for i in range(len(arr)):
-        arr[i]["submission_date"]=arr[i]["submission_date"].strftime("%y")+ arr[i]["submission_date"].strftime("%m")+arr[i]["submission_date"].strftime("%d")+arr[i]["submission_date"].strftime("%H")+ arr[i]["submission_date"].strftime("%M")+arr[i]["submission_date"].strftime("%S")
-        arr[i]["submission_date"]=int(arr[i]["submission_date"])
-    return arr
+def convertDate(questions):
+    for i in range(len(questions)):
+        questions[i]["submission_date"] = questions[i]["submission_date"].strftime("%y") + questions[i]["submission_date"].strftime("%m")+questions[i]["submission_date"].strftime("%d")+questions[i]["submission_date"].strftime("%H")+ questions[i]["submission_date"].strftime("%M")+questions[i]["submission_date"].strftime("%S")
+        questions[i]["submission_date"] = int(questions[i]["submission_date"])
+
+    return questions
 
 
-
-def insertionSort(arr,text):
+def insertionSort(arr, sorting):
     for i in range(1, len(arr)):
         key = arr[i]["submission_date"]
         key1 = arr[i]
         j = i - 1
-        if(len(text)==5):
+        if sorting == "chk_latest":
             while j >= 0 and key < arr[j]["submission_date"]:
                 arr[j + 1] = arr[j]
                 j -= 1
@@ -30,24 +31,54 @@ def insertionSort(arr,text):
     return arr
 
 
-
 def controllerQuestions():
-    facebook_src = "images/Facebook.png"
-    twitter_src = "images/Twitter.png"
-    result = getQuestion()
-    result=convertDate(result)
-    form_data = FieldStorage()
-    text=""
-    if len(form_data) != 0:
-        text  += escape(form_data.getfirst('cbox', '').strip())
-    result=insertionSort(result,text)
-    questions = '<h1>question &nbsp submitter &nbsp score &nbsp view count &nbsp time &nbsp</h1>  '
-    for x in result:
-        share_to_fb = '<a href="https://www.facebook.com/sharer.php?u=https://cs1.ucc.ie/~cgg1/cgi-bin/youask/question_pages/question_%s.py" target="_blank" ;"> <img src=%s style="border:none 0;" alt="Share to Facebook" /></a>' % (x, facebook_src)
-        share_to_tw = '<a href="https://twitter.com/share" target="_blank" data-url=https://cs1.ucc.ie/~cgg1/cgi-bin/youask/question_pages/question_%s.py data-text="" data-via=""data-lang="ja"><img src=%s style="border:none 0;" alt="Share to Twitter" /></a>' % (x, twitter_src)
-        questions += '<section>%s &nbsp %s &nbsp %s &nbsp %s &nbsp %s %s %s</section> ' % (
-            x["question"], x["submitter"], x["score"], x["view_count"], x["submission_date"], share_to_fb, share_to_tw)
 
-    return questions
+    questions = getQuestion()
+    converted_questions = convertDate(questions)
+
+    form_data = FieldStorage()
+    ordering = ""
+    if len(form_data) != 0:
+        ordering += escape(form_data.getfirst('chk_sorting', '').strip())
+
+    ordered_questions = insertionSort(converted_questions, ordering)
+
+    result = """
+        <section>
+    """
+
+    for question in ordered_questions:
+        result += """
+                <section class="question">
+                    <a href="question_pages/question_%s.py">
+                        <p>%s</p>
+        """ % (question['id'], question['question'])
+
+        question_id = question['id']
+        fields = getQuestionFields(question_id)  # Returns a fetchall of the fields used by the question
+        if fields == 'EMPTY':
+            fields_of_study = '<p class="error"><small>No Fields available</small></p>'
+        else:
+            fields_of_study = '<p><small>Fields of Study: '
+            for row in fields:
+                fields_of_study += '%s | ' % row['field']
+
+            fields_of_study = fields_of_study[:-3]  # Remove the last 3 characters of the string
+            fields_of_study += '</small></p>'
+
+        share_links = shareLinks(False, question_id)
+
+        result += """
+                        %s
+                        <p><small>Submitted By: %s | Score: %d | View Count: %d</small></p>
+                    </a>
+                    %s
+                </section>
+        """ % (fields_of_study, question['submitter'], question['score'], question['view_count'], share_links)
+
+    result += """
+        </section>
+    """
+    return result
 
 

@@ -25,15 +25,17 @@ print("""
         <main>      <!-- The main part of the website --->
             <h1>test page</h1>
             <a href="submit.py">submit</a>
-<p>
-  <form action="questions.py" method="post">
-  <input type="radio" id="cbox1" name="cbox" value="first">
-  <label for="cbox1">Earliest</label>
-  <input type="radio" id="cbox2"  name="cbox" value="second" checked>
-  <label for="cbox2">Latest</label>
-  <input type="submit" value="Submit"/>
-   </form>
-</p>
+            <form action="questions.py" method="post">
+                <fieldset>
+                    <input type="radio" id="chk_earliest" name="chk_sorting" value="Earliest">
+                    <label for="chk_earliest">Earliest</label>
+                    
+                    <input type="radio" id="chk_latest"  name="chk_sorting" value="Latest" checked>
+                    <label for="chk_latest">Latest</label>
+                    
+                    <input type="submit" value="Sort"/>
+                </fieldset>
+            </form>
             %s
         </main>
 
