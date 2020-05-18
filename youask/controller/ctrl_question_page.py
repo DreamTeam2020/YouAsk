@@ -143,7 +143,7 @@ def controllerAnswerForm(username, question_id):
         server_error = False
         input_error = False
 
-        answer = escape(form_data.getfirst('answer', '').strip())
+        answer = escape(form_data.getfirst('txt_answer', '').strip())
         if not answer:
             error_msg = '<p class="error">Answer Field Must Be Filled</p>'  # If no answer is entered
         else:

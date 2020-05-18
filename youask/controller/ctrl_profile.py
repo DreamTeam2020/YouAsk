@@ -10,4 +10,4 @@ def controllerProfile():
 
 
 
-    return result
+    return

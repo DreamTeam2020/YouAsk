@@ -24,11 +24,11 @@ print("""
                 <fieldset> <!-- Username or Email, Password -->
                     <legend>Log In</legend>
 
-                    <label for="user_email">Username or Email: </label>
-                    <input type="text" name="user_email" id="user_email" value="%s" maxlength="50"/>
+                    <label for="txt_user_email">Username or Email: </label>
+                    <input type="text" name="txt_user_email" id="txt_user_email" value="%s" maxlength="50"/>
                     
-                    <label for="password">Password: </label>
-                    <input type="password" name="password" id="password" value="%s"/>
+                    <label for="txt_password">Password: </label>
+                    <input type="password" name="txt_password" id="txt_password" value="%s"/>
                     
                     <input type="submit" value="Log In"/>
                 </fieldset

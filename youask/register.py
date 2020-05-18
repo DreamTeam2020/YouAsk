@@ -25,19 +25,19 @@ print("""
                 <fieldset> <!-- Username, Email, Display Name, Password1, Password2 -->
                     <legend>Register</legend>
                     
-                    <label for="username">Username: </label>
-                    <input type="text" name="username" id="username" value="%s" maxlength="20"/>
+                    <label for="txt_username">Username: </label>
+                    <input type="text" name="txt_username" id="txt_username" value="%s" maxlength="20"/>
                     %s
-                    <label for="email">Email Address: </label>
-                    <input type="text" name="email" id="email" value="%s" maxlength="50"/>
+                    <label for="txt_email">Email Address: </label>
+                    <input type="text" name="txt_email" id="txt_email" value="%s" maxlength="50"/>
                     %s
-                    <label for="display_name">Display Name: </label>
-                    <input type="text" name="display_name" id="display_name" value="%s" maxlength="35"/>
+                    <label for="txt_display_name">Display Name: </label>
+                    <input type="text" name="txt_display_name" id="txt_display_name" value="%s" maxlength="35"/>
                     %s
-                    <label for="password1">Password: </label>
-                    <input type="password" name="password1" id="password1" value="%s"/>
-                    <label for="password2">Re-Enter Password: </label>
-                    <input type="password" name="password2" id="password2" value="%s"/>
+                    <label for="txt_password1">Password: </label>
+                    <input type="password" name="txt_password1" id="txt_password1" value="%s"/>
+                    <label for="txt_password2">Re-Enter Password: </label>
+                    <input type="password" name="txt_password2" id="txt_password2" value="%s"/>
                     %s
                     <input type="submit" value="Register"/>
                 </fieldset

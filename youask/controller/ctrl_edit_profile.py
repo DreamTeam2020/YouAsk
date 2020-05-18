@@ -35,10 +35,10 @@ def controllerEditProfile():
             result=generateEditDetailsForm(url, details, user_fields, new_display_name, old_password, password1, password2, error_messages)
             form_data=FieldStorage()
             if len(form_data)!=0:
-                new_display_name= escape(form_data.getfirst('new_display_name', '').strip())
-                old_password = escape(form_data.getfirst('old_password', '').strip())
-                password1= escape(form_data.getfirst('password1', '').strip())
-                password2 = escape(form_data.getfirst('password2', '').strip())
+                new_display_name= escape(form_data.getfirst('txt_new_display_name', '').strip())
+                old_password = escape(form_data.getfirst('txt_old_password', '').strip())
+                password1= escape(form_data.getfirst('txt_password1', '').strip())
+                password2 = escape(form_data.getfirst('txt_password2', '').strip())
 
                 display_result, password_result, error_messages=checkErrors(username, new_display_name, old_password, password1, password2)
                 if display_result or password_result:
