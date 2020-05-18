@@ -26,10 +26,10 @@ print("""
 
         <main>      <!-- The main part of the website --->
          
-            <div>
+            <section>
   
   <img src="data:image/png;base64, %s" alt="Red dot" />
-</div>
+</section>
 
             
              <form action="profile_picture.py" enctype="multipart/form-data" method="post">
