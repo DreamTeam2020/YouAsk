@@ -27,22 +27,22 @@ def generateQuestion(question):
         """ % (question['question'], question['description'])
 
     question_id=question['id']
-    fields=getQuestionFields(question_id)   #Returns a fetchall of the fields used by the question
+    fields=getQuestionFields(question_id)   # Returns a fetchall of the fields used by the question
     if fields=='EMPTY':
         fields_of_study='<p class="error">No Fields available</p>'
     else:
         fields_of_study='<p>Fields of Study: '
         for row in fields:
-            fields_of_study+='%s | ' % row['field']
+            fields_of_study += '%s | ' % row['field']
 
-        fields_of_study=fields_of_study[:-3]    # Remove the last 3 characters of the string
+        fields_of_study = fields_of_study[:-3]    # Remove the last 3 characters of the string
+        fields_of_study += '</p>'
 
     share_links=shareLinks(True, question_id)
     result_question+="""
                         %s
                         <p><small>Submitted By: %s | Score: %d | View Count: %d</small></p>
                         %s
-                        
                     </section>
     """ % (fields_of_study, question['submitter'], question['score'], question['view_count'], share_links)
 
