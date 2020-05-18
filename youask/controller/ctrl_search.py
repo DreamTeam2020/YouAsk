@@ -6,14 +6,14 @@ from controller.html_functions import generateQuestionsDisplay
 
 def searchKeyword():
     form_data = FieldStorage()
-    form_data = escape(form_data.getfirst('txt_search', '').strip())
+    txt_search = escape(form_data.getfirst('txt_search', '').strip())
     result = ""
 
     if len(form_data) != 0:
-        question_result = questionSearch(form_data)
+        question_result = questionSearch(txt_search)
         if question_result == 'SERVER_ERROR':
             result='<p class="error">Server Error Occurred</p>'
-        elif len(question_result)==0:
+        elif len(question_result) == 0:
             result='<p class="error">No Results Found</p>'
         else:
             result = generateQuestionsDisplay(question_result)
