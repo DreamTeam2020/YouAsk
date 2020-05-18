@@ -309,9 +309,9 @@ def getPictureCode():
     data = cursor.fetchall()
     return data[0]["pic"]
 
-def upLoadFromLocal(id, username,encoded_string):
+def upLoadFromLocal(username,encoded_string):
     connection, cursor = dbConnect()
-    cursor.execute("INSERT INTO ask_picture(id,username,picture) VALUES(%s, %s,%s)", (id, username, encoded_string))
+    cursor.execute("INSERT INTO ask_picture(username,picture) VALUES( %s,%s)", (username, encoded_string))
     connection.commit()
     dbClose(connection, cursor)
 

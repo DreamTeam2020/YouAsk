@@ -6,7 +6,6 @@ from cgi import FieldStorage, escape
 from controller.ctrl_cache import verifyLoggedIn
 from model.model_functions import upLoadPicture, upLoadFromLocal
 
-i=1
 def ctrlPicture():
     form_data = FieldStorage()
     form_data = escape(form_data.getfirst('Upload', '').strip())
@@ -31,7 +30,7 @@ def ctrlSubmitPic():
                 fn = os.path.basename(fileitem.filename)
                 with open('/tmp/' + fn, "rb") as image_file:
                     encoded_string = base64.b64encode(image_file.read())
-                    upLoadFromLocal(i,result,encoded_string)
+                    upLoadFromLocal(result, encoded_string)
                     return encoded_string
 
 
