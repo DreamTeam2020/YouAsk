@@ -290,12 +290,12 @@ def questionSearch(form_data):
     return fetch
 
 
-def upLoadPicture(picname):
+def upLoadPicture(id, username,picname):
     connection, cursor = dbConnect()
     opensrc = os.getcwd() + "/images/"+picname
     with open(opensrc, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read())
-    cursor.execute("INSERT INTO ask_picture_test(pic) VALUES(%s)",  encoded_string)
+    cursor.execute("INSERT INTO ask_picture(id,username,picture) VALUES(%s, %s,%s)",  (id, username, encoded_string))
     connection.commit()
     dbClose(connection, cursor)
 
@@ -306,9 +306,9 @@ def getPictureCode():
     data = cursor.fetchall()
     return data[0]["pic"]
 
-def upLoadFromLocal(encoded_string):
+def upLoadFromLocal(id, username,encoded_string):
     connection, cursor = dbConnect()
-    cursor.execute("INSERT INTO ask_picture_test(pic) VALUES(%s)", encoded_string)
+    cursor.execute("INSERT INTO ask_picture(id,username,picture) VALUES(%s, %s,%s)", (id, username, encoded_string))
     connection.commit()
     dbClose(connection, cursor)
 
