@@ -377,3 +377,5 @@ def generateQuestionsDisplay(questions):
     result += """
             </section>
         """
+
+    return result

@@ -17,5 +17,5 @@ def searchKeyword():
             result='<p class="error">No Results Found</p>'
         else:
             result = generateQuestionsDisplay(question_result)
-        
+
     return result
