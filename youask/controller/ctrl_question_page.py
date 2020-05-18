@@ -37,18 +37,14 @@ def generateQuestion(question):
 
         fields_of_study=fields_of_study[:-3]    # Remove the last 3 characters of the string
 
-    facebook_src = "../images/Facebook.png"
-    twitter_src = "../images/Twitter.png"
-    share_to_fb = '<a href="https://www.facebook.com/sharer.php?u=https://cs1.ucc.ie/~cgg1/cgi-bin/youask/question_pages/question_%s.py" target="_blank" ;"> <img src=%s style="border:none 0;" alt="Share to Facebook" /></a>' % (question_id, facebook_src)
-    share_to_tw = '<a href="https://twitter.com/share" target="_blank" data-url=https://cs1.ucc.ie/~cgg1/cgi-bin/youask/question_pages/question_%s.py data-text="" data-via=""data-lang="ja"><img src=%s style="border:none 0;" alt="Share to Twitter" /></a>' % (question_id, twitter_src)
-
+    share_links=shareLinks(True, question_id)
     result_question+="""
                         %s
                         <p><small>Submitted By: %s | Score: %d | View Count: %d</small></p>
-                        %s %s
+                        %s
                         
                     </section>
-    """ % (fields_of_study, question['submitter'], question['score'], question['view_count'], share_to_fb, share_to_tw)
+    """ % (fields_of_study, question['submitter'], question['score'], question['view_count'], share_links)
 
     return result_question
 

@@ -308,17 +308,30 @@ def generateStudyFieldsForm(url, fields, user_fields, error_msg):
 
     return result
 
-if __name__=="__main__":
-    from model.model_functions import *
-    # append main_fields to ask_ and get all fields from that table
+def shareLinks(sub_dir, question_id):
+    # Returns some html that contains images which link to social media for sharing
+    # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
+    prefix = '../' if sub_dir else ''
 
-    table_name = "ask_humanities"
-    # Get all fields from table_name
-    fields = getFieldsOfStudy(table_name)
+    facebook_src = "%simages/facebook.png" % prefix
+    twitter_src = "%simages/twitter.png" % prefix
 
-    url='edit_study.py'
-    error_msg="<p> </p>"
-    # Pass fields into a html_functions function and have it loop
-    # through the dict adding a label and input each round
-    result = generateStudyFieldsForm(table_name, url, fields, error_msg)
-    print(result)
+    share_to_fb = """
+        <figure>
+            <a href="https://www.facebook.com/sharer.php?u=https://cs1.ucc.ie/~cgg1/cgi-bin/youask/question_pages/question_%s.py" target="_blank" ;">
+                <img src="%s" title="Share to Facebook" alt="An image of the Facebook social media logo, which is a white lowercase letter f on a blue background."/>
+            </a>
+        </figure>
+    """ % (question_id, facebook_src)
+
+    share_to_tw = """
+            <figure>
+                <a href="https://twitter.com/share" target="_blank" data-url=https://cs1.ucc.ie/~cgg1/cgi-bin/youask/question_pages/question_%s.py data-text="" data-via=""data-lang="ja">
+                    <img src="%s" title="Share to Twitter" alt="An image of the Twitter social media logo, which is a side view of a light blue, simplistic bird."/>
+                </a>
+            </figure>
+        """ % (question_id, twitter_src)
+
+    result = share_to_fb + share_to_tw
+
+    return result

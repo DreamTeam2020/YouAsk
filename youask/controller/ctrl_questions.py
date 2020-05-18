@@ -14,7 +14,7 @@ def convertDate(arr):
 def insertionSort(arr,text):
     for i in range(1, len(arr)):
         key = arr[i]["submission_date"]
-        key1=arr[i]
+        key1 = arr[i]
         j = i - 1
         if(len(text)==5):
             while j >= 0 and key < arr[j]["submission_date"]:
@@ -26,7 +26,7 @@ def insertionSort(arr,text):
                 j -= 1
 
         arr[j + 1]["submission_date"] = key
-        arr[j+1]=key1
+        arr[j+1] = key1
     return arr
 
 

@@ -27,7 +27,7 @@ def controllerEditStudy():
             fields_of_study = form_data.getlist('fields_of_study')
 
             if fields_of_study[0] == 'humanities' or fields_of_study[0] == 'natural_sciences' or \
-                            fields_of_study[0] == 'formal_sciences' or fields_of_study[0]=='professions':
+                    fields_of_study[0] == 'formal_sciences' or fields_of_study[0]=='professions':
                 # If the data in fields_of_study is equal to one of the main fields
 
                 table_name = "ask_%s" % fields_of_study[0]    # Append fields_of_study to ask and get all fields from that table
