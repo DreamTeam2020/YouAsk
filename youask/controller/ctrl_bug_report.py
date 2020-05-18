@@ -12,7 +12,6 @@ def controllerBugReportSubmission(type, description, email):
     input_error = False
     submitted = False
 
-
     if type == 1:   # User is logged in
         username=verifyLoggedIn('username', False)
         email=verifyLoggedIn('email', False)

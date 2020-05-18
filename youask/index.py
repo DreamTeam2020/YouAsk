@@ -12,7 +12,7 @@ page_name = "home"
 
 print('Content-Type: text/html')
 print()
-result = generateNews(7).encode('utf-8')
+result = controllerIndex()
 
 print("""
     %s
