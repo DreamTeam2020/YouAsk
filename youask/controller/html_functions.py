@@ -313,8 +313,8 @@ def shareLinks(sub_dir, question_id):
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
     prefix = '../' if sub_dir else ''
 
-    facebook_src = "%simages/facebook.png" % prefix
-    twitter_src = "%simages/twitter.png" % prefix
+    facebook_src = "%simages/Facebook.png" % prefix
+    twitter_src = "%simages/Twitter.png" % prefix
 
     share_to_fb = """
         <figure>
