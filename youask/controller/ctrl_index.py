@@ -4,7 +4,7 @@ from controller.html_functions import generateNews
 
 def controllerIndex():
 
-    news=generateNews(7).encode('utf-8')
+    news=generateNews(7)
 
     result=news
 

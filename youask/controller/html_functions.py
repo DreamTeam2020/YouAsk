@@ -390,24 +390,31 @@ def generateNews(num):
            'country=us&'
            'apiKey=1e2203fa10234d0a999cf82f685ac8d2')
     response = requests.get(url)
-    convert_data=response.text
+    convert_data = response.text
     json_data = json.loads(convert_data)
+
     result = """
         <section>
     """
 
     for field in range(num):
+        title = json_data["articles"][field]["title"]
+        description = json_data["articles"][field]["description"]
+
         result += """
             <article>
-                <h1>Title:%s</h1>
+                <h1>%s</h1>
                 <p>%s</p>
             </article>
-        """ % (json_data["articles"][field]["title"], json_data["articles"][field]["description"])
+        """ % (title, description)
 
     result += """
         </section>
     """
 
-    #result.strip("b'")
-
     return result
+
+
+if __name__ == "__main__":
+    news = generateNews(7)
+    print(news)
