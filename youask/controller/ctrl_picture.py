@@ -17,14 +17,20 @@ def ctrlPicture():
 
 def ctrlSubmitPic():
     form = cgi.FieldStorage()
-    fileitem=form['file']
-    if fileitem.filename:
-        fn = os.path.basename(fileitem.filename)
-        with open(fn, "rb") as image_file:
-            encoded_string = base64.b64encode(image_file)
-            upLoadFromLocal(encoded_string)
-            return fileitem.filename
-    else: return "nothing"
+
+    if(len(form)!=0):
+        fileitem = form['myfile']
+
+        if fileitem.filename:
+
+            fn = os.path.basename(fileitem.filename)
+            with open('/tmp/' + fn, "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read())
+                upLoadFromLocal(encoded_string)
+                return encoded_string
+
+
+
 
 
 
@@ -43,4 +49,22 @@ def ctrlSubmitPic():
           encoded_string = base64.b64encode(fn)
           upLoadFromLocal(encoded_string)
           return encoded_string
+          
+          
+def ctrlSubmitPic():
+    form = cgi.FieldStorage()
+    # 获取文件名
+    if(len(form)!=0):
+        fileitem = form['myfile']
+        # 检测文件是否上传
+        if fileitem.filename:
+            # 设置文件路径
+            fn = os.path.basename(fileitem.filename)
+            with open('/tmp/' + fn, "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read())
+                upLoadFromLocal(encoded_string)
+                return encoded_string     
+                
+                
+通过getvalue可以直接得到值     
 '''
