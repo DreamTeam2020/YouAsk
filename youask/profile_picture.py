@@ -32,10 +32,10 @@ print("""
 </div>
 
             
-             <form action="profile_picture.py" method="post">
+             <form action="profile_picture.py" enctype="multipart/form-data" method="post">
             <fieldset> <!--  Description -->
                 
-               <input type="file" id="myfile" name="myfile"><br><br>
+               <input type="file" id="file" name="myfile"><br><br>
                 <input type="submit" value="Submit Picture"/>
             </fieldset
         </form>
