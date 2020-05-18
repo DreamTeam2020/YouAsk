@@ -52,7 +52,7 @@ def controllerQuestions():
                 <section class="question">
                     <a href="question_pages/question_%s.py">
                         <p>%s</p>
-        """ % (question['question_id'], question['question'])
+        """ % (question['id'], question['question'])
 
         question_id = question['id']
         fields = getQuestionFields(question_id)  # Returns a fetchall of the fields used by the question
