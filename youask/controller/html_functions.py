@@ -398,15 +398,15 @@ def generateNews(num):
     """
 
     for field in range(num):
-        title = json_data["articles"][field]["title"]
-        description = json_data["articles"][field]["description"]
+        title = json_data["articles"][field]["title"].encode("utf-8")
+        description = json_data["articles"][field]["description"].encode("utf-8")
 
         result += """
             <article>
                 <h1>%s</h1>
                 <p>%s</p>
             </article>
-        """ % (title, description)
+        """ % (title.decode("utf-8"), description.decode("utf-8"))
 
     result += """
         </section>
