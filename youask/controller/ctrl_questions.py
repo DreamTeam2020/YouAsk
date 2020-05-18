@@ -2,7 +2,7 @@ import os
 from cgi import FieldStorage, escape
 
 from model.model_functions import *
-from controller.html_functions import shareLinks
+from controller.html_functions import generateQuestionsDisplay
 
 def convertDate(questions):
     for i in range(len(questions)):
@@ -43,42 +43,8 @@ def controllerQuestions():
 
     ordered_questions = insertionSort(converted_questions, ordering)
 
-    result = """
-        <section>
-    """
+    result = generateQuestionsDisplay(ordered_questions)
 
-    for question in ordered_questions:
-        result += """
-                <section class="question">
-                    <a href="question_pages/question_%s.py">
-                        <p>%s</p>
-        """ % (question['id'], question['question'])
-
-        question_id = question['id']
-        fields = getQuestionFields(question_id)  # Returns a fetchall of the fields used by the question
-        if fields == 'EMPTY':
-            fields_of_study = '<p class="error"><small>No Fields available</small></p>'
-        else:
-            fields_of_study = '<p><small>Fields of Study: '
-            for row in fields:
-                fields_of_study += '%s | ' % row['field']
-
-            fields_of_study = fields_of_study[:-3]  # Remove the last 3 characters of the string
-            fields_of_study += '</small></p>'
-
-        share_links = shareLinks(False, question_id)
-
-        result += """
-                        %s
-                        <p><small>Submitted By: %s | Score: %d | View Count: %d</small></p>
-                    </a>
-                    %s
-                </section>
-        """ % (fields_of_study, question['submitter'], question['score'], question['view_count'], share_links)
-
-    result += """
-        </section>
-    """
     return result
 
 

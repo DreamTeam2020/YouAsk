@@ -6,7 +6,7 @@ from controller.html_functions import *
 from controller.ctrl_search import *
 
 page_name = "search"
-result = searchkeyword()
+result = searchKeyword()
 url="search.py"
 print('Content-Type: text/html')
 print()

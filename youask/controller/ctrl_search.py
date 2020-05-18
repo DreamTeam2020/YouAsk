@@ -1,18 +1,21 @@
 from cgi import FieldStorage, escape
 
-from model.model_functions import dbConnect, dbClose, questionSearch
+from model.model_functions import questionSearch
+from controller.html_functions import generateQuestionsDisplay
 
 
-def searchkeyword():
+def searchKeyword():
     form_data = FieldStorage()
     form_data = escape(form_data.getfirst('txt_search', '').strip())
-    fetch=" "
-    result=" "
+    result = ""
+
     if len(form_data) != 0:
-        fetch=questionSearch(form_data)
-    for x in fetch:
-        result += '<section>%s &nbsp %s &nbsp %s &nbsp %s &nbsp %s </section>' % (
-            x["question"], x["submitter"], x["score"], x["view_count"], x["submission_date"])
+        question_result = questionSearch(form_data)
+        if question_result == 'SERVER_ERROR':
+            result='<p class="error">Server Error Occurred</p>'
+        elif len(question_result)==0:
+            result='<p class="error">No Results Found</p>'
+        else:
+            result = generateQuestionsDisplay(question_result)
+        
     return result
-
-

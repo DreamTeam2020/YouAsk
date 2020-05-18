@@ -281,13 +281,16 @@ def bugReportNotLogged(email, description):
 
 
 def questionSearch(form_data):
-    connection, cursor = dbConnect()
+    try:
+        connection, cursor = dbConnect()
 
-    cursor.execute("SELECT * FROM ask_questions WHERE question  REGEXP  %s", form_data)
-    connection.commit()
-    fetch = cursor.fetchall()
-    dbClose(connection, cursor)
-    return fetch
+        cursor.execute("SELECT * FROM ask_questions WHERE question  REGEXP  %s", form_data)
+        connection.commit()
+        fetch = cursor.fetchall()
+        dbClose(connection, cursor)
+        return fetch
+    except db.Error():
+        return "SERVER_ERROR"
 
 
 def upLoadPicture(id, username, pic_name):
