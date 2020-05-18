@@ -24,11 +24,11 @@ def inputControllerRegistration():
             error_msg="<p> </p>"
 
             # Get the data from the form
-            username = escape(form_data.getfirst('username', '').strip())
-            email=escape(form_data.getfirst('email', '').strip())
-            display_name=escape(form_data.getfirst('display_name', '').strip())
-            password1=escape(form_data.getfirst('password1', '').strip())
-            password2=escape(form_data.getfirst('password2', '').strip())
+            username = escape(form_data.getfirst('txt_username', '').strip())
+            email=escape(form_data.getfirst('txt_email', '').strip())
+            display_name=escape(form_data.getfirst('txt_display_name', '').strip())
+            password1=escape(form_data.getfirst('txt_password1', '').strip())
+            password2=escape(form_data.getfirst('txt_password2', '').strip())
 
             user_details=[username, email, display_name, password1, password2]
 

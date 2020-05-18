@@ -19,8 +19,8 @@ def inputControllerLogin():
             input_error=False
 
             # Get user input from the form
-            user_email = escape(form_data.getfirst('user_email', '').strip())
-            password = escape(form_data.getfirst('password', '').strip())
+            user_email = escape(form_data.getfirst('txt_user_email', '').strip())
+            password = escape(form_data.getfirst('txt_password', '').strip())
 
             if not user_email or not password:
                 error_msg='<p class="error">All Fields Must Be Filled</p>'  # If all fields are not filled

@@ -123,11 +123,11 @@ def generateQuestionForm(url, question, description, fields, error):
             <fieldset> <!-- Question, Description -->
                 <legend>Submit a Question</legend>
 
-                <label for="question">Question: </label>
-                <input type="text" name="question" id="question" value="%s" maxlength="300"/>
+                <label for="txt_question">Question: </label>
+                <input type="text" name="txt_question" id="txt_question" value="%s" maxlength="300"/>
 
-                <label for="description">Description: </label>
-                <input type="text" name="description" id="description" value="%s"/>
+                <label for="txt_description">Description: </label>
+                <input type="text" name="txt_description" id="txt_description" value="%s"/>
     """ % (url, question, description)
 
     for row in fields:
@@ -157,8 +157,8 @@ def generateAnswerForm(url, answer, error):
                 <fieldset> <!-- Answer -->
                     <legend>Submit an Answer</legend>
 
-                    <label for="answer">Answer: </label>
-                    <input type="text" name="answer" id="answer" value="%s"/>
+                    <label for="txt_answer">Answer: </label>
+                    <input type="text" name="txt_answer" id="txt_answer" value="%s"/>
 
                     <input type="submit" value="Submit Answer"/>
                 </fieldset
@@ -175,8 +175,8 @@ def generateBugreportForm(url, description, error):
     result = """
         <form action="%s" method="post">
             <fieldset> <!--  Description -->
-                <label for="description">Description: </label>
-                <input type="text" name="description" id="description" value="%s"/>
+                <label for="txt_description">Description: </label>
+                <input type="text" name="txt_description" id="txt_description" value="%s"/>
                 <input type="submit" value="Submit Bug"/>
             </fieldset
         </form>
@@ -192,10 +192,12 @@ def generateBugreportFormWithEmail(url, description, email, error):
     result = """
         <form action="%s" method="post">
             <fieldset> <!--  Description, Email -->
-                <label for="description">Description: </label>
-                <input type="text" name="description" id="description" value="%s"/>
-                <label for="email">Your email: </label>
-                <input type="text" name="email" id="email" value="%s"/>
+                <label for="txt_description">Description: </label>
+                <input type="text" name="txt_description" id="txt_description" value="%s"/>
+                
+                <label for="txt_email">Your email: </label>
+                <input type="text" name="txt_email" id="txt_email" value="%s"/>
+                
                 <input type="submit" value="Submit Bug"/>
             </fieldset
         </form>
@@ -217,17 +219,17 @@ def generateEditDetailsForm(url, details, user_fields, new_display_name, old_pas
                     %s
                     <p>To Edit Your Fields of Study Click <a href="edit_study.py">Here</a></p>
                     
-                    <label for="new_display_name">New Display Name: </label>
-                    <input type="text" name="new_display_name" id="new_display_name" value="%s" maxlength="35"/>
+                    <label for="txt_new_display_name">New Display Name: </label>
+                    <input type="text" name="txt_new_display_name" id="txt_new_display_name" value="%s" maxlength="35"/>
                     %s
                     
-                    <label for="old_password">Current Password: </label>
-                    <input type="password" name="old_password" id="old_password" value="%s"/>
+                    <label for="txt_old_password">Current Password: </label>
+                    <input type="password" name="txt_old_password" id="txt_old_password" value="%s"/>
                     %s
-                    <label for="password1">New Password: </label>
-                    <input type="password" name="password1" id="password1" value="%s"/>
-                    <label for="password2">Re-Enter New Password: </label>
-                    <input type="password" name="password2" id="password2" value="%s"/>
+                    <label for="txt_password1">New Password: </label>
+                    <input type="password" name="txt_password1" id="txt_password1" value="%s"/>
+                    <label for="txt_password2">Re-Enter New Password: </label>
+                    <input type="password" name="txt_password2" id="txt_password2" value="%s"/>
                     %s
                     
                     <input type="submit" value="Update"/>

@@ -32,8 +32,8 @@ def controllerSubmission():
             if not form_data.getlist('fields_of_study'):
                 # This will only occur on the sub checklist, the heading list will never be blank
                 error_msg = '<p class="error">Please Select At Least One Field</p>'
-                question = escape(form_data.getfirst('question', '').strip())
-                description = escape(form_data.getfirst('description', '').strip())
+                question = escape(form_data.getfirst('txt_question', '').strip())
+                description = escape(form_data.getfirst('txt_description', '').strip())
 
                 table_name = getValueFromSession(session_table_key, False)
                 fields = getFieldsOfStudy(table_name)  # Get all fields from table_name
@@ -51,8 +51,8 @@ def controllerSubmission():
                     saveToSession(session_table_key, table_name, False)  # Save table name to session for later use
                     result = generateQuestionForm(url, question, description, fields, error_msg)
                 else:
-                    question = escape(form_data.getfirst('question', '').strip())
-                    description = escape(form_data.getfirst('description', '').strip())
+                    question = escape(form_data.getfirst('txt_question', '').strip())
+                    description = escape(form_data.getfirst('txt_description', '').strip())
                     if not question:
                         error_msg = '<p class="error">Question Field Must Be Filled</p>'  # If no question is entered
                     else:

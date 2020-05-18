@@ -36,7 +36,6 @@ def controllerBugReportSubmission(type, description, email):
 
 
 def controllerSupport():
-    result = ''
     url = "support.py"
     email = ""
     description = ""
@@ -48,7 +47,7 @@ def controllerSupport():
 
         form_data = FieldStorage()
         if len(form_data) != 0:
-            description = escape(form_data.getfirst('description', '').strip())
+            description = escape(form_data.getfirst('txt_description', '').strip())
             email=''
 
             submitted, server_error, input_error = controllerBugReportSubmission(1, description, email)
@@ -68,8 +67,8 @@ def controllerSupport():
         form_data = FieldStorage()
 
         if len(form_data) != 0:
-            description = escape(form_data.getfirst('description', '').strip())
-            email = escape(form_data.getfirst('email', '').strip())
+            description = escape(form_data.getfirst('txt_description', '').strip())
+            email = escape(form_data.getfirst('txt_email', '').strip())
             if not description or not email:
                 error_msg='<p class="error">All Fields Must Be Filled</p>'
             else:

@@ -14,7 +14,7 @@ page_name = "profile_picture"
 
 print('Content-Type: text/html')
 print()
-picsrc=getPictureCode()
+pic_src=getPictureCode()
 result=ctrlSubmitPic()
 
 
@@ -25,21 +25,17 @@ print("""
         %s
 
         <main>      <!-- The main part of the website --->
-         
             <section>
-  
-  <img src="data:image/png;base64, %s" alt="Red dot" />
-</section>
+                <img src="data:image/png;base64, %s" title="Red dot" />
+            </section>
 
-            
-             <form action="profile_picture.py" enctype="multipart/form-data" method="post">
-            <fieldset> <!--  Description -->
-                
-               <input type="file" id="file" name="myfile"><br><br>
-                <input type="submit" value="Submit Picture"/>
-            </fieldset
-        </form>
-         %s
+            <form action="profile_picture.py" enctype="multipart/form-data" method="post">
+                <fieldset> <!--  Description -->
+                   <input type="file" id="file" name="myfile"><br><br>
+                    <input type="submit" value="Submit Picture"/>
+                </fieldset
+            </form>
+             %s
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
@@ -48,4 +44,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("profile_picture", page_name, False), generateHeader(False), picsrc, result,generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("profile_picture", page_name, False), generateHeader(False), pic_src, result,generateNav(page_name, False), pageEnd()))

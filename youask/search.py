@@ -17,19 +17,19 @@ print("""
         %s
         
         <main>      <!-- The main part of the website --->
-          <form action="%s" method="post">
-                
-                  
-                    
-                    <label for="search">search: </label>
-                    <input type="text" name="search" id="search"/>
+            <form action="%s" method="post">
+                <fieldset>
+                    <label for="txt_search">Search: </label>
+                    <input type="text" name="txt_search" id="txt_search"/>
                     
                     <input type="submit" value="Click to search"/>
-            
+                </fieldset>
             </form>
             %s
         </main>
+        
         <aside>     <!-- A small aside that contains information not related to the main --->
+        
         </aside>
         %s
         %s
