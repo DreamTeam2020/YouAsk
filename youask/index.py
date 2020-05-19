@@ -21,6 +21,7 @@ print("""
 
         <main>      <!-- The main part of the website --->
             <h1>Home page</h1>
+            <button onclick='myFunction()'>Try It</button>
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
