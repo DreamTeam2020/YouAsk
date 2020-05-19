@@ -15,32 +15,36 @@ def ctrlPicture():
     else:
         return "false"
 
-def ctrlSubmitPic():
+
+def generateForm():
     result = verifyLoggedIn('username', False)
-    message=''
-    contents=''
     if result == 'UNVERIFIED':
-        return result
+        return result+" please log in first "
     else:
-        form = cgi.FieldStorage()
+        result= ' <form action="profile_picture.py" enctype="multipart/form-data" method="post">'\
+                  '<fieldset> <!--  Description -->' \
+                 '<input type="file" id="file" name="myfile"><br><br>'  \
+                  '<input type="submit" value="Submit Picture"/>'  \
+               '</fieldset>' \
+            '</form>'
+    return result
+    
 
 
-        if (len(form) != 0):
+def ctrlSubmitPic():
+
+    form = cgi.FieldStorage()
+    result = verifyLoggedIn('username', False)
+
+    if (len(form) != 0):
 
             fileitem = form['myfile']
-
-
             if fileitem.filename:
-
-                fn = os.path.basename(fileitem.filename)
-             #   fp=open('/tmp/' + fn, 'wb').write(fileitem.file.read())
                 encoded_string = base64.b64encode(fileitem.file.read())
                 upLoadFromLocal(result, encoded_string)
-                return encoded_string
+                return 'success'
+    return 'waitting for upload'
 
-            else:
-                message = 'file not success'
-        return message
 
 def getProfilePicture(sub_dir):
     # Get the username, get the profile picture from the

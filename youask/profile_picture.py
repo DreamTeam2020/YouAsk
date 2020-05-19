@@ -11,13 +11,11 @@ from controller.html_functions import *
 
 page_name = "profile_picture"
 
-
 print('Content-Type: text/html')
 print()
-profile_picture=getProfilePicture(False)
-result=ctrlSubmitPic()
-
-
+profile_picture = getProfilePicture(False)
+formGenarate = generateForm()
+result = ctrlSubmitPic()
 
 print("""
     %s
@@ -27,12 +25,7 @@ print("""
         <main>      <!-- The main part of the website --->
             %s
 
-            <form action="profile_picture.py" enctype="multipart/form-data" method="post">
-                <fieldset> <!--  Description -->
-                   <input type="file" id="file" name="myfile"><br><br>
-                    <input type="submit" value="Submit Picture"/>
-                </fieldset
-            </form>
+      %s
              %s
         </main>
 
@@ -42,4 +35,5 @@ print("""
 
         %s
         %s
-    """ % (pageStart("profile_picture", page_name, False), generateHeader(False), profile_picture, result,generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("profile_picture", page_name, False), generateHeader(False), profile_picture, formGenarate,result,
+           generateNav(page_name, False), pageEnd()))
