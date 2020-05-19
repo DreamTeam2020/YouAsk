@@ -53,11 +53,11 @@ def dbLoginUser(user_email, password):
         cursor.execute('SELECT * FROM ask_users WHERE (username=%s OR email=%s) AND pass=%s',
                        (user_email, user_email, sha256_password))
 
-        if cursor.rowcount == 0:
-            result = "INPUT_ERROR"
-        else:
+        if cursor.rowcount > 0:
             fetch = cursor.fetchall()
             result = fetch[0]
+        else:
+            result = "INPUT_ERROR"
         dbClose(connection, cursor)
         return result
     except db.Error:
@@ -96,11 +96,7 @@ def checkOldPassword(username, old_password):
         sha256_password = sha256(old_password.encode()).hexdigest()
         connection, cursor = dbConnect()
         cursor.execute('SELECT * FROM ask_users WHERE username=%s AND pass=%s', (username, sha256_password))
-        if cursor.rowcount == 0:
-            return False
-        else:
-            return True
-
+        return True if cursor.rowcount > 0 else False
     except db.Error():
         return "SERVER_ERROR"
 
@@ -298,22 +294,42 @@ def upLoadPicture(id, username, pic_name):
     open_src = os.getcwd() + "/images/"+pic_name
     with open(open_src, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read())
-    cursor.execute("INSERT INTO ask_picture(id,username,picture) VALUES(%s, %s,%s)",  (id, username, encoded_string))
+    cursor.execute("INSERT INTO ask_picture(id,username,picture) VALUES(%s, %s, %s)",  (id, username, encoded_string))
     connection.commit()
     dbClose(connection, cursor)
 
-def getPictureCode():
-    connection, cursor = dbConnect()
-    sql1 = 'select pic from ask_picture_test'
-    cursor.execute(sql1)
-    data = cursor.fetchall()
-    return data[0]["pic"]
+def getPictureCode(username):
+    # Get the profile picture from the db given the username
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT picture FROM ask_picture WHERE username=%s", username)
 
-def upLoadFromLocal(username,encoded_string):
-    connection, cursor = dbConnect()
-    cursor.execute("INSERT INTO ask_picture(username,picture) VALUES( %s,%s)", (username, encoded_string))
-    connection.commit()
-    dbClose(connection, cursor)
+        if cursor.rowcount > 0:
+            data = cursor.fetchall()
+            result = data[0]['picture']
+        else:
+            result = 'EMPTY'
+
+        dbClose(connection, cursor)
+    except db.Error():
+        result = "SERVER_ERROR"
+
+    return result
+
+def upLoadFromLocal(username, encoded_string):
+    # Removes the user's old image if there is one, and then uploads new image to database
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("DELETE FROM ask_picture WHERE username=%s", username)
+        connection.commit()
+
+        cursor.execute("INSERT INTO ask_picture(username, picture) VALUES(%s, %s)", (username, encoded_string))
+        connection.commit()
+        
+        dbClose(connection, cursor)
+        return 'submitted'
+    except db.Error():
+        return "SERVER_ERROR"
 
 def increaseScore(table, id):
     # Increment score of question/answer in given table using id, then take the submitter and increment their score

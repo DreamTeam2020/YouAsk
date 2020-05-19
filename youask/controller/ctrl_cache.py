@@ -26,7 +26,6 @@ def sessionCreate(username, email, display_name, sid):
 def verifyLoggedIn(key, sub_dir):    # If sub_dir is true then a view within a subdirectory is calling this function
     # Verifies if the user is logged in and then passes back the value of the given key
     result='UNVERIFIED'
-    result_display=''
     cookie = SimpleCookie()
     http_cookie_header = environ.get('HTTP_COOKIE')
     if http_cookie_header:  # If the user has a http cookie
@@ -41,39 +40,6 @@ def verifyLoggedIn(key, sub_dir):    # If sub_dir is true then a view within a s
                 result=session_store.get(key)   # Get value from session store based on given key
     return result
 
-def verifyLoggedInEmail(sub_dir):    # If sub_dir is true then a view within a subdirectory is calling this function
-    # Verify if the user is already logged in
-    result='UNVERIFIED'
-    cookie = SimpleCookie()
-    http_cookie_header = environ.get('HTTP_COOKIE')
-    if http_cookie_header:  # If the user has a http cookie
-        cookie.load(http_cookie_header)    # Load the cookies
-        if 'UASK' in cookie:    # If this websites cookie is in their list
-            sid = cookie['UASK'].value
-            if sub_dir:
-                session_store = open('../session_store/sess_' + sid, writeback=False)  # Open the user's session
-            else:
-                session_store = open('session_store/sess_' + sid, writeback=False)  # Open the user's session
-            if session_store.get('authenticated'):  # If the session is authenticated then they're logged in
-                result=session_store.get('email')
-    return result
-
-def verifyLoggedInDisplay(sub_dir):    # If sub_dir is true then a view within a subdirectory is calling this function
-    # Verify if the user is already logged in
-    result='UNVERIFIED'
-    cookie = SimpleCookie()
-    http_cookie_header = environ.get('HTTP_COOKIE')
-    if http_cookie_header:  # If the user has a http cookie
-        cookie.load(http_cookie_header)    # Load the cookies
-        if 'UASK' in cookie:    # If this websites cookie is in their list
-            sid = cookie['UASK'].value
-            if sub_dir:
-                session_store = open('../session_store/sess_' + sid, writeback=False)  # Open the user's session
-            else:
-                session_store = open('session_store/sess_' + sid, writeback=False)  # Open the user's session
-            if session_store.get('authenticated'):  # If the session is authenticated then they're logged in
-                result=session_store.get('display_name')
-    return result
 
 def saveToSession(key, value, sub_dir):
     # Save a give key and value to the user's session
