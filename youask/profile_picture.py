@@ -13,9 +13,8 @@ page_name = "profile_picture"
 
 print('Content-Type: text/html')
 print()
-profile_picture = getProfilePicture(False)
-form_generate = generateForm()
-result = ctrlSubmitPic()
+
+result = controllerProfilePicture()
 
 print("""
     %s
@@ -24,9 +23,6 @@ print("""
 
         <main>      <!-- The main part of the website --->
             %s
-
-      %s
-             %s
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
@@ -35,5 +31,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("profile_picture", page_name, False), generateHeader(False), profile_picture, form_generate, result,
-           generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("profile_picture", page_name, False), generateHeader(False), result, generateNav(page_name, False), pageEnd()))

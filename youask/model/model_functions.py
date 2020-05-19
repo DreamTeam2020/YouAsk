@@ -288,16 +288,6 @@ def questionSearch(form_data):
     except db.Error():
         return "SERVER_ERROR"
 
-
-def upLoadPicture(username, pic_name):
-    connection, cursor = dbConnect()
-    open_src = os.getcwd() + "/images/"+pic_name
-    with open(open_src, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read())
-    cursor.execute("INSERT INTO ask_picture(username, picture) VALUES(%s, %s)",  (username, encoded_string))
-    connection.commit()
-    dbClose(connection, cursor)
-
 def getPictureCode(username):
     # Get the profile picture from the db given the username
     try:
