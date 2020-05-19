@@ -93,8 +93,9 @@ def checkErrors(username, new_display_name, old_password, password1, password2):
             if update_result_display=='SERVER_ERROR':
                 error_messages[3]='<p class="error">Server Error Occurred</p>'
             else:
+                saveToSession('display_name', new_display_name, False)
                 error_messages[1]='<p class="error">Display Name Successfully Updated</p>'
-                display_updated=True
+                display_updated = True
 
     return display_updated, password_updated, error_messages
 

@@ -42,7 +42,7 @@ def verifyLoggedIn(key, sub_dir):    # If sub_dir is true then a view within a s
 
 
 def saveToSession(key, value, sub_dir):
-    # Save a give key and value to the user's session
+    # Save a given key and value to the user's session
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
     prefix = '../' if sub_dir else ''
 
