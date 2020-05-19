@@ -31,7 +31,7 @@ def ctrlSubmitPic():
 
 
             if fileitem.filename:
-      
+
                 fn = os.path.basename(fileitem.filename)
              #   fp=open('/tmp/' + fn, 'wb').write(fileitem.file.read())
                 encoded_string = base64.b64encode(fileitem.file.read())
