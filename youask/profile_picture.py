@@ -2,7 +2,7 @@
 
 from cgitb import enable
 
-from controller.ctrl_picture import ctrlPicture, ctrlSubmitPic
+from controller.ctrl_picture import *
 from model.model_functions import getPictureCode
 
 enable()
@@ -14,7 +14,7 @@ page_name = "profile_picture"
 
 print('Content-Type: text/html')
 print()
-pic_src=getPictureCode()
+profile_picture=getProfilePicture(False)
 result=ctrlSubmitPic()
 
 
@@ -25,9 +25,7 @@ print("""
         %s
 
         <main>      <!-- The main part of the website --->
-            <section>
-                <img src="data:image/png;base64, %s" title="Red dot" />
-            </section>
+            %s
 
             <form action="profile_picture.py" enctype="multipart/form-data" method="post">
                 <fieldset> <!--  Description -->
@@ -44,4 +42,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("profile_picture", page_name, False), generateHeader(False), pic_src, result,generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("profile_picture", page_name, False), generateHeader(False), profile_picture, result,generateNav(page_name, False), pageEnd()))
