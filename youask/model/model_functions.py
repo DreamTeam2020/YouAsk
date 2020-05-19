@@ -289,12 +289,12 @@ def questionSearch(form_data):
         return "SERVER_ERROR"
 
 
-def upLoadPicture(id, username, pic_name):
+def upLoadPicture(username, pic_name):
     connection, cursor = dbConnect()
     open_src = os.getcwd() + "/images/"+pic_name
     with open(open_src, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read())
-    cursor.execute("INSERT INTO ask_picture(id,username,picture) VALUES(%s, %s, %s)",  (id, username, encoded_string))
+    cursor.execute("INSERT INTO ask_picture(username, picture) VALUES(%s, %s)",  (username, encoded_string))
     connection.commit()
     dbClose(connection, cursor)
 
