@@ -42,8 +42,8 @@ def ctrlSubmitPic():
             if fileitem.filename:
                 encoded_string = base64.b64encode(fileitem.file.read())
                 upLoadFromLocal(result, encoded_string)
-                return 'success'
-    return 'waitting for upload'
+                return 'success please refresh to get your latest profile picture'
+    return ''
 
 
 def getProfilePicture(sub_dir):
