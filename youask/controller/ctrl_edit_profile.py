@@ -111,16 +111,15 @@ def generateUserFields(username):
     field_data[3] = getUserFieldsStudy(username, 'ask_professions')
 
     for i in range(len(main_fields)):
-        result+='<li>'
-        result += '<p>%s: ' % main_fields[i]    # Field heading
+        result += '<li>%s: ' % main_fields[i]    # Field heading
         if field_data[i] == 'EMPTY':
-            result += 'No Fields Selected</p></ul>'
+            result += 'No Fields Selected</li>'
         else:
             for row in field_data[i]:
                 result += '%s | ' % row['field']
             result = result[:-3]  # Remove the last 3 characters of the string
 
-            result += '</p></li>'
+            result += '</li>'
 
     result += '</ul></section>'
 

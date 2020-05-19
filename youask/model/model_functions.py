@@ -325,7 +325,7 @@ def upLoadFromLocal(username, encoded_string):
 
         cursor.execute("INSERT INTO ask_picture(username, picture) VALUES(%s, %s)", (username, encoded_string))
         connection.commit()
-        
+
         dbClose(connection, cursor)
         return 'submitted'
     except db.Error():
