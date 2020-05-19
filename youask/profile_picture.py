@@ -14,7 +14,7 @@ page_name = "profile_picture"
 print('Content-Type: text/html')
 print()
 profile_picture = getProfilePicture(False)
-formGenarate = generateForm()
+form_generate = generateForm()
 result = ctrlSubmitPic()
 
 print("""
@@ -35,5 +35,5 @@ print("""
 
         %s
         %s
-    """ % (pageStart("profile_picture", page_name, False), generateHeader(False), profile_picture, formGenarate,result,
+    """ % (pageStart("profile_picture", page_name, False), generateHeader(False), profile_picture, form_generate, result,
            generateNav(page_name, False), pageEnd()))
