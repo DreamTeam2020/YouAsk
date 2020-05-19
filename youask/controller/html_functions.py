@@ -408,7 +408,7 @@ def generateNews(num):
                 <h1>%s</h1>
                 <p>%s</p>
             </article>
-        """ % (title.decode(), description.decode())
+        """ % (title, description)
 
     result += """
         </section>

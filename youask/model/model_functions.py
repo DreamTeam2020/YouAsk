@@ -317,10 +317,15 @@ def getPictureCode(username):
     return result
 
 def upLoadFromLocal(username, encoded_string):
+    # Removes the user's old image if there is one, and then uploads new image to database
     try:
         connection, cursor = dbConnect()
-        cursor.execute("INSERT INTO ask_picture(username,picture) VALUES( %s,%s)", (username, encoded_string))
+        cursor.execute("DELETE FROM ask_picture WHERE username=%s", username)
         connection.commit()
+
+        cursor.execute("INSERT INTO ask_picture(username, picture) VALUES(%s, %s)", (username, encoded_string))
+        connection.commit()
+        
         dbClose(connection, cursor)
         return 'submitted'
     except db.Error():
