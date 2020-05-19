@@ -3,7 +3,6 @@
 from cgitb import enable
 
 from controller.ctrl_picture import *
-from model.model_functions import getPictureCode
 
 enable()
 

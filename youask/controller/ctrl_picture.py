@@ -4,7 +4,7 @@ import os
 from cgi import FieldStorage, escape
 
 from controller.ctrl_cache import verifyLoggedIn
-from model.model_functions import upLoadFromLocal, getPictureCode
+from model.model_functions import uploadProfilePicture, getPictureCode
 from controller.html_functions import loginToAccess
 
 
@@ -15,7 +15,7 @@ def controllerProfilePicture():
     if username != 'UNVERIFIED':
         profile_picture = getProfilePicture(username, False)
         form_generate = generateForm()
-        submission = ctrlSubmitPic(username)
+        submission = submitProfilePicture(username)
 
         result = profile_picture + form_generate + submission
 
@@ -34,15 +34,15 @@ def generateForm():
     return result
     
 
-def ctrlSubmitPic(username):
+def submitProfilePicture(username):
     form_data = FieldStorage()
-    result=''
+    result = ''
 
     if len(form_data) != 0:
         file_item = form_data['myfile']
         if file_item.filename:
             encoded_string = base64.b64encode(file_item.file.read())
-            submission = upLoadFromLocal(username, encoded_string)
+            submission = uploadProfilePicture(username, encoded_string)
             if submission == 'SERVER_ERROR':
                 result = '<p class="error">Server Error Occurred</p>'
             else:

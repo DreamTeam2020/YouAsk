@@ -306,7 +306,7 @@ def getPictureCode(username):
 
     return result
 
-def upLoadFromLocal(username, encoded_string):
+def uploadProfilePicture(username, encoded_string):
     # Removes the user's old image if there is one, and then uploads new image to database
     try:
         connection, cursor = dbConnect()
@@ -318,7 +318,7 @@ def upLoadFromLocal(username, encoded_string):
 
         dbClose(connection, cursor)
         return 'submitted'
-    except db.Error():
+    except TypeError:
         return "SERVER_ERROR"
 
 def increaseScore(table, id):
@@ -367,3 +367,8 @@ def decrementScore(table, id):
     except db.Error():
         return "SERVER_ERROR"
 
+
+if __name__ == "__main__":
+    result = uploadProfilePicture('Cristian', 'Test Code')
+
+    print(result)
