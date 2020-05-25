@@ -17,7 +17,6 @@ def pageStart(title, id, sub_dir):
                 <title>%s | YouAsk</title>
                 <link rel="stylesheet" href="%sstyles/styles.css" />
                 <script src="%sscripts/test.js"></script>
-                <link rel="stylesheet" type="text/css" href="styles/styles.css">
                 
                 <meta name-"viewport" content="initial-scale=1.0, width=device-width" />
             </head>
