@@ -355,6 +355,7 @@ def generateQuestionsDisplay(questions):
                     <section class="question">
                         <a href="question_pages/question_%s.py">
                             <p>%s</p>
+                        </a>
             """ % (question['id'], question['question'])
 
         question_id = question['id']
@@ -374,7 +375,6 @@ def generateQuestionsDisplay(questions):
         result += """
                             %s
                             <p><small>Submitted By: %s | Score: %d | View Count: %d</small></p>
-                        </a>
                         %s
                     </section>
             """ % (fields_of_study, question['submitter'], question['score'], question['view_count'], share_links)

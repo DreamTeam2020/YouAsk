@@ -30,5 +30,4 @@ print("""
 
         %s
         %s
-    """ % (
-pageStart("Home", page_name, False), generateHeader(False), result, generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Home", page_name, False), generateHeader(False), result, generateNav(page_name, False), pageEnd()))
