@@ -367,8 +367,25 @@ def decrementScore(table, id):
     except db.Error():
         return "SERVER_ERROR"
 
+def connectToUser(username, friend):
+    # Given the username of another user, add a row to the friends table
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("INSERT INTO ask_friends(user, friend) VALUES(%s, %s), (%s, %s)", (username, friend, friend, username))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "connected"
+    except db.Error():
+        return "SERVER_ERROR"
 
-if __name__ == "__main__":
-    result = uploadProfilePicture('Cristian', 'Test Code')
+def disconnectFromUser(username, friend):
+    # Given 2 users who are connected, remove their connection
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("DELETE FROM ask_friends WHERE (user=%s AND friend=%s) OR (user=%s AND friend=%s)", (username, friend, friend, username))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "disconnected"
+    except db.Error():
+        return "SERVER_ERROR"
 
-    print(result)
