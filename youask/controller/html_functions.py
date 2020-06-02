@@ -1,13 +1,14 @@
-from controller.ctrl_cache import verifyLoggedIn    # This is used, ignore pycharm
+from controller.ctrl_cache import verifyLoggedIn  # This is used, ignore pycharm
 from model.model_functions import getQuestionFields
 
 import json
 import requests
 
+
 def pageStart(title, id, sub_dir):
     # This will generate the start of each html page including the <head></head>
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
-    prefix='../' if sub_dir else ''
+    prefix = '../' if sub_dir else ''
 
     result = """
         <!DOCTYPE html>
@@ -15,12 +16,32 @@ def pageStart(title, id, sub_dir):
             <head>
                 <meta charset="utf-8" />
                 <title>%s | YouAsk</title>
-                <link rel="stylesheet" href="%sstyles/styles.css" />
+                <meta charset="utf-8"> 
+                <link rel="stylesheet" href="%sbootstrap-4.5.0-dist/css">  
+                <script src="%sbootstrap-4.5.0-dist/js"></script>
                 <script src="%sscripts/test.js"></script>
                 
+                  <nav class="navbar navbar-expand-sm bg-dark text white">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link 1</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link 2</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link 3</a>
+                </li>
+              </ul>
+            </nav>
+
+
+
+</nav>
+
                 <meta name-"viewport" content="initial-scale=1.0, width=device-width" />
             </head>
-    """ % (id, title, prefix, prefix)
+    """ % (id, title, prefix, prefix, prefix)
 
     return result
 
@@ -42,25 +63,25 @@ def generateHeader(sub_dir):
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
     prefix = '../' if sub_dir else ''
 
-    display_name=verifyLoggedIn('display_name', sub_dir)    # Returns display_name if logged in else 'UNVERIFIED'
-    result="""
+    display_name = verifyLoggedIn('display_name', sub_dir)  # Returns display_name if logged in else 'UNVERIFIED'
+    result = """
             <header>    <!-- A header section displayed at the top of the page--->
                 <h1>YOUASK HEADER</h1>
     """
-    if display_name=='UNVERIFIED':
-        result+="""
+    if display_name == 'UNVERIFIED':
+        result += """
                     <section>
                         <p><a href='%slogin.py'>Login</a> | <a href='%sregister.py'>Register</a></p>
                     </section>
         """ % (prefix, prefix)
     else:
-        result+="""
+        result += """
                     <section>
                         <p><a href='%sprofile.py'>%s</a> | <a href='%slogout.py'>Logout</a></p>
                     </section>
         """ % (prefix, display_name, prefix)
 
-    result+="""
+    result += """
             </header>
     """
     return result
@@ -69,7 +90,7 @@ def generateHeader(sub_dir):
 def generateNav(page, sub_dir):
     # This will generate the nav bar based on input for each page
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
-    prefix='../' if sub_dir else ''
+    prefix = '../' if sub_dir else ''
 
     home = "%sindex.py" % prefix
     questions = "%squestions.py" % prefix
@@ -100,7 +121,7 @@ def generateNav(page, sub_dir):
 def loginToAccess(sub_dir):
     # If the user is not logged in this will be displayed
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
-    prefix='../' if sub_dir else ''
+    prefix = '../' if sub_dir else ''
 
     error_msg = """
         <section>
@@ -112,6 +133,7 @@ def loginToAccess(sub_dir):
         </section>
     """ % (prefix, prefix)
     return error_msg
+
 
 def alreadyLoggedIn():
     # If the user is already logged in and tries to log in
@@ -138,14 +160,14 @@ def generateQuestionForm(url, question, description, fields, error):
 
     for row in fields:
         # For the id's use the field name in lower case and replace spaces with underscores
-        field_code=row['field'].lower().replace(' ', '_')
+        field_code = row['field'].lower().replace(' ', '_')
 
-        result+="""
+        result += """
                 <input type="checkbox" name="fields_of_study" id="%s" value="%s"/>
                 <label for="%s">%s</label>
         """ % (field_code, field_code, field_code, row['field'])
 
-    result+="""
+    result += """
                 <input type="submit" value="Submit Question"/>
             </fieldset
         </form>
@@ -213,7 +235,9 @@ def generateBugreportFormWithEmail(url, description, email, error):
 
     return result
 
-def generateEditDetailsForm(url, details, user_fields, new_display_name, old_password, new_password1, new_password2, error_messages):
+
+def generateEditDetailsForm(url, details, user_fields, new_display_name, old_password, new_password1, new_password2,
+                            error_messages):
     # Generate the form that will allow the user to change some of their details
     result = """
         <section>
@@ -243,14 +267,16 @@ def generateEditDetailsForm(url, details, user_fields, new_display_name, old_pas
             </form>
             %s
         </section>
-    """ % (url, details['username'], details['email'], details['display_name'], user_fields, new_display_name, error_messages[0],
+    """ % (url, details['username'], details['email'], details['display_name'], user_fields, new_display_name,
+           error_messages[0],
            old_password, error_messages[1], new_password1, new_password2, error_messages[2], error_messages[3])
 
     return result
 
+
 def generateFieldHeadingsForm(url, error_msg):
     # Generate radio form that will contain the 4 main fields of study
-    result="""
+    result = """
         <section>
             <form action="%s" method="post">
                 <fieldset>
@@ -276,10 +302,11 @@ def generateFieldHeadingsForm(url, error_msg):
 
     return result
 
+
 def generateStudyFieldsForm(url, fields, user_fields, error_msg):
     # Generate the checklist form containing all sub fields of study within the given field
 
-    result="""
+    result = """
         <section>
             <form action ="%s" method="post">
                 <fieldset>
@@ -287,26 +314,26 @@ def generateStudyFieldsForm(url, fields, user_fields, error_msg):
 
     for row in fields:
         # For the id's use the field name in lower case and replace spaces with underscores
-        field_code=row['field'].lower().replace(' ', '_')
-        checked=False
-        if user_fields!='EMPTY':
+        field_code = row['field'].lower().replace(' ', '_')
+        checked = False
+        if user_fields != 'EMPTY':
             for sub_row in user_fields:
                 # If a field in the overall list is found in the user's list of fields, then set checked on input
-                if row['field'].lower()==sub_row['field'].lower():
+                if row['field'].lower() == sub_row['field'].lower():
                     result += """
                                 <input type="checkbox" name="fields_of_study" id="%s" value="%s" checked/>
                                 <label for="%s">%s</label>
                     """ % (field_code, field_code, field_code, row['field'])
                     user_fields.remove(sub_row)
-                    checked=True
+                    checked = True
 
         if not checked:
-            result+="""
+            result += """
                             <input type="checkbox" name="fields_of_study" id="%s" value="%s"/>
                             <label for="%s">%s</label>
             """ % (field_code, field_code, field_code, row['field'])
 
-    result+="""
+    result += """
                     <input type="submit" value="Select Fields"/>
                 </form>
             </fieldset>
@@ -315,6 +342,7 @@ def generateStudyFieldsForm(url, fields, user_fields, error_msg):
     """ % error_msg
 
     return result
+
 
 def shareLinks(sub_dir, question_id):
     # Returns some html that contains images which link to social media for sharing
@@ -344,8 +372,8 @@ def shareLinks(sub_dir, question_id):
 
     return result
 
-def generateQuestionsDisplay(questions):
 
+def generateQuestionsDisplay(questions):
     result = """
             <section>
         """
