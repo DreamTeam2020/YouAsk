@@ -1,9 +1,9 @@
-/* Class and id names are case sensitive */
+
 .error {
     color: red;
 }
 
-/*a:link { text-decoration: none;color: white}
+a:link { text-decoration: none;color: white}
 a:active { text-decoration:blink}
 a:hover { text-decoration:underline;color: green}
 a:visited { text-decoration: underline;color: white}
@@ -131,4 +131,3 @@ main{
 
 }
 
-*/

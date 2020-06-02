@@ -327,7 +327,7 @@ def shareLinks(sub_dir, question_id):
     share_to_fb = """
         <figure>
             <a href="https://www.facebook.com/sharer.php?u=https://cs1.ucc.ie/~cgg1/cgi-bin/youask/question_pages/question_%s.py" target="_blank" ;">
-                <img src="%s" title="Share to Facebook" alt="An image of the Facebook social media logo, which is a white lowercase letter f on a blue background."/>
+                <img src="%s" title="Share to Facebook" alt="An image of the Facebook social media logo, which is a white lowercase letter f on a blue background." style="width:50px;height:60px;"/>
             </a>
         </figure>
     """ % (question_id, facebook_src)
@@ -335,7 +335,7 @@ def shareLinks(sub_dir, question_id):
     share_to_tw = """
             <figure>
                 <a href="https://twitter.com/share" target="_blank" data-url=https://cs1.ucc.ie/~cgg1/cgi-bin/youask/question_pages/question_%s.py data-text="" data-via=""data-lang="ja">
-                    <img src="%s" title="Share to Twitter" alt="An image of the Twitter social media logo, which is a side view of a light blue, simplistic bird."/>
+                    <img src="%s" title="Share to Twitter" alt="An image of the Twitter social media logo, which is a side view of a light blue, simplistic bird." style="width:50px;height:60px;"/>
                 </a>
             </figure>
         """ % (question_id, twitter_src)
