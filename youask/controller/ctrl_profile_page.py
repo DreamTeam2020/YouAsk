@@ -29,7 +29,6 @@ def controllerProfile(username):
     server_error=False
     result = '<p> </p>'
 
-
     # Get user's details
     details = getUserDetails(username)
 
@@ -50,9 +49,9 @@ def controllerProfile(username):
         """ % (profile_picture, details['username'], details['email'], details['reg_date'], details['score'], user_fields)
 
 
-        logged=verifyLoggedIn('username', True)    # Returns username if logged in else 'UNVERIFIED'
+        logged = verifyLoggedIn('username', True)    # Returns username if logged in else 'UNVERIFIED'
         if logged!='UNVERIFIED':    # If logged in
-            if logged == username:
+            if logged.lower() == username.lower():
                 # If logged in and this is the user's profile, display links
                 result += """
                     <section>
@@ -73,10 +72,8 @@ def controllerProfile(username):
                     # Display a way for the user to disconnect
                     result += 'DISCONNECT FROM USER'
 
+    if server_error == True:
+        result = '<p class="error">Server Error Has Occurred.</p>'
+
     return result
 
-if __name__=='__main__':
-    username='Cristian'
-    result=controllerProfile(username)
-
-    print(result)
