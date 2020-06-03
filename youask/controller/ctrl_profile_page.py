@@ -11,10 +11,11 @@ import subprocess
 
 def generateProfilePage(username):
     # Copy the profile template file, use sed to replace the username
-    new_file_name='profile_%d.py' % username
+    username=username.lower()
+    new_file_name='profile_%s.py' % username
     copyfile('profile_pages/template_profile.py', 'profile_pages/%s' % new_file_name)
 
-    subprocess.call(['sed', '-i', 's/820399/%d/g' % username, 'profile_pages/%s' % new_file_name])
+    subprocess.call(['sed', '-i', 's/820399/\'%s\'/g' % username, 'profile_pages/%s' % new_file_name])
     subprocess.call(['chmod', '705', 'profile_pages/%s' % new_file_name])
 
     return new_file_name
