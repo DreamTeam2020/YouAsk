@@ -1,15 +1,19 @@
 #!/usr/local/bin/python3
 
 from cgitb import enable
-
 enable()
+import sys
+sys.path.append("../")  # Because it's a subdirectory we append this to all of the subsequent imports
 
-from controller.html_functions import *
 from controller.ctrl_profile_page import *
+from controller.html_functions import *
 
-page_name = "profile"
+page_name='profile'
+result = controllerProfile(820399)
 
-result=controllerProfile()
+
+# Add a form to the end so users can answer the question posed
+
 
 print('Content-Type: text/html')
 print()
@@ -24,9 +28,8 @@ print("""
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
-
         </aside>
 
         %s
         %s
-    """ % (pageStart("Profile", page_name, False), generateHeader(False), result, generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Question", page_name, True), generateHeader(True), result, generateNav(page_name, True), pageEnd()))

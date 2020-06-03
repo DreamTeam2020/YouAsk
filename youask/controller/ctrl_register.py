@@ -3,6 +3,7 @@ from controller.ctrl_cache import *
 from cgi import FieldStorage, escape
 from model.model_functions import *
 from controller.html_functions import *
+from controller.ctrl_profile_page import generateProfilePage
 
 def inputControllerRegistration():
 
@@ -45,7 +46,9 @@ def inputControllerRegistration():
                     else:
                         # If the user registers successfully, then make them login
                         user_details = ["", "", "", "", ""]
-                        error_msg = '<p class="error">Successfully Registered! <a href=login.py>Login Here</a></p>'
+                        profile_page=generateProfilePage(username)
+                        error_msg = '<p class="error">Successfully Registered! <a href=login.py>Login Here</a>, ' \
+                                    'View your profile page <a href="profile_pages/%s">here</a></p>' % profile_page
                 else:
                     if user_result=="SERVER_ERROR" or email_result=="SERVER_ERROR":
                         server_error=True

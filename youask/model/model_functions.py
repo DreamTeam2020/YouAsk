@@ -389,3 +389,13 @@ def disconnectFromUser(username, friend):
     except db.Error():
         return "SERVER_ERROR"
 
+def checkConnectionWithUser(username, friend):
+    # Given 2 users, check if they're connected
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT * FROM ask_friends WHERE user='%s' AND friend='%s'", (username, friend))
+        fetch = cursor.fetchall()
+        dbClose(connection, cursor)
+        return fetch
+    except db.Error():
+        return "SERVER_ERROR"

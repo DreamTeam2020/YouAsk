@@ -55,7 +55,7 @@ def generateAnswers(answers):
         result_answers += """
                                 <section class="answer">
                                     <p>%s</p>
-                                    <p><small>Submitted By: %s - Score: %d</small></p>
+                                    <p><small>Submitted By: %s | Score: %d</small></p>
                                 </section>
                 """ % (row['answer'], row['submitter'], row['score'])
     result_answers += '</section>'

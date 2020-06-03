@@ -3,6 +3,7 @@ from controller.ctrl_cache import *
 from cgi import FieldStorage, escape
 from model.model_functions import *
 from controller.html_functions import *
+from controller.ctrl_profile_page import generateProfilePage
 
 def inputControllerLogin():
     user_email=''
@@ -45,7 +46,9 @@ def inputControllerLogin():
                         # Create a cookie and session for the user
                         cookie, sid = cookieCreate()
                         sessionCreate(result['username'], result['email'], result['display_name'], sid)
-                        error_msg = '<p class="error">Successfully Logged In!</p>'
+                        profile_page=generateProfilePage(result['username'])
+                        error_msg = '<p class="error">Successfully Logged In! ' \
+                                    'View your profile page <a href="profile_pages/%s">here</a></p>' % profile_page
                         user_email = ''
                         password = ''
                         print(cookie)

@@ -248,6 +248,7 @@ def generateEditDetailsForm(url, details, user_fields, new_display_name, old_pas
                     <p>Display Name: %s</p>
                     %s
                     <p>To Edit Your Fields of Study Click <a href="edit_study.py">Here</a></p>
+                    <p>To Edit Your Profile Picture Click <a href="profile_picture.py">Here</a></p>
                     
                     <label for="txt_new_display_name">New Display Name: </label>
                     <input type="text" name="txt_new_display_name" id="txt_new_display_name" value="%s" maxlength="35"/>
