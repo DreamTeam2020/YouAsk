@@ -11,6 +11,7 @@ def controllerEditProfile():
     # validate the user input, do error messages then change details in db and session.
 
     url = "edit_profile.py"
+    page_name = 'edit_profile'
     new_display_name=''
     old_password=''
     password1=''
@@ -22,6 +23,8 @@ def controllerEditProfile():
 
     if username != 'UNVERIFIED':  # If the user is logged in, print the question submission form
         # Display user's details and a form where they can be changed
+
+        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
 
         # Get user's details
         details=getUserDetails(username)

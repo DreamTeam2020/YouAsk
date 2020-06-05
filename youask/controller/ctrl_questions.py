@@ -3,6 +3,7 @@ from cgi import FieldStorage, escape
 
 from model.model_functions import *
 from controller.html_functions import generateQuestionsDisplay
+from controller.ctrl_cache import verifyLoggedIn, savePageToSession
 
 def convertDate(questions):
     for i in range(len(questions)):
@@ -32,6 +33,11 @@ def insertionSort(arr, sorting):
 
 
 def controllerQuestions():
+    page_name = 'questions'
+    verify_logged = verifyLoggedIn('username', False)
+
+    if verify_logged != 'UNVERIFIED':
+        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
 
     questions = getQuestion()
     converted_questions = convertDate(questions)

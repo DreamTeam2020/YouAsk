@@ -36,12 +36,14 @@ def controllerBugReportSubmission(type, description, email):
 
 def controllerSupport():
     url = "support.py"
+    page_name = 'support'
     email = ""
     description = ""
     error_msg = "<p> </p>"
     verify_login = verifyLoggedIn('username', False)  # Returns username if logged in, else false
 
     if verify_login != 'UNVERIFIED':  # If the user is logged in, print the question submission form
+        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
         result = generateBugreportForm(url, description, error_msg)
 
         form_data = FieldStorage()

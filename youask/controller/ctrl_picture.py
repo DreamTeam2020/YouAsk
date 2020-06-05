@@ -3,16 +3,18 @@ import cgi
 import os
 from cgi import FieldStorage, escape
 
-from controller.ctrl_cache import verifyLoggedIn
+from controller.ctrl_cache import verifyLoggedIn, savePageToSession
 from model.model_functions import uploadProfilePicture, getPictureCode
 from controller.html_functions import loginToAccess
 
 
 def controllerProfilePicture():
+    page_name = 'profile_picture'
     username = verifyLoggedIn('username', False)
     result = loginToAccess(False)
 
     if username != 'UNVERIFIED':
+        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
         profile_picture = getProfilePicture(username, False)
         form_generate = generateForm()
         submission = submitProfilePicture(username)

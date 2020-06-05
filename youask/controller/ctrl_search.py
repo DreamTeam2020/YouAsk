@@ -2,6 +2,7 @@ from cgi import FieldStorage, escape
 
 from model.model_functions import questionSearch
 from controller.html_functions import generateQuestionsDisplay
+from controller.ctrl_cache import verifyLoggedIn, savePageToSession
 import datetime
 
 
@@ -9,6 +10,12 @@ def searchKeyword():
     form_data = FieldStorage()
     txt_search = escape(form_data.getfirst('txt_search', '').strip())
     result = ""
+    page_name = 'search'
+
+    verify_logged = verifyLoggedIn('username', False)
+
+    if verify_logged != 'UNVERIFIED':
+        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
 
     if len(form_data) != 0:
         question_result = questionSearch(txt_search)

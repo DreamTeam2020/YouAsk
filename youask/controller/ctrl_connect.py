@@ -4,6 +4,7 @@ from model.model_functions import checkConnectionWithUser, connectToUser, discon
 
 def controllerConnect():
     result = loginToAccess(False)   # If not logged in display error message
+    page_name = 'connect'
 
     verify_logged=verifyLoggedIn('username', False)    # Returns username if logged in else 'UNVERIFIED'
 
@@ -13,6 +14,8 @@ def controllerConnect():
         result = '<p class="error">No Connections Available</p>'
 
         previous_page = getPreviousPageFromSession(False)
+        SavePageToSession(page_name, True)  # Save the current page to the visitor's session store
+
         if previous_page == 'user_profile':
             potential_connection = getPotentialConnectionFromSession(False)
             if verify_logged.lower() != potential_connection.lower():
@@ -44,6 +47,7 @@ def controllerConnect():
 
 def controllerDisconnect():
     result = loginToAccess(False)   # If not logged in display error message
+    page_name = 'disconnect'
 
     verify_logged=verifyLoggedIn('username', False)    # Returns username if logged in else 'UNVERIFIED'
 
@@ -53,6 +57,8 @@ def controllerDisconnect():
         result = '<p class="error">No Connections Available</p>'
 
         previous_page = getPreviousPageFromSession(False)
+        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
+
         if previous_page == 'user_profile':
             potential_connection = getPotentialConnectionFromSession(False)
             if verify_logged != potential_connection:

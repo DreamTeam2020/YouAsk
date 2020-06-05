@@ -92,7 +92,7 @@ def removeKeyFromSession(key, sub_dir):
 
     return result
 
-def SavePageToSession(page, sub_dir):
+def savePageToSession(page, sub_dir):
     # Save the page the user is on to the session store
     key = 'previous_page'
     saveToSession(key, page, sub_dir)
@@ -100,7 +100,7 @@ def SavePageToSession(page, sub_dir):
 def getPreviousPageFromSession(sub_dir):
     # Pop the previous page the user visited from the session store
     key = 'previous_page'
-    result = removeKeyFromSession(key, sub_dir)
+    result = getValueFromSession(key, sub_dir)
     return result
 
 def saveUserToSession(username, sub_dir):

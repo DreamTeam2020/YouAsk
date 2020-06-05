@@ -52,7 +52,7 @@ def controllerProfile(username):
 
         logged = verifyLoggedIn('username', True)    # Returns username if logged in else 'UNVERIFIED'
         if logged!='UNVERIFIED':    # If logged in
-            SavePageToSession(page_name, True)  # Save the current page to the visitor's session store
+            savePageToSession(page_name, True)  # Save the current page to the visitor's session store
             saveUserToSession(username, True)  # Save the username of this profile page to the visitor's session store
             if logged.lower() == username.lower():
                 # If logged in and this is the user's profile, display links
