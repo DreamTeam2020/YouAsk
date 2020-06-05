@@ -15,7 +15,7 @@ def controllerConnect():
         previous_page = getPreviousPageFromSession(False)
         if previous_page == 'user_profile':
             potential_connection = getPotentialConnectionFromSession(False)
-            if verify_logged != potential_connection:
+            if verify_logged.lower() != potential_connection.lower():
                 check_connection = checkConnectionWithUser(verify_logged, potential_connection)
                 if check_connection == 'SEVER_ERROR':
                     result = '<p class="error">Server Error Has Occurred.</p>'
