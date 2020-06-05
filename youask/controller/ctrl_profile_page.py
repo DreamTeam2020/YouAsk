@@ -47,7 +47,7 @@ def controllerProfile(username):
             
             %s
         <article>
-        """ % (profile_picture, details['username'], details['email'], details['reg_date'], details['score'], user_fields)
+        """ % (profile_picture, details['display_name'], details['email'], details['reg_date'], details['score'], user_fields)
 
 
         logged = verifyLoggedIn('username', True)    # Returns username if logged in else 'UNVERIFIED'
@@ -67,14 +67,14 @@ def controllerProfile(username):
                 # If logged in and this is a different user from the profile page, display a connect button
                 check_connection=checkConnectionWithUser(username, logged)
 
-                if check_connection == 'SEVER_ERROR':
+                if check_connection == 'SERVER_ERROR':
                     server_error=True
                 elif not check_connection:
                     # Display a way for the user to send a connect request
-                    result += 'CONNECT WITH USER'
+                    result += '<p><a href="connect.py">Connect With %s</a></p>' % details['display_name']
                 else:
                     # Display a way for the user to disconnect
-                    result += 'DISCONNECT FROM USER'
+                    result += '<p><a href="disconnect.py">Disconnect From %s</a></p>' % details['display_name']
 
     if server_error == True:
         result = '<p class="error">Server Error Has Occurred.</p>'

@@ -6,9 +6,9 @@ enable()
 from controller.html_functions import *
 from controller.ctrl_connect import *
 
-page_name="connect"
+page_name="disconnect"
 
-result=controllerConnect()
+result=controllerDisconnect()
 
 print('Content-Type: text/html')
 print()
@@ -27,7 +27,7 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Connect", page_name, False), generateHeader(False), result, generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Disconnect", page_name, False), generateHeader(False), result, generateNav(page_name, False), pageEnd()))
 
 
 

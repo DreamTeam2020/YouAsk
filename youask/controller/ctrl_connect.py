@@ -1,8 +1,6 @@
 from controller.ctrl_cache import *
 from controller.html_functions import loginToAccess
 from model.model_functions import checkConnectionWithUser, connectToUser, disconnectFromUser
-from http.cookies import SimpleCookie
-from os import environ
 
 def controllerConnect():
     result = loginToAccess(False)   # If not logged in display error message
@@ -18,28 +16,67 @@ def controllerConnect():
         if previous_page == 'user_profile':
             potential_connection = getPotentialConnectionFromSession(False)
             if verify_logged != potential_connection:
-                connection_result = connectToUser(verify_logged, potential_connection)
-                if connection_result == 'SEVER_ERROR':
+                check_connection = checkConnectionWithUser(verify_logged, potential_connection)
+                if check_connection == 'SEVER_ERROR':
                     result = '<p class="error">Server Error Has Occurred.</p>'
-                else:
-                    check_connection = checkConnectionWithUser(verify_logged, potential_connection)
+                elif not check_connection:
+                    # If they are not already connected then establish a new connection
+                    connection_result = connectToUser(verify_logged, potential_connection)
 
-                    if check_connection == 'SEVER_ERROR':
+                    if connection_result == 'SEVER_ERROR':
                         result = '<p class="error">Server Error Has Occurred.</p>'
-                    elif not check_connection:
-                        # If they are not already connected then establish a new connection
+                    else:
                         result = """
                             <section>
                                 <p class="error">You are now connected with %s</p>
                             </section>
                         """ % potential_connection
+                else:
+                    # If they are already connected
+                    result = """
+                        <section>
+                            <p class="error">You are already connected with %s</p>
+                        </section>
+                    """ % potential_connection
+
+    return result
+
+
+def controllerDisconnect():
+    result = loginToAccess(False)   # If not logged in display error message
+
+    verify_logged=verifyLoggedIn('username', False)    # Returns username if logged in else 'UNVERIFIED'
+
+    if verify_logged!='UNVERIFIED':
+        # If logged in then check previous page in session store, if it says user_profile then check the potential connection
+
+        result = '<p class="error">No Connections Available</p>'
+
+        previous_page = getPreviousPageFromSession(False)
+        if previous_page == 'user_profile':
+            potential_connection = getPotentialConnectionFromSession(False)
+            if verify_logged != potential_connection:
+                check_connection = checkConnectionWithUser(verify_logged, potential_connection)
+                if check_connection == 'SEVER_ERROR':
+                    result = '<p class="error">Server Error Has Occurred.</p>'
+                elif not check_connection:
+                    # If they are not already connected then display message
+                    result = """
+                        <section>
+                            <p class="error">You were not connected with %s</p>
+                        </section>
+                    """ % potential_connection
+                else:
+                    # If they are connected then disconnect them
+                    connection_result = disconnectFromUser(verify_logged, potential_connection)
+
+                    if connection_result == 'SEVER_ERROR':
+                        result = '<p class="error">Server Error Has Occurred.</p>'
                     else:
-                        # If they are already connected
                         result = """
                             <section>
-                                <p class="error">You are already connected with %s</p>
+                                <p class="error">You are no longer connected with %s</p>
                             </section>
                         """ % potential_connection
-
 
     return result
