@@ -61,7 +61,7 @@ def controllerDisconnect():
 
         if previous_page == 'user_profile':
             potential_connection = getPotentialConnectionFromSession(False)
-            if verify_logged.lower() != potential_connection.lower():
+            if verify_logged.lower() != potential_connection.lower() and potential_connection != 'NOT_FOUND':
                 check_connection = checkConnectionWithUser(verify_logged, potential_connection)
                 if check_connection == 'SEVER_ERROR':
                     result = '<p class="error">Server Error Has Occurred.</p>'
