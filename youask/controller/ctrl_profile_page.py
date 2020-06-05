@@ -71,10 +71,10 @@ def controllerProfile(username):
                     server_error=True
                 elif not check_connection:
                     # Display a way for the user to send a connect request
-                    result += '<p><a href="connect.py">Connect With %s</a></p>' % details['display_name']
+                    result += '<p><a href="../connect.py">Connect With %s</a></p>' % details['display_name']
                 else:
                     # Display a way for the user to disconnect
-                    result += '<p><a href="disconnect.py">Disconnect From %s</a></p>' % details['display_name']
+                    result += '<p><a href="../disconnect.py">Disconnect From %s</a></p>' % details['display_name']
 
     if server_error == True:
         result = '<p class="error">Server Error Has Occurred.</p>'
