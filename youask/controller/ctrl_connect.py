@@ -14,7 +14,7 @@ def controllerConnect():
         result = '<p class="error">No Connections Available</p>'
 
         previous_page = getPreviousPageFromSession(False)
-        SavePageToSession(page_name, True)  # Save the current page to the visitor's session store
+        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
 
         if previous_page == 'user_profile':
             potential_connection = getPotentialConnectionFromSession(False)
@@ -61,7 +61,7 @@ def controllerDisconnect():
 
         if previous_page == 'user_profile':
             potential_connection = getPotentialConnectionFromSession(False)
-            if verify_logged != potential_connection:
+            if verify_logged.lower() != potential_connection.lower():
                 check_connection = checkConnectionWithUser(verify_logged, potential_connection)
                 if check_connection == 'SEVER_ERROR':
                     result = '<p class="error">Server Error Has Occurred.</p>'
