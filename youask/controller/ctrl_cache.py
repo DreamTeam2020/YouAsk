@@ -69,7 +69,8 @@ def getValueFromSession(key, sub_dir):
         if 'UASK' in cookie:  # If this websites cookie is in their list
             sid = cookie['UASK'].value
             session_store = open('%ssession_store/sess_' % prefix + sid, writeback=False)
-            result=session_store.get(key)
+            if key in session_store:
+                result=session_store.get(key)
 
     return result
 
