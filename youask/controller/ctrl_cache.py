@@ -89,3 +89,25 @@ def removeKeyFromSession(key, sub_dir):
             result=session_store.pop(key)
 
     return result
+
+def SavePageToSession(page, sub_dir):
+    # Save the page the user is on to the session store
+    key = 'previous_page'
+    saveToSession(key, page, sub_dir)
+
+def getPreviousPageFromSession(sub_dir):
+    # Get the previous page the user visited from the session store
+    key = 'previous_page'
+    result = getValueFromSession(key, sub_dir)
+    return result
+
+def saveUserToSession(username, sub_dir):
+    # Save the user of the last visited profile page to the session store
+    key = 'potential_connection'
+    saveToSession(key, username, sub_dir)
+
+def getPotentialConnectionFromSession(sub_dir):
+    # Get the potential user connection from the session store
+    key = 'potential_connection'
+    result = getValueFromSession(key, sub_dir)
+    return result

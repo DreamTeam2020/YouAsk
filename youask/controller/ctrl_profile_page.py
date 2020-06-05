@@ -28,6 +28,7 @@ def controllerProfile(username):
 
     server_error=False
     result = '<p> </p>'
+    page_name = 'user_profile'
 
     # Get user's details
     details = getUserDetails(username)
@@ -51,6 +52,8 @@ def controllerProfile(username):
 
         logged = verifyLoggedIn('username', True)    # Returns username if logged in else 'UNVERIFIED'
         if logged!='UNVERIFIED':    # If logged in
+            SavePageToSession(page_name, True)  # Save the current page to the visitor's session store
+            saveUserToSession(username, True)  # Save the username of this profile page to the visitor's session store
             if logged.lower() == username.lower():
                 # If logged in and this is the user's profile, display links
                 result += """
@@ -63,6 +66,7 @@ def controllerProfile(username):
             else:
                 # If logged in and this is a different user from the profile page, display a connect button
                 check_connection=checkConnectionWithUser(username, logged)
+
                 if check_connection == 'SEVER_ERROR':
                     server_error=True
                 elif not check_connection:
