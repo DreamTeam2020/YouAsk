@@ -102,7 +102,7 @@ def generateNav(page, sub_dir):
         home = ""
     elif page == "questions":
         questions = ""
-    elif page == "profile":
+    elif page == "user_profile":
         profile = ""
     elif page == "support":
         support = ""
@@ -422,7 +422,7 @@ def profilePageLink(sub_dir):
 
     username = verifyLoggedIn('username', sub_dir)
     if username == 'UNVERIFIED':
-        link = "%sprofile.py" % prefix
+        link = "%slogin.py" % prefix
     else:
         link = "%sprofile_pages/profile_%s.py" % (prefix, username.lower())
 
