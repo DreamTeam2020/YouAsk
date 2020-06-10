@@ -9,7 +9,7 @@ from controller.ctrl_profile_page import *
 
 page_name = "profile"
 
-result=controllerProfile()
+result = controllerBlankProfilePage()
 
 print('Content-Type: text/html')
 print()

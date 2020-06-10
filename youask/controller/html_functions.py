@@ -424,7 +424,7 @@ def profilePageLink(sub_dir):
     if username == 'UNVERIFIED':
         link = "%sprofile.py" % prefix
     else:
-        link = "%sprofile_pages/profile_%s.py" % (prefix, username)
+        link = "%sprofile_pages/profile_%s.py" % (prefix, username.lower())
 
     return link
 
