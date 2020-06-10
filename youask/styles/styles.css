@@ -189,9 +189,7 @@ footer {
 		flex-basis: 50%;
 		border-bottom: 0.0625em solid #757575;
 	}
-}
 
-@media screen and (min-width: 45em) {
 	nav ul{
 		display: flex;
 		flex-direction: row;
@@ -205,14 +203,46 @@ footer {
 	nav li{
 		margin: 1.5em .25em;
 	}
+}
 
-	form{
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-around;
+@media screen and (min-width: 60em) {
+	body{
+		display: grid;
+		grid-template-columns: 62% 38%;
+		grid-template-rows: auto;
+		grid-template-areas: "upper-top upper-top"
+					"lower-top lower-top"
+					"middle-left middle-right"
+					"bottom bottom"
 	}
 
-	form > fieldset{
-		flex-basis: 40%;
+	img{
+		max-width: 100%;
+	}
+
+	header {
+		grid-area: upper-top;
+	}
+
+	nav {
+		grid-area: lower-top;
+	}
+
+	main {
+		grid-area: middle-left;
+	}
+
+	aside {
+		grid-area: middle-right;
+	}
+
+	footer {
+		grid-area: bottom;
+	}
+}
+
+@media screen and (min-width: 80em) {
+	body {
+		width: 80em;
 	}
 }
