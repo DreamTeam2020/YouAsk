@@ -133,7 +133,52 @@ main{
     color: red;
 }
 
-@media screen and (min-width: 35em) {
+main figure{
+	text-align: center;
+}
+
+main p, main h1{
+	width: 95%;
+	margin: 1em auto;
+}
+
+body{
+	display: grid;
+	grid-template-rows: auto;
+	grid-template-areas:
+	                "one"
+			        "two"
+			        "three"
+			        "four"
+			        "five"
+}
+
+img{
+	max-width: 100%;
+}
+
+header {
+	grid-area: one;
+}
+
+nav {
+	grid-area: two;
+}
+
+main {
+	grid-area: three;
+}
+
+aside {
+	grid-area: four;
+}
+
+footer {
+	grid-area: five;
+}
+
+
+@media screen and (min-width: 40em) {
     main > section{
         display: flex;
 		flex-wrap: wrap;
@@ -143,5 +188,31 @@ main{
     main > section > section{
 		flex-basis: 50%;
 		border-bottom: 0.0625em solid #757575;
+	}
+}
+
+@media screen and (min-width: 45em) {
+	nav ul{
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-evenly;
+		align-item: baseline;
+		padding: 0;
+		text-align: center;
+	}
+
+	nav li{
+		margin: 1.5em .25em;
+	}
+
+	form{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+	}
+
+	form > fieldset{
+		flex-basis: 40%;
 	}
 }
