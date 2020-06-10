@@ -81,3 +81,17 @@ def controllerProfile(username):
 
     return result
 
+def controllerBlankProfilePage():
+    page_name = 'blank_profile'
+
+    result = loginToAccess(False)
+    username = verifyLoggedIn('username', False)  # Returns username if logged in, else UNVERIFIED
+
+    if username != 'UNVERIFIED':  # If the user is logged in, print the question submission form
+        # Display user's details and a form where they can be changed
+
+        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
+        profile_page = profilePageLink(False)
+        result = "<p><a href='%s'>View Your Profile</a></p>" % profile_page
+
+    return result

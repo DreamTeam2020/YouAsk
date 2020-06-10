@@ -75,11 +75,12 @@ def generateHeader(sub_dir):
                     </section>
         """ % (prefix, prefix)
     else:
+        profile_page = profilePageLink(sub_dir)
         result += """
                     <section>
-                        <p><a href='%sprofile.py'>%s</a> | <a href='%slogout.py'>Logout</a></p>
+                        <p><a href='%s'>%s</a> | <a href='%slogout.py'>Logout</a></p>
                     </section>
-        """ % (prefix, display_name, prefix)
+        """ % (profile_page, display_name, prefix)
 
     result += """
             </header>
@@ -94,7 +95,7 @@ def generateNav(page, sub_dir):
 
     home = "%sindex.py" % prefix
     questions = "%squestions.py" % prefix
-    profile = "%sprofile.py" % prefix
+    profile = profilePageLink(sub_dir)
     support = "%ssupport.py" % prefix
 
     if page == "home":
@@ -414,6 +415,18 @@ def generateQuestionsDisplay(questions):
 
     return result
 
+def profilePageLink(sub_dir):
+    # This will be used to set the profile page links on the website to link to the user's profile page
+    # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
+    prefix = '../' if sub_dir else ''
+
+    username = verifyLoggedIn('username', sub_dir)
+    if username == 'UNVERIFIED':
+        link = "%sprofile.py" % prefix
+    else:
+        link = "%sprofile_pages/profile_%s.py" % (prefix, username)
+
+    return link
 
 def generateNews(num):
     # Generates html code containing various news articles depending on given number

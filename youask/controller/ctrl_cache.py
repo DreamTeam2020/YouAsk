@@ -122,5 +122,5 @@ def clearConnectionCache(sub_dir):
     # Clear the values in session store used for connections
     page_key = 'previous_page'
     connect_key = 'potential_connection'
-    page_result = removeKeyFromSession(page_key, sub_dir)
-    connect_result = removeKeyFromSession(connect_key, sub_dir)
+    removeKeyFromSession(page_key, sub_dir)
+    removeKeyFromSession(connect_key, sub_dir)
