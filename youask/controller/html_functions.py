@@ -10,6 +10,7 @@ def pageStart(title, id, sub_dir):
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
     prefix = '../' if sub_dir else ''
 
+    ''' Yang's weird stuff which is also out of place anyway
     result = """
         <!DOCTYPE html>
         <html lang="en" id="%s">
@@ -35,13 +36,20 @@ def pageStart(title, id, sub_dir):
               </ul>
             </nav>
 
-
-
-</nav>
-
                 <meta name-"viewport" content="initial-scale=1.0, width=device-width" />
             </head>
     """ % (id, title, prefix, prefix, prefix)
+    '''
+    result = """
+            <!DOCTYPE html>
+            <html lang="en" id="%s">
+                <head>
+                    <meta charset="utf-8" />
+                    <title>%s | YouAsk</title>
+                    <link rel="stylesheet" href="%sstyles/styles.css" />
+                    <meta name-"viewport" content="initial-scale=1.0, width=device-width" />
+                </head>
+        """ % (id, title, prefix)
 
     return result
 

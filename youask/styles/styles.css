@@ -1,8 +1,6 @@
+@viewport{width:device-width}
 
-.error {
-    color: red;
-}
-
+/*
 a:link { text-decoration: none;color: white}
 a:active { text-decoration:blink}
 a:hover { text-decoration:underline;color: green}
@@ -129,5 +127,21 @@ main{
     height: border-box;
     background-color: antiquewhite;
 
+}*/
+
+.error {
+    color: red;
 }
 
+@media screen and (min-width: 35em) {
+    main > section{
+        display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+    }
+
+    main > section > section{
+		flex-basis: 50%;
+		border-bottom: 0.0625em solid #757575;
+	}
+}
