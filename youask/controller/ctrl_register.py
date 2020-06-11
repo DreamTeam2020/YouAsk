@@ -3,16 +3,19 @@ from controller.ctrl_cache import *
 from cgi import FieldStorage, escape
 from model.model_functions import *
 from controller.html_functions import *
+from controller.ctrl_profile_page import generateProfilePage
 
 def inputControllerRegistration():
 
     user_details = ["", "", "", "", ""]  # username, email, display_name, password1, password2
     message_list = ["<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>", "<p> </p>"]  # Contains error messages to be printed
+    page_name = 'register'
 
     verify_logged = verifyLoggedIn('username', False)    # Returns username if logged in else 'UNVERIFIED'
     if verify_logged != "UNVERIFIED":
         # If the user is already logged in, prevent them from registering
         message_list[4]=alreadyLoggedIn()
+        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
     else:
         form_data=FieldStorage()
 
@@ -45,7 +48,10 @@ def inputControllerRegistration():
                     else:
                         # If the user registers successfully, then make them login
                         user_details = ["", "", "", "", ""]
-                        error_msg = '<p class="error">Successfully Registered! <a href=login.py>Login Here</a></p>'
+                        profile_page=generateProfilePage(username)
+                        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
+                        error_msg = '<p class="error">Successfully Registered! <a href=login.py>Login Here</a>, ' \
+                                    'View your profile page <a href="profile_pages/%s">here</a></p>' % profile_page
                 else:
                     if user_result=="SERVER_ERROR" or email_result=="SERVER_ERROR":
                         server_error=True

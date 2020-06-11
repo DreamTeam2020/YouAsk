@@ -1,8 +1,6 @@
+@viewport{width:device-width}
 
-.error {
-    color: red;
-}
-
+/*
 a:link { text-decoration: none;color: white}
 a:active { text-decoration:blink}
 a:hover { text-decoration:underline;color: green}
@@ -129,5 +127,122 @@ main{
     height: border-box;
     background-color: antiquewhite;
 
+}*/
+
+.error {
+    color: red;
 }
 
+main figure{
+	text-align: center;
+}
+
+main p, main h1{
+	width: 95%;
+	margin: 1em auto;
+}
+
+body{
+	display: grid;
+	grid-template-rows: auto;
+	grid-template-areas:
+	                "one"
+			        "two"
+			        "three"
+			        "four"
+			        "five"
+}
+
+img{
+	max-width: 100%;
+}
+
+header {
+	grid-area: one;
+}
+
+nav {
+	grid-area: two;
+}
+
+main {
+	grid-area: three;
+}
+
+aside {
+	grid-area: four;
+}
+
+footer {
+	grid-area: five;
+}
+
+
+@media screen and (min-width: 40em) {
+    main > section{
+        display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+    }
+
+    main > section > section{
+		flex-basis: 50%;
+		border-bottom: 0.0625em solid #757575;
+	}
+
+	nav ul{
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-evenly;
+		align-item: baseline;
+		padding: 0;
+		text-align: center;
+	}
+
+	nav li{
+		margin: 1.5em .25em;
+	}
+}
+
+@media screen and (min-width: 60em) {
+	body{
+		display: grid;
+		grid-template-columns: 62% 38%;
+		grid-template-rows: auto;
+		grid-template-areas: "upper-top upper-top"
+					"lower-top lower-top"
+					"middle-left middle-right"
+					"bottom bottom"
+	}
+
+	img{
+		max-width: 100%;
+	}
+
+	header {
+		grid-area: upper-top;
+	}
+
+	nav {
+		grid-area: lower-top;
+	}
+
+	main {
+		grid-area: middle-left;
+	}
+
+	aside {
+		grid-area: middle-right;
+	}
+
+	footer {
+		grid-area: bottom;
+	}
+}
+
+@media screen and (min-width: 80em) {
+	body {
+		width: 80em;
+	}
+}

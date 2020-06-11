@@ -69,7 +69,8 @@ def getValueFromSession(key, sub_dir):
         if 'UASK' in cookie:  # If this websites cookie is in their list
             sid = cookie['UASK'].value
             session_store = open('%ssession_store/sess_' % prefix + sid, writeback=False)
-            result=session_store.get(key)
+            if key in session_store:
+                result=session_store.get(key)
 
     return result
 
@@ -86,6 +87,40 @@ def removeKeyFromSession(key, sub_dir):
         if 'UASK' in cookie:  # If this websites cookie is in their list
             sid = cookie['UASK'].value
             session_store = open('%ssession_store/sess_' % prefix + sid, writeback=True)
-            result=session_store.pop(key)
+            if key in session_store:
+                result=session_store.pop(key)
 
     return result
+
+def savePageToSession(page, sub_dir):
+    # Save the page the user is on to the session store
+
+    connect_key = 'potential_connection'
+    removeKeyFromSession(connect_key, sub_dir)
+
+    page_key = 'previous_page'
+    saveToSession(page_key, page, sub_dir)
+
+def getPreviousPageFromSession(sub_dir):
+    # Pop the previous page the user visited from the session store
+    key = 'previous_page'
+    result = getValueFromSession(key, sub_dir)
+    return result
+
+def saveUserToSession(username, sub_dir):
+    # Save the user of the last visited profile page to the session store
+    key = 'potential_connection'
+    saveToSession(key, username, sub_dir)
+
+def getPotentialConnectionFromSession(sub_dir):
+    # Pop the potential user connection from the session store
+    key = 'potential_connection'
+    result = removeKeyFromSession(key, sub_dir)
+    return result
+
+def clearConnectionCache(sub_dir):
+    # Clear the values in session store used for connections
+    page_key = 'previous_page'
+    connect_key = 'potential_connection'
+    removeKeyFromSession(page_key, sub_dir)
+    removeKeyFromSession(connect_key, sub_dir)

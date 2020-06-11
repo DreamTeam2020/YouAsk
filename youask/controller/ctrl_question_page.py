@@ -55,7 +55,7 @@ def generateAnswers(answers):
         result_answers += """
                                 <section class="answer">
                                     <p>%s</p>
-                                    <p><small>Submitted By: %s - Score: %d</small></p>
+                                    <p><small>Submitted By: %s | Score: %d</small></p>
                                 </section>
                 """ % (row['answer'], row['submitter'], row['score'])
     result_answers += '</section>'
@@ -67,6 +67,7 @@ def controllerQuestionAnswers(question_id):
     result='<p> </p>'
     result_question = '<p> </p>'
     result_answers = '<p>This Question Hasn\'t Been Answered Yet.</p>'
+    page_name = 'question_page'
 
     question = getSpecificQuestion(question_id)
 
@@ -83,6 +84,8 @@ def controllerQuestionAnswers(question_id):
         logged=verifyLoggedIn('username', True)    # Returns username if logged in else 'UNVERIFIED'
         if logged!='UNVERIFIED': # If logged in
             # If the user is the submitter of the question (else if the user has the correct fields to answer)
+
+            savePageToSession(page_name, True)  # Save the current page to the visitor's session store
 
             question_fields = getQuestionFields(question_id)
 

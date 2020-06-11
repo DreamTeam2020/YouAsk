@@ -1,15 +1,14 @@
 #!/usr/local/bin/python3
 
 from cgitb import enable
-
 enable()
 
 from controller.html_functions import *
-from controller.ctrl_profile import *
+from controller.ctrl_connect import *
 
-page_name = "profile"
+page_name="disconnect"
 
-result=controllerProfile()
+result=controllerDisconnect()
 
 print('Content-Type: text/html')
 print()
@@ -24,9 +23,11 @@ print("""
         </main>
 
         <aside>     <!-- A small aside that contains information not related to the main --->
-
         </aside>
 
         %s
         %s
-    """ % (pageStart("Profile", page_name, False), generateHeader(False), result, generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Disconnect", page_name, False), generateHeader(False), result, generateNav(page_name, False), pageEnd()))
+
+
+

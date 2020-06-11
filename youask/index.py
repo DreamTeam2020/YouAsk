@@ -18,6 +18,7 @@ print("""
     %s
     <body>
         %s
+        %s
 
         <main class="col-6 bg-secondary offset-3>      <!-- The main part of the website --->
                %s
@@ -27,7 +28,6 @@ print("""
         
         </aside>
 
+        
         %s
-        %s
-    """ % (pageStart("Home", page_name, False), generateHeader(False), result, generateNav(page_name, False), pageEnd()))
-inc
+    """ % (pageStart("Home", page_name, False), generateHeader(False), generateNav(page_name, False),result,  pageEnd()))

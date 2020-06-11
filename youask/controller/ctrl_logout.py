@@ -3,6 +3,7 @@ from http.cookies import SimpleCookie
 from os import environ
 
 def controllerLogout():
+    page_name = 'logout'
     result="""  <section>
                     <p class="error">You are not logged in</p>
                     <ul>
@@ -14,6 +15,7 @@ def controllerLogout():
 
     if verify_logged!='UNVERIFIED':
         # If the user is logged in, log them out
+        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
 
         cookie=SimpleCookie()
         http_cookie_header = environ.get('HTTP_COOKIE')

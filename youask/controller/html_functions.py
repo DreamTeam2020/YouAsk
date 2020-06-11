@@ -10,61 +10,25 @@ def pageStart(title, id, sub_dir):
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
     prefix = '../' if sub_dir else ''
 
+
+
     result = """
-        <!DOCTYPE html>
-        <html lang="en" id="%s">
-            <head>
-                <meta charset="utf-8" />
-                <title>%s | YouAsk</title>
-                <meta charset="utf-8"> 
-                <link rel="stylesheet" href="%sbootstrap-4.5.0-dist/css/bootstrap.css">  
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                <script src="%sbootstrap-4.5.0-dist/js/bootstrap.js"></script>
-                <script src="%sscripts/test.js"></script>
-                
-               <nav class="container-fluid">
-            
-                <ul class="navbar navbar-expand-sm  bg-secondary ">
-                    <a class="navbar-brand " href="#">YouAsk</a>
-                    <li class="navbar-nav ">
-                        <a class="nav-link" href="index.py">Home</a>
-                    </li>
-                    <li class="navbar-nav ">
-                        <a class="nav-link active" href="questions.py">Questions</a>
-                    </li>
-                       <li class="navbar-nav ">
-                        <a class="nav-link active" href="profile.py">Profile</a>
-                    </li>
-                    <li class="navbar-nav">
-                        <a class="nav-link" href="support.py">Support</a>
-                    </li>
-                    <span class="navbar-text navbar-collapse">
-            
-                     </span>
-            
-                    <li class="navbar-nav  "><button type="button" class="btn btn-outline-primary " >Try it </button></li>
-            
-                </ul>
-                </nav>
-
-                <meta name-"viewport" content="initial-scale=1.0, width=device-width" />
-            </head>
-    """ % (id, title, prefix, prefix, prefix)
+            <!DOCTYPE html>
+            <html lang="en" id="%s">
+                <head>
+                    <meta charset="utf-8" />
+                    <title>%s | YouAsk</title>
+                    <link rel="stylesheet" href="%sbootstrap-4.5.0-dist/css/bootstrap.css">  
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    <script src="%sbootstrap-4.5.0-dist/js/bootstrap.js"></script>
+                    <script src="%sscripts/test.js"></script>
+                    <meta name-"viewport" content="initial-scale=1.0, width=device-width" />
+                </head>
+        """ % (id, title, prefix,prefix,prefix)
 
     return result
 
-def pageMain():
-    result=""" 
-    <nav>     <div class="container-fluid">
-        <div class="row">
-            <div class="col bg-primary">left</div>
-            <div class="col-6 bg-secondary" >Main</div>
-            <div class="col bg-primary">.right</div>
-        </div>
-    </div>
-</nav>
-"""
-    return result
+
 
 
 def pageEnd():
@@ -87,7 +51,7 @@ def generateHeader(sub_dir):
     display_name = verifyLoggedIn('display_name', sub_dir)  # Returns display_name if logged in else 'UNVERIFIED'
     result = """
             <header>    <!-- A header section displayed at the top of the page--->
-                <h1>YOUASK HEADER</h1>
+        
     """
     if display_name == 'UNVERIFIED':
         result += """
@@ -96,11 +60,12 @@ def generateHeader(sub_dir):
                     </section>
         """ % (prefix, prefix)
     else:
+        profile_page = profilePageLink(sub_dir)
         result += """
                     <section>
-                        <p><a href='%sprofile.py'>%s</a> | <a href='%slogout.py'>Logout</a></p>
+                        <p><a href='%s'>%s</a> | <a href='%slogout.py'>Logout</a></p>
                     </section>
-        """ % (prefix, display_name, prefix)
+        """ % (profile_page, display_name, prefix)
 
     result += """
             </header>
@@ -115,27 +80,37 @@ def generateNav(page, sub_dir):
 
     home = "%sindex.py" % prefix
     questions = "%squestions.py" % prefix
-    profile = "%sprofile.py" % prefix
+    profile = profilePageLink(sub_dir)
     support = "%ssupport.py" % prefix
 
     if page == "home":
         home = ""
     elif page == "questions":
         questions = ""
-    elif page == "profile":
+    elif page == "user_profile":
         profile = ""
     elif page == "support":
         support = ""
 
     return """
-        <nav>
-            <ul>
-                <li><a href="%s">Home</a></li>
-                <li><a href="%s">Questions</a></li>
-                <li><a href="%s">Profile</a></li>
-                <li><a href="%s">Support</a></li>
-            </ul>
-        </nav>
+<nav class="container-fluid">
+
+    <ul class="navbar navbar-expand-sm  bg-secondary ">
+        <a class="navbar-brand " href="#">YouAsk</a>
+        <li class="navbar-nav ">
+            <a class="nav-link" href="%s">Home</a>
+        </li>
+        <li class="navbar-nav ">
+            <a class="nav-link active" href="%s">Questions</a>
+        </li>
+        <li class="navbar-nav ">
+            <a class="nav-link active" href="%s">Profile</a>
+        </li>
+        <li class="navbar-nav">
+            <a class="nav-link" href="%s">Support</a>
+        </li>
+    </ul>
+</nav>
         """ % (home, questions, profile, support)
 
 
@@ -269,6 +244,7 @@ def generateEditDetailsForm(url, details, user_fields, new_display_name, old_pas
                     <p>Display Name: %s</p>
                     %s
                     <p>To Edit Your Fields of Study Click <a href="edit_study.py">Here</a></p>
+                    <p>To Edit Your Profile Picture Click <a href="profile_picture.py">Here</a></p>
                     
                     <label for="txt_new_display_name">New Display Name: </label>
                     <input type="text" name="txt_new_display_name" id="txt_new_display_name" value="%s" maxlength="35"/>
@@ -434,6 +410,18 @@ def generateQuestionsDisplay(questions):
 
     return result
 
+def profilePageLink(sub_dir):
+    # This will be used to set the profile page links on the website to link to the user's profile page
+    # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
+    prefix = '../' if sub_dir else ''
+
+    username = verifyLoggedIn('username', sub_dir)
+    if username == 'UNVERIFIED':
+        link = "%slogin.py" % prefix
+    else:
+        link = "%sprofile_pages/profile_%s.py" % (prefix, username.lower())
+
+    return link
 
 def generateNews(num):
     # Generates html code containing various news articles depending on given number

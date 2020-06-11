@@ -10,6 +10,7 @@ def controllerEditStudy():
     # the sub fields of said heading (checklist), on submit prevent user selecting all fields
 
     url = "edit_study.py"
+    page_name = 'edit_study'
     error_msg="<p>Go back to edit profile <a href='edit_profile.py>here</a></p>"
 
     session_table_key='question_submission_field_table'
@@ -18,6 +19,9 @@ def controllerEditStudy():
     username = verifyLoggedIn('username', False)  # Returns username if logged in, else UNVERIFIED
 
     if username != 'UNVERIFIED':  # If the user is logged in, print first checklist
+
+        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
+
         result=generateFieldHeadingsForm(url, error_msg)
         form_data=FieldStorage()
 
