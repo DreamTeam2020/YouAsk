@@ -33,4 +33,4 @@ print("""
         </div>
         
         %s
-    """ % (pageStart("Submit", page_name, False), generateHeader(False),  generateNav(page_name, False), result,pageEnd()))
+    """ % (pageStart("Submit", page_name, False), generateHeader(False),  generateNav(page_name, False), result, pageEnd()))
