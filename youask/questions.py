@@ -20,11 +20,12 @@ print("""
     %s
     <body>
         %s
-
-
-        <main>      <!-- The main part of the website --->
-            <h1>test page</h1>
-            <a href="submit.py">submit</a>
+        <div class="container-fluid">
+        <div class="row">
+        <aside class="col-3 bg-primary" >.col</aside>
+      
+        <main class="col-6 bg-secondary" >             
+          <a href="submit.py">submit</a>
             <form action="questions.py" method="post">
                 <fieldset>
                     <input type="radio" id="chk_earliest" name="chk_sorting" value="Earliest">
@@ -36,12 +37,12 @@ print("""
                     <input type="submit" value="Sort"/>
                 </fieldset>
             </form>
-            %s
+            %s 
         </main>
-
-        <aside>     <!-- A small aside that contains information not related to the main --->
-
-        </aside>
+            
+        <aside class="col bg-primary" >.col</aside>
+        </div>
+        </div>
 
         %s
         %s

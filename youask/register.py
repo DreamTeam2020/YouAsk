@@ -19,9 +19,13 @@ print("""
     %s
     <body>
         %s
-
-        <main>      <!-- The main part of the website --->
-            <form action="%s" method="post">
+                <div class="container-fluid">
+        <div class="row">
+        <aside class="col-3 bg-primary" >.col</aside>
+      
+        <main class="col-6 bg-secondary" >   
+        
+                  <form action="%s" method="post">
                 <fieldset> <!-- Username, Email, Display Name, Password1, Password2 -->
                     <legend>Register</legend>
                     
@@ -43,10 +47,14 @@ print("""
                 </fieldset
             </form>
             %s
+          
         </main>
+       
+        <aside class="col bg-primary" >.col</aside>
+      
+        </div>
+        </div>
 
-        <aside>     <!-- A small aside that contains information not related to the main --->
-        </aside>
 
         %s
         %s

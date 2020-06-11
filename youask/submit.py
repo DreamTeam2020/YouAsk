@@ -18,14 +18,19 @@ print("""
     %s
     <body>
         %s
-
-        <main>      <!-- The main part of the website --->
-            %s
-        </main>
-
-        <aside>     <!-- A small aside that contains information not related to the main --->
-        </aside>
-
         %s
+        
+        <div class="container-fluid">
+        <div class="row">
+        <aside class="col-3 bg-primary" >.col</aside>
+      
+        <main class="col-6 bg-secondary" >   %s  </main>
+       
+        <aside class="col bg-primary" >.col</aside>
+      
+      
+        </div>
+        </div>
+        
         %s
-    """ % (pageStart("Submit", page_name, False), generateHeader(False), result, generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Submit", page_name, False), generateHeader(False),  generateNav(page_name, False), result,pageEnd()))

@@ -16,8 +16,13 @@ print("""
     <body>
         %s
         
-        <main>      <!-- The main part of the website --->
-            <form action="%s" method="post">
+                <div class="container-fluid">
+        <div class="row">
+        <aside class="col-3 bg-primary" >.col</aside>
+      
+        <main class="col-6 bg-secondary" >   
+       
+                   <form action="%s" method="post">
                 <fieldset>
                     <label for="txt_search">Search: </label>
                     <input type="text" name="txt_search" id="txt_search" value="%s"/>
@@ -26,11 +31,13 @@ print("""
                 </fieldset>
             </form>
             %s
+        
         </main>
-        
-        <aside>     <!-- A small aside that contains information not related to the main --->
-        
-        </aside>
+       
+        <aside class="col bg-primary" >.col</aside>
+      
+        </div>
+        </div>
         %s
         %s
     """ % (pageStart("search", page_name, False), generateHeader(False), url, txt_search, result, generateNav(page_name, False), pageEnd()))

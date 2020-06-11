@@ -28,7 +28,6 @@ print("""
        
         <aside class="col bg-primary" >.col</aside>
       
-      
         </div>
         </div>
         
