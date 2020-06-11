@@ -293,7 +293,7 @@ def generateFieldHeadingsForm(url, error_msg):
                 </fieldset>
             </form>
             %s
-        </section
+        </section>
     """ % (url, error_msg)
 
     return result

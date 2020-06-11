@@ -321,7 +321,7 @@ def uploadProfilePicture(username, encoded_string):
     except TypeError:
         return "SERVER_ERROR"
 
-def increaseScore(table, id):
+def increaseScore(table, id, submitter):
     # Increment score of question/answer in given table using id, then take the submitter and increment their score
     try:
         connection, cursor = dbConnect()
@@ -331,20 +331,18 @@ def increaseScore(table, id):
             WHERE id='%s'
         """ % (table, id))
         connection.commit()
-        cursor.execute("""SELECT submitter FROM %s WHERE id='%s'""" % (table, id))
-        fetch=cursor.fetchall()
         cursor.execute("""
             UPDATE ask_users
             SET score = score + 1
             WHERE username='%s'
-        """ % (fetch[0]['submitter']))
+        """ % (submitter))
         connection.commit()
         dbClose(connection, cursor)
         return "incremented"
     except db.Error():
         return "SERVER_ERROR"
 
-def decrementScore(table, id):
+def decrementScore(table, id, submitter):
     # Increment score of question/answer in given table using id, then take the submitter and increment their score
     try:
         connection, cursor = dbConnect()
@@ -354,13 +352,11 @@ def decrementScore(table, id):
             WHERE id='%s'
         """ % (table, id))
         connection.commit()
-        cursor.execute("""SELECT submitter FROM %s WHERE id='%s'""" % (table, id))
-        fetch=cursor.fetchall()
         cursor.execute("""
             UPDATE ask_users
             SET score = score - 1
             WHERE username='%s'
-        """ % (fetch[0]['submitter']))
+        """ % (submitter))
         connection.commit()
         dbClose(connection, cursor)
         return "decremented"
