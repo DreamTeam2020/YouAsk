@@ -5,6 +5,12 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 :root {
+  --maincolor1:#F7FBDF;
+  --maincolor2:#E3F08E;
+  --maincolor3:#CBE432;
+  --maincolor4:#8C9E15;
+  --maincolor5:#2E3409;
+
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -18,8 +24,8 @@
   --white: #fff;
   --gray: #6c757d;
   --gray-dark: #343a40;
-  --primary: #007bff;
-  --secondary: #6c757d;
+  --primary: #E3F08E;
+  --secondary: #CBE432;
   --success: #28a745;
   --info: #17a2b8;
   --warning: #ffc107;
@@ -4256,7 +4262,7 @@ input[type="button"].btn-block {
 }
 
 .nav-link:hover, .nav-link:focus {
-  text-decoration: none;
+  text-decoration: underline ;
 }
 
 .nav-link.disabled {
@@ -6727,7 +6733,7 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #007bff !important;
+  background-color: #F7FBDF !important;
 }
 
 a.bg-primary:hover, a.bg-primary:focus,
@@ -6737,7 +6743,7 @@ button.bg-primary:focus {
 }
 
 .bg-secondary {
-  background-color: #6c757d !important;
+  background-color: #CBE432 !important;
 }
 
 a.bg-secondary:hover, a.bg-secondary:focus,
