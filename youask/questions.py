@@ -20,6 +20,7 @@ print("""
     %s
     <body>
         %s
+        %s
         <div class="container-fluid">
         <div class="row">
         <aside class="col-3 bg-primary" >.col</aside>
@@ -44,6 +45,6 @@ print("""
         </div>
         </div>
 
-        %s
+       
         %s
     """ % (pageStart("Questions", page_name, False), generateHeader(False), generateNav(page_name, False), questions, pageEnd()))
