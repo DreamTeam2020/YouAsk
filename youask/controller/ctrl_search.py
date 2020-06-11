@@ -24,12 +24,12 @@ def searchKeyword():
         elif len(question_result) == 0:
             result='<p class="error">No Results Found</p>'
         else:
-            result = generateQuestionsDisplay(question_result)
+            result = generateQuestionsDisplay(question_result, False)
             txt_search=''
 
     return result, txt_search
 
 if __name__=='__main__':
     question_result=[{'id': 17, 'submitter': 'Cristian', 'question': "What's the deal with homelss people?", 'description': 'Just get a house', 'score': 1, 'view_count': 0, 'submission_date': datetime.datetime(2020, 5, 14, 16, 28, 41)}]
-    result=generateQuestionsDisplay(question_result)
+    result=generateQuestionsDisplay(question_result, False)
     print(result)

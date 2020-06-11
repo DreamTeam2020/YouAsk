@@ -369,7 +369,10 @@ def shareLinks(sub_dir, question_id):
     return result
 
 
-def generateQuestionsDisplay(questions):
+def generateQuestionsDisplay(questions, sub_dir):
+    # Given a list of questions, display them accordingly
+    # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
+    prefix = '../' if sub_dir else ''
     result = """
             <section>
         """
@@ -398,10 +401,10 @@ def generateQuestionsDisplay(questions):
 
         result += """
                             %s
-                            <p><small>Submitted By: %s | Score: %d | View Count: %d</small></p>
+                            <p><small>Submitted By: <a href='%sprofile_pages/profile_%s.py'>%s | Score: %d | View Count: %d</small></p>
                         %s
                     </section>
-            """ % (fields_of_study, question['submitter'], question['score'], question['view_count'], share_links)
+            """ % (fields_of_study, prefix, question['submitter'].lower(), question['submitter'], question['score'], question['view_count'], share_links)
 
     result += """
             </section>

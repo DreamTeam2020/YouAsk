@@ -49,7 +49,7 @@ def controllerQuestions():
 
     ordered_questions = insertionSort(converted_questions, ordering)
 
-    result = generateQuestionsDisplay(ordered_questions)
+    result = generateQuestionsDisplay(ordered_questions, False)
 
     return result
 
