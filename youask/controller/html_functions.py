@@ -24,11 +24,9 @@ def pageStart(title, id, sub_dir):
                     <script src="%sscripts/test.js"></script>
                     <meta name-"viewport" content="initial-scale=1.0, width=device-width" />
                 </head>
-        """ % (id, title, prefix,prefix,prefix)
+        """ % (id, title, prefix, prefix, prefix)
 
     return result
-
-
 
 
 def pageEnd():
@@ -94,25 +92,25 @@ def generateNav(page, sub_dir):
         support = ""
 
     return """
-<nav class="container-fluid">
-
-    <ul class="navbar navbar-expand-sm  bg-secondary ">
-        <a class="navbar-brand " href="#">YouAsk</a>
-        <li class="navbar-nav ">
-            <a class="nav-link" href="%s">Home</a>
-        </li>
-        <li class="navbar-nav ">
-            <a class="nav-link active" href="%s">Questions</a>
-        </li>
-        <li class="navbar-nav ">
-            <a class="nav-link active" href="%s">Profile</a>
-        </li>
-        <li class="navbar-nav">
-            <a class="nav-link" href="%s">Support</a>
-        </li>
-    </ul>
-</nav>
-        """ % (home, questions, profile, support)
+        <nav class="container-fluid">
+        
+            <ul class="navbar navbar-expand-sm  bg-secondary ">
+                <a class="navbar-brand " href="%s">YouAsk</a>
+                <li class="navbar-nav ">
+                    <a class="nav-link" href="%s">Home</a>
+                </li>
+                <li class="navbar-nav ">
+                    <a class="nav-link active" href="%s">Questions</a>
+                </li>
+                <li class="navbar-nav ">
+                    <a class="nav-link active" href="%s">Profile</a>
+                </li>
+                <li class="navbar-nav">
+                    <a class="nav-link" href="%s">Support</a>
+                </li>
+            </ul>
+        </nav>
+        """ % (home, home, questions, profile, support)
 
 
 def loginToAccess(sub_dir):
@@ -295,7 +293,7 @@ def generateFieldHeadingsForm(url, error_msg):
                 </fieldset>
             </form>
             %s
-        </section
+        </section>
     """ % (url, error_msg)
 
     return result
@@ -371,7 +369,10 @@ def shareLinks(sub_dir, question_id):
     return result
 
 
-def generateQuestionsDisplay(questions):
+def generateQuestionsDisplay(questions, sub_dir):
+    # Given a list of questions, display them accordingly
+    # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
+    prefix = '../' if sub_dir else ''
     result = """
             <section>
         """
@@ -400,10 +401,10 @@ def generateQuestionsDisplay(questions):
 
         result += """
                             %s
-                            <p><small>Submitted By: %s | Score: %d | View Count: %d</small></p>
+                            <p><small>Submitted By: <a href='%sprofile_pages/profile_%s.py'>%s</a> | Score: %d | View Count: %d</small></p>
                         %s
                     </section>
-            """ % (fields_of_study, question['submitter'], question['score'], question['view_count'], share_links)
+            """ % (fields_of_study, prefix, question['submitter'].lower(), question['submitter'], question['score'], question['view_count'], share_links)
 
     result += """
             </section>
