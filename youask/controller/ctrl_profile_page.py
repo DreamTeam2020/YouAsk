@@ -49,7 +49,6 @@ def controllerProfile(username):
         <article>
         """ % (profile_picture, details['display_name'], details['email'], details['reg_date'], details['score'], user_fields)
 
-
         logged = verifyLoggedIn('username', True)    # Returns username if logged in else 'UNVERIFIED'
         if logged!='UNVERIFIED':    # If logged in
             savePageToSession(page_name, True)  # Save the current page to the visitor's session store

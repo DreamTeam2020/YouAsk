@@ -1,4 +1,4 @@
-from controller.ctrl_cache import verifyLoggedIn  # This is used, ignore pycharm
+from controller.ctrl_cache import verifyLoggedIn, getLastViewedQuestionFromSession
 from model.model_functions import getQuestionFields
 
 import json
@@ -111,6 +111,32 @@ def generateNav(page, sub_dir):
             </ul>
         </nav>
         """ % (home, home, questions, profile, support)
+
+def generateAsideRight(sub_dir):
+    # This will generate the right aside on every page
+    # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
+    prefix = '../' if sub_dir else ''
+
+    result = """
+    <aside class="col bg-primary" >
+    """
+
+    logged = verifyLoggedIn('username', True)  # Returns username if logged in else 'UNVERIFIED'
+    if logged != 'UNVERIFIED':  # If logged in
+
+        # Last Viewed Question - Display the last viewed question without share links
+        question_id = getLastViewedQuestionFromSession(sub_dir)
+        if question_id:
+            # get the question from the database and display it accordingly
+
+        # Connections List Page
+
+        # Submitted Question Page
+
+    result += """
+    </aside>
+    """
+
 
 
 def loginToAccess(sub_dir):

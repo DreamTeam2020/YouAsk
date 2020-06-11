@@ -74,10 +74,10 @@ def controllerQuestionAnswers(question_id):
     if question == "SERVER_ERROR":
         server_error=True
     else:
-        result_question = generateQuestion(question)
         inc_result = incrementViewCount(question_id)     # Increment the questions view count
         if inc_result == "SERVER_ERROR":
             server_error = True
+        result_question = generateQuestion(question)
 
     if not server_error:
         result = result_question
@@ -89,6 +89,7 @@ def controllerQuestionAnswers(question_id):
             # If the user is the submitter of the question (else if the user has the correct fields to answer)
 
             savePageToSession(page_name, True)  # Save the current page to the visitor's session store
+            saveToSession('last_question_page', question_id, True)  # Save this question page's id to the session store
 
             question_fields = getQuestionFields(question_id)
 
