@@ -19,15 +19,15 @@ print("""
     <body>
         %s
 
-        <main>      <!-- The main part of the website --->
-            <h1>Home page</h1>
-            <button onclick='myFunction()'>Try It</button>
-        </main>
+        <main class="col-6 bg-secondary offset-3>      <!-- The main part of the website --->
+               %s
+        </main >
 
         <aside>     <!-- A small aside that contains information not related to the main --->
-            %s
+        
         </aside>
 
         %s
         %s
     """ % (pageStart("Home", page_name, False), generateHeader(False), result, generateNav(page_name, False), pageEnd()))
+inc

@@ -17,32 +17,53 @@ def pageStart(title, id, sub_dir):
                 <meta charset="utf-8" />
                 <title>%s | YouAsk</title>
                 <meta charset="utf-8"> 
-                <link rel="stylesheet" href="%sbootstrap-4.5.0-dist/css">  
-                <script src="%sbootstrap-4.5.0-dist/js"></script>
+                <link rel="stylesheet" href="%sbootstrap-4.5.0-dist/css/bootstrap.css">  
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script src="%sbootstrap-4.5.0-dist/js/bootstrap.js"></script>
                 <script src="%sscripts/test.js"></script>
                 
-                  <nav class="navbar navbar-expand-sm bg-dark text white">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link 1</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link 2</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link 3</a>
-                </li>
-              </ul>
-            </nav>
-
-
-
-</nav>
+               <nav class="container-fluid">
+            
+                <ul class="navbar navbar-expand-sm  bg-secondary ">
+                    <a class="navbar-brand " href="#">YouAsk</a>
+                    <li class="navbar-nav ">
+                        <a class="nav-link" href="index.py">Home</a>
+                    </li>
+                    <li class="navbar-nav ">
+                        <a class="nav-link active" href="questions.py">Questions</a>
+                    </li>
+                       <li class="navbar-nav ">
+                        <a class="nav-link active" href="profile.py">Profile</a>
+                    </li>
+                    <li class="navbar-nav">
+                        <a class="nav-link" href="support.py">Support</a>
+                    </li>
+                    <span class="navbar-text navbar-collapse">
+            
+                     </span>
+            
+                    <li class="navbar-nav  "><button type="button" class="btn btn-outline-primary " >Try it </button></li>
+            
+                </ul>
+                </nav>
 
                 <meta name-"viewport" content="initial-scale=1.0, width=device-width" />
             </head>
     """ % (id, title, prefix, prefix, prefix)
 
+    return result
+
+def pageMain():
+    result=""" 
+    <nav>     <div class="container-fluid">
+        <div class="row">
+            <div class="col bg-primary">left</div>
+            <div class="col-6 bg-secondary" >Main</div>
+            <div class="col bg-primary">.right</div>
+        </div>
+    </div>
+</nav>
+"""
     return result
 
 
