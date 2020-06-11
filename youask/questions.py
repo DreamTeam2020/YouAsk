@@ -22,27 +22,27 @@ print("""
         %s
         %s
         <div class="container-fluid">
-        <div class="row">
-        <aside class="col-3 bg-primary" >.col</aside>
-      
-        <main class="col-6 bg-secondary" >             
-          <a href="submit.py">submit</a>
-            <form action="questions.py" method="post">
-                <fieldset>
-                    <input type="radio" id="chk_earliest" name="chk_sorting" value="Earliest">
-                    <label for="chk_earliest">Earliest</label>
+            <div class="row">
+                <aside class="col-3 bg-primary" >.col</aside>
+              
+                <main class="col-6 bg-secondary" >             
+                  <a href="submit.py">submit</a>
+                    <form action="questions.py" method="post">
+                        <fieldset>
+                            <input type="radio" id="chk_earliest" name="chk_sorting" value="Earliest">
+                            <label for="chk_earliest">Earliest</label>
+                            
+                            <input type="radio" id="chk_latest"  name="chk_sorting" value="Latest" checked>
+                            <label for="chk_latest">Latest</label>
+                            
+                            <input type="submit" value="Sort"/>
+                        </fieldset>
+                    </form>
+                    %s 
+                </main>
                     
-                    <input type="radio" id="chk_latest"  name="chk_sorting" value="Latest" checked>
-                    <label for="chk_latest">Latest</label>
-                    
-                    <input type="submit" value="Sort"/>
-                </fieldset>
-            </form>
-            %s 
-        </main>
-            
-        <aside class="col bg-primary" >.col</aside>
-        </div>
+                <aside class="col bg-primary" >.col</aside>
+            </div>
         </div>
 
        

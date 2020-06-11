@@ -20,15 +20,15 @@ print("""
         %s
         
         <div class="container-fluid">
-        <div class="row">
-        <aside class="col-3 bg-primary" >.col</aside>
-      
-        <main class="col-6 bg-secondary" >   %s  </main>
-       
-        <aside class="col bg-primary" >.col</aside>
-      
-      
-        </div>
+            <div class="row">
+                <aside class="col-3 bg-primary" >.col</aside>
+              
+                <main class="col-6 bg-secondary" >   %s  </main>
+               
+                <aside class="col bg-primary" >.col</aside>
+          
+          
+            </div>
         </div>
         
         %s
