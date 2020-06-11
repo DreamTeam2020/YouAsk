@@ -58,4 +58,4 @@ print("""
 
         %s
         %s
-    """ % (pageStart("Register", page_name, False), generateHeader(False), url, user_details[0], message_list[0], user_details[1], message_list[1], user_details[2], message_list[2], user_details[3], user_details[4], message_list[3], message_list[4], generateNav(page_name, False), pageEnd()))
+    """ % (pageStart("Register", page_name, False), generateHeader(False), url, user_details[0], generateNav(page_name, False), message_list[0], user_details[1], message_list[1], user_details[2], message_list[2], user_details[3], user_details[4], message_list[3], message_list[4], pageEnd()))
