@@ -36,6 +36,7 @@ def pageEnd():
 
     result = """
                 <footer>
+                something about Copyright
                 </footer>
             </body>
         </html>"""
