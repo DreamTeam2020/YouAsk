@@ -24,11 +24,9 @@ def pageStart(title, id, sub_dir):
                     <script src="%sscripts/test.js"></script>
                     <meta name-"viewport" content="initial-scale=1.0, width=device-width" />
                 </head>
-        """ % (id, title, prefix,prefix,prefix)
+        """ % (id, title, prefix, prefix, prefix)
 
     return result
-
-
 
 
 def pageEnd():
@@ -94,25 +92,25 @@ def generateNav(page, sub_dir):
         support = ""
 
     return """
-<nav class="container-fluid">
-
-    <ul class="navbar navbar-expand-sm  bg-secondary ">
-        <a class="navbar-brand " href="#">YouAsk</a>
-        <li class="navbar-nav ">
-            <a class="nav-link" href="%s">Home</a>
-        </li>
-        <li class="navbar-nav ">
-            <a class="nav-link active" href="%s">Questions</a>
-        </li>
-        <li class="navbar-nav ">
-            <a class="nav-link active" href="%s">Profile</a>
-        </li>
-        <li class="navbar-nav">
-            <a class="nav-link" href="%s">Support</a>
-        </li>
-    </ul>
-</nav>
-        """ % (home, questions, profile, support)
+        <nav class="container-fluid">
+        
+            <ul class="navbar navbar-expand-sm  bg-secondary ">
+                <a class="navbar-brand " href="%s">YouAsk</a>
+                <li class="navbar-nav ">
+                    <a class="nav-link" href="%s">Home</a>
+                </li>
+                <li class="navbar-nav ">
+                    <a class="nav-link active" href="%s">Questions</a>
+                </li>
+                <li class="navbar-nav ">
+                    <a class="nav-link active" href="%s">Profile</a>
+                </li>
+                <li class="navbar-nav">
+                    <a class="nav-link" href="%s">Support</a>
+                </li>
+            </ul>
+        </nav>
+        """ % (home, home, questions, profile, support)
 
 
 def loginToAccess(sub_dir):

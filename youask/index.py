@@ -32,4 +32,4 @@ print("""
         </div>
         
         %s
-    """ % (pageStart("Home", page_name, False), generateHeader(False), generateNav(page_name, False),result,  pageEnd()))
+    """ % (pageStart("Home", page_name, False), generateHeader(False), generateNav(page_name, False), result,  pageEnd()))
