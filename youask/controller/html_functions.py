@@ -123,20 +123,23 @@ def generateAsideRight(sub_dir):
 
     logged = verifyLoggedIn('username', sub_dir)  # Returns username if logged in else 'UNVERIFIED'
     if logged != 'UNVERIFIED':  # If logged in
-
+        last_viewed_result = """
+            <section>
+                <h1>Last Viewed Question</h1>
+        """
         # Last Viewed Question - Display the last viewed question without share links
         question_id = getLastViewedQuestionFromSession(sub_dir)
         if question_id:
             # Get the question from the database and display it accordingly
             last_question = getSpecificQuestion(question_id)
-            last_viewed_result = generateQuestionDisplayNoShare(last_question, sub_dir)
+            last_viewed_result += generateQuestionDisplayNoShare(last_question, sub_dir)
 
         else:
-            last_viewed_result = """
-                <section>
-                    <p>No Recently Viewed Question</p>
-                </section>
-            """
+            last_viewed_result += "<p>No Recently Viewed Question</p>"""
+
+        last_viewed_result += """
+            </section>
+        """
         result += last_viewed_result
 
         # Connections List Page
@@ -578,12 +581,14 @@ def generateConnectionsDisplay(username, num_connections, sub_dir):
     if not connections:
         result = """
                     <section>
+                        <h1>Connections</h1>
                         <p class="error">No Connections Available</p>
                     </section>
                 """
     else:
         result = """
                     <section>
+                        <h1>Connections</h1>
                 """
 
         for i in range(num_connections):
@@ -603,7 +608,7 @@ def generateConnectionsDisplay(username, num_connections, sub_dir):
                     """ % (picture, prefix, username.lower(), display_name, date, score)
 
         result += """
-                    %s
+                        %s
                     </section>
                 """ % connect_link
     return result
