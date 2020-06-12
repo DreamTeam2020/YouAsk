@@ -22,7 +22,7 @@ print("""
         
         <div class="container-fluid">
             <div class="row">
-                <aside class="col-3 bg-primary" >you connected friends will displayed here and you can talk with them</aside>
+                <aside class="col-3 bg-primary" >you connected friends will displayed here and you can talk with them, now it doesnt work</aside>
             
                 <main class="col-6 bg-secondary" >   %s  </main>
 
