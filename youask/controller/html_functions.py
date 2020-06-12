@@ -1,3 +1,8 @@
+
+from controller.ctrl_cache import verifyLoggedIn  # This is used, ignore pycharm
+from controller.ctrl_search import searchKeyword
+from model.model_functions import getQuestionFields
+
 from controller.ctrl_cache import verifyLoggedIn, getLastViewedQuestionFromSession
 from model.model_functions import getQuestionFields, getSpecificQuestion, getConnections, getUserDetails, getPictureCode
 
@@ -81,6 +86,7 @@ def generateNav(page, sub_dir):
     questions = "%squestions.py" % prefix
     profile = profilePageLink(sub_dir)
     support = "%ssupport.py" % prefix
+    result, txt_search = searchKeyword()
 
     if page == "home":
         home = ""
@@ -108,8 +114,11 @@ def generateNav(page, sub_dir):
                 <li class="navbar-nav">
                     <a class="nav-link" href="%s">Support</a>
                 </li>
+
             </ul>
         </nav>
+        
+
         """ % (home, home, questions, profile, support)
 
 def generateAsideRight(sub_dir):
