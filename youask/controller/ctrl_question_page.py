@@ -75,6 +75,9 @@ def controllerQuestionAnswers(question_id):
         server_error=True
     else:
         result_question = generateQuestion(question)
+        inc_result = incrementViewCount(question_id)     # Increment the questions view count
+        if inc_result == "SERVER_ERROR":
+            server_error = True
 
     if not server_error:
         result = result_question
