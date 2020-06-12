@@ -1,8 +1,3 @@
-
-from controller.ctrl_cache import verifyLoggedIn  # This is used, ignore pycharm
-from controller.ctrl_search import searchKeyword
-from model.model_functions import getQuestionFields
-
 from controller.ctrl_cache import verifyLoggedIn, getLastViewedQuestionFromSession
 from model.model_functions import getQuestionFields, getSpecificQuestion, getConnections, getUserDetails, getPictureCode
 
@@ -14,8 +9,6 @@ def pageStart(title, id, sub_dir):
     # This will generate the start of each html page including the <head></head>
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
     prefix = '../' if sub_dir else ''
-
-
 
     result = """
             <!DOCTYPE html>
@@ -55,7 +48,7 @@ def generateHeader(sub_dir):
     display_name = verifyLoggedIn('display_name', sub_dir)  # Returns display_name if logged in else 'UNVERIFIED'
     result = """
             <header>    <!-- A header section displayed at the top of the page--->
-        
+
     """
     if display_name == 'UNVERIFIED':
         result += """
@@ -86,7 +79,7 @@ def generateNav(page, sub_dir):
     questions = "%squestions.py" % prefix
     profile = profilePageLink(sub_dir)
     support = "%ssupport.py" % prefix
-    result, txt_search = searchKeyword()
+    search = "%ssearch.py" % prefix
 
     if page == "home":
         home = ""
@@ -99,7 +92,7 @@ def generateNav(page, sub_dir):
 
     return """
         <nav class="container-fluid">
-        
+
             <ul class="navbar navbar-expand-sm  bg-secondary ">
                 <a class="navbar-brand " href="%s">YouAsk</a>
                 <li class="navbar-nav ">
@@ -114,12 +107,13 @@ def generateNav(page, sub_dir):
                 <li class="navbar-nav">
                     <a class="nav-link" href="%s">Support</a>
                 </li>
-
+                 <li class="navbar-nav">
+                    <a class="nav-link" href="%s">search questions</a>
+                </li>
             </ul>
         </nav>
-        
+        """ % (home, home, questions, profile, support,search)
 
-        """ % (home, home, questions, profile, support)
 
 def generateAsideRight(sub_dir):
     # This will generate the right aside on every page
@@ -153,7 +147,6 @@ def generateAsideRight(sub_dir):
 
         # Connections List Page
         result += generateConnectionsDisplay(logged, 2, sub_dir)
-
 
         # Submitted Question Page
     else:
@@ -198,10 +191,8 @@ def generateQuestionForm(url, question, description, fields, error):
         <form action="%s" method="post">
             <fieldset> <!-- Question, Description -->
                 <legend>Submit a Question</legend>
-
                 <label for="txt_question">Question: </label>
                 <input type="text" name="txt_question" id="txt_question" value="%s" maxlength="300"/>
-
                 <label for="txt_description">Description: </label>
                 <input type="text" name="txt_description" id="txt_description" value="%s"/>
     """ % (url, question, description)
@@ -232,10 +223,8 @@ def generateAnswerForm(url, answer, error):
             <form action="%s" method="post">
                 <fieldset> <!-- Answer -->
                     <legend>Submit an Answer</legend>
-
                     <label for="txt_answer">Answer: </label>
                     <input type="text" name="txt_answer" id="txt_answer" value="%s"/>
-
                     <input type="submit" value="Submit Answer"/>
                 </fieldset
             </form>
@@ -257,7 +246,7 @@ def generateBugreportForm(url, description, error):
             </fieldset
         </form>
         %s
-     
+
     """ % (url, description, error)
 
     return result
@@ -270,15 +259,14 @@ def generateBugreportFormWithEmail(url, description, email, error):
             <fieldset> <!--  Description, Email -->
                 <label for="txt_description">Description: </label>
                 <input type="text" name="txt_description" id="txt_description" value="%s"/>
-                
+
                 <label for="txt_email">Your email: </label>
                 <input type="text" name="txt_email" id="txt_email" value="%s"/>
-                
+
                 <input type="submit" value="Submit Bug"/>
             </fieldset
         </form>
         %s
-
     """ % (url, description, email, error)
 
     return result
@@ -297,11 +285,11 @@ def generateEditDetailsForm(url, details, user_fields, new_display_name, old_pas
                     %s
                     <p>To Edit Your Fields of Study Click <a href="edit_study.py">Here</a></p>
                     <p>To Edit Your Profile Picture Click <a href="profile_picture.py">Here</a></p>
-                    
+
                     <label for="txt_new_display_name">New Display Name: </label>
                     <input type="text" name="txt_new_display_name" id="txt_new_display_name" value="%s" maxlength="35"/>
                     %s
-                    
+
                     <label for="txt_old_password">Current Password: </label>
                     <input type="password" name="txt_old_password" id="txt_old_password" value="%s"/>
                     %s
@@ -310,7 +298,7 @@ def generateEditDetailsForm(url, details, user_fields, new_display_name, old_pas
                     <label for="txt_password2">Re-Enter New Password: </label>
                     <input type="password" name="txt_password2" id="txt_password2" value="%s"/>
                     %s
-                    
+
                     <input type="submit" value="Update"/>
                 </fieldset>
             </form>
@@ -332,16 +320,16 @@ def generateFieldHeadingsForm(url, error_msg):
                     <p>Fields were set up following this <a href="https://en.wikipedia.org/wiki/List_of_academic_fields">format</a></p>
                     <input type="radio" name="fields_of_study" id="humanities" value="humanities"/>
                     <label for="humanities">Humanities and Social Science</label>
-                    
+
                     <input type="radio" name="fields_of_study" id="natural_sciences" value="natural_sciences"/>
                     <label for="natural_sciences">Natural Sciences</label>
-                    
+
                     <input type="radio" name="fields_of_study" id="formal_sciences" value="formal_sciences"/>
                     <label for="formal_sciences">Formal Sciences</label>
-                    
+
                     <input type="radio" name="fields_of_study" id="professions" value="professions"/>
                     <label for="professions">Professions and Applied Sciences</label>
-                    
+
                     <input type="submit" value="Select"/>
                 </fieldset>
             </form>
@@ -402,19 +390,19 @@ def shareLinks(sub_dir, question_id):
     twitter_src = "%simages/twitter.png" % prefix
 
     share_to_fb = """
-   
+
             <a href="https://www.facebook.com/sharer.php?u=https://cs1.ucc.ie/~cgg1/cgi-bin/youask/question_pages/question_%s.py" target="_blank" ;">
                 <img src="%s" title="Share to Facebook" alt="An image of the Facebook social media logo, which is a white lowercase letter f on a blue background." style="width:40px;height:40px;"/>
             </a>
-    
+
     """ % (question_id, facebook_src)
 
     share_to_tw = """
-           
+
                 <a href="https://twitter.com/share" target="_blank" data-url=https://cs1.ucc.ie/~cgg1/cgi-bin/youask/question_pages/question_%s.py data-text="" data-via=""data-lang="ja">
                     <img src="%s" title="Share to Twitter" alt="An image of the Twitter social media logo, which is a side view of a light blue, simplistic bird." style="width:40px;height:40px;"/>
                 </a>
-        
+
         """ % (question_id, twitter_src)
 
     result = share_to_fb + share_to_tw
@@ -457,13 +445,15 @@ def generateQuestionsDisplay(questions, sub_dir):
                             <p><small>Submitted By: <a href='%sprofile_pages/profile_%s.py'>%s</a> | Score: %d | View Count: %d</small></p>
                         %s
                     </section>
-            """ % (fields_of_study, prefix, question['submitter'].lower(), question['submitter'], question['score'], question['view_count'], share_links)
+            """ % (fields_of_study, prefix, question['submitter'].lower(), question['submitter'], question['score'],
+                   question['view_count'], share_links)
 
     result += """
             </section>
         """
 
     return result
+
 
 def generateQuestionDisplayNoShare(question, sub_dir):
     # Given a question (dictionary), display it accordingly
@@ -493,9 +483,11 @@ def generateQuestionDisplayNoShare(question, sub_dir):
                         %s
                         <p><small>Submitted By: <a href='%sprofile_pages/profile_%s.py'>%s</a> | Score: %d | View Count: %d</small></p>
                 </section>
-        """ % (fields_of_study, prefix, question['submitter'].lower(), question['submitter'], question['score'], question['view_count'])
+        """ % (fields_of_study, prefix, question['submitter'].lower(), question['submitter'], question['score'],
+               question['view_count'])
 
     return result
+
 
 def profilePageLink(sub_dir):
     # This will be used to set the profile page links on the website to link to the user's profile page
@@ -509,6 +501,7 @@ def profilePageLink(sub_dir):
         link = "%sprofile_pages/profile_%s.py" % (prefix, username.lower())
 
     return link
+
 
 def generateNews(num):
     # Generates html code containing various news articles depending on given number
@@ -542,6 +535,7 @@ def generateNews(num):
 
     return result
 
+
 def getProfilePicture(username, sub_dir):
     # Get the username, get the profile picture from the
     # database, if none there then display blank image else display profile picture
@@ -550,7 +544,7 @@ def getProfilePicture(username, sub_dir):
     prefix = '../' if sub_dir else ''
 
     picture_code = getPictureCode(username)
-    profile_picture='%simages/unavailable.png' % prefix
+    profile_picture = '%simages/unavailable.png' % prefix
 
     if picture_code == 'EMPTY':
         result = """
@@ -574,6 +568,7 @@ def getProfilePicture(username, sub_dir):
 
     return result
 
+
 def generateConnectionsDisplay(username, num_connections, sub_dir):
     # Given a number of connections, display that many connections
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
@@ -581,7 +576,7 @@ def generateConnectionsDisplay(username, num_connections, sub_dir):
 
     connections = getConnections(username)
 
-    if num_connections == 0:    # If 0 is passed in as the number of connections then display all connections
+    if num_connections == 0:  # If 0 is passed in as the number of connections then display all connections
         num_connections = len(connections)
         connect_link = ""
     else:
@@ -622,13 +617,8 @@ def generateConnectionsDisplay(username, num_connections, sub_dir):
                 """ % connect_link
     return result
 
+
 if __name__ == "__main__":
-    #news = generateNews(7)
-    #print(news)
-    #question_id = 70
-    #last_question = getSpecificQuestion(question_id)
-    #question_display = generateQuestionDisplayNoShare(last_question, False)
-    #print(question_display)
 
     result = generateConnectionsDisplay('Cristian', 2, False)
     print(result)
