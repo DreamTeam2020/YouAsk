@@ -1,5 +1,5 @@
 from controller.ctrl_cache import verifyLoggedIn, getLastViewedQuestionFromSession
-from model.model_functions import getQuestionFields
+from model.model_functions import getQuestionFields, getSpecificQuestion
 
 import json
 import requests
@@ -127,11 +127,23 @@ def generateAsideRight(sub_dir):
         # Last Viewed Question - Display the last viewed question without share links
         question_id = getLastViewedQuestionFromSession(sub_dir)
         if question_id:
-            # get the question from the database and display it accordingly
+            # Get the question from the database and display it accordingly
+            last_question = getSpecificQuestion(question_id)
+            last_viewed_result = generateQuestionDisplayNoShare(last_question, sub_dir)
+
+        else:
+            last_viewed_result = """
+                <section>
+                    <p>No Recently Viewed Question</p>
+                </section>
+            """
+        result += last_viewed_result
 
         # Connections List Page
 
         # Submitted Question Page
+    else:
+        result += loginToAccess(sub_dir)
 
     result += """
     </aside>
@@ -438,6 +450,39 @@ def generateQuestionsDisplay(questions, sub_dir):
 
     return result
 
+def generateQuestionDisplayNoShare(question, sub_dir):
+    # Given a question (dictionary), display it accordingly
+    # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
+    prefix = '../' if sub_dir else ''
+    print(question)
+
+    result = """
+                <section class="question">
+                    <a href="question_pages/question_%s.py">
+                        <p>%s</p>
+                    </a>
+        """ % (question['id'], question['question'])
+
+    question_id = question['id']
+    fields = getQuestionFields(question_id)  # Returns a fetchall of the fields used by the question
+    if fields == 'EMPTY':
+        fields_of_study = '<p class="error"><small>No Fields available</small></p>'
+    else:
+        fields_of_study = '<p><small>Fields of Study: '
+        for row in fields:
+            fields_of_study += '%s | ' % row['field']
+
+        fields_of_study = fields_of_study[:-3]  # Remove the last 3 characters of the string
+        fields_of_study += '</small></p>'
+
+    result += """
+                        %s
+                        <p><small>Submitted By: <a href='%sprofile_pages/profile_%s.py'>%s</a> | Score: %d | View Count: %d</small></p>
+                </section>
+        """ % (fields_of_study, prefix, question['submitter'].lower(), question['submitter'], question['score'], question['view_count'])
+
+    return result
+
 def profilePageLink(sub_dir):
     # This will be used to set the profile page links on the website to link to the user's profile page
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
@@ -485,5 +530,9 @@ def generateNews(num):
 
 
 if __name__ == "__main__":
-    news = generateNews(7)
-    print(news)
+    #news = generateNews(7)
+    #print(news)
+    question_id = 70
+    last_question = getSpecificQuestion(question_id)
+    question_display = generateQuestionDisplayNoShare(last_question, False)
+    print(question_display)
