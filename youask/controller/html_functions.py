@@ -598,7 +598,7 @@ def generateConnectionsDisplay(username, num_connections, sub_dir):
         for i in range(num_connections):
             username = connections[i]['friend']
             date = connections[i]['connect_date']
-            picture = getProfilePicture(username, False)
+            picture = getProfilePicture(username, sub_dir)
             details = getUserDetails(username)
             display_name = details['display_name']
             score = details['score']
