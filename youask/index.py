@@ -25,7 +25,7 @@ print("""
                 <aside class="col-3 bg-primary" >.col</aside>
             
                 <main class="col-6 bg-secondary" >   %s  </main>
-                <>
+
                 %s
             </div>
         </div>
