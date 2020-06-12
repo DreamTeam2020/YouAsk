@@ -27,7 +27,6 @@ print("""
                 <main class="col-6 bg-secondary" >   %s  </main>
                 <>
                 %s
-            
             </div>
         </div>
         

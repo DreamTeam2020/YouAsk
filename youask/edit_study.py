@@ -25,11 +25,9 @@ print("""
               
                 <main class="col-6 bg-secondary" >   %s  </main>
                
-                <aside class="col bg-primary" >.col</aside>
-              
-          
+                %s
             </div>
         </div>
         
         %s
-    """ % (pageStart("Fields of Study", page_name, False), generateHeader(False), generateNav(page_name, False),edit,  pageEnd()))
+    """ % (pageStart("Fields of Study", page_name, False), generateHeader(False), generateNav(page_name, False), edit, generateAsideRight(False), pageEnd()))

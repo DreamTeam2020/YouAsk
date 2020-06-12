@@ -41,10 +41,10 @@ print("""
                     %s 
                 </main>
                     
-                <aside class="col bg-primary" >.col</aside>
+                %s
             </div>
         </div>
 
        
         %s
-    """ % (pageStart("Questions", page_name, False), generateHeader(False), generateNav(page_name, False), questions, pageEnd()))
+    """ % (pageStart("Questions", page_name, False), generateHeader(False), generateNav(page_name, False), questions, generateAsideRight(False), pageEnd()))

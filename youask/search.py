@@ -35,9 +35,8 @@ print("""
                 
                 </main>
                
-                <aside class="col bg-primary" >.col</aside>
-          
+                %s
             </div>
         </div>
         %s
-    """ % (pageStart("search", page_name, False), generateHeader(False), generateNav(page_name, False), url, txt_search, result, pageEnd()))
+    """ % (pageStart("search", page_name, False), generateHeader(False), generateNav(page_name, False), url, txt_search, result, generateAsideRight(False), pageEnd()))
