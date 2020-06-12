@@ -15,7 +15,7 @@ def searchKeyword():
     verify_logged = verifyLoggedIn('username', False)
 
     if verify_logged != 'UNVERIFIED':
-        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
+        savePageToSession(page_name, False)  # Save the current page to the visitor's session store
 
     if len(form_data) != 0:
         question_result = questionSearch(txt_search)

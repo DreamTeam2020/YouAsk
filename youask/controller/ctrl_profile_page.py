@@ -2,7 +2,6 @@ from model.model_functions import *
 from controller.html_functions import *
 from controller.ctrl_cache import *
 from controller.ctrl_edit_profile import generateUserFields
-from controller.ctrl_picture import getProfilePicture
 from cgi import escape
 from cgi import FieldStorage
 from shutil import copyfile
@@ -46,9 +45,8 @@ def controllerProfile(username):
             <p><small>Member Since: %s | User Score: %d</small></p>
             
             %s
-        <article>
+        </article>
         """ % (profile_picture, details['display_name'], details['email'], details['reg_date'], details['score'], user_fields)
-
 
         logged = verifyLoggedIn('username', True)    # Returns username if logged in else 'UNVERIFIED'
         if logged!='UNVERIFIED':    # If logged in

@@ -107,6 +107,12 @@ def getPreviousPageFromSession(sub_dir):
     result = getValueFromSession(key, sub_dir)
     return result
 
+def getLastViewedQuestionFromSession(sub_dir):
+    # Get the last question question page from the sesson store
+    key = 'last_question_page'
+    result = getValueFromSession(key, sub_dir)
+    return result
+
 def saveUserToSession(username, sub_dir):
     # Save the user of the last visited profile page to the session store
     key = 'potential_connection'

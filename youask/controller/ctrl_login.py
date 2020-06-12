@@ -13,7 +13,7 @@ def inputControllerLogin():
 
     verify_logged=verifyLoggedIn('username', False)    # Returns username if logged in else 'UNVERIFIED'
     if verify_logged!="UNVERIFIED":
-        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
+        savePageToSession(page_name, False)  # Save the current page to the visitor's session store
         error_msg=alreadyLoggedIn()
     else:
         form_data = FieldStorage()
@@ -49,7 +49,7 @@ def inputControllerLogin():
                         cookie, sid = cookieCreate()
                         sessionCreate(result['username'], result['email'], result['display_name'], sid)
                         profile_page=generateProfilePage(result['username'])
-                        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
+                        savePageToSession(page_name, False)  # Save the current page to the visitor's session store
                         error_msg = '<p class="error">Successfully Logged In! ' \
                                     'View your profile page <a href="profile_pages/%s">here</a></p>' % profile_page
                         user_email = ''
