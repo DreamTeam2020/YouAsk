@@ -114,30 +114,12 @@ def generateNav(page, sub_dir):
                 <li class="navbar-nav">
                     <a class="nav-link" href="%s">Support</a>
                 </li>
-                 <li class="navbar-nav">
-                <form action="%s" method="post">
-                        <fieldset>
-                            <label for="txt_search">Search: </label>
-                            <input type="text" name="txt_search" id="txt_search" value="%s"/>
-                            
-                            <input type="submit" value="Click to search"/>
-                        </fieldset>
-                </form>
-                </li>
+
             </ul>
         </nav>
         
-        <div class="container-fluid">
-            <div class="row">
-                <aside class="col-3 bg-primary" >.col</aside>
-              
-                <main class="col-6 bg-secondary" >   %s  </main>
-               
-                <aside class="col bg-primary" >.col</aside>
-              
-            </div>
-        </div>
-        """ % (home, home, questions, profile, support,"html_functions.py", txt_search, result)
+
+        """ % (home, home, questions, profile, support)
 
 def generateAsideRight(sub_dir):
     # This will generate the right aside on every page
