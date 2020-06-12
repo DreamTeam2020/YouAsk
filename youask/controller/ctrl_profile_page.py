@@ -2,7 +2,6 @@ from model.model_functions import *
 from controller.html_functions import *
 from controller.ctrl_cache import *
 from controller.ctrl_edit_profile import generateUserFields
-from controller.ctrl_picture import getProfilePicture
 from cgi import escape
 from cgi import FieldStorage
 from shutil import copyfile

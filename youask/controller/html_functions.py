@@ -1,6 +1,5 @@
 from controller.ctrl_cache import verifyLoggedIn, getLastViewedQuestionFromSession
-from controller.ctrl_connections import generateConnectionsDisplay
-from model.model_functions import getQuestionFields, getSpecificQuestion
+from model.model_functions import getQuestionFields, getSpecificQuestion, getConnections, getUserDetails, getPictureCode
 
 import json
 import requests
@@ -141,7 +140,7 @@ def generateAsideRight(sub_dir):
         result += last_viewed_result
 
         # Connections List Page
-        #result += generateConnectionsDisplay(logged, 2, sub_dir)
+        result += generateConnectionsDisplay(logged, 2, sub_dir)
 
 
         # Submitted Question Page
@@ -532,11 +531,87 @@ def generateNews(num):
 
     return result
 
+def getProfilePicture(username, sub_dir):
+    # Get the username, get the profile picture from the
+    # database, if none there then display blank image else display profile picture
+
+    # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
+    prefix = '../' if sub_dir else ''
+
+    picture_code = getPictureCode(username)
+    profile_picture='%simages/unavailable.png' % prefix
+
+    if picture_code == 'EMPTY':
+        result = """
+            <figure>
+                <img src="%s" title="Blank Profile Picture" alt="A simplistic blank profile picture, depicting a simple grey circle above a grey half ellipse which resembles a person."/>
+                <figcaption>
+                    <small>
+                        (<a href="https://creativecommons.org/share-your-work/public-domain/cc0/">Licensed Under CC0</a>)
+                    </small>
+                </figcaption>
+            </figure>
+        """ % profile_picture
+    elif picture_code == 'SERVER_ERROR':
+        result = '<p class="error">Server Error Occurred</p>'
+    else:
+        result = """
+            <figure>
+                <img src="data:image/png;base64, %s" title="User's Profile Picture" alt="This image was uploaded by the user, therefore there is no description available."/>
+            </figure>
+        """ % picture_code
+
+    return result
+
+def generateConnectionsDisplay(username, num_connections, sub_dir):
+    # Given a number of connections, display that many connections
+    # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
+    prefix = '../' if sub_dir else ''
+
+    connections = getConnections(username)
+
+    if num_connections == 0:    # If 0 is passed in as the number of connections then display all connections
+        num_connections = len(connections)
+
+    if not connections:
+        result = """
+                    <section>
+                        <p class="error">No Connections Available</p>
+                    </section>
+                """
+    else:
+        result = """
+                    <section>
+                """
+
+        for i in range(num_connections):
+            username = connections[i]['friend']
+            date = connections[i]['connect_date']
+            picture = getProfilePicture(username, False)
+            details = getUserDetails(username)
+            display_name = details['display_name']
+            score = details['score']
+
+            result += """
+                        <section>
+                            %s
+                            <p><a href='%sprofile_pages/profile_%s.py'>%s</a></p>
+                            <p><small>Connection Since: %s | User Score: %d</small></p>
+                        </section>
+                    """ % (picture, prefix, username, display_name, date, score)
+
+        result += """
+                    </section>
+                """
+    return result
 
 if __name__ == "__main__":
     #news = generateNews(7)
     #print(news)
-    question_id = 70
-    last_question = getSpecificQuestion(question_id)
-    question_display = generateQuestionDisplayNoShare(last_question, False)
-    print(question_display)
+    #question_id = 70
+    #last_question = getSpecificQuestion(question_id)
+    #question_display = generateQuestionDisplayNoShare(last_question, False)
+    #print(question_display)
+
+    result = generateConnectionsDisplay('Cristian', 0, False)
+    print(result)
