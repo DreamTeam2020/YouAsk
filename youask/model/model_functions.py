@@ -400,6 +400,18 @@ def checkConnectionWithUser(username, friend):
     except db.Error():
         return "SERVER_ERROR"
 
+def getConnections(username):
+    # Given a username, get their connections from the database
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT friend, connect_date FROM ask_friends WHERE user=%s", username)
+        fetch = cursor.fetchall()
+        dbClose(connection, cursor)
+        return fetch
+    except db.Error():
+        return "SERVER_ERROR"
+
+
 def incrementViewCount(id):
     # Given an question id, increment it's view count
     try:

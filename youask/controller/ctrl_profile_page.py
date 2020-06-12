@@ -46,7 +46,7 @@ def controllerProfile(username):
             <p><small>Member Since: %s | User Score: %d</small></p>
             
             %s
-        <article>
+        </article>
         """ % (profile_picture, details['display_name'], details['email'], details['reg_date'], details['score'], user_fields)
 
         logged = verifyLoggedIn('username', True)    # Returns username if logged in else 'UNVERIFIED'

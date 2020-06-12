@@ -1,4 +1,5 @@
 from controller.ctrl_cache import verifyLoggedIn, getLastViewedQuestionFromSession
+from controller.ctrl_connections import generateConnectionsDisplay
 from model.model_functions import getQuestionFields, getSpecificQuestion
 
 import json
@@ -118,7 +119,7 @@ def generateAsideRight(sub_dir):
     prefix = '../' if sub_dir else ''
 
     result = """
-    <aside class="col bg-primary" >
+        <aside class="col bg-primary" >
     """
 
     logged = verifyLoggedIn('username', sub_dir)  # Returns username if logged in else 'UNVERIFIED'
@@ -140,6 +141,7 @@ def generateAsideRight(sub_dir):
         result += last_viewed_result
 
         # Connections List Page
+        result += generateConnectionsDisplay(logged, 2, sub_dir)
 
 
         # Submitted Question Page
@@ -147,9 +149,10 @@ def generateAsideRight(sub_dir):
         result += loginToAccess(sub_dir)
 
     result += """
-    </aside>
+        </aside>
     """
 
+    return result
 
 
 def loginToAccess(sub_dir):
