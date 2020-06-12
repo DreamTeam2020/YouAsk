@@ -457,7 +457,6 @@ def generateQuestionDisplayNoShare(question, sub_dir):
     # Given a question (dictionary), display it accordingly
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
     prefix = '../' if sub_dir else ''
-    print(question)
 
     result = """
                 <section class="question">
@@ -613,5 +612,5 @@ if __name__ == "__main__":
     #question_display = generateQuestionDisplayNoShare(last_question, False)
     #print(question_display)
 
-    result = generateConnectionsDisplay('Cristian', 0, False)
+    result = generateConnectionsDisplay('Cristian', 2, False)
     print(result)
