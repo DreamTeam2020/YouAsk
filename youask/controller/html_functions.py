@@ -129,7 +129,7 @@ def generateAsideRight(sub_dir):
         """
         # Last Viewed Question - Display the last viewed question without share links
         question_id = getLastViewedQuestionFromSession(sub_dir)
-        if question_id:
+        if len(question_id)>0:
             # Get the question from the database and display it accordingly
             last_question = getSpecificQuestion(question_id)
             last_viewed_result += generateQuestionDisplayNoShare(last_question, sub_dir)
