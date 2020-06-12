@@ -571,6 +571,9 @@ def generateConnectionsDisplay(username, num_connections, sub_dir):
 
     if num_connections == 0:    # If 0 is passed in as the number of connections then display all connections
         num_connections = len(connections)
+        connect_link = ""
+    else:
+        connect_link = "<p>View Your Connections <a href='%sconnections.py'>Here</a></p>" % prefix
 
     if not connections:
         result = """
@@ -597,11 +600,12 @@ def generateConnectionsDisplay(username, num_connections, sub_dir):
                             <p><a href='%sprofile_pages/profile_%s.py'>%s</a></p>
                             <p><small>Connection Since: %s | User Score: %d</small></p>
                         </section>
-                    """ % (picture, prefix, username, display_name, date, score)
+                    """ % (picture, prefix, username.lower(), display_name, date, score)
 
         result += """
+                    %s
                     </section>
-                """
+                """ % connect_link
     return result
 
 if __name__ == "__main__":

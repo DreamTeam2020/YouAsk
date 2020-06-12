@@ -23,13 +23,13 @@ print("""
         <div class="container-fluid">
             <div class="row">
                 <aside class="col-3 bg-primary" >.col</aside>
-              
+            
                 <main class="col-6 bg-secondary" >   %s  </main>
-               
-                <aside class="col bg-primary" >.col</aside>
-              
+                
+                %s
+            
             </div>
         </div>
         
         %s
-    """ % (pageStart("Home", page_name, False), generateHeader(False), generateNav(page_name, False), result,  pageEnd()))
+    """ % (pageStart("Home", page_name, False), generateHeader(False), generateNav(page_name, False), result, generateAsideRight(False), pageEnd()))
