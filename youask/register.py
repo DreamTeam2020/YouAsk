@@ -51,10 +51,9 @@ print("""
                   
                 </main>
                
-                <aside class="col bg-primary" >.col</aside>
-          
+                %s
             </div>
         </div>
 
         %s
-    """ % (pageStart("Register", page_name, False), generateHeader(False), generateNav(page_name, False), url, user_details[0], message_list[0], user_details[1], message_list[1], user_details[2], message_list[2], user_details[3], user_details[4], message_list[3], message_list[4], pageEnd()))
+    """ % (pageStart("Register", page_name, False), generateHeader(False), generateNav(page_name, False), url, user_details[0], message_list[0], user_details[1], message_list[1], user_details[2], message_list[2], user_details[3], user_details[4], message_list[3], message_list[4], generateAsideRight(False), pageEnd()))

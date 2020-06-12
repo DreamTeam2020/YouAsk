@@ -30,10 +30,9 @@ print("""
               
                 <main class="col-6 bg-secondary" >   %s  </main>
                
-                <aside class="col bg-primary" >.col</aside>
-              
+                %s
             </div>
         </div>
         
         %s
-    """ % (pageStart("User Profile", page_name, True), generateHeader(True), generateNav(page_name, True), result, pageEnd()))
+    """ % (pageStart("User Profile", page_name, True), generateHeader(True), generateNav(page_name, True), result, generateAsideRight(True), pageEnd()))

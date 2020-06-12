@@ -25,14 +25,12 @@ print("""
               
                 <main class="col-6 bg-secondary" >   %s  </main>
                
-                <aside class="col bg-primary" >.col</aside>
-          
-          
+                %s
             </div>
         </div>
         
         %s
-    """ % (pageStart("Connect", page_name, False), generateHeader(False), generateNav(page_name, False),result,  pageEnd()))
+    """ % (pageStart("Connect", page_name, False), generateHeader(False), generateNav(page_name, False), result, generateAsideRight(False), pageEnd()))
 
 
 

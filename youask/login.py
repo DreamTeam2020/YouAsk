@@ -43,11 +43,10 @@ print("""
                  
                 </main>
                
-                <aside class="col bg-primary" >.col</aside>
-          
+                %s
             </div>
         </div>
 
         
         %s
-    """ % (pageStart("Login", page_name, False), generateHeader(False), generateNav(page_name, False),url, user_email, password, error_msg,  pageEnd()))
+    """ % (pageStart("Login", page_name, False), generateHeader(False), generateNav(page_name, False),url, user_email, password, error_msg, generateAsideRight(False), pageEnd()))
