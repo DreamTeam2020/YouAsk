@@ -79,6 +79,7 @@ def generateNav(page, sub_dir):
     questions = "%squestions.py" % prefix
     profile = profilePageLink(sub_dir)
     support = "%ssupport.py" % prefix
+    search = "%ssearch.py" % prefix
 
     if page == "home":
         home = ""
@@ -106,9 +107,12 @@ def generateNav(page, sub_dir):
                 <li class="navbar-nav">
                     <a class="nav-link" href="%s">Support</a>
                 </li>
+                 <li class="navbar-nav">
+                    <a class="nav-link" href="%s">search questions</a>
+                </li>
             </ul>
         </nav>
-        """ % (home, home, questions, profile, support)
+        """ % (home, home, questions, profile, support,search)
 
 
 def generateAsideRight(sub_dir):
