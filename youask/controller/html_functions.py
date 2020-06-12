@@ -101,18 +101,19 @@ def generateNav(page, sub_dir):
                 <li class="navbar-nav ">
                     <a class="nav-link active" href="%s">Questions</a>
                 </li>
+                 <li class="navbar-nav">
+                    <a class="nav-link" href="%s">search</a>
+                </li>
                 <li class="navbar-nav ">
                     <a class="nav-link active" href="%s">Profile</a>
                 </li>
                 <li class="navbar-nav">
                     <a class="nav-link" href="%s">Support</a>
                 </li>
-                 <li class="navbar-nav">
-                    <a class="nav-link" href="%s">search questions</a>
-                </li>
+
             </ul>
         </nav>
-        """ % (home, home, questions, profile, support,search)
+        """ % (home, home, questions, search,profile, support)
 
 
 def generateAsideRight(sub_dir):
