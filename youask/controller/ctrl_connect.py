@@ -14,7 +14,7 @@ def controllerConnect():
         result = '<p class="error">No Connections Available</p>'
 
         previous_page = getPreviousPageFromSession(False)
-        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
+        savePageToSession(page_name, False)  # Save the current page to the visitor's session store
 
         if previous_page == 'user_profile':
             potential_connection = getPotentialConnectionFromSession(False)

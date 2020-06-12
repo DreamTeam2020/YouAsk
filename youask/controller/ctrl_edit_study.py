@@ -20,7 +20,7 @@ def controllerEditStudy():
 
     if username != 'UNVERIFIED':  # If the user is logged in, print first checklist
 
-        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
+        savePageToSession(page_name, False)  # Save the current page to the visitor's session store
 
         result=generateFieldHeadingsForm(url, error_msg)
         form_data=FieldStorage()

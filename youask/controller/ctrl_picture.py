@@ -14,7 +14,7 @@ def controllerProfilePicture():
     result = loginToAccess(False)
 
     if username != 'UNVERIFIED':
-        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
+        savePageToSession(page_name, False)  # Save the current page to the visitor's session store
         profile_picture = getProfilePicture(username, False)
         form_generate = generateForm()
         submission = submitProfilePicture(username)

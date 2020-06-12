@@ -49,7 +49,7 @@ def inputControllerRegistration():
                         # If the user registers successfully, then make them login
                         user_details = ["", "", "", "", ""]
                         profile_page=generateProfilePage(username)
-                        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
+                        savePageToSession(page_name, False)  # Save the current page to the visitor's session store
                         error_msg = '<p class="error">Successfully Registered! <a href=login.py>Login Here</a>, ' \
                                     'View your profile page <a href="profile_pages/%s">here</a></p>' % profile_page
                 else:

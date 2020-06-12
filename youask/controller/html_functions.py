@@ -121,7 +121,7 @@ def generateAsideRight(sub_dir):
     <aside class="col bg-primary" >
     """
 
-    logged = verifyLoggedIn('username', True)  # Returns username if logged in else 'UNVERIFIED'
+    logged = verifyLoggedIn('username', sub_dir)  # Returns username if logged in else 'UNVERIFIED'
     if logged != 'UNVERIFIED':  # If logged in
 
         # Last Viewed Question - Display the last viewed question without share links
@@ -140,6 +140,7 @@ def generateAsideRight(sub_dir):
         result += last_viewed_result
 
         # Connections List Page
+
 
         # Submitted Question Page
     else:

@@ -24,7 +24,7 @@ def controllerEditProfile():
     if username != 'UNVERIFIED':  # If the user is logged in, print the question submission form
         # Display user's details and a form where they can be changed
 
-        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
+        savePageToSession(page_name, False)  # Save the current page to the visitor's session store
 
         # Get user's details
         details=getUserDetails(username)

@@ -24,7 +24,7 @@ def controllerSubmission():
     if username != 'UNVERIFIED':  # If the user is logged in, print the question submission form
         # Present user with main fields, on submission generate question form with checklist below of sub fields
 
-        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
+        savePageToSession(page_name, False)  # Save the current page to the visitor's session store
 
         result=generateFieldHeadingsForm(url, error_msg)
         form_data=FieldStorage()

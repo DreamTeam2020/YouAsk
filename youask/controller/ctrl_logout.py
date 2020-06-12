@@ -15,7 +15,7 @@ def controllerLogout():
 
     if verify_logged!='UNVERIFIED':
         # If the user is logged in, log them out
-        savePageToSession(page_name, True)  # Save the current page to the visitor's session store
+        savePageToSession(page_name, False)  # Save the current page to the visitor's session store
 
         cookie=SimpleCookie()
         http_cookie_header = environ.get('HTTP_COOKIE')
