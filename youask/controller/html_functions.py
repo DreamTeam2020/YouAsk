@@ -1,4 +1,5 @@
 from controller.ctrl_cache import verifyLoggedIn  # This is used, ignore pycharm
+from controller.ctrl_search import searchKeyword
 from model.model_functions import getQuestionFields
 
 import json
@@ -81,6 +82,7 @@ def generateNav(page, sub_dir):
     questions = "%squestions.py" % prefix
     profile = profilePageLink(sub_dir)
     support = "%ssupport.py" % prefix
+    result, txt_search = searchKeyword()
 
     if page == "home":
         home = ""
@@ -108,9 +110,30 @@ def generateNav(page, sub_dir):
                 <li class="navbar-nav">
                     <a class="nav-link" href="%s">Support</a>
                 </li>
+                 <li class="navbar-nav">
+                <form action="%s" method="post">
+                        <fieldset>
+                            <label for="txt_search">Search: </label>
+                            <input type="text" name="txt_search" id="txt_search" value="%s"/>
+                            
+                            <input type="submit" value="Click to search"/>
+                        </fieldset>
+                </form>
+                </li>
             </ul>
         </nav>
-        """ % (home, home, questions, profile, support)
+        
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-3 bg-primary" >.col</aside>
+              
+                <main class="col-6 bg-secondary" >   %s  </main>
+               
+                <aside class="col bg-primary" >.col</aside>
+              
+            </div>
+        </div>
+        """ % (home, home, questions, profile, support,"html_functions.py", txt_search, result)
 
 
 def loginToAccess(sub_dir):
