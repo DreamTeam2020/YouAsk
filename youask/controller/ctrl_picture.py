@@ -1,6 +1,4 @@
 import base64
-import cgi
-import os
 from cgi import FieldStorage, escape
 
 from controller.ctrl_cache import verifyLoggedIn, savePageToSession

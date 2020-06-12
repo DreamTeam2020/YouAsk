@@ -141,7 +141,7 @@ def generateAsideRight(sub_dir):
         result += last_viewed_result
 
         # Connections List Page
-        result += generateConnectionsDisplay(logged, 2, sub_dir)
+        #result += generateConnectionsDisplay(logged, 2, sub_dir)
 
 
         # Submitted Question Page
