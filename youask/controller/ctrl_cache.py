@@ -94,10 +94,6 @@ def removeKeyFromSession(key, sub_dir):
 
 def savePageToSession(page, sub_dir):
     # Save the page the user is on to the session store
-
-    connect_key = 'potential_connection'
-    removeKeyFromSession(connect_key, sub_dir)
-
     page_key = 'previous_page'
     saveToSession(page_key, page, sub_dir)
 

@@ -42,10 +42,8 @@ def controllerConnect():
                             <p class="error">You are already connected with %s</p>
                         </section>
                     """ % potential_connection
-            elif potential_connection =='NOT_FOUND':
+            elif potential_connection == 'NOT_FOUND':
                 result = '<p class="error">Potential connection not found</p>'
-            elif verify_logged.lower() == potential_connection.lower():
-                result = '<p class="error">Logged is equal to potential connection</p>'
 
 
     return result
