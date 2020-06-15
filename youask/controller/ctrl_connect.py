@@ -18,6 +18,7 @@ def controllerConnect():
 
         if previous_page == 'user_profile':
             potential_connection = getPotentialConnectionFromSession(False)
+            result = '<p class="error">Previous Page is user profile</p>'
             if verify_logged.lower() != potential_connection.lower() and potential_connection != 'NOT_FOUND':
                 check_connection = checkConnectionWithUser(verify_logged, potential_connection)
                 if check_connection == 'SEVER_ERROR':
