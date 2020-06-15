@@ -5,11 +5,11 @@ from cgitb import enable
 enable()
 
 from controller.html_functions import *
-from controller.ctrl_connections import *
+from controller.ctrl_submissions import *
 
-page_name = "connections"
+page_name = "submissions"
 
-result = controllerConnections()
+result = controllerSubmissions()
 
 print('Content-Type: text/html')
 print()
@@ -31,7 +31,7 @@ print("""
 
         %s
     """ % (
-pageStart("Connections", page_name, False), generateHeader(False), generateNav(page_name, False), result, generateAsideRight(False), pageEnd()))
+pageStart("Submissions", page_name, False), generateHeader(False), generateNav(page_name, False), result, generateAsideRight(False), pageEnd()))
 
 
 

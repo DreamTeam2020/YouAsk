@@ -1,5 +1,5 @@
 from controller.ctrl_cache import verifyLoggedIn, getLastViewedQuestionFromSession
-from model.model_functions import getQuestionFields, getSpecificQuestion, getConnections, getUserDetails, getPictureCode
+from model.model_functions import getQuestionFields, getSpecificQuestion, getConnections, getUserDetails, getPictureCode, getSubmissions
 
 import json
 import requests
@@ -149,7 +149,7 @@ def generateAsideRight(sub_dir):
         # Connections List Page
         result += generateConnectionsDisplay(logged, 2, sub_dir)
 
-        # Submitted Question Page
+        # Submissions Page
     else:
         result += loginToAccess(sub_dir)
 
@@ -580,6 +580,9 @@ def generateConnectionsDisplay(username, num_connections, sub_dir):
     if num_connections == 0:  # If 0 is passed in as the number of connections then display all connections
         num_connections = len(connections)
         connect_link = ""
+    elif len(connections) < num_connections:    # If the user has less connections than the given number
+        num_connections = len(connections)
+        connect_link = "<p>View Your Connections <a href='%sconnections.py'>Here</a></p>" % prefix
     else:
         connect_link = "<p>View Your Connections <a href='%sconnections.py'>Here</a></p>" % prefix
 
@@ -618,8 +621,51 @@ def generateConnectionsDisplay(username, num_connections, sub_dir):
                 """ % connect_link
     return result
 
+def generateSubmissionsDisplay(username, num_submissions, sub_dir):
+    # Given a number of submissions, display that many of the user's submissions
+    # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
+    prefix = '../' if sub_dir else ''
+
+    submissions = getSubmissions(username)
+
+    if num_submissions == 0:  # If 0 is passed in as the number of submissions then display all connections
+        num_submissions = len(submissions)
+        submissions_link = ""
+    elif len(submissions) < num_submissions:    # If the user has less submissions than the given number
+        num_submissions = len(submissions)
+        submissions_link = "<p>View Your Submissions <a href='%ssubmissions.py'>Here</a></p>" % prefix
+
+    else:
+        submissions_link = "<p>View Your Submissions <a href='%ssubmissions.py'>Here</a></p>" % prefix
+
+    if not submissions:
+        result = """
+                    <section>
+                        <h1>Submissions</h1>
+                        <p class="error">No Submissions Available</p>
+                    </section>
+                """
+    else:
+        result = """
+                    <section>
+                        <h1>Submissions</h1>
+                """
+
+        for i in range(num_submissions):
+            question = submissions[i]
+            question_display = generateQuestionDisplayNoShare(question, sub_dir)
+
+            result += question_display
+
+        result += """
+                                %s
+                            </section>
+                        """ % submissions_link
+    return result
+
 
 if __name__ == "__main__":
 
-    result = generateConnectionsDisplay('Cristian', 2, False)
+    #result = generateConnectionsDisplay('PatrickPeters', 2, False)
+    result = generateSubmissionsDisplay('Cristian', 0, False)
     print(result)
