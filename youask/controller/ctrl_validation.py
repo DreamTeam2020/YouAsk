@@ -58,17 +58,13 @@ def displayNameValidation(display_name):
 
 def usernameValidationLogin(username):
     # Validate username
-    result = 'clear'
 
     if len(username) < 5 or len(username) > 20:
         result = 'unsafe'
     # elif profanityFilter(username)==True:
     #  result='unsafe'
     else:
-        for char in username:
-            if char == ' ':
-                result = 'unsafe'
-                break
+        result = 'clear' if re.match("^[a-zA-Z0-9_]*$", username) else 'unsafe'    # A regex to only allow for alphabetical, numeric and an underscore in the username (the username will be used as a url so this is important)
 
     if result == "unsafe":
         result = '<p class="error">Username must be longer than 4 characters and cannot include space or profanity</p>'
