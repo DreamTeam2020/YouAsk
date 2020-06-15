@@ -30,8 +30,7 @@ print("""
         </div>
 
         %s
-    """ % (
-pageStart("Submissions", page_name, False), generateHeader(False), generateNav(page_name, False), result, generateAsideRight(False), pageEnd()))
+    """ % (pageStart("Submissions", page_name, False), generateHeader(False), generateNav(page_name, False), result, generateAsideRight(False), pageEnd()))
 
 
 

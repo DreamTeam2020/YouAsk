@@ -150,6 +150,7 @@ def generateAsideRight(sub_dir):
         result += generateConnectionsDisplay(logged, 2, sub_dir)
 
         # Submissions Page
+        result += generateSubmissionsDisplay(logged, 2, sub_dir)
     else:
         result += loginToAccess(sub_dir)
 

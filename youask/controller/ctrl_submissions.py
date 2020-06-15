@@ -12,3 +12,8 @@ def controllerSubmissions():
         result = generateSubmissionsDisplay(logged, 0, False)
 
     return result
+
+
+if __name__ == "__main__":
+    result = generateSubmissionsDisplay('Cristian', 0, False)
+    print(result)
