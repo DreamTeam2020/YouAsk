@@ -14,7 +14,8 @@ page_name = "chat"
 print('Content-Type: text/html')
 print()
 result = conctrollerchat()
-Message=getMessage("CYCYCY4", "Cristian")+getMessage("Cristian", "CYCYCY4")
+Message=getMessage("CYCYCY4", "Cristian")
+Message2=getMessage("Cristian", "CYCYCY4")
 
 print("""
     %s
@@ -22,7 +23,7 @@ print("""
     function myfunction() {
         setInterval(function()
         {            
-          $(".aside").html("Message:"+k+%s);
+          $(".aside").html("Message:"+k+%s+%s);
             k=k+1; }, 3000);
     }
     myfunction();
@@ -44,5 +45,5 @@ print("""
         </div>
 
         %s
-    """ % (pageStart("chat", page_name, False), Message,generateHeader(False), generateNav(page_name, False), result,
+    """ % (pageStart("chat", page_name, False), Message,Message2,generateHeader(False), generateNav(page_name, False), result,
            generateAsideRight(False), pageEnd()))
