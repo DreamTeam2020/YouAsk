@@ -435,7 +435,7 @@ def getConnections(username):
     # Given a username, get their connections from the database
     try:
         connection, cursor = dbConnect()
-        cursor.execute("SELECT friend, connect_date FROM ask_friends WHERE user=%s ORDER BY id DESC", username)
+        cursor.execute("SELECT friend, connect_date FROM ask_friends WHERE user=%s", username)
         fetch = cursor.fetchall()
         dbClose(connection, cursor)
         return fetch
@@ -446,7 +446,7 @@ def getSubmissions(username):
     # Given a username, get their connections from the database
     try:
         connection, cursor = dbConnect()
-        cursor.execute("SELECT * FROM ask_questions WHERE submitter=%s ORDER BY id DESC", username)
+        cursor.execute("SELECT * FROM ask_questions WHERE submitter=%s", username)
         fetch = cursor.fetchall()
         dbClose(connection, cursor)
         return fetch

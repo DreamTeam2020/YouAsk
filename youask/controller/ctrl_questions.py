@@ -1,4 +1,4 @@
-from cgi import FieldStorage, escape
+from cgi import FieldStorage
 
 from model.model_functions import *
 from controller.html_functions import generateQuestionsDisplay
@@ -16,7 +16,7 @@ def controllerQuestions():
     questions = getQuestion()
     form_data = FieldStorage()
     if len(form_data) != 0:
-        ordering = escape(form_data.getfirst('chk_sorting', '').strip())
+        ordering = form_data.getfirst('chk_sorting', '').strip()
 
         reverse_bool = False if ordering == 'Earliest' else True
 
@@ -25,6 +25,7 @@ def controllerQuestions():
     result = generateQuestionsDisplay(questions, False)
 
     return result
+
 
 if __name__=='__main__':
     questions= getQuestion()
