@@ -51,4 +51,4 @@ print("""
 
         %s
     """ % (pageStart("chat", page_name, False), generateHeader(False), generateNav(page_name, False), result,
-           generateAsideRight(False),Message2,pageEnd()))
+           generateAsideRight(False),Message,pageEnd()))
