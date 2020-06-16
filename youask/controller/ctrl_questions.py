@@ -11,14 +11,16 @@ def controllerQuestions():
     if verify_logged != 'UNVERIFIED':
         savePageToSession(page_name, False)  # Save the current page to the visitor's session store
 
-    questions = getQuestion()
+    reverse_bool = True
 
+    questions = getQuestion()
     form_data = FieldStorage()
     if len(form_data) != 0:
         ordering = escape(form_data.getfirst('chk_sorting', '').strip())
 
-        if ordering == 'Latest':
-            questions = sorted(questions, key=lambda k: k['id'], reverse=True)
+        reverse_bool = False if ordering == 'Earliest' else True
+
+    questions = sorted(questions, key=lambda k: k['id'], reverse=reverse_bool)
 
     result = generateQuestionsDisplay(questions, False)
 
