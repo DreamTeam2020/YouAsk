@@ -578,12 +578,12 @@ def generateConnectionsDisplay(username, num_connections, reverse, sub_dir):
     prefix = '../' if sub_dir else ''
 
     connections = getConnections(username)
-    sort = True if len(connections) > 1 else False
+    print(connections)
+
+    connections = sorted(connections, key=lambda k: k['id'], reverse=reverse)  # Sort the connections depending on the given ordering
 
     if num_connections == 0:  # If 0 is passed in as the number of connections then display all connections
         num_connections = len(connections)
-        if sort:
-            connections = sorted(connections, key=lambda k: k['id'], reverse=reverse)  # Sort the connections depending on the given ordering
         connect_link = ""
     elif len(connections) < num_connections:    # If the user has less connections than the given number
         num_connections = len(connections)
@@ -633,12 +633,10 @@ def generateSubmissionsDisplay(username, num_submissions, reverse, sub_dir):
     prefix = '../' if sub_dir else ''
 
     submissions = getSubmissions(username)
-    sort = True if len(submissions) > 1 else False
+    submissions = sorted(submissions, key=lambda k: k['id'], reverse=reverse)  # Sort the submissions depending on the given ordering
 
     if num_submissions == 0:  # If 0 is passed in as the number of submissions then display all connections
         num_submissions = len(submissions)
-        if sort:
-            submissions = sorted(submissions, key=lambda k: k['id'], reverse=reverse)  # Sort the submissions depending on the given ordering
         submissions_link = ""
     elif len(submissions) < num_submissions:    # If the user has less submissions than the given number
         num_submissions = len(submissions)
@@ -691,6 +689,6 @@ def generateChatForm(url, description, error):
 
 if __name__ == "__main__":
 
-    #result = generateConnectionsDisplay('PatrickPeters', 2, False)
-    result = generateSubmissionsDisplay('Cristian', 0, False)
+    result = generateConnectionsDisplay('Cristian', 0, False, False)
+    #result = generateSubmissionsDisplay('Cristian', 0, False, False)
     print(result)

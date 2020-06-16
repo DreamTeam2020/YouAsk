@@ -435,7 +435,7 @@ def getConnections(username):
     # Given a username, get their connections from the database
     try:
         connection, cursor = dbConnect()
-        cursor.execute("SELECT friend, connect_date FROM ask_friends WHERE user=%s", username)
+        cursor.execute("SELECT * FROM ask_friends WHERE user=%s", username)
         fetch = cursor.fetchall()
         dbClose(connection, cursor)
         return fetch
