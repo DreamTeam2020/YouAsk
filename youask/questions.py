@@ -27,7 +27,7 @@ print("""
               
                 <main class="col-6 bg-secondary" >             
                   <a href="submit.py" class="btn btn-success">submit your question </a>
-                    <form action="questions.py" method="post" style="padding-top: 30px">
+                    <form action="%s.py" method="post">
                         <fieldset>
                             <input type="radio" id="chk_earliest" name="chk_sorting" value="Earliest">
                             <label for="chk_earliest">Earliest</label>
@@ -47,4 +47,4 @@ print("""
 
        
         %s
-    """ % (pageStart("Questions", page_name, False), generateHeader(False), generateNav(page_name, False), questions, generateAsideRight(False), pageEnd()))
+    """ % (pageStart("Questions", page_name, False), generateHeader(False), generateNav(page_name, False), page_name, questions, generateAsideRight(False), pageEnd()))

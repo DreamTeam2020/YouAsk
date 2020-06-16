@@ -57,7 +57,7 @@ def controllerProfile(username):
                 result += """
                     <section>
                         <p><a href='../connections.py'>Connections</a></p>
-                        <p><a href='../users_questions.py'>Submitted Questions</a></p>
+                        <p><a href='../submissions.py'>Submitted Questions</a></p>
                         <p><a href='../edit_profile.py'>Edit Profile</a></p>
                     </section>
                 """
