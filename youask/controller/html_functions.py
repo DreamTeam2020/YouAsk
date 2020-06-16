@@ -578,7 +578,6 @@ def generateConnectionsDisplay(username, num_connections, reverse, sub_dir):
     prefix = '../' if sub_dir else ''
 
     connections = getConnections(username)
-    print(connections)
 
     connections = sorted(connections, key=lambda k: k['id'], reverse=reverse)  # Sort the connections depending on the given ordering
 
@@ -689,6 +688,8 @@ def generateChatForm(url, description, error):
 
 if __name__ == "__main__":
 
-    result = generateConnectionsDisplay('Cristian', 0, False, False)
+    result = generateConnectionsDisplay('Cristian', 0, False, True)
+    print(result)
     #result = generateSubmissionsDisplay('Cristian', 0, False, False)
+    result = generateAsideRight(True)
     print(result)
