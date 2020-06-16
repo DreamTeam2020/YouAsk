@@ -263,6 +263,19 @@ def bugReportLogged(description, submitter, email):
         return "SERVER_ERROR"
 
 
+def chatmessage(senter, receiver,message):
+    try:
+        connection, cursor = dbConnect()
+
+        cursor.execute("""INSERT INTO ask_chat(senter, receiver, message)
+                            VALUES (%s,%s,%s)""", (senter, receiver, message))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "submitted"
+    except db.Error():
+        return "SERVER_ERROR"
+
+
 def bugReportNotLogged(email, description):
     try:
         connection, cursor = dbConnect()
