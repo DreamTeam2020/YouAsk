@@ -21,30 +21,34 @@ print("""
     %s
     <body>
 
-</script>
-    function myfunction() {
-        setInterval(function()
-        {            
-          $(".aside").html("Message:"+k+%s+%s);
-            k=k+1; }, 3000);
-    }
-    myfunction();
 
         %s
         %s
 
         <div class="container-fluid">
             <div class="row">
-                <aside class="col-3 bg-primary" >
                 
+                <aside class="col-3 bg-primary" >
                 </aside>
 
                 <main class="col-6 bg-secondary" >   %s  </main>
 
                 %s
+                
             </div>
         </div>
+        
+        <script>
+    function myfunction() {
+    var k=1;
+        setInterval(function()
+        {            
+          $(".col-3 ").html("%s");
+            k=k+1; }, 3000);
+    }
+    myfunction();
+</script>
 
         %s
-    """ % (pageStart("chat", page_name, False), Message,Message2,generateHeader(False), generateNav(page_name, False), result,
-           generateAsideRight(False), pageEnd()))
+    """ % (pageStart("chat", page_name, False), generateHeader(False), generateNav(page_name, False), result,
+           generateAsideRight(False),Message2,pageEnd()))
