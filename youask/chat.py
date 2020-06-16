@@ -20,6 +20,8 @@ Message2=getMessage("Cristian", "CYCYCY4")
 print("""
     %s
     <body>
+
+</script>
     function myfunction() {
         setInterval(function()
         {            
@@ -27,7 +29,6 @@ print("""
             k=k+1; }, 3000);
     }
     myfunction();
-</script>
 
         %s
         %s
