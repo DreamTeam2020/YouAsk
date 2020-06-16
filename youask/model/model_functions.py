@@ -276,6 +276,24 @@ def chatmessage(senter, receiver,message):
         return "SERVER_ERROR"
 
 
+
+
+def getMessage(senter,receiver):
+    # Get a question's fields of study given the question id
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT message FROM ask_chat WHERE senter=%s AND receiver=%s", (senter,receiver))
+        if cursor.rowcount > 0:
+            result = cursor.fetchall()
+        else:
+            result = "EMPTY"
+        dbClose(connection, cursor)
+
+    except db.Error():
+        result = "SERVER_ERROR"
+    return result
+
+
 def bugReportNotLogged(email, description):
     try:
         connection, cursor = dbConnect()

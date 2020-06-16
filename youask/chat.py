@@ -3,7 +3,7 @@
 from cgitb import enable
 
 from controller.ctrl_chat import conctrollerchat
-
+from model.model_functions import getMessage
 
 enable()
 
@@ -14,15 +14,18 @@ page_name = "chat"
 print('Content-Type: text/html')
 print()
 result = conctrollerchat()
+Message=getMessage("CYCYCY4", "Cristian")+getMessage("Cristian", "CYCYCY4")
 
 print("""
     %s
     <body>
-<script>
-function myfunction() {
-  setInterval(function(){ alert("Hello"); }, 3000);
-}
-myfunction();
+    function myfunction() {
+        setInterval(function()
+        {            
+          $(".aside").html("Message:"+k+%s);
+            k=k+1; }, 3000);
+    }
+    myfunction();
 </script>
 
         %s
@@ -41,5 +44,5 @@ myfunction();
         </div>
 
         %s
-    """ % (pageStart("chat", page_name, False), generateHeader(False), generateNav(page_name, False), result,
+    """ % (pageStart("chat", page_name, False), Message,generateHeader(False), generateNav(page_name, False), result,
            generateAsideRight(False), pageEnd()))
