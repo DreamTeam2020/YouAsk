@@ -578,7 +578,6 @@ def generateConnectionsDisplay(username, num_connections, reverse, sub_dir):
     prefix = '../' if sub_dir else ''
 
     connections = getConnections(username)
-    connections = sorted(connections, key=lambda k: k['id'], reverse=reverse)  # Sort the submissions depending on the given ordering
 
     if num_connections == 0:  # If 0 is passed in as the number of connections then display all connections
         num_connections = len(connections)
@@ -587,6 +586,7 @@ def generateConnectionsDisplay(username, num_connections, reverse, sub_dir):
         num_connections = len(connections)
         connect_link = "<p>View Your Connections <a href='%sconnections.py'>Here</a></p>" % prefix
     else:
+        connections = sorted(connections, key=lambda k: k['id'], reverse=reverse)  # Sort the submissions depending on the given ordering
         connect_link = "<p>View Your Connections <a href='%sconnections.py'>Here</a></p>" % prefix
 
     if not connections:
@@ -631,7 +631,6 @@ def generateSubmissionsDisplay(username, num_submissions, reverse, sub_dir):
     prefix = '../' if sub_dir else ''
 
     submissions = getSubmissions(username)
-    submissions = sorted(submissions, key=lambda k: k['id'], reverse=reverse)   # Sort the submissions depending on the given ordering
 
     if num_submissions == 0:  # If 0 is passed in as the number of submissions then display all connections
         num_submissions = len(submissions)
@@ -641,6 +640,7 @@ def generateSubmissionsDisplay(username, num_submissions, reverse, sub_dir):
         submissions_link = "<p>View Your Submissions <a href='%ssubmissions.py'>Here</a></p>" % prefix
 
     else:
+        submissions = sorted(submissions, key=lambda k: k['id'], reverse=reverse)  # Sort the submissions depending on the given ordering
         submissions_link = "<p>View Your Submissions <a href='%ssubmissions.py'>Here</a></p>" % prefix
 
     if not submissions:
