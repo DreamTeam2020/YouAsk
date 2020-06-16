@@ -274,6 +274,7 @@ def generateBugreportFormWithEmail(url, description, email, error):
     return result
 
 
+
 def generateEditDetailsForm(url, details, user_fields, new_display_name, old_password, new_password1, new_password2,
                             error_messages):
     # Generate the form that will allow the user to change some of their details
@@ -664,6 +665,23 @@ def generateSubmissionsDisplay(username, num_submissions, sub_dir):
                         """ % submissions_link
     return result
 
+
+def generateChatForm(url, description, error):
+
+    result = """
+        <form action="%s" method="post">
+            <fieldset> <!--  Description, Email -->
+                <label for="message">Message: </label>
+                <input type="text" name="message" id="message" value="%s"/>
+
+
+                <input type="submit" value="Sent"/>
+            </fieldset
+        </form>
+        %s
+    """ % (url, description, error)
+
+    return result
 
 if __name__ == "__main__":
 
