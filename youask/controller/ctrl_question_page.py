@@ -41,10 +41,10 @@ def generateQuestion(question):
     share_links=shareLinks(True, question_id)
     result_question+="""
                         %s
-                        <p><small>Submitted By: %s | Score: %d | View Count: %d</small></p>
+                        <p><small>Submitted By: <a href='../profile_pages/profile_%s.py'>%s</a> | Score: %d | View Count: %d</small></p>
                         %s
                     </section>
-    """ % (fields_of_study, question['submitter'], question['score'], question['view_count'], share_links)
+    """ % (fields_of_study, question['submitter'].lower(), question['submitter'], question['score'], question['view_count'], share_links)
 
     return result_question
 
