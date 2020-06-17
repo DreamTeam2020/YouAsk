@@ -167,8 +167,14 @@ def controllerAnswerForm(username, question_id):
                     if coin_result == "SERVER_ERROR":
                         server_error = True
                     else:
-                        error_msg = '<p class="error">Answer Has Been Submitted</p>'
-                        answer=''
+                        reward_result = ''
+                        if len(getAnswers(question_id)) == 0:
+                            reward = moveCoinsToAnswer(question_id, username)
+                            if reward != 'SERVER_ERROR':
+                                reward_result = '. You Received the Reward!'
+
+                        error_msg = '<p class="error">Answer Has Been Submitted%s</p>' % reward_result
+                        answer = ''
 
         if server_error:
             error_msg = '<p class="error">Server Error Occurred</p>'

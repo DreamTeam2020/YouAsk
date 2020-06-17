@@ -98,6 +98,7 @@ def controllerSubmission():
                                     question = ''
                                     description = ''
                                     new_file = generateQuestionPage(submission_result)
+                                    moveCoinsToQuestion(username, submission_result, coins)
                                     error_msg = '<p class="error">Question has been submitted, ' \
                                                 'continue to question page <a href="question_pages/%s">here</a></p>' % new_file
 

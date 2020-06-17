@@ -501,13 +501,16 @@ def moveCoinsToQuestion(username, question_id, amount):
         return "SERVER_ERROR"
 
 
-def moveCoinsToAnswer(question_id, username, amount):
+def moveCoinsToAnswer(question_id, username):
     # Remove the specified number of coins from the question and add them to the given user
     try:
         connection, cursor = dbConnect()
-        cursor.execute("UPDATE ask_questions SET coins = coins - %s WHERE id=%s", (amount, question_id))
+        cursor.execute("SELECT coins FROM ask_questions WHERE id=%s", question_id)
+        fetch = cursor.fetchall()
+        coins = fetch[0]['coins']
+        cursor.execute("UPDATE ask_questions SET coins = coins - %s WHERE id=%s", (coins, question_id))
         connection.commit()
-        cursor.execute("UPDATE ask_users SET coins = coins + %s WHERE username=%s", (amount, username))
+        cursor.execute("UPDATE ask_users SET coins = coins + %s WHERE username=%s", (coins, username))
         connection.commit()
         dbClose(connection, cursor)
         return "rewarded"
@@ -516,7 +519,7 @@ def moveCoinsToAnswer(question_id, username, amount):
 
 
 if __name__ == '__main__':
-    #print(addCoins('cristian', 10))
-    #print(moveCoinsToQuestion('cristian', 77, 10))
-    #print(moveCoinsToAnswer(77, 'whiskers', 10))
+    #print(addCoins('cristian', 14))
+    #print(moveCoinsToQuestion('cristian', 85, 14))
+    #print(moveCoinsToAnswer(85, 'whiskers'))
     print(getCoins('whiskers'))
