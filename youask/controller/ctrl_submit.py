@@ -38,7 +38,7 @@ def controllerSubmission():
                 error_msg = '<p class="error">Please Select At Least One Field</p>'
                 question = escape(form_data.getfirst('txt_question', '').strip())
                 description = escape(form_data.getfirst('txt_description', '').strip())
-                coins = escape(form_data.getfirst('txt_coins', '').strip())
+                coins = escape(form_data.getfirst('num_coins', '').strip())
                 coins = int(coins)
 
                 table_name = getValueFromSession(session_table_key, False)
@@ -59,7 +59,7 @@ def controllerSubmission():
                 else:
                     question = escape(form_data.getfirst('txt_question', '').strip())
                     description = escape(form_data.getfirst('txt_description', '').strip())
-                    coins = escape(form_data.getfirst('txt_coins', '').strip())
+                    coins = escape(form_data.getfirst('num_coins', '').strip())
                     coins = int(coins)
                     user_coins = getCoins(username)
                     if not question:
