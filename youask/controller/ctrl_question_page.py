@@ -168,7 +168,7 @@ def controllerAnswerForm(username, question_id):
                         server_error = True
                     else:
                         reward_result = ''
-                        if len(getAnswers(question_id)) == 0:
+                        if getAnswers(question_id) != 'EMPTY':
                             reward = moveCoinsToAnswer(question_id, username)
                             if reward != 'SERVER_ERROR':
                                 reward_result = '. You Received the Reward!'
