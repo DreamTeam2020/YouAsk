@@ -187,7 +187,7 @@ def alreadyLoggedIn():
     return error_msg
 
 
-def generateQuestionForm(url, question, description, fields, error):
+def generateQuestionForm(url, question, description, coins, fields, error):
     # Generate the question form to be used if the user is logged in
     result = """
         <form action="%s" method="post">
@@ -195,9 +195,12 @@ def generateQuestionForm(url, question, description, fields, error):
                 <legend>Submit a Question</legend>
                 <label for="txt_question">Question: </label>
                 <input type="text" name="txt_question" id="txt_question" value="%s" maxlength="300"/>
-                <label for="txt_description">Description: </label>
+                <label for="txt_description">Description (Optional): </label>
                 <input type="text" name="txt_description" id="txt_description" value="%s"/>
-    """ % (url, question, description)
+                <label for="txt_coins">Coin Amount (Optional): </label>
+                <input type="text" name="txt_coins" id="txt_coins" value="%s" maxlength="3"/>
+                
+    """ % (url, question, description, coins)
 
     for row in fields:
         # For the id's use the field name in lower case and replace spaces with underscores

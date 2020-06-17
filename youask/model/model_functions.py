@@ -476,6 +476,17 @@ def addCoins(username, amount):
     except db.Error():
         return "SERVER_ERROR"
 
+def getCoins(username):
+    # Given username return the user's current coins
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT * FROM ask_users WHERE username=%s", username)
+        fetch = cursor.fetchall()
+        dbClose(connection, cursor)
+        return fetch[0]['coins']
+    except db.Error():
+        return "SERVER_ERROR"
+
 def moveCoinsToQuestion(username, question_id, amount):
     # Remove the specified number of coins from the user and add them to the question
     try:
@@ -507,4 +518,5 @@ def moveCoinsToAnswer(question_id, username, amount):
 if __name__ == '__main__':
     #print(addCoins('cristian', 10))
     #print(moveCoinsToQuestion('cristian', 77, 10))
-    print(moveCoinsToAnswer(77, 'whiskers', 10))
+    #print(moveCoinsToAnswer(77, 'whiskers', 10))
+    print(getCoins('whiskers'))

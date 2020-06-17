@@ -11,6 +11,7 @@ def controllerSubmission():
     url = "submit.py"
     question = ""
     description = ""
+    coins = ""
     result = loginToAccess(False)
     error_msg = "<p> </p>"
     page_name = 'submit'
@@ -37,10 +38,11 @@ def controllerSubmission():
                 error_msg = '<p class="error">Please Select At Least One Field</p>'
                 question = escape(form_data.getfirst('txt_question', '').strip())
                 description = escape(form_data.getfirst('txt_description', '').strip())
+                coins = escape(form_data.getfirst('txt_coins', '').strip())
 
                 table_name = getValueFromSession(session_table_key, False)
                 fields = getFieldsOfStudy(table_name)  # Get all fields from table_name
-                result = generateQuestionForm(url, question, description, fields, error_msg)
+                result = generateQuestionForm(url, question, description, coins, fields, error_msg)
                 removeKeyFromSession(session_table_key, False)
             else:
                 fields_of_study = form_data.getlist('fields_of_study')
@@ -52,18 +54,20 @@ def controllerSubmission():
 
                     # Get user's current fields from the table
                     saveToSession(session_table_key, table_name, False)  # Save table name to session for later use
-                    result = generateQuestionForm(url, question, description, fields, error_msg)
+                    result = generateQuestionForm(url, question, description, coins, fields, error_msg)
                 else:
                     question = escape(form_data.getfirst('txt_question', '').strip())
                     description = escape(form_data.getfirst('txt_description', '').strip())
+                    coins = escape(form_data.getfirst('txt_coins', '').strip())
                     if not question:
                         error_msg = '<p class="error">Question Field Must Be Filled</p>'  # If no question is entered
                     else:
                         if len(question) < 5:  # Remove this later for proper verification
                             error_msg = '<p class="error">Invalid question, please <em>Do Not</em> include profanity ' \
                                         'within the question. Profanity within the description will be filtered out.</p>'
+                        elif getCoins(username) < coins:
+                            error_msg = '<p class="error">You Do Not Have Enough Coins</p>'
                         else:
-
                             # If input has been verified then insert the user's question in the database
                             submission_result = submitQuestion(username, question, description)  # Returns question id if success
 
