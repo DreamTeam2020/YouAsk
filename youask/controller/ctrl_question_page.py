@@ -163,8 +163,12 @@ def controllerAnswerForm(username, question_id):
                 if submission_result == "SERVER_ERROR":
                     server_error = True
                 else:
-                    error_msg = '<p class="error">Answer Has Been Submitted</p>'
-                    answer=''
+                    coin_result = addCoins(username, 1)
+                    if coin_result == "SERVER_ERROR":
+                        server_error = True
+                    else:
+                        error_msg = '<p class="error">Answer Has Been Submitted</p>'
+                        answer=''
 
         if server_error:
             error_msg = '<p class="error">Server Error Occurred</p>'

@@ -464,3 +464,47 @@ def incrementViewCount(id):
         return "incremented"
     except db.Error():
         return "SERVER_ERROR"
+
+def addCoins(username, amount):
+    # Given a username, increment the user's coin count by 1
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("UPDATE ask_users SET coins = coins + %s WHERE username=%s", (amount, username))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "added"
+    except db.Error():
+        return "SERVER_ERROR"
+
+def moveCoinsToQuestion(username, question_id, amount):
+    # Remove the specified number of coins from the user and add them to the question
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("UPDATE ask_users SET coins = coins - %s WHERE username=%s", (amount, username))
+        connection.commit()
+        cursor.execute("UPDATE ask_questions SET coins = coins + %s WHERE id=%s", (amount, question_id))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "coins_moved"
+    except db.Error():
+        return "SERVER_ERROR"
+
+
+def moveCoinsToAnswer(question_id, username, amount):
+    # Remove the specified number of coins from the question and add them to the given user
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("UPDATE ask_questions SET coins = coins - %s WHERE id=%s", (amount, question_id))
+        connection.commit()
+        cursor.execute("UPDATE ask_users SET coins = coins + %s WHERE username=%s", (amount, username))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "rewarded"
+    except db.Error():
+        return "SERVER_ERROR"
+
+
+if __name__ == '__main__':
+    #print(addCoins('cristian', 10))
+    #print(moveCoinsToQuestion('cristian', 77, 10))
+    print(moveCoinsToAnswer(77, 'whiskers', 10))
