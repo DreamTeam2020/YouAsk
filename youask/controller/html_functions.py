@@ -447,11 +447,11 @@ def generateQuestionsDisplay(questions, sub_dir):
 
         result += """
                             %s
-                            <p><small>Submitted By: <a href='%sprofile_pages/profile_%s.py'>%s</a> | Score: %d | View Count: %d</small></p>
+                            <p><small>Submitted By: <a href='%sprofile_pages/profile_%s.py'>%s</a> | Score: %d | View Count: %d | Coins: %d</small></p>
                         %s
                     </section>
             """ % (fields_of_study, prefix, question['submitter'].lower(), question['submitter'], question['score'],
-                   question['view_count'], share_links)
+                   question['view_count'], question['coins'], share_links)
 
     result += """
             </section>
@@ -486,10 +486,10 @@ def generateQuestionDisplayNoShare(question, sub_dir):
 
     result += """
                         %s
-                        <p><small>Submitted By: <a href='%sprofile_pages/profile_%s.py'>%s</a> | Score: %d | View Count: %d</small></p>
+                        <p><small>Submitted By: <a href='%sprofile_pages/profile_%s.py'>%s</a> | Score: %d | View Count: %d | Coins: %d</small></p>
                 </section>
         """ % (fields_of_study, prefix, question['submitter'].lower(), question['submitter'], question['score'],
-               question['view_count'])
+               question['view_count'], question['coins'])
 
     return result
 

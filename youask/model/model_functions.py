@@ -519,7 +519,7 @@ def moveCoinsToAnswer(question_id, username):
 
 
 if __name__ == '__main__':
-    #print(addCoins('cristian', 14))
+    print(addCoins('cristian', 14))
     #print(moveCoinsToQuestion('cristian', 85, 14))
     #print(moveCoinsToAnswer(85, 'whiskers'))
-    print(getCoins('whiskers'))
+    #print(getCoins('whiskers'))
