@@ -59,13 +59,14 @@ def controllerSubmission():
                     question = escape(form_data.getfirst('txt_question', '').strip())
                     description = escape(form_data.getfirst('txt_description', '').strip())
                     coins = escape(form_data.getfirst('txt_coins', '').strip())
+                    user_coins = getCoins(username)
                     if not question:
                         error_msg = '<p class="error">Question Field Must Be Filled</p>'  # If no question is entered
                     else:
                         if len(question) < 5:  # Remove this later for proper verification
                             error_msg = '<p class="error">Invalid question, please <em>Do Not</em> include profanity ' \
                                         'within the question. Profanity within the description will be filtered out.</p>'
-                        elif getCoins(username) < coins:
+                        elif user_coins < int(coins):
                             error_msg = '<p class="error">You Do Not Have Enough Coins</p>'
                         else:
                             # If input has been verified then insert the user's question in the database
