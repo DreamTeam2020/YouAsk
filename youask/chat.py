@@ -9,13 +9,16 @@ enable()
 
 from controller.html_functions import *
 
+import time
+
 page_name = "chat"
 
 print('Content-Type: text/html')
 print()
 result = conctrollerchat()
-Message=getMessage("CYCYCY4", "Cristian")
-Message2=getMessage("Cristian", "CYCYCY4")
+
+
+i = 1
 
 print("""
     %s
@@ -27,28 +30,53 @@ print("""
 
         <div class="container-fluid">
             <div class="row">
-                
+
                 <aside class="col-3 bg-primary" >
                 </aside>
 
                 <main class="col-6 bg-secondary" >   %s  </main>
 
                 %s
-                
+
             </div>
         </div>
-        
-        <script>
-    function myfunction() {
-    var k=1;
-        setInterval(function()
-        {            
-          $(".col-3 ").html("%s");
-            k=k+1; }, 3000);
-    }
-    myfunction();
-</script>
 
-        %s
+
     """ % (pageStart("chat", page_name, False), generateHeader(False), generateNav(page_name, False), result,
-           generateAsideRight(False),Message,pageEnd()))
+           generateAsideRight(False)))
+
+
+
+
+def sleep_time(hour, min, sec):
+    return hour * 3600 + min * 60 + sec
+
+
+
+second = sleep_time(0, 0, 0.1)
+while True:
+        time.sleep(second)
+        Message = getMessage("CYCYCY4", "Cristian")
+        Message2 = getMessage("Cristian", "CYCYCY4")
+
+
+        print("""
+        
+                <script>
+                function myfunction() {
+                
+                    setInterval(function()
+                    {            
+                      $(".col-3 ").html("%s");
+                        }, 1000);
+                }
+                myfunction();
+                </script>
+        
+                %s
+        
+        
+        
+        
+        
+        """ %(Message,pageEnd()))

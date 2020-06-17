@@ -15,6 +15,7 @@ def pageStart(title, id, sub_dir):
             <html lang="en" id="%s">
                 <head>
                     <meta charset="utf-8" />
+ 
                     <title>%s | YouAsk</title>
                     <link rel="stylesheet" href="%sbootstrap-4.5.0-dist/css/bootstrap.css">  
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -32,7 +33,6 @@ def pageEnd():
 
     result = """
                 <footer>
-                something about Copyright
                 </footer>
             </body>
         </html>"""
