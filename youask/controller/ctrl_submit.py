@@ -11,7 +11,7 @@ def controllerSubmission():
     url = "submit.py"
     question = ""
     description = ""
-    coins = ""
+    coins = 0
     result = loginToAccess(False)
     error_msg = "<p> </p>"
     page_name = 'submit'
@@ -39,6 +39,7 @@ def controllerSubmission():
                 question = escape(form_data.getfirst('txt_question', '').strip())
                 description = escape(form_data.getfirst('txt_description', '').strip())
                 coins = escape(form_data.getfirst('txt_coins', '').strip())
+                coins = int(coins)
 
                 table_name = getValueFromSession(session_table_key, False)
                 fields = getFieldsOfStudy(table_name)  # Get all fields from table_name
@@ -59,6 +60,7 @@ def controllerSubmission():
                     question = escape(form_data.getfirst('txt_question', '').strip())
                     description = escape(form_data.getfirst('txt_description', '').strip())
                     coins = escape(form_data.getfirst('txt_coins', '').strip())
+                    coins = int(coins)
                     user_coins = getCoins(username)
                     if not question:
                         error_msg = '<p class="error">Question Field Must Be Filled</p>'  # If no question is entered
@@ -66,7 +68,7 @@ def controllerSubmission():
                         if len(question) < 5:  # Remove this later for proper verification
                             error_msg = '<p class="error">Invalid question, please <em>Do Not</em> include profanity ' \
                                         'within the question. Profanity within the description will be filtered out.</p>'
-                        elif user_coins < int(coins):
+                        elif user_coins < coins:
                             error_msg = '<p class="error">You Do Not Have Enough Coins</p>'
                         else:
                             # If input has been verified then insert the user's question in the database

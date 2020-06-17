@@ -198,8 +198,7 @@ def generateQuestionForm(url, question, description, coins, fields, error):
                 <label for="txt_description">Description (Optional): </label>
                 <input type="text" name="txt_description" id="txt_description" value="%s"/>
                 <label for="txt_coins">Coin Amount (Optional): </label>
-                <input type="text" name="txt_coins" id="txt_coins" value="%s" maxlength="3"/>
-                
+                <input type="text" name="txt_coins" id="txt_coins" value="%d" maxlength="3"/>
     """ % (url, question, description, coins)
 
     for row in fields:
