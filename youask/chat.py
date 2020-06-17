@@ -53,7 +53,7 @@ def sleep_time(hour, min, sec):
 
 
 
-second = sleep_time(0, 0, 0.1)
+second = sleep_time(0, 0, 1)
 while True:
         time.sleep(second)
         Message = getMessage("CYCYCY4", "Cristian")
@@ -63,14 +63,8 @@ while True:
         print("""
         
                 <script>
-                function myfunction() {
-                
-                    setInterval(function()
-                    {            
-                      $(".col-3 ").html("%s");
-                        }, 1000);
-                }
-                myfunction();
+         
+                 $(".col-3 ").html("%s");
                 </script>
         
                 %s
