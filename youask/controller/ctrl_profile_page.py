@@ -39,7 +39,7 @@ def controllerProfile(username):
         user_fields = generateUserFields(username)  # Generates the user fields section of edit profile
 
         logged = verifyLoggedIn('username', True)  # Returns username if logged in else 'UNVERIFIED'
-        coin_display = ' Coins: %d |' if logged.lower() == username.lower() else ''    # If this is the user's profile then display their coins
+        coin_display = ' Coins: %d |' % details['coins'] if logged.lower() == username.lower() else ''    # If this is the user's profile then display their coins
 
         result += """
         <article>
