@@ -39,7 +39,7 @@ def controllerSubmission():
                 question = escape(form_data.getfirst('txt_question', '').strip())
                 description = escape(form_data.getfirst('txt_description', '').strip())
                 coins = escape(form_data.getfirst('num_coins', '').strip())
-                coins = int(coins)
+                coins = 0 if coins == '' else int(coins)
 
                 table_name = getValueFromSession(session_table_key, False)
                 fields = getFieldsOfStudy(table_name)  # Get all fields from table_name
@@ -60,7 +60,8 @@ def controllerSubmission():
                     question = escape(form_data.getfirst('txt_question', '').strip())
                     description = escape(form_data.getfirst('txt_description', '').strip())
                     coins = escape(form_data.getfirst('num_coins', '').strip())
-                    coins = int(coins)
+                    coins = 0 if coins == '' else int(coins)
+
                     user_coins = getCoins(username)
                     if not question:
                         error_msg = '<p class="error">Question Field Must Be Filled</p>'  # If no question is entered
@@ -102,7 +103,7 @@ def controllerSubmission():
 
                     table_name=getValueFromSession(session_table_key, False)
                     fields = getFieldsOfStudy(table_name)  # Get all fields from table_name
-                    result = generateQuestionForm(url, question, description, fields, error_msg)
+                    result = generateQuestionForm(url, question, description, coins, fields, error_msg)
                     removeKeyFromSession(session_table_key, False)
 
     return result
