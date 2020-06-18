@@ -95,6 +95,7 @@ def controllerQuestionAnswers(question_id):
 
             if logged == submitter:
                 answer_form=controllerAnswerForm(logged, question_id)
+                result += '<p><a href="../delete.py">Delete</a></p>'
                 result += answer_form
             elif question_fields!='EMPTY' and question_fields!='SERVER_ERROR':
                 # Get the user's fields of study from the table that contains the questions fields

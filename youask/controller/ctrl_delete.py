@@ -5,7 +5,7 @@ from model.model_functions import getSpecificQuestion, deleteAnsweredQuestion
 def controllerDelete():
     result = loginToAccess(False)   # If not logged in display error message
     page_name = 'delete'
-    #question
+
     verify_logged=verifyLoggedIn('username', False)    # Returns username if logged in else 'UNVERIFIED'
 
     if verify_logged!='UNVERIFIED':
