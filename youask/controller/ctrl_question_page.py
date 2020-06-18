@@ -168,7 +168,7 @@ def controllerAnswerForm(username, question_id):
                         server_error = True
                     else:
                         reward_result = ''
-                        if getAnswers(question_id) != 'EMPTY':
+                        if getAnswers(question_id) == 'EMPTY':
                             reward = moveCoinsToAnswer(question_id, username)
                             if reward != 'SERVER_ERROR':
                                 reward_result = '. You Received the Reward!'
@@ -187,5 +187,17 @@ def controllerAnswerForm(username, question_id):
 
 if __name__=="__main__":
     # It works
-    results=controllerQuestionAnswers(3)
-    print(results)
+    #results=controllerQuestionAnswers(3)
+    #print(results)
+
+    question_id = 90
+    username = 'cristian'
+    reward_result = ''
+    if getAnswers(question_id) == 'EMPTY':
+        reward = moveCoinsToAnswer(question_id, username)
+        if reward != 'SERVER_ERROR':
+            reward_result = '. You Received the Reward!'
+
+    error_msg = '<p class="error">Answer Has Been Submitted%s</p>' % reward_result
+
+    print(error_msg)
