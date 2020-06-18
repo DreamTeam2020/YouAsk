@@ -104,7 +104,7 @@ def getPreviousPageFromSession(sub_dir):
     return result
 
 def getLastViewedQuestionFromSession(sub_dir):
-    # Get the last question question page from the session store
+    # Get the question id of the last viewed question page from the session store
     key = 'last_question_page'
     result = getValueFromSession(key, sub_dir)
     return result

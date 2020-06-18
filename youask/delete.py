@@ -5,11 +5,11 @@ from cgitb import enable
 enable()
 
 from controller.html_functions import *
-from controller.ctrl_connect import *
+from controller.ctrl_delete import *
 
 page_name = "delete"
 
-result = controllerConnect()
+result = controllerDelete()
 
 print('Content-Type: text/html')
 print()

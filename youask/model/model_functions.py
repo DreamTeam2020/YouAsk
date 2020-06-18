@@ -155,7 +155,7 @@ def getSpecificQuestion(id):
         cursor.execute("SELECT * FROM ask_questions WHERE id=%s", id)
         fetch = cursor.fetchall()
         dbClose(connection, cursor)
-        return fetch[0]  # Fetch returns a list of dictionaries
+        return fetch[0]  # Returns a dictionary
     except db.Error():
         return "SERVER_ERROR"
 
@@ -453,6 +453,17 @@ def getSubmissions(username):
     except db.Error():
         return "SERVER_ERROR"
 
+def deleteAnsweredQuestion(question_id):
+    # Given a question id, set delete field to true
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("UPDATE ask_questions SET deleted = true WHERE id=%s", question_id)
+        connection.commit()
+        dbClose(connection, cursor)
+        return 'deleted'
+    except db.Error():
+        return "SERVER_ERROR"
+
 
 def incrementViewCount(id):
     # Given an question id, increment it's view count
@@ -523,3 +534,5 @@ if __name__ == '__main__':
     #print(moveCoinsToQuestion('cristian', 85, 14))
     #print(moveCoinsToAnswer(85, 'whiskers'))
     #print(getCoins('whiskers'))
+
+    #print(deleteAnsweredQuestion(90))
