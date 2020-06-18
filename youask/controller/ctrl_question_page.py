@@ -116,7 +116,9 @@ def controllerQuestionAnswers(question_id):
                     result+=answer_form
                 else:
                     # The user is not the submitter and does not have the correct fields
-                    result += '<section><p class="error">To answer this question you must be in the same field of study or be the original submitter of the question. You can edit your fields on your profile page <a href="../profile.py">here</a>.</p></section>'
+                    result += '<section><p class="error">To answer this question you must be in the same field of ' \
+                              'study or be the original submitter of the question. You can edit your fields ' \
+                              'on your profile page <a href="../profile_pages/profile_%s.py">here</a>.</p></section>' % logged
             else:
                 # The query was either empty of a server error occurred
                 result += '<section><p class="error">Server Error Has Occurred.</p></section>'
