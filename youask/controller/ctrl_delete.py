@@ -17,8 +17,10 @@ def controllerDelete():
         savePageToSession(page_name, False)  # Save the current page to the visitor's session store
 
         if previous_page == 'question':
+            result = '<p class="error">Previous Page was question</p>'
             potential_deletion_id = getLastViewedQuestionFromSession(False)  # Returns the id of the last viewed question page
             if potential_deletion_id != 'NOT_FOUND':
+                result = '<p class="error">Potential deletion was found</p>'
                 question = getSpecificQuestion(potential_deletion_id)
                 if verify_logged.lower() == question['submitter'].lower():
                     delete_result = deleteAnsweredQuestion(potential_deletion_id)
