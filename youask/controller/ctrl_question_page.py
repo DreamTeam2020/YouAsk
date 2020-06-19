@@ -38,14 +38,22 @@ def generateQuestion(question):
         fields_of_study = fields_of_study[:-3]    # Remove the last 3 characters of the string
         fields_of_study += '</p>'
 
+    username = verifyLoggedIn('username', True)
+    if username.lower() == question['submitter'].lower():
+        delete_link = '<p><a href="../delete.py">Delete | </a></p>'
+    else:
+        delete_link = ''
+    save_link = ''
+
     share_links=shareLinks(True, question_id)
     submitter_display = submitterDisplay(question['submitter'], question['deleted'], True)
     result_question+="""
                         %s
                         <p><small>Submitted By: %s | Score: %d | View Count: %d | Coins: %d</small></p>
+                        <p><small>%s%s</small></p>
                         %s
                     </section>
-    """ % (fields_of_study, submitter_display, question['score'], question['view_count'], question['coins'], share_links)
+    """ % (fields_of_study, submitter_display, question['score'], question['view_count'], question['coins'], delete_link, save_link, share_links)
 
     return result_question
 
