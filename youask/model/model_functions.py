@@ -561,6 +561,17 @@ def saveQuestion(username, question_id):
     except db.Error():
         return "SERVER_ERROR"
 
+def unsaveQuestion(username, question_id):
+    # Given and username and question id, remove the entry from the table
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("DELETE FROM ask_saved WHERE (username=%s AND question_id=%s", (username, question_id))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "unsaved"
+    except db.Error():
+        return "SERVER_ERROR"
+
 
 if __name__ == '__main__':
     #print(addCoins('cristian', 14))
