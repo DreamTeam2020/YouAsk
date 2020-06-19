@@ -464,3 +464,13 @@ def incrementViewCount(id):
         return "incremented"
     except db.Error():
         return "SERVER_ERROR"
+
+def addScore(id):
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("UPDATE ask_questions SET score = score + 1 WHERE id=%s", id)
+        connection.commit()
+        dbClose(connection, cursor)
+        return "incremented"
+    except db.Error():
+        return "SERVER_ERROR"
