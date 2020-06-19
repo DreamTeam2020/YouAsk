@@ -1,5 +1,5 @@
 from controller.ctrl_cache import verifyLoggedIn, getLastViewedQuestionFromSession
-from model.model_functions import getQuestionFields, getSpecificQuestion, getConnections, getUserDetails, getPictureCode, getSubmissions
+from model.model_functions import getQuestionFields, getSpecificQuestion, getConnections, getUserDetails, getPictureCode, getSubmissions, getCoins
 
 import json
 import requests
@@ -60,7 +60,7 @@ def generateHeader(sub_dir):
         profile_page = profilePageLink(sub_dir)
         result += """
                     <section>
-                        <p><a href='%s'>%s</a> | <a href='%slogout.py'>Logout</a></p>
+                        <p><a href='%s'>%s</a> | Coins: %d | <a href='%slogout.py'>Logout</a></p>
                     </section>
         """ % (profile_page, display_name, prefix)
 
