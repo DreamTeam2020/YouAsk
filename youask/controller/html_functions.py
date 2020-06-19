@@ -418,8 +418,9 @@ def shareLinks(sub_dir, question_id):
 def generateQuestionsDisplay(questions, sub_dir):
     # Given a list of questions, display them accordingly
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
-    count=0
     prefix = '../' if sub_dir else ''
+    count = 0
+
     result = """
             <section>
         """
@@ -649,6 +650,7 @@ def generateConnectionsDisplay(username, num_connections, reverse, sub_dir):
     return result
 
 
+
 def generateSubmissionsDisplay(username, num_submissions, reverse, sub_dir):
     # Given a number of submissions, display that many of the user's submissions
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
@@ -690,7 +692,6 @@ def generateSubmissionsDisplay(username, num_submissions, reverse, sub_dir):
                             </section>
                         """ % submissions_link
     return result
-
 
 def generateChatForm(url, description, error):
 

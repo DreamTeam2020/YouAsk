@@ -585,13 +585,6 @@ def unsaveQuestion(username, question_id):
 
 
 if __name__ == '__main__':
-    #print(addCoins('cristian', 14))
-    #print(moveCoinsToQuestion('cristian', 85, 14))
-    #print(moveCoinsToAnswer(85, 'whiskers'))
-    #print(getCoins('whiskers'))
-
-    #print(deleteAnsweredQuestion(90))
-
     #print(checkSavedQuestion('cristian', 90))
     #print(saveQuestion('cristian', 90))
     #print(getSavedQuestions('cristian'))
