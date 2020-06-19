@@ -576,7 +576,7 @@ def unsaveQuestion(username, question_id):
     # Given and username and question id, remove the entry from the table
     try:
         connection, cursor = dbConnect()
-        cursor.execute("DELETE FROM ask_saved WHERE (username=%s AND question_id=%s", (username, question_id))
+        cursor.execute("DELETE FROM ask_saved WHERE username=%s AND question_id=%s", (username, question_id))
         connection.commit()
         dbClose(connection, cursor)
         return "unsaved"
@@ -592,6 +592,7 @@ if __name__ == '__main__':
 
     #print(deleteAnsweredQuestion(90))
 
-    print(checkSavedQuestion('cristian', 90))
+    #print(checkSavedQuestion('cristian', 90))
     #print(saveQuestion('cristian', 90))
-    print(getSavedQuestions('cristian'))
+    #print(getSavedQuestions('cristian'))
+    print(unsaveQuestion('cristian', 90))
