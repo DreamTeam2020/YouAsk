@@ -15,6 +15,11 @@ def controllerQuestions():
 
     questions = getQuestion()
     form_data = FieldStorage()
+    for count in range(len(questions)):
+
+        if "Submit"+str(count) in form_data:
+            addScore(count)
+
     if len(form_data) != 0:
         ordering = form_data.getfirst('chk_sorting', '').strip()
 

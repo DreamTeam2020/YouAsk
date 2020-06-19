@@ -1,4 +1,5 @@
 from controller.ctrl_cache import verifyLoggedIn, getLastViewedQuestionFromSession
+
 from model.model_functions import getQuestionFields, getSpecificQuestion, getConnections, getUserDetails, getPictureCode, getSubmissions, getCoins, checkSavedQuestion
 
 import json
@@ -188,7 +189,7 @@ def alreadyLoggedIn():
     return error_msg
 
 
-def generateQuestionForm(url, question, description, coins, fields, error):
+def generateQuestionForm(url, question, description, fields, error):
     # Generate the question form to be used if the user is logged in
     result = """
         <form action="%s" method="post">
@@ -196,11 +197,9 @@ def generateQuestionForm(url, question, description, coins, fields, error):
                 <legend>Submit a Question</legend>
                 <label for="txt_question">Question: </label>
                 <input type="text" name="txt_question" id="txt_question" value="%s" maxlength="300"/>
-                <label for="txt_description">Description (Optional): </label>
+                <label for="txt_description">Description: </label>
                 <input type="text" name="txt_description" id="txt_description" value="%s"/>
-                <label for="num_coins">Coin Amount (Optional): </label>
-                <input type="number" name="num_coins" id="num_coins" value="%d" min='0' max='999'/>
-    """ % (url, question, description, coins)
+    """ % (url, question, description)
 
     for row in fields:
         # For the id's use the field name in lower case and replace spaces with underscores
@@ -419,6 +418,7 @@ def shareLinks(sub_dir, question_id):
 def generateQuestionsDisplay(questions, sub_dir):
     # Given a list of questions, display them accordingly
     # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
+    count=0
     prefix = '../' if sub_dir else ''
     result = """
             <section>
@@ -445,15 +445,19 @@ def generateQuestionsDisplay(questions, sub_dir):
             fields_of_study += '</small></p>'
 
         share_links = shareLinks(False, question_id)
-
         submitter_display = submitterDisplay(question['submitter'], question['deleted'], sub_dir)
 
         result += """
                             %s
                             <p><small>Submitted By: %s | Score: %d | View Count: %d | Coins: %d</small></p>
+                            <p> 
+                                <input type="submit" value="Up" name="SubmitUp%s" />
+                                <input type="submit" value="Down" name="SubmitDown%s" />
+                            </p>
                         %s
                     </section>
-            """ % (fields_of_study, submitter_display, question['score'], question['view_count'], question['coins'], share_links)
+            """ % (fields_of_study, submitter_display, question['score'], question['view_count'], question['coins'], count, count, share_links)
+        count += 1
 
     result += """
             </section>
@@ -495,6 +499,7 @@ def generateQuestionDisplayNoShare(question, sub_dir):
         """ % (fields_of_study, submitter_display, question['score'], question['view_count'], question['coins'])
 
     return result
+
 
 def submitterDisplay(username, deleted, sub_dir):
     # Display the submitter info with link to their profile

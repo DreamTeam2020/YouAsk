@@ -476,6 +476,17 @@ def incrementViewCount(id):
     except db.Error():
         return "SERVER_ERROR"
 
+
+def addScore(id):
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("UPDATE ask_questions SET score = score + 1 WHERE id=%s", id)
+        connection.commit()
+        dbClose(connection, cursor)
+        return "incremented"
+    except db.Error():
+        return "SERVER_ERROR"
+
 def addCoins(username, amount):
     # Given a username, increment the user's coin count by 1
     try:
