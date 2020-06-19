@@ -40,10 +40,11 @@ def generateQuestion(question):
 
     username = verifyLoggedIn('username', True)
     if username.lower() == question['submitter'].lower() and not question['deleted']:
-        delete_link = '<p><a href="../delete.py">Delete | </a></p>'
+        delete_link = '<p><a href="../delete.py">delete | </a></p>'
     else:
         delete_link = ''
-    save_link = ''
+
+    save_link = '<p><a href="../save.py">save</a></p>'
 
     share_links=shareLinks(True, question_id)
     submitter_display = submitterDisplay(question['submitter'], question['deleted'], True)

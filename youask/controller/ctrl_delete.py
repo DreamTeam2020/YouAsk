@@ -20,7 +20,7 @@ def controllerDelete():
             potential_deletion_id = getLastViewedQuestionFromSession(False)  # Returns the id of the last viewed question page
             if potential_deletion_id != 'NOT_FOUND':
                 question = getSpecificQuestion(potential_deletion_id)
-                if verify_logged.lower() == question['submitter'].lower():
+                if verify_logged.lower() == question['submitter'].lower() and not question['deleted']:
                     delete_result = deleteAnsweredQuestion(potential_deletion_id)
                     if delete_result == 'SEVER_ERROR':
                         result = '<p class="error">Server Error Has Occurred.</p>'
