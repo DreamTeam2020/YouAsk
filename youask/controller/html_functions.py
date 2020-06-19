@@ -1,5 +1,5 @@
 from controller.ctrl_cache import verifyLoggedIn, getLastViewedQuestionFromSession
-from model.model_functions import getQuestionFields, getSpecificQuestion, getConnections, getUserDetails, getPictureCode, getSubmissions, getCoins
+from model.model_functions import getQuestionFields, getSpecificQuestion, getConnections, getUserDetails, getPictureCode, getSubmissions, getCoins, checkSavedQuestion
 
 import json
 import requests
@@ -703,6 +703,23 @@ def generateChatForm(url, description, error):
     """ % (url, description, error)
 
     return result
+
+def generateSaveLink(username, question_id, sub_dir):
+    # Given a username and question id, generate the appropriate save link
+    # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
+    prefix = '../' if sub_dir else ''
+
+    check_saved = checkSavedQuestion(username, question_id)
+    if check_saved == 'SERVER_ERROR':
+        result = '<p class="error">Server Error Has Occurred.</p>'
+    elif check_saved:
+        # This question was previously saved by the user
+        result = '<p><a href="%sunsave.py">unsave</a></p>' % prefix
+    else:
+        result = '<p><a href="%ssave.py">save</a></p>' % prefix
+
+    return result
+
 
 if __name__ == "__main__":
 

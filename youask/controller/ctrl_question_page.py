@@ -44,7 +44,7 @@ def generateQuestion(question):
     else:
         delete_link = ''
 
-    save_link = '<p><a href="../save.py">save</a></p>'
+    save_link = generateSaveLink(username, question_id, True)
 
     share_links=shareLinks(True, question_id)
     submitter_display = submitterDisplay(question['submitter'], question['deleted'], True)
