@@ -16,7 +16,7 @@ def controllerDelete():
         previous_page = getPreviousPageFromSession(False)
         savePageToSession(page_name, False)  # Save the current page to the visitor's session store
 
-        if previous_page == 'question':
+        if previous_page == 'question_page':
             result = '<p class="error">Previous Page was question</p>'
             potential_deletion_id = getLastViewedQuestionFromSession(False)  # Returns the id of the last viewed question page
             if potential_deletion_id != 'NOT_FOUND':
