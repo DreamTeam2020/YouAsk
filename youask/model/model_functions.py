@@ -512,7 +512,7 @@ def moveCoinsToQuestion(username, question_id, amount):
         return "SERVER_ERROR"
 
 
-def moveCoinsToAnswer(question_id, username):
+def moveCoinsToUser(question_id, username):
     # Remove the specified number of coins from the question and add them to the given user
     try:
         connection, cursor = dbConnect()

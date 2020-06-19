@@ -1,6 +1,6 @@
 from controller.ctrl_cache import *
 from controller.html_functions import loginToAccess
-from model.model_functions import getSpecificQuestion, deleteAnsweredQuestion
+from model.model_functions import getSpecificQuestion, deleteAnsweredQuestion, moveCoinsToUser
 
 def controllerDelete():
     result = loginToAccess(False)   # If not logged in display error message
@@ -27,10 +27,14 @@ def controllerDelete():
                     if delete_result == 'SEVER_ERROR':
                         result = '<p class="error">Server Error Has Occurred.</p>'
                     else:
-                        result = """
-                            <section>
-                                <p class="error">Your association with this question has been removed.</p>
-                            </section>
-                        """
+                        coin_move_result = moveCoinsToUser(potential_deletion_id, verify_logged)
+                        if coin_move_result == 'SERVER_ERROR':
+                            result = '<p class="error">Association has been removed but there was an error when returning your coins.</p>'
+                        else:
+                            result = """
+                                <section>
+                                    <p class="error">Your association with this question has been removed.</p>
+                                </section>
+                            """
 
     return result

@@ -172,7 +172,7 @@ def controllerAnswerForm(username, question_id):
                     else:
                         reward_result = ''
                         if getAnswers(question_id) == 'EMPTY':
-                            reward = moveCoinsToAnswer(question_id, username)
+                            reward = moveCoinsToUser(question_id, username)
                             if reward != 'SERVER_ERROR':
                                 reward_result = '. You Received the Reward!'
 
@@ -197,7 +197,7 @@ if __name__=="__main__":
     username = 'cristian'
     reward_result = ''
     if getAnswers(question_id) == 'EMPTY':
-        reward = moveCoinsToAnswer(question_id, username)
+        reward = moveCoinsToUser(question_id, username)
         if reward != 'SERVER_ERROR':
             reward_result = '. You Received the Reward!'
 
