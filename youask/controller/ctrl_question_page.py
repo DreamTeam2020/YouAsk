@@ -39,7 +39,7 @@ def generateQuestion(question):
         fields_of_study += '</p>'
 
     username = verifyLoggedIn('username', True)
-    if username.lower() == question['submitter'].lower():
+    if username.lower() == question['submitter'].lower() and not question['deleted']:
         delete_link = '<p><a href="../delete.py">Delete | </a></p>'
     else:
         delete_link = ''
@@ -104,7 +104,6 @@ def controllerQuestionAnswers(question_id):
 
             if logged == submitter:
                 answer_form=controllerAnswerForm(logged, question_id)
-                result += '<p><a href="../delete.py">Delete</a></p>'
                 result += answer_form
             elif question_fields!='EMPTY' and question_fields!='SERVER_ERROR':
                 # Get the user's fields of study from the table that contains the questions fields
