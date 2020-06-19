@@ -46,6 +46,7 @@ def generateHeader(sub_dir):
     prefix = '../' if sub_dir else ''
 
     display_name = verifyLoggedIn('display_name', sub_dir)  # Returns display_name if logged in else 'UNVERIFIED'
+    username = verifyLoggedIn('username', sub_dir)  # Returns display_name if logged in else 'UNVERIFIED'
     result = """
             <header>    <!-- A header section displayed at the top of the page--->
 
@@ -62,7 +63,7 @@ def generateHeader(sub_dir):
                     <section>
                         <p><a href='%s'>%s</a> | Coins: %d | <a href='%slogout.py'>Logout</a></p>
                     </section>
-        """ % (profile_page, display_name, prefix)
+        """ % (profile_page, display_name, getCoins(username), prefix)
 
     result += """
             </header>
@@ -445,13 +446,14 @@ def generateQuestionsDisplay(questions, sub_dir):
 
         share_links = shareLinks(False, question_id)
 
+        submitter_display = submitterDisplay(question['submitter'], question['deleted'], sub_dir)
+
         result += """
                             %s
-                            <p><small>Submitted By: <a href='%sprofile_pages/profile_%s.py'>%s</a> | Score: %d | View Count: %d | Coins: %d</small></p>
+                            <p><small>Submitted By: %s | Score: %d | View Count: %d | Coins: %d</small></p>
                         %s
                     </section>
-            """ % (fields_of_study, prefix, question['submitter'].lower(), question['submitter'], question['score'],
-                   question['view_count'], question['coins'], share_links)
+            """ % (fields_of_study, submitter_display, question['score'], question['view_count'], question['coins'], share_links)
 
     result += """
             </section>
@@ -484,14 +486,28 @@ def generateQuestionDisplayNoShare(question, sub_dir):
         fields_of_study = fields_of_study[:-3]  # Remove the last 3 characters of the string
         fields_of_study += '</small></p>'
 
+    submitter_display = submitterDisplay(question['submitter'], question['deleted'], sub_dir)
+
     result += """
                         %s
-                        <p><small>Submitted By: <a href='%sprofile_pages/profile_%s.py'>%s</a> | Score: %d | View Count: %d | Coins: %d</small></p>
+                        <p><small>Submitted By: %s | Score: %d | View Count: %d | Coins: %d</small></p>
                 </section>
-        """ % (fields_of_study, prefix, question['submitter'].lower(), question['submitter'], question['score'],
-               question['view_count'], question['coins'])
+        """ % (fields_of_study, submitter_display, question['score'], question['view_count'], question['coins'])
 
     return result
+
+def submitterDisplay(username, deleted, sub_dir):
+    # Display the submitter info with link to their profile
+    # Prefix will be put before each link, if a subdir is calling this function then prefix will be changed else empty
+    prefix = '../' if sub_dir else ''
+
+    if deleted:     # If the user has deleted, then don't display their information
+        submitter = '[removed]'
+    else:      # Else display username with link to profile page
+        link = "%sprofile_pages/profile_%s.py" % (prefix, username.lower())
+        submitter = '<a href="%s">%s</a>' % (link, username.lower())
+
+    return submitter
 
 
 def profilePageLink(sub_dir):

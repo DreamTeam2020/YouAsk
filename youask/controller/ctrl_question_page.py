@@ -39,12 +39,13 @@ def generateQuestion(question):
         fields_of_study += '</p>'
 
     share_links=shareLinks(True, question_id)
+    submitter_display = submitterDisplay(question['submitter'], question['deleted'], True)
     result_question+="""
                         %s
-                        <p><small>Submitted By: <a href='../profile_pages/profile_%s.py'>%s</a> | Score: %d | View Count: %d | Coins: %d</small></p>
+                        <p><small>Submitted By: %s | Score: %d | View Count: %d | Coins: %d</small></p>
                         %s
                     </section>
-    """ % (fields_of_study, question['submitter'].lower(), question['submitter'], question['score'], question['view_count'], question['coins'], share_links)
+    """ % (fields_of_study, submitter_display, question['score'], question['view_count'], question['coins'], share_links)
 
     return result_question
 
