@@ -539,14 +539,14 @@ def moveCoinsToUser(question_id, username):
     except db.Error():
         return "SERVER_ERROR"
 
-def checkSavedQuestions(username, question_id):
+def checkSavedQuestion(username, question_id):
     # Given a username and question id, check if the question has already been saved by the user
     try:
         connection, cursor = dbConnect()
         cursor.execute("SELECT * FROM ask_saved WHERE username=%s AND question_id=%s", (username, question_id))
         fetch = cursor.fetchall()
         dbClose(connection, cursor)
-        return fetch[0]
+        return fetch
     except db.Error():
         return "SERVER_ERROR"
 
@@ -574,7 +574,7 @@ def saveQuestion(username, question_id):
 
 
 if __name__ == '__main__':
-    print(addCoins('cristian', 14))
+    #print(addCoins('cristian', 14))
     #print(moveCoinsToQuestion('cristian', 85, 14))
     #print(moveCoinsToAnswer(85, 'whiskers'))
     #print(getCoins('whiskers'))

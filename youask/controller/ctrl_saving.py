@@ -1,6 +1,6 @@
 from controller.ctrl_cache import *
 from controller.html_functions import loginToAccess
-from model.model_functions import checkSavedQuestions, saveQuestion
+from model.model_functions import checkSavedQuestion, saveQuestion
 
 def controllerSave():
     result = loginToAccess(False)   # If not logged in display error message
@@ -20,7 +20,7 @@ def controllerSave():
             result = '<p class="error">Previous page was question page</p>'
             potential_save_id = getLastViewedQuestionFromSession(False)  # Returns the id of the last viewed question page
             if potential_save_id != 'NOT_FOUND':
-                check_saved = checkSavedQuestions(verify_logged, potential_save_id)
+                check_saved = checkSavedQuestion(verify_logged, potential_save_id)
                 if not check_saved:
                     # Save the question to table
                     save_result = saveQuestion(verify_logged, potential_save_id)
