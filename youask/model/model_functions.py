@@ -239,6 +239,18 @@ def executeInsertQuery(query):
     except db.Error():
         return "SERVER_ERROR"
 
+def executeSelectQuery(query):
+    # Executes a given select query and returns the fetchall
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute(query)
+        fetch = cursor.fetchall()
+        dbClose(connection, cursor)
+        return fetch
+    except db.Error():
+        return "SERVER_ERROR"
+
+
 def removeFieldsOfStudy(username, table_name):
     try:
         connection, cursor = dbConnect()
