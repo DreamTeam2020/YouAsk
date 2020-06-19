@@ -155,7 +155,7 @@ def getSpecificQuestion(id):
         cursor.execute("SELECT * FROM ask_questions WHERE id=%s", id)
         fetch = cursor.fetchall()
         dbClose(connection, cursor)
-        return fetch[0]  # Fetch returns a list of dictionaries
+        return fetch[0]  # Returns a dictionary
     except db.Error():
         return "SERVER_ERROR"
 
@@ -453,6 +453,17 @@ def getSubmissions(username):
     except db.Error():
         return "SERVER_ERROR"
 
+def deleteAnsweredQuestion(question_id):
+    # Given a question id, set delete field to true
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("UPDATE ask_questions SET deleted = true WHERE id=%s", question_id)
+        connection.commit()
+        dbClose(connection, cursor)
+        return 'deleted'
+    except db.Error():
+        return "SERVER_ERROR"
+
 
 def incrementViewCount(id):
     # Given an question id, increment it's view count
@@ -465,6 +476,7 @@ def incrementViewCount(id):
     except db.Error():
         return "SERVER_ERROR"
 
+
 def addScore(id):
     try:
         connection, cursor = dbConnect()
@@ -474,3 +486,98 @@ def addScore(id):
         return "incremented"
     except db.Error():
         return "SERVER_ERROR"
+
+def addCoins(username, amount):
+    # Given a username, increment the user's coin count by 1
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("UPDATE ask_users SET coins = coins + %s WHERE username=%s", (amount, username))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "added"
+    except db.Error():
+        return "SERVER_ERROR"
+
+def getCoins(username):
+    # Given username return the user's current coins
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT * FROM ask_users WHERE username=%s", username)
+        fetch = cursor.fetchall()
+        dbClose(connection, cursor)
+        return fetch[0]['coins']
+    except db.Error():
+        return "SERVER_ERROR"
+
+def moveCoinsToQuestion(username, question_id, amount):
+    # Remove the specified number of coins from the user and add them to the question
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("UPDATE ask_users SET coins = coins - %s WHERE username=%s", (amount, username))
+        connection.commit()
+        cursor.execute("UPDATE ask_questions SET coins = coins + %s WHERE id=%s", (amount, question_id))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "coins_moved"
+    except db.Error():
+        return "SERVER_ERROR"
+
+
+def moveCoinsToUser(question_id, username):
+    # Remove the specified number of coins from the question and add them to the given user
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT coins FROM ask_questions WHERE id=%s", question_id)
+        fetch = cursor.fetchall()
+        coins = fetch[0]['coins']
+        cursor.execute("UPDATE ask_questions SET coins = coins - %s WHERE id=%s", (coins, question_id))
+        connection.commit()
+        cursor.execute("UPDATE ask_users SET coins = coins + %s WHERE username=%s", (coins, username))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "rewarded"
+    except db.Error():
+        return "SERVER_ERROR"
+
+def checkSavedQuestions(username, question_id):
+    # Given a username and question id, check if the question has already been saved by the user
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT * FROM ask_saved WHERE username=%s AND question_id=%s", (username, question_id))
+        fetch = cursor.fetchall()
+        dbClose(connection, cursor)
+        return fetch[0]
+    except db.Error():
+        return "SERVER_ERROR"
+
+def getSavedQuestions(username):
+    # Given a username, get all the questions they have saved
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("SELECT * FROM ask_saved WHERE username=%s", username)
+        fetch = cursor.fetchall()
+        dbClose(connection, cursor)
+        return fetch
+    except db.Error():
+        return "SERVER_ERROR"
+
+def saveQuestion(username, question_id):
+    # Given and username and question id, save the new entry to the table
+    try:
+        connection, cursor = dbConnect()
+        cursor.execute("INSERT INTO ask_saved(username, question_id) VALUES(%s, %s)", (username, question_id))
+        connection.commit()
+        dbClose(connection, cursor)
+        return "saved"
+    except db.Error():
+        return "SERVER_ERROR"
+
+
+if __name__ == '__main__':
+    print(addCoins('cristian', 14))
+    #print(moveCoinsToQuestion('cristian', 85, 14))
+    #print(moveCoinsToAnswer(85, 'whiskers'))
+    #print(getCoins('whiskers'))
+
+    #print(deleteAnsweredQuestion(90))
+

@@ -18,16 +18,15 @@ def controllerConnect():
 
         if previous_page == 'user_profile':
             potential_connection = getPotentialConnectionFromSession(False)
-            result = '<p class="error">Previous Page is user profile</p>'
             if verify_logged.lower() != potential_connection.lower() and potential_connection != 'NOT_FOUND':
                 check_connection = checkConnectionWithUser(verify_logged, potential_connection)
-                if check_connection == 'SEVER_ERROR':
+                if check_connection == 'SERVER_ERROR':
                     result = '<p class="error">Server Error Has Occurred.</p>'
                 elif not check_connection:
                     # If they are not already connected then establish a new connection
                     connection_result = connectToUser(verify_logged, potential_connection)
 
-                    if connection_result == 'SEVER_ERROR':
+                    if connection_result == 'SERVER_ERROR':
                         result = '<p class="error">Server Error Has Occurred.</p>'
                     else:
                         result = """
@@ -42,9 +41,6 @@ def controllerConnect():
                             <p class="error">You are already connected with %s</p>
                         </section>
                     """ % potential_connection
-            elif potential_connection == 'NOT_FOUND':
-                result = '<p class="error">Potential connection not found</p>'
-
 
     return result
 

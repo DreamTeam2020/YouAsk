@@ -37,18 +37,21 @@ def controllerProfile(username):
     else:
         profile_picture = getProfilePicture(username, True)
         user_fields = generateUserFields(username)  # Generates the user fields section of edit profile
+
+        logged = verifyLoggedIn('username', True)  # Returns username if logged in else 'UNVERIFIED'
+        coin_display = ' Coins: %d |' % details['coins'] if logged.lower() == username.lower() else ''    # If this is the user's profile then display their coins
+
         result += """
         <article>
             %s
             <h1>%s</h1>
             <p>%s</p>
-            <p><small>Member Since: %s | User Score: %d</small></p>
+            <p><small>Member Since: %s |%s User Score: %d</small></p>
             
             %s
         </article>
-        """ % (profile_picture, details['display_name'], details['email'], details['reg_date'], details['score'], user_fields)
+        """ % (profile_picture, details['display_name'], details['email'], details['reg_date'], coin_display, details['score'], user_fields)
 
-        logged = verifyLoggedIn('username', True)    # Returns username if logged in else 'UNVERIFIED'
         if logged!='UNVERIFIED':    # If logged in
             savePageToSession(page_name, True)  # Save the current page to the visitor's session store
             saveUserToSession(username, True)  # Save the username of this profile page to the visitor's session store

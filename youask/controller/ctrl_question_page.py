@@ -38,13 +38,23 @@ def generateQuestion(question):
         fields_of_study = fields_of_study[:-3]    # Remove the last 3 characters of the string
         fields_of_study += '</p>'
 
+    username = verifyLoggedIn('username', True)
+    if username.lower() == question['submitter'].lower() and not question['deleted']:
+        delete_link = '<p><a href="../delete.py">delete | </a></p>'
+    else:
+        delete_link = ''
+
+    save_link = '<p><a href="../save.py">save</a></p>'
+
     share_links=shareLinks(True, question_id)
+    submitter_display = submitterDisplay(question['submitter'], question['deleted'], True)
     result_question+="""
                         %s
-                        <p><small>Submitted By: <a href='../profile_pages/profile_%s.py'>%s</a> | Score: %d | View Count: %d</small></p>
+                        <p><small>Submitted By: %s | Score: %d | View Count: %d | Coins: %d</small></p>
+                        <p><small>%s%s</small></p>
                         %s
                     </section>
-    """ % (fields_of_study, question['submitter'].lower(), question['submitter'], question['score'], question['view_count'], share_links)
+    """ % (fields_of_study, submitter_display, question['score'], question['view_count'], question['coins'], delete_link, save_link, share_links)
 
     return result_question
 
@@ -116,7 +126,9 @@ def controllerQuestionAnswers(question_id):
                     result+=answer_form
                 else:
                     # The user is not the submitter and does not have the correct fields
-                    result += '<section><p class="error">To answer this question you must be in the same field of study or be the original submitter of the question. You can edit your fields on your profile page <a href="../profile.py">here</a>.</p></section>'
+                    result += '<section><p class="error">To answer this question you must be in the same field of ' \
+                              'study or be the original submitter of the question. You can edit your fields ' \
+                              'on your profile page <a href="../profile_pages/profile_%s.py">here</a>.</p></section>' % logged
             else:
                 # The query was either empty of a server error occurred
                 result += '<section><p class="error">Server Error Has Occurred.</p></section>'
@@ -163,8 +175,18 @@ def controllerAnswerForm(username, question_id):
                 if submission_result == "SERVER_ERROR":
                     server_error = True
                 else:
-                    error_msg = '<p class="error">Answer Has Been Submitted</p>'
-                    answer=''
+                    coin_result = addCoins(username, 1)
+                    if coin_result == "SERVER_ERROR":
+                        server_error = True
+                    else:
+                        reward_result = ''
+                        if getAnswers(question_id) == 'EMPTY':
+                            reward = moveCoinsToUser(question_id, username)
+                            if reward != 'SERVER_ERROR':
+                                reward_result = '. You Received the Reward!'
+
+                        error_msg = '<p class="error">Answer Has Been Submitted%s</p>' % reward_result
+                        answer = ''
 
         if server_error:
             error_msg = '<p class="error">Server Error Occurred</p>'
@@ -177,5 +199,17 @@ def controllerAnswerForm(username, question_id):
 
 if __name__=="__main__":
     # It works
-    results=controllerQuestionAnswers(3)
-    print(results)
+    #results=controllerQuestionAnswers(3)
+    #print(results)
+
+    question_id = 90
+    username = 'cristian'
+    reward_result = ''
+    if getAnswers(question_id) == 'EMPTY':
+        reward = moveCoinsToUser(question_id, username)
+        if reward != 'SERVER_ERROR':
+            reward_result = '. You Received the Reward!'
+
+    error_msg = '<p class="error">Answer Has Been Submitted%s</p>' % reward_result
+
+    print(error_msg)
