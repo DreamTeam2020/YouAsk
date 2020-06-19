@@ -16,10 +16,11 @@ def controllerSaved():
         query = 'SELECT * FROM ask_questions WHERE id in ('
         for row in saved_questions:
             query += '%d, ' % row['question_id']
+        query = query[:-2]
         query += ')'
 
         questions = executeSelectQuery(query)   # Returns the fetchall of a given select query
-        
+
         reverse_bool = True
 
         form_data = FieldStorage()
@@ -37,7 +38,16 @@ def controllerSaved():
 if __name__ == "__main__":
     logged = 'whiskers'
 
-    questions = getSavedQuestions(logged)
+    saved_questions = getSavedQuestions(logged)
+    query = 'SELECT * FROM ask_questions WHERE id in ('
+    for row in saved_questions:
+        query += '%d, ' % row['question_id']
+    query = query[:-2]
+    query += ')'
+    print(query)
+
+    questions = executeSelectQuery(query)  # Returns the fetchall of a given select query
+
     reverse_bool = True
 
     questions = sorted(questions, key=lambda k: k['id'], reverse=reverse_bool)
