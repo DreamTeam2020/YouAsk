@@ -17,7 +17,6 @@ print('Content-Type: text/html')
 print()
 result = conctrollerchat()
 
-
 i = 1
 
 print("""
@@ -46,31 +45,23 @@ print("""
            generateAsideRight(False)))
 
 
-
-
 def sleep_time(hour, min, sec):
     return hour * 3600 + min * 60 + sec
 
 
-
 second = sleep_time(0, 0, 1)
 while True:
-        time.sleep(second)
-        Message = getMessage("CYCYCY4", "Cristian")
-        Message2 = getMessage("Cristian", "CYCYCY4")
+    time.sleep(second)
+    Message = getMessage("CYCYCY4", "Cristian")
+    Message2 = getMessage("Cristian", "CYCYCY4")
 
-
-        print("""
+    print("""
         
                 <script>
          
-                 $(".col-3 ").html("%s");
+                 $(".col-3 ").html(""%s"");
                 </script>
         
                 %s
         
-        
-        
-        
-        
-        """ %(Message,pageEnd()))
+        """ % (Message, pageEnd()))

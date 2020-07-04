@@ -17,6 +17,13 @@ result = controllerIndex()
 print("""
     %s
     <body>
+<script>
+function myfunction() {
+  setInterval(function(){ alert("Hello"); }, 3000);
+}
+myfunction();
+</script>
+    
         %s
         %s
         
@@ -31,4 +38,5 @@ print("""
         </div>
         
         %s
-    """ % (pageStart("Home", page_name, False), generateHeader(False), generateNav(page_name, False), result, generateAsideRight(False), pageEnd()))
+    """ % (pageStart("Home", page_name, False), generateHeader(False), generateNav(page_name, False), result,
+           generateAsideRight(False), pageEnd()))
