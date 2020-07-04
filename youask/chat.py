@@ -22,25 +22,16 @@ i = 1
 print("""
     %s
     <body>
-
-
         %s
         %s
-
         <div class="container-fluid">
             <div class="row">
-
                 <aside class="col-3 bg-primary" >
                 </aside>
-
                 <main class="col-6 bg-secondary" >   %s  </main>
-
                 %s
-
             </div>
         </div>
-
-
     """ % (pageStart("chat", page_name, False), generateHeader(False), generateNav(page_name, False), result,
            generateAsideRight(False)))
 
@@ -56,12 +47,16 @@ while True:
     Message2 = getMessage("Cristian", "CYCYCY4")
 
     print("""
-        
+
                 <script>
-         
-                 $(".col-3 ").html(""%s"");
+
+                 $(".col-3 ").html("%s");
                 </script>
-        
+
                 %s
-        
+
+
+
+
+
         """ % (Message, pageEnd()))
